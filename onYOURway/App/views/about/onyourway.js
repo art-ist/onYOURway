@@ -62,7 +62,7 @@
         })
         .data('owlCarousel')    //get instance of the api in self-idea
       ;
-      $('.owl-pagination').appendTo($('#idea_pagination'));
+      $('.owl-pagination').appendTo($('#step_pagination'));
 
       return true;
     };

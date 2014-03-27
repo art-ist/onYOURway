@@ -1,4 +1,45 @@
 ﻿<div class="page-background">
+  <style>
+    #step_pagination {
+      position: absolute;
+      bottom: 15px;
+      right: 30px;
+    }
+
+    .owl-page > span {
+      margin: 5px 4px !important;
+    }
+
+    .owl-page.active > span {
+      background-color: #b3d236 !important;
+    }
+
+    .idea-control {
+      -webkit-transition: 0.5s ease;
+      -moz-transition: 0.5s ease;
+      -o-transition: 0.5s ease;
+      transition: 0.5s ease;
+    }
+
+      .idea-control:hover {
+        color: #525252;
+      }
+
+      .idea-control.hide {
+        width: 0;
+      }
+
+    a > i.fa-fw {
+      height: 1.2em;
+      margin: -3px 0 -3px 0;
+      padding: 3px 3px 3px 3px;
+    }
+
+    .owl-item > .jumbotron {
+      margin: 0;
+    }
+  </style>
+
   <section class="container page">
     <a class="oyw-btn-close hidden-xs fa fa-times" href="#/karte" />
 
@@ -12,12 +53,16 @@
         <li><a href="#einstellungen">Einstellungen</a></li>
       </ul>
 
+      <div class="owl-theme">
+        <div id="step_pagination" class="owl-controls idea-control" data-bind="css: { hide: currentArticle() !== '#neu' }"></div>
+      </div>
     </div>
 
     <div role="main" class="oyw-content-main col-md-9">
       <header class="page-header">
         <h1>Mitgliedsbereich</h1>
       </header>
+
       <article id="uebersicht">
         <h2>Übersicht</h2>
         <ul>
@@ -137,9 +182,37 @@
         </div>
       </article>
 
-      <article id="neu">
-        <h2>Neuer Standort</h2>
+      <article id="neu" class="OWL-carousel slide no-padding" data-bind="click: nextStep" style="cursor: pointer;">
 
+        <div class="sub" id="step1">
+          <h2>Neuer Standort</h2>
+          <p>Langer Einleitungstext hier... Langer Einleitungstext hier...Langer Einleitungstext hier...Langer Einleitungstext hier...Langer Einleitungstext hier...Langer Einleitungstext hier...Langer Einleitungstext hier...</p>
+        </div>
+        <div class="sub" id="step2">
+          <h2>Name und Beschreibung</h2>
+
+
+        </div>
+        <div class="sub" id="step3">
+          <h2>Adresse und Position</h2>
+
+        </div>
+        <div class="sub" id="step4">
+          <h2>Öffnungszeiten</h2>
+
+        </div>
+        <div class="sub" id="step5">
+          <h2>Kennzeichen (Tags)</h2>
+
+        </div>
+        <div class="sub" id="step6">
+          <h2>Speichern</h2>
+
+        </div>
+        <div class="sub" id="step7">
+          <h2>Bild hinzufügen</h2>
+
+        </div>
       </article>
 
       <article id="standorte">

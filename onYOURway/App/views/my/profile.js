@@ -47,6 +47,20 @@
       app.navigateInPage(function navigated(href, target) {
         self.currentArticle(href); //set vm property so databinding can use it
       });
+
+    //initialize slideshow
+      self.step = $("#neu")
+        .owlCarousel({          //initialize carousel (see: http://www.owlgraphic.com/owlcarousel/#customizing)
+          navigation: false, // Show next and prev buttons
+          slideSpeed: 500,
+          paginationSpeed: 400,
+          singleItem: true,
+          rewindNav: false
+        })
+      .data('owlCarousel')    //get instance of the api in self-idea
+        ;
+      $('.owl-pagination').appendTo($('#step_pagination'));
+
       return true;
     };
 
@@ -171,6 +185,12 @@
         });
       }
     };
+
+
+
+    self.nextStep = function () { self.step.next(); };
+    self.prevStep = function () { self.step.prev(); };
+    self.firstStep = function () { self.step.goTo(0); };
 
   };
   return vm;
