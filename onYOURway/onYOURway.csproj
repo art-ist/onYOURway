@@ -474,6 +474,7 @@
     </Content>
     <Content Include="App\_styles\toastr.css" />
     <Content Include="App\_styles\toastr.min.css" />
+    <Content Include="index.html" />
     <Content Include="JP.aspx" />
     <Content Include="App\_libraries\app\app.datamodel.js" />
     <Content Include="Content\documents\onYOURway - Projektinformation Regionalpartner.pdf" />
