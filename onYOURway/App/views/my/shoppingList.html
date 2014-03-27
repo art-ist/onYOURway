@@ -1,0 +1,58 @@
+﻿<div class="page-background">
+  <div class="container page"
+       style="background-image: url(app/images/my/shoppingList.jpg);"
+       >
+    <a class="oyw-btn-close hidden-xs fa fa-times" href="#/karte" />
+
+    <div class="oyw-bg-overlay" data-bind="css: { visible: itemsTodo() }"></div>
+
+    <section class="oyw-content oyw-content">
+      <header class="page-header">
+        <h1>
+          Einkaufsliste<span class="badge badge-sup" data-bind="text: itemsTodo(), css: { 'badge-warning': itemsTodo()}"></span>
+          <small class="hidden-xs">Unterwegs erledigen</small>
+        </h1>
+      </header>
+
+      <form class="form-horizontal" role="form">
+        <div class="input-group" data-bind="with: newItem">
+          <input class="form-control input-lg"
+                 id="inputNewItem" name="inputNewItem"
+                 placeholder="Produkt hinzufügen"
+                 autocomplete="off" spellcheck="false" autofocus
+                 data-bind="value: Title, returnkey: $parent.addItem"
+                 type="text" />
+          <div class="input-group-btn">
+            <!--enable: Title,-->
+            <button title="Zur Einkaufsliste hinzufügen" class="btn btn-success hidden-xs input-lg" data-bind="click: $parent.addItem"><i class="fa fa-plus fa-fw"></i>Hinzufügen</button>
+            <button title="Zur Einkaufsliste hinzufügen" class="btn btn-success visible-xs input-lg" data-bind="click: $parent.addItem"><i class="fa fa-plus fa-fw"></i></button>
+          </div>
+        </div>
+
+        <br />
+
+        <!--<ul data-bind="foreach: stores">
+      <li>
+        <h4 data-bind="text:Name"></h4>-->
+        <ul data-bind="foreach: items" class="list-group">
+          <li class="list-group-item" data-bind="click: $parent.toggleDone">
+            <i class="oyw-chk-unchecked fa fa-square fa-fw" data-bind="visible: !Done()"></i>
+            <i class="oyw-chk-checked fa fa-check fa-fw" data-bind="visible: Done"></i>
+            <strong data-bind="text:Title, css: { 'oyw-todo-done' : Done }"></strong>
+            <i title="Eintrag löschen" class="btn fa fa-times oyw-btn-close" data-bind="click: $parent.removeItem, clickBubble: false" />
+            <div class="hidden">
+              <i title="in Ihrer Region suchen" class="fa fa-map-marker fa-fw" data-bind="click: $parent.findItem, clickBubble: false" />
+            </div>
+          </li>
+        </ul>
+        <!--</li>
+      </ul>-->
+        <div data-bind="visible: items()">
+          <button title="Alle erledigten Einträge löschen" type="button" class="btn btn-warning hidden-xs" data-bind="click: cleanList"><i class="fa fa-trash-o"></i> &nbsp;Erledigte löschen</button>
+        </div>
+
+      </form>
+    </section>
+
+  </div>
+</div>

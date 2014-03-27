@@ -1,0 +1,66 @@
+﻿<div class="page-background">
+  <div class="container page">
+    <a class="oyw-btn-close hidden-xs fa fa-times" href="#/karte" />
+
+    <div class="oyw-content-nav col-sm-3">
+      <ul class="nav nav-pills nav-stacked">
+        <!-- ko if: !app.user.isAuthenticated() -->
+        <li><a href="#/my/login">Anmelden</a></li>
+        <li><!--<a href="#/my/registration">Registrieren</a>--></li>
+        <!-- /ko -->
+        <!-- ko if: app.user.isAuthenticated -->
+        <li><a href="#/my/profile">Profil</a></li>
+        <li><a href="#/my/profile">Einstellungen</a></li>
+        <li><a href="#" data-bind="click: app.auth.logout">Abmelden</a></li>
+        <!-- /ko -->
+      </ul>
+    </div>
+
+    <section class="oyw-content-main col-sm-9">
+
+      <header class="page-header">
+        <h1>Registrieren <small>lokale Anmeldung</small></h1>
+      </header>
+
+      <div class="alert alert-warning">
+        Die Registrierung wird mit Start der ersten Pilotregion allgemein freigegeben.
+        Das ist vorraussichtlich mit Ende April. Wenn Sie aber schon vorher Interesse an <strong>onYOURway</strong> haben,
+        schicken Sie einfach ein Mail an <a class="email" data-bind="text: email, attr: {href: emailUrn }"></a>.
+      </div>
+
+      <!--      <form class="form-horizontal" role="form">
+            <h4>Neues Konto anlegen.</h4>
+            <hr />
+            <ul class="text-danger" data-bind="foreach: errors">
+              <li data-bind="text: $data"></li>
+            </ul>
+            <div class="form-group">
+              <label for="RegisterUserName" class="col-md-2 control-label">Benutzername</label>
+              <div class="col-md-10">
+                <input type="text" id="RegisterUserName" class="form-control" data-bind="value: userName, hasFocus: true" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="RegisterPassword" class="col-md-2 control-label">Passwort</label>
+              <div class="col-md-10">
+                <input type="password" id="RegisterPassword" class="form-control" data-bind="value: password" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="RegisterConfirmPassword" class="col-md-2 control-label">Password bestätigen</label>
+              <div class="col-md-10">
+                <input type="password" id="RegisterConfirmPassword" class="form-control" data-bind="value: confirmPassword" />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default" data-bind="click: register, disable: registering">Registrieren</button>
+              </div>
+            </div>
+            <p>Wenn Sie schon ein lokales Konto haben, oder sich lieber mit einem anderen Konto (z.B. Ihr Google-Konto) anmelden wollen, können Sie sich hier <a href="./#/my/login">anmelden</a>.</p>
+          </form>-->
+
+    </section>
+
+  </div>
+</div>

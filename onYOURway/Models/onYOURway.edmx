@@ -1,0 +1,1531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="onYOURwayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Card">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="LocationId" Type="bigint" />
+          <Property Name="TagId" Type="int" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="LocationId" Type="bigint" Nullable="false" />
+          <Property Name="ListOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="ShoppingList">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="LocationId" Type="bigint" />
+          <Property Name="Item" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Checked" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="56" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BikeWay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Way" Type="geography" />
+          <Property Name="Mode" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HasTag">
+          <Key>
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="LocationId" Type="bigint" Nullable="false" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location1">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Lang" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Country" Type="char" MaxLength="2" />
+          <Property Name="Province" Type="char" MaxLength="3" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Zip" Type="varchar" MaxLength="10" />
+          <Property Name="Street" Type="nvarchar" MaxLength="200" />
+          <Property Name="HouseNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedAt" Type="datetime2" Precision="2" />
+          <Property Name="Position" Type="geography" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'onYOURway.oyw.LocationAlias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LocationAlias">
+          <Key>
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="Lang" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="LocationId" Type="bigint" Nullable="false" />
+          <Property Name="Lang" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LocationForeignId">
+          <Key>
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="PartnerId" />
+          </Key>
+          <Property Name="LocationId" Type="bigint" Nullable="false" />
+          <Property Name="PartnerId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ForeignId" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LocationLink">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationId" Type="bigint" Nullable="false" />
+          <Property Name="Lang" Type="char" MaxLength="2" />
+          <Property Name="Tag" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LocationOpen">
+          <Key>
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="OpenId" />
+          </Key>
+          <Property Name="LocationId" Type="bigint" Nullable="false" />
+          <Property Name="OpenId" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <EntityType Name="LocationOpenHours">
+          <Key>
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="OpenId" />
+            <PropertyRef Name="TimeBlockId" />
+          </Key>
+          <Property Name="LocationId" Type="bigint" Nullable="false" />
+          <Property Name="OpenId" Type="int" Nullable="false" />
+          <Property Name="TimeBlockId" Type="int" Nullable="false" />
+          <Property Name="WeekDay" Type="tinyint" />
+          <Property Name="StartTime" Type="time" Precision="0" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Partner">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Website" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'onYOURway.oyw.ProductSuggestion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductSuggestion">
+          <Key>
+            <PropertyRef Name="Item" />
+            <PropertyRef Name="UsageCount" />
+          </Key>
+          <Property Name="LocationId" Type="bigint" />
+          <Property Name="Item" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UsageCount" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Website" Type="varchar" MaxLength="1000" />
+          <Property Name="OsmRelationId" Type="bigint" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedAt" Type="datetime2" Precision="2" />
+          <Property Name="Boundary" Type="geography" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'onYOURway.oyw.RegionAlias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RegionAlias">
+          <Key>
+            <PropertyRef Name="RegionId" />
+            <PropertyRef Name="Lang" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="RegionId" Type="bigint" Nullable="false" />
+          <Property Name="Lang" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Website" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="RegionView">
+          <Key>
+            <PropertyRef Name="RegionId" />
+            <PropertyRef Name="ViewId" />
+          </Key>
+          <Property Name="RegionId" Type="bigint" Nullable="false" />
+          <Property Name="ViewId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ListOrder" Type="int" Nullable="false" />
+          <Property Name="Boundary" Type="geography" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Street">
+          <Key>
+            <PropertyRef Name="RegionId" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="RegionId" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Way" Type="geography" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="TagIsA">
+          <Key>
+            <PropertyRef Name="TagId" />
+            <PropertyRef Name="ParentId" />
+          </Key>
+          <Property Name="TagId" Type="int" Nullable="false" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TagName">
+          <Key>
+            <PropertyRef Name="TagId" />
+            <PropertyRef Name="Lang" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="TagId" Type="int" Nullable="false" />
+          <Property Name="Lang" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Show" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransportLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Ref" Type="varchar" MaxLength="20" />
+          <Property Name="From" Type="nvarchar" MaxLength="200" />
+          <Property Name="To" Type="nvarchar" MaxLength="200" />
+          <Property Name="Mode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Network" Type="varchar" MaxLength="20" />
+          <Property Name="Operator" Type="varchar" MaxLength="20" />
+          <Property Name="Color" Type="varchar" MaxLength="20" />
+          <Property Name="Way" Type="geography" />
+        </EntityType>
+        <EntityType Name="TransportStop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="LineIds" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Position" Type="geography" />
+        </EntityType>
+        <EntityType Name="Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordChangedDate" Type="datetime" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_my_Card_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Card" Type="Self.Card" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_my_Location_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_my_ShoppingList_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="ShoppingList" Type="Self.ShoppingList" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ShoppingList">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_ForeignId_Location">
+          <End Role="Location1" Type="Self.Location1" Multiplicity="1" />
+          <End Role="LocationForeignId" Type="Self.LocationForeignId" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationForeignId">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_ForeignId_Partner">
+          <End Role="Partner" Type="Self.Partner" Multiplicity="1" />
+          <End Role="LocationForeignId" Type="Self.LocationForeignId" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationForeignId">
+              <PropertyRef Name="PartnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_HasTag_Location">
+          <End Role="Location1" Type="Self.Location1" Multiplicity="1" />
+          <End Role="HasTag" Type="Self.HasTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HasTag">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_HasTag_Tag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="HasTag" Type="Self.HasTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HasTag">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_LocationAlias_Location">
+          <End Role="Location1" Type="Self.Location1" Multiplicity="1" />
+          <End Role="LocationAlias" Type="Self.LocationAlias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationAlias">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_LocationLink_Location">
+          <End Role="Location1" Type="Self.Location1" Multiplicity="1" />
+          <End Role="LocationLink" Type="Self.LocationLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationLink">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_LocationOpen_Location">
+          <End Role="Location1" Type="Self.Location1" Multiplicity="1" />
+          <End Role="LocationOpen" Type="Self.LocationOpen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationOpen">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_LocationOpenHours_LocationOpen">
+          <End Role="LocationOpen" Type="Self.LocationOpen" Multiplicity="1" />
+          <End Role="LocationOpenHours" Type="Self.LocationOpenHours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationOpen">
+              <PropertyRef Name="LocationId" />
+              <PropertyRef Name="OpenId" />
+            </Principal>
+            <Dependent Role="LocationOpenHours">
+              <PropertyRef Name="LocationId" />
+              <PropertyRef Name="OpenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_ProductSuggestion_Location">
+          <End Role="Location1" Type="Self.Location1" Multiplicity="0..1" />
+          <End Role="ProductSuggestion" Type="Self.ProductSuggestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSuggestion">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_RegionAlias_Region">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="RegionAlias" Type="Self.RegionAlias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegionAlias">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_RegionView_Region">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="RegionView" Type="Self.RegionView" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegionView">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_TagAlias_Tag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TagName" Type="Self.TagName" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagName">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_TagIsA_Tag_Id">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TagIsA" Type="Self.TagIsA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagIsA">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_TagIsA_Tag_ParentId">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TagIsA" Type="Self.TagIsA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagIsA">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Buffer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw" ReturnType="varchar(max)">
+          <Parameter Name="wkt" Type="varchar(max)" Mode="In" />
+          <Parameter Name="meters" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetPlaces" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw">
+          <Parameter Name="RegionId" Type="int" Mode="In" />
+          <Parameter Name="Lang" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SearchSuggestions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw">
+          <Parameter Name="regionId" Type="int" Mode="In" />
+          <Parameter Name="Lang" Type="char" Mode="In" />
+        </Function>
+        <EntityContainer Name="onYOURwayModelStoreContainer">
+          <EntitySet Name="Card" EntityType="Self.Card" Schema="my" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="my" store:Type="Tables" />
+          <EntitySet Name="ShoppingList" EntityType="Self.ShoppingList" Schema="my" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="my" store:Type="Tables" />
+          <EntitySet Name="BikeWay" EntityType="Self.BikeWay" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="HasTag" EntityType="Self.HasTag" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="Location1" EntityType="Self.Location1" Schema="oyw" Table="Location" store:Type="Tables" />
+          <EntitySet Name="LocationForeignId" EntityType="Self.LocationForeignId" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="LocationLink" EntityType="Self.LocationLink" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="LocationOpen" EntityType="Self.LocationOpen" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="LocationOpenHours" EntityType="Self.LocationOpenHours" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="Partner" EntityType="Self.Partner" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="RegionView" EntityType="Self.RegionView" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="TagIsA" EntityType="Self.TagIsA" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="TagName" EntityType="Self.TagName" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="TransportLine" EntityType="Self.TransportLine" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="TransportStop" EntityType="Self.TransportStop" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="Membership" EntityType="Self.Membership" Schema="web" store:Type="Tables" />
+          <EntitySet Name="OAuthMembership" EntityType="Self.OAuthMembership" Schema="web" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="web" store:Type="Tables" />
+          <EntitySet Name="LocationAlias" EntityType="Self.LocationAlias" store:Type="Tables" store:Schema="oyw">
+            <DefiningQuery>SELECT 
+[LocationAlias].[LocationId] AS [LocationId], 
+[LocationAlias].[Lang] AS [Lang], 
+[LocationAlias].[Name] AS [Name]
+FROM [oyw].[LocationAlias] AS [LocationAlias]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProductSuggestion" EntityType="Self.ProductSuggestion" store:Type="Tables" store:Schema="oyw">
+            <DefiningQuery>SELECT 
+[ProductSuggestion].[LocationId] AS [LocationId], 
+[ProductSuggestion].[Item] AS [Item], 
+[ProductSuggestion].[UsageCount] AS [UsageCount]
+FROM [oyw].[ProductSuggestion] AS [ProductSuggestion]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RegionAlias" EntityType="Self.RegionAlias" store:Type="Tables" store:Schema="oyw">
+            <DefiningQuery>SELECT 
+[RegionAlias].[RegionId] AS [RegionId], 
+[RegionAlias].[Lang] AS [Lang], 
+[RegionAlias].[Name] AS [Name], 
+[RegionAlias].[Website] AS [Website]
+FROM [oyw].[RegionAlias] AS [RegionAlias]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Street" EntityType="Self.Street" store:Type="Tables" store:Schema="oyw">
+            <DefiningQuery>SELECT 
+[Street].[RegionId] AS [RegionId], 
+[Street].[Name] AS [Name], 
+[Street].[Way] AS [Way]
+FROM [oyw].[Street] AS [Street]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_my_Card_UserProfile" Association="Self.FK_my_Card_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Card" EntitySet="Card" />
+          </AssociationSet>
+          <AssociationSet Name="FK_my_Location_UserProfile" Association="Self.FK_my_Location_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_my_ShoppingList_UserProfile" Association="Self.FK_my_ShoppingList_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="ShoppingList" EntitySet="ShoppingList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_ForeignId_Location" Association="Self.FK_oyw_ForeignId_Location">
+            <End Role="Location1" EntitySet="Location1" />
+            <End Role="LocationForeignId" EntitySet="LocationForeignId" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_ForeignId_Partner" Association="Self.FK_oyw_ForeignId_Partner">
+            <End Role="Partner" EntitySet="Partner" />
+            <End Role="LocationForeignId" EntitySet="LocationForeignId" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_HasTag_Location" Association="Self.FK_oyw_HasTag_Location">
+            <End Role="Location1" EntitySet="Location1" />
+            <End Role="HasTag" EntitySet="HasTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_HasTag_Tag" Association="Self.FK_oyw_HasTag_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="HasTag" EntitySet="HasTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_LocationAlias_Location" Association="Self.FK_oyw_LocationAlias_Location">
+            <End Role="Location1" EntitySet="Location1" />
+            <End Role="LocationAlias" EntitySet="LocationAlias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_LocationLink_Location" Association="Self.FK_oyw_LocationLink_Location">
+            <End Role="Location1" EntitySet="Location1" />
+            <End Role="LocationLink" EntitySet="LocationLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_LocationOpen_Location" Association="Self.FK_oyw_LocationOpen_Location">
+            <End Role="Location1" EntitySet="Location1" />
+            <End Role="LocationOpen" EntitySet="LocationOpen" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_LocationOpenHours_LocationOpen" Association="Self.FK_oyw_LocationOpenHours_LocationOpen">
+            <End Role="LocationOpen" EntitySet="LocationOpen" />
+            <End Role="LocationOpenHours" EntitySet="LocationOpenHours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_ProductSuggestion_Location" Association="Self.FK_oyw_ProductSuggestion_Location">
+            <End Role="Location1" EntitySet="Location1" />
+            <End Role="ProductSuggestion" EntitySet="ProductSuggestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_RegionAlias_Region" Association="Self.FK_oyw_RegionAlias_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="RegionAlias" EntitySet="RegionAlias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_RegionView_Region" Association="Self.FK_oyw_RegionView_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="RegionView" EntitySet="RegionView" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_TagAlias_Tag" Association="Self.FK_oyw_TagAlias_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TagName" EntitySet="TagName" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_TagIsA_Tag_Id" Association="Self.FK_oyw_TagIsA_Tag_Id">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TagIsA" EntitySet="TagIsA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_TagIsA_Tag_ParentId" Association="Self.FK_oyw_TagIsA_Tag_ParentId">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TagIsA" EntitySet="TagIsA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="onYOURwayModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="onYOURwayEntities" p1:LazyLoadingEnabled="false">
+          <EntitySet Name="Cards" EntityType="onYOURwayModel.Card" />
+          <EntitySet Name="ShoppingLists" EntityType="onYOURwayModel.ShoppingList" />
+          <EntitySet Name="UserProfiles" EntityType="onYOURwayModel.UserProfile" />
+          <EntitySet Name="BikeWays" EntityType="onYOURwayModel.BikeWay" />
+          <EntitySet Name="LocationAliases" EntityType="onYOURwayModel.LocationAlias" />
+          <EntitySet Name="LocationForeignIds" EntityType="onYOURwayModel.LocationForeignId" />
+          <EntitySet Name="LocationOpens" EntityType="onYOURwayModel.LocationOpen" />
+          <EntitySet Name="LocationOpenHours" EntityType="onYOURwayModel.LocationOpenHour" />
+          <EntitySet Name="Partners" EntityType="onYOURwayModel.Partner" />
+          <EntitySet Name="ProductSuggestions" EntityType="onYOURwayModel.ProductSuggestion" />
+          <EntitySet Name="Regions" EntityType="onYOURwayModel.Region" />
+          <EntitySet Name="RegionAlias1" EntityType="onYOURwayModel.RegionAlias" />
+          <EntitySet Name="RegionViews" EntityType="onYOURwayModel.RegionView" />
+          <EntitySet Name="Tags" EntityType="onYOURwayModel.Tag" />
+          <EntitySet Name="TagNames" EntityType="onYOURwayModel.TagName" />
+          <EntitySet Name="TransportLines" EntityType="onYOURwayModel.TransportLine" />
+          <EntitySet Name="TransportStops" EntityType="onYOURwayModel.TransportStop" />
+          <EntitySet Name="Memberships" EntityType="onYOURwayModel.Membership" />
+          <EntitySet Name="OAuthMemberships" EntityType="onYOURwayModel.OAuthMembership" />
+          <EntitySet Name="Roles" EntityType="onYOURwayModel.Role" />
+          <AssociationSet Name="FK_my_Card_UserProfile" Association="onYOURwayModel.FK_my_Card_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Card" EntitySet="Cards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_my_ShoppingList_UserProfile" Association="onYOURwayModel.FK_my_ShoppingList_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="ShoppingList" EntitySet="ShoppingLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_ForeignId_Partner" Association="onYOURwayModel.FK_oyw_ForeignId_Partner">
+            <End Role="Partner" EntitySet="Partners" />
+            <End Role="LocationForeignId" EntitySet="LocationForeignIds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_LocationOpenHours_LocationOpen" Association="onYOURwayModel.FK_oyw_LocationOpenHours_LocationOpen">
+            <End Role="LocationOpen" EntitySet="LocationOpens" />
+            <End Role="LocationOpenHour" EntitySet="LocationOpenHours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_RegionAlias_Region" Association="onYOURwayModel.FK_oyw_RegionAlias_Region">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="RegionAlia" EntitySet="RegionAlias1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_RegionView_Region" Association="onYOURwayModel.FK_oyw_RegionView_Region">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="RegionView" EntitySet="RegionViews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_TagAlias_Tag" Association="onYOURwayModel.FK_oyw_TagAlias_Tag">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="TagName" EntitySet="TagNames" />
+          </AssociationSet>
+          <AssociationSet Name="TagIsA" Association="onYOURwayModel.TagIsA">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="Parent" EntitySet="Tags" />
+          </AssociationSet>
+          <EntitySet Name="Locations" EntityType="onYOURwayModel.Location" />
+          <AssociationSet Name="FK_oyw_ForeignId_Location" Association="onYOURwayModel.FK_oyw_ForeignId_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="LocationForeignId" EntitySet="LocationForeignIds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_LocationAlias_Location" Association="onYOURwayModel.FK_oyw_LocationAlias_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="LocationAlia" EntitySet="LocationAliases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_LocationOpen_Location" Association="onYOURwayModel.FK_oyw_LocationOpen_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="LocationOpen" EntitySet="LocationOpens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_oyw_ProductSuggestion_Location" Association="onYOURwayModel.FK_oyw_ProductSuggestion_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="ProductSuggestion" EntitySet="ProductSuggestions" />
+          </AssociationSet>
+          <AssociationSet Name="HasTag" Association="onYOURwayModel.HasTag">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Tag" EntitySet="Tags" />
+          </AssociationSet>
+          <EntitySet Name="MyLocations" EntityType="onYOURwayModel.MyLocation" />
+          <AssociationSet Name="FK_my_Location_UserProfile1" Association="onYOURwayModel.FK_my_Location_UserProfile1">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Location1" EntitySet="MyLocations" />
+          </AssociationSet>
+          <FunctionImport Name="SearchSuggestions" ReturnType="Collection(onYOURwayModel.SearchSuggestion)">
+            <Parameter Name="regionId" Mode="In" Type="Int32" />
+            <Parameter Name="Lang" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Streets" EntityType="onYOURwayModel.Street" />
+          <EntitySet Name="LocationLinks" EntityType="onYOURwayModel.LocationLink" />
+          <AssociationSet Name="FK_oyw_LocationLink_Location" Association="onYOURwayModel.FK_oyw_LocationLink_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="LocationLink" EntitySet="LocationLinks" />
+          </AssociationSet>
+          <FunctionImport Name="GetPlaces" ReturnType="Collection(onYOURwayModel.Place)">
+            <Parameter Name="RegionId" Mode="In" Type="Int32" />
+            <Parameter Name="Lang" Mode="In" Type="String" />
+          </FunctionImport>
+          </EntityContainer>
+        <EntityType Name="Card">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int64" Name="UserId" Nullable="false" />
+          <Property Type="Int64" Name="LocationId" />
+          <Property Type="Int32" Name="TagId" />
+          <NavigationProperty Name="UserProfile" Relationship="onYOURwayModel.FK_my_Card_UserProfile" FromRole="Card" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="ShoppingList">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int64" Name="UserId" Nullable="false" />
+          <Property Type="Int64" Name="LocationId" />
+          <Property Type="String" Name="Item" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Checked" Nullable="false" />
+          <NavigationProperty Name="UserProfile" Relationship="onYOURwayModel.FK_my_ShoppingList_UserProfile" FromRole="ShoppingList" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int64" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Card" Relationship="onYOURwayModel.FK_my_Card_UserProfile" FromRole="UserProfile" ToRole="Card" />
+          <NavigationProperty Name="ShoppingList" Relationship="onYOURwayModel.FK_my_ShoppingList_UserProfile" FromRole="UserProfile" ToRole="ShoppingList" />
+          <NavigationProperty Name="Locations" Relationship="onYOURwayModel.FK_my_Location_UserProfile1" FromRole="UserProfile" ToRole="Location1" />
+        </EntityType>
+        <EntityType Name="BikeWay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Geography" Name="Way" />
+          <Property Type="String" Name="Mode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LocationAlias">
+          <Key>
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="Lang" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Type="Int64" Name="LocationId" Nullable="false" />
+          <Property Type="String" Name="Lang" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Location" Relationship="onYOURwayModel.FK_oyw_LocationAlias_Location" FromRole="LocationAlia" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="LocationForeignId">
+          <Key>
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="PartnerId" />
+          </Key>
+          <Property Type="Int64" Name="LocationId" Nullable="false" />
+          <Property Type="String" Name="PartnerId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ForeignId" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Partner" Relationship="onYOURwayModel.FK_oyw_ForeignId_Partner" FromRole="LocationForeignId" ToRole="Partner" />
+          <NavigationProperty Name="Location" Relationship="onYOURwayModel.FK_oyw_ForeignId_Location" FromRole="LocationForeignId" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="LocationOpen">
+          <Key>
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="OpenId" />
+          </Key>
+          <Property Type="Int64" Name="LocationId" Nullable="false" />
+          <Property Type="Int32" Name="OpenId" Nullable="false" />
+          <Property Type="DateTime" Name="StartDate" Precision="0" />
+          <Property Type="DateTime" Name="EndDate" Precision="0" />
+          <NavigationProperty Name="Hours" Relationship="onYOURwayModel.FK_oyw_LocationOpenHours_LocationOpen" FromRole="LocationOpen" ToRole="LocationOpenHour" />
+          <NavigationProperty Name="Location" Relationship="onYOURwayModel.FK_oyw_LocationOpen_Location" FromRole="LocationOpen" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="LocationOpenHour">
+          <Key>
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="OpenId" />
+            <PropertyRef Name="TimeBlockId" />
+          </Key>
+          <Property Type="Int64" Name="LocationId" Nullable="false" />
+          <Property Type="Int32" Name="OpenId" Nullable="false" />
+          <Property Type="Int32" Name="TimeBlockId" Nullable="false" />
+          <Property Type="Byte" Name="WeekDay" />
+          <Property Type="Time" Name="StartTime" Nullable="false" Precision="0" />
+          <Property Type="Time" Name="EndTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="LocationOpen" Relationship="onYOURwayModel.FK_oyw_LocationOpenHours_LocationOpen" FromRole="LocationOpenHour" ToRole="LocationOpen" />
+        </EntityType>
+        <EntityType Name="Partner">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Website" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LocationForeignIds" Relationship="onYOURwayModel.FK_oyw_ForeignId_Partner" FromRole="Partner" ToRole="LocationForeignId" />
+        </EntityType>
+        <EntityType Name="ProductSuggestion">
+          <Key>
+            <PropertyRef Name="Item" />
+            <PropertyRef Name="UsageCount" />
+          </Key>
+          <Property Type="Int64" Name="LocationId" />
+          <Property Type="String" Name="Item" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="UsageCount" Nullable="false" />
+          <NavigationProperty Name="Location" Relationship="onYOURwayModel.FK_oyw_ProductSuggestion_Location" FromRole="ProductSuggestion" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Website" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="OsmRelationId" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="2" />
+          <Property Type="Int32" Name="ModifiedBy" />
+          <Property Type="DateTime" Name="ModifiedAt" Precision="2" />
+          <Property Type="Geography" Name="Boundary" />
+          <NavigationProperty Name="Aliases" Relationship="onYOURwayModel.FK_oyw_RegionAlias_Region" FromRole="Region" ToRole="RegionAlia" />
+          <NavigationProperty Name="Views" Relationship="onYOURwayModel.FK_oyw_RegionView_Region" FromRole="Region" ToRole="RegionView" />
+        </EntityType>
+        <EntityType Name="RegionAlias">
+          <Key>
+            <PropertyRef Name="RegionId" />
+            <PropertyRef Name="Lang" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Type="Int64" Name="RegionId" Nullable="false" />
+          <Property Type="String" Name="Lang" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Website" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Region" Relationship="onYOURwayModel.FK_oyw_RegionAlias_Region" FromRole="RegionAlia" ToRole="Region" />
+        </EntityType>
+        <EntityType Name="RegionView">
+          <Key>
+            <PropertyRef Name="RegionId" />
+            <PropertyRef Name="ViewId" />
+          </Key>
+          <Property Type="Int64" Name="RegionId" Nullable="false" />
+          <Property Type="Int32" Name="ViewId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ListOrder" Nullable="false" />
+          <Property Type="Geography" Name="Boundary" />
+          <NavigationProperty Name="Region" Relationship="onYOURwayModel.FK_oyw_RegionView_Region" FromRole="RegionView" ToRole="Region" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Type" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Names" Relationship="onYOURwayModel.FK_oyw_TagAlias_Tag" FromRole="Tag" ToRole="TagName" />
+          <NavigationProperty Name="Children" Relationship="onYOURwayModel.TagIsA" FromRole="Tag" ToRole="Parent" />
+          <NavigationProperty Name="Parents" Relationship="onYOURwayModel.TagIsA" FromRole="Parent" ToRole="Tag" />
+          <NavigationProperty Name="Locations" Relationship="onYOURwayModel.HasTag" FromRole="Tag" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="TagName">
+          <Key>
+            <PropertyRef Name="TagId" />
+            <PropertyRef Name="Lang" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Type="Int32" Name="TagId" Nullable="false" />
+          <Property Type="String" Name="Lang" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tag" Relationship="onYOURwayModel.FK_oyw_TagAlias_Tag" FromRole="TagName" ToRole="Tag" />
+          <Property Name="Show" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransportLine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Ref" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="From" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="To" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Mode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Network" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Operator" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Color" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Geography" Name="Way" />
+        </EntityType>
+        <EntityType Name="TransportStop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="String" Name="LineIds" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Geography" Name="Position" />
+        </EntityType>
+        <EntityType Name="Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Precision="3" />
+          <Property Type="String" Name="ConfirmationToken" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsConfirmed" />
+          <Property Type="DateTime" Name="LastPasswordFailureDate" Precision="3" />
+          <Property Type="Int32" Name="PasswordFailuresSinceLastSuccess" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PasswordChangedDate" Precision="3" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordVerificationToken" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PasswordVerificationTokenExpirationDate" Precision="3" />
+        </EntityType>
+        <EntityType Name="OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Type="String" Name="Provider" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProviderUserId" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Type="Int32" Name="RoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_my_Card_UserProfile">
+          <End Type="onYOURwayModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="onYOURwayModel.Card" Role="Card" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_my_ShoppingList_UserProfile">
+          <End Type="onYOURwayModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="onYOURwayModel.ShoppingList" Role="ShoppingList" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ShoppingList">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_ForeignId_Partner">
+          <End Type="onYOURwayModel.Partner" Role="Partner" Multiplicity="1" />
+          <End Type="onYOURwayModel.LocationForeignId" Role="LocationForeignId" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationForeignId">
+              <PropertyRef Name="PartnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_LocationOpenHours_LocationOpen">
+          <End Type="onYOURwayModel.LocationOpen" Role="LocationOpen" Multiplicity="1" />
+          <End Type="onYOURwayModel.LocationOpenHour" Role="LocationOpenHour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationOpen">
+              <PropertyRef Name="LocationId" />
+              <PropertyRef Name="OpenId" />
+            </Principal>
+            <Dependent Role="LocationOpenHour">
+              <PropertyRef Name="LocationId" />
+              <PropertyRef Name="OpenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_RegionAlias_Region">
+          <End Type="onYOURwayModel.Region" Role="Region" Multiplicity="1" />
+          <End Type="onYOURwayModel.RegionAlias" Role="RegionAlia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegionAlia">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_RegionView_Region">
+          <End Type="onYOURwayModel.Region" Role="Region" Multiplicity="1" />
+          <End Type="onYOURwayModel.RegionView" Role="RegionView" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegionView">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_TagAlias_Tag">
+          <End Type="onYOURwayModel.Tag" Role="Tag" Multiplicity="1" />
+          <End Type="onYOURwayModel.TagName" Role="TagName" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagName">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TagIsA">
+          <End Type="onYOURwayModel.Tag" Role="Tag" Multiplicity="*" />
+          <End Type="onYOURwayModel.Tag" Role="Parent" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Lang" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Country" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Province" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Zip" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Street" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HouseNumber" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="2" />
+          <Property Type="Int32" Name="ModifiedBy" />
+          <Property Type="DateTime" Name="ModifiedAt" Precision="2" />
+          <Property Type="Geography" Name="Position" />
+          <NavigationProperty Name="ForeignIds" Relationship="onYOURwayModel.FK_oyw_ForeignId_Location" FromRole="Location" ToRole="LocationForeignId" />
+          <NavigationProperty Name="Aliases" Relationship="onYOURwayModel.FK_oyw_LocationAlias_Location" FromRole="Location" ToRole="LocationAlia" />
+          <NavigationProperty Name="Open" Relationship="onYOURwayModel.FK_oyw_LocationOpen_Location" FromRole="Location" ToRole="LocationOpen" />
+          <NavigationProperty Name="ProductSuggestions" Relationship="onYOURwayModel.FK_oyw_ProductSuggestion_Location" FromRole="Location" ToRole="ProductSuggestion" />
+          <NavigationProperty Name="Tags" Relationship="onYOURwayModel.HasTag" FromRole="Location" ToRole="Tag" />
+          <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Links" Relationship="onYOURwayModel.FK_oyw_LocationLink_Location" FromRole="Location" ToRole="LocationLink" />
+        </EntityType>
+        <Association Name="FK_oyw_ForeignId_Location">
+          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="onYOURwayModel.LocationForeignId" Role="LocationForeignId" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationForeignId">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_LocationAlias_Location">
+          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="onYOURwayModel.LocationAlias" Role="LocationAlia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationAlia">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_LocationOpen_Location">
+          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="onYOURwayModel.LocationOpen" Role="LocationOpen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationOpen">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_oyw_ProductSuggestion_Location">
+          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="onYOURwayModel.ProductSuggestion" Role="ProductSuggestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSuggestion">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="HasTag">
+          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="*" />
+          <End Type="onYOURwayModel.Tag" Role="Tag" Multiplicity="*" />
+        </Association>
+        <EntityType Name="MyLocation">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Type="Int64" Name="UserId" Nullable="false" />
+          <Property Type="Int64" Name="LocationId" Nullable="false" />
+          <Property Type="Int32" Name="ListOrder" />
+          <NavigationProperty Name="UserProfile" Relationship="onYOURwayModel.FK_my_Location_UserProfile1" FromRole="Location1" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK_my_Location_UserProfile1">
+          <End Type="onYOURwayModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="onYOURwayModel.MyLocation" Role="Location1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Location1">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="SearchSuggestion" >
+          <Property Type="String" Name="Class" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <EntityType Name="Street">
+          <Key>
+            <PropertyRef Name="RegionId" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="RegionId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Way" Type="Geography" />
+        </EntityType>
+        <EntityType Name="LocationLink">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationId" Type="Int64" Nullable="false" />
+          <Property Name="Lang" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Tag" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Location" Relationship="onYOURwayModel.FK_oyw_LocationLink_Location" FromRole="LocationLink" ToRole="Location" />
+        </EntityType>
+        <Association Name="FK_oyw_LocationLink_Location">
+          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="onYOURwayModel.LocationLink" Role="LocationLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationLink">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Place">
+          <Property Type="String" Name="T" Nullable="false" MaxLength="7" />
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Alias" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Street" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="HouseNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Zip" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Position" Nullable="true" />
+          <Property Type="String" Name="Icon" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Tags" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Links" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Lines" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Open" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="onYOURwayModelStoreContainer" CdmEntityContainer="onYOURwayEntities">
+          <EntitySetMapping Name="Cards">
+            <EntityTypeMapping TypeName="onYOURwayModel.Card">
+              <MappingFragment StoreEntitySet="Card">
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingLists">
+            <EntityTypeMapping TypeName="onYOURwayModel.ShoppingList">
+              <MappingFragment StoreEntitySet="ShoppingList">
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="onYOURwayModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BikeWays">
+            <EntityTypeMapping TypeName="onYOURwayModel.BikeWay">
+              <MappingFragment StoreEntitySet="BikeWay">
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="Way" ColumnName="Way" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationAliases">
+            <EntityTypeMapping TypeName="onYOURwayModel.LocationAlias">
+              <MappingFragment StoreEntitySet="LocationAlias">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationForeignIds">
+            <EntityTypeMapping TypeName="onYOURwayModel.LocationForeignId">
+              <MappingFragment StoreEntitySet="LocationForeignId">
+                <ScalarProperty Name="ForeignId" ColumnName="ForeignId" />
+                <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationOpens">
+            <EntityTypeMapping TypeName="onYOURwayModel.LocationOpen">
+              <MappingFragment StoreEntitySet="LocationOpen">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationOpenHours">
+            <EntityTypeMapping TypeName="onYOURwayModel.LocationOpenHour">
+              <MappingFragment StoreEntitySet="LocationOpenHours">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
+                <ScalarProperty Name="TimeBlockId" ColumnName="TimeBlockId" />
+                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partners">
+            <EntityTypeMapping TypeName="onYOURwayModel.Partner">
+              <MappingFragment StoreEntitySet="Partner">
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSuggestions">
+            <EntityTypeMapping TypeName="onYOURwayModel.ProductSuggestion">
+              <MappingFragment StoreEntitySet="ProductSuggestion">
+                <ScalarProperty Name="UsageCount" ColumnName="UsageCount" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="onYOURwayModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="Boundary" ColumnName="Boundary" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="OsmRelationId" ColumnName="OsmRelationId" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegionAlias1">
+            <EntityTypeMapping TypeName="onYOURwayModel.RegionAlias">
+              <MappingFragment StoreEntitySet="RegionAlias">
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegionViews">
+            <EntityTypeMapping TypeName="onYOURwayModel.RegionView">
+              <MappingFragment StoreEntitySet="RegionView">
+                <ScalarProperty Name="Boundary" ColumnName="Boundary" />
+                <ScalarProperty Name="ListOrder" ColumnName="ListOrder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ViewId" ColumnName="ViewId" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="onYOURwayModel.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TagNames">
+            <EntityTypeMapping TypeName="onYOURwayModel.TagName">
+              <MappingFragment StoreEntitySet="TagName">
+                <ScalarProperty Name="Show" ColumnName="Show" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransportLines">
+            <EntityTypeMapping TypeName="onYOURwayModel.TransportLine">
+              <MappingFragment StoreEntitySet="TransportLine">
+                <ScalarProperty Name="Way" ColumnName="Way" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Operator" ColumnName="Operator" />
+                <ScalarProperty Name="Network" ColumnName="Network" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="From" ColumnName="From" />
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransportStops">
+            <EntityTypeMapping TypeName="onYOURwayModel.TransportStop">
+              <MappingFragment StoreEntitySet="TransportStop">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LineIds" ColumnName="LineIds" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Memberships">
+            <EntityTypeMapping TypeName="onYOURwayModel.Membership">
+              <MappingFragment StoreEntitySet="Membership">
+                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OAuthMemberships">
+            <EntityTypeMapping TypeName="onYOURwayModel.OAuthMembership">
+              <MappingFragment StoreEntitySet="OAuthMembership">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="onYOURwayModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="TagIsA" TypeName="onYOURwayModel.TagIsA" StoreEntitySet="TagIsA">
+            <EndProperty Name="Parent">
+              <ScalarProperty Name="Id" ColumnName="ParentId" />
+            </EndProperty>
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="Id" ColumnName="TagId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="HasTag" TypeName="onYOURwayModel.HasTag" StoreEntitySet="HasTag">
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="Id" ColumnName="TagId" />
+            </EndProperty>
+            <EndProperty Name="Location">
+              <ScalarProperty Name="Id" ColumnName="LocationId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="MyLocations">
+            <EntityTypeMapping TypeName="onYOURwayModel.MyLocation">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="ListOrder" ColumnName="ListOrder" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SearchSuggestions" FunctionName="onYOURwayModel.Store.SearchSuggestions" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="onYOURwayModel.SearchSuggestion" >
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Streets">
+            <EntityTypeMapping TypeName="onYOURwayModel.Street">
+              <MappingFragment StoreEntitySet="Street">
+                <ScalarProperty Name="Way" ColumnName="Way" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationLinks">
+            <EntityTypeMapping TypeName="onYOURwayModel.LocationLink">
+              <MappingFragment StoreEntitySet="LocationLink">
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="IsTypeOf(onYOURwayModel.Location)">
+              <MappingFragment StoreEntitySet="Location1">
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPlaces" FunctionName="onYOURwayModel.Store.GetPlaces" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="onYOURwayModel.Place">
+                <ScalarProperty Name="T" ColumnName="T" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="HouseNumber" ColumnName="HouseNumber" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="Links" ColumnName="Links" />
+                <ScalarProperty Name="Lines" ColumnName="Lines" />
+                <ScalarProperty Name="Open" ColumnName="Open" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

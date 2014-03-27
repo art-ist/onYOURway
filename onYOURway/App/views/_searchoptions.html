@@ -1,0 +1,92 @@
+﻿<div data-bind="with: location">
+
+  <section id="sectionWo" class="col-md-4">
+    <h4>Wo <span class="small" data-bind="text: $root.where" /></h4>
+    <label for="posStart">Ausgangspunkt</label>
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="button" title="Aktuelle Position bestimmen" data-bind="click: getCurrentPosition"><i class="fa fa-home fa-fw"></i></button>
+      </div>
+      <input class="form-control" id="posStart" name="posStart" data-bind="value: start.text, returnKey: function () { locate('start'); }" type="text">
+      <div class="input-group-btn">
+        <button class="btn btn-default" title="Ausgangspunkt festlegen" data-bind="click: function () { locate('start'); }"><i class="fa fa-map-marker fa-fw"></i></button>
+      </div>
+    </div>
+    <label for="posEnd">Ziel</label>
+    <div class="input-group">
+      <div class="input-group-btn"><button title="Ziel entfernen" class="btn btn-default" type="button" data-bind="click: function () { locate('nothing'); }"><i class="fa fa-times fa-fw"></i></button></div>
+      <input class="form-control" id="posEnd" name="posEnd" data-bind="value: end.text, returnKey: function () { locate('end'); }" type="text">
+      <div class="input-group-btn"><button title="Ziel festlegen" class="btn btn-default" data-bind="click: function () { locate('end'); }"><i class="fa fa-map-marker fa-fw"></i></button></div>
+    </div>
+    <label>Modus</label>
+    <div class="input-group">
+      <div class="input-group-btn">
+        <!--"car", "foot", "bicycle"-->
+        <button class="btn btn-default btn-sm" type="button" data-bind="click: function () { setMode('foot'); }, css: { 'btn-success': settings.mode() === 'foot' }">Zufuß</button>
+        <!--<button class="btn btn-default btn-xs"  type="button"data-bind="click: function () { setMode('public'); }, css: { 'btn-success': settings.mode() === 'public' }">Öffis</button>-->
+        <button class="btn btn-default btn-sm" type="button" data-bind="click: function () { setMode('bicycle'); }, css: { 'btn-success': settings.mode() === 'bicycle' }">Fahrrad</button>
+        <button class="btn btn-default btn-sm" type="button" data-bind="click: function () { setMode('car'); }, css: { 'btn-warning': settings.mode() === 'car' }">Auto</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="sectionWann" class="col-md-4">
+    <h4>Wann <span class="small" data-bind="textDate: when, bindTo: 'text', format: 'DD.MM.YYYY HH:mm'" /></h4>
+    <label>Datum</label>
+    <!--<div class="input-group date oyw-ctl-datepicker">-->
+    <!--type="date"-->
+    <!--<input type="text" class="form-control" id="openDate" name="openDate" data-bind="textDate: when, bindTo: 'value', format: 'DD.MM.YYYY'" />-->  <!--type="date"-->
+    <input type="text" class="form-control" id="whenDateInput" data-bind="datepicker: when" />
+    <!--<span class="input-group-addon"><i class="fa fa-calendar-o fa-fw"></i></span>-->
+    <!--</div>-->
+    <label>Zeit</label>
+    <div class="input-group timeInputSlider">
+      <input type="text" class="form-control timeInput" id="whenTimeInput" data-bind="textDate: when, bindTo: 'value', format: 'HH:mm'" />  <!--type="date"-->
+      <div id="whenTimeSlider" class="timeSlider" data-bind="timeslider: when">
+        <span style="left: 0">0</span>
+        <span style="left: 16%">4</span>
+        <span style="left: 33.3%">8</span>
+        <span style="left: 50%">12</span>
+        <span style="left: 66.6%">16</span>
+        <span style="left: 83.3%">20</span>
+        <span style="left: 100%">24</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="sectionWie" class="col-md-4">
+    <h4>Wie</h4>
+    <label>Hervorheben</label>
+    <div id="search-features">
+      <!-- ko foreach: featuredIf -->
+      <button class="btn btn-sm btn-success" data-bind="text: Name, click: $root.toggleFeature, css: { 'btn-success': Selected }" />
+      <!-- /ko -->
+    </div>
+    <div class="input-group">
+      <input class="form-control"
+             id="addFeature"
+             placeholder="+ Kriterium"
+             autocomplete="off" spellcheck="false"
+             autofocus="autofocus"
+             type="text"
+             data-bind="value: $root.featureToAdd
+                     , typeahead: tags
+                     , autoSelect: true
+                     , updater: $root.addFeature
+                     " />
+      <div class="btn-group input-group-btn">
+        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-trash-o"></i>
+        </button>
+        <ul class="dropdown-menu" role="menu" data-bind="foreach: featuredIf">
+          <li><a href="#" data-bind="click: $root.removeFeature"><i class="fa fa-fw fa-times" /> <strong data-bind="text: Name"></strong> entfernen</a></li>
+        </ul>
+      </div>
+    </div>
+    <label>Sortieren</label>
+    <select id="sortBy" class="form-control" data-bind=" options: sortOptions , optionsText: 'Name', value: sortBy "></select>
+
+  </section>
+
+</div>
+

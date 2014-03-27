@@ -1,0 +1,78 @@
+﻿<div class="page-background">
+  <div class="container page">
+    <style>
+      .jumbotron {
+        background-image: url('app/images/about/venture.jpg');
+      }
+    </style>
+
+    <a class="oyw-btn-close hidden-xs fa fa-times" href="#/karte" />
+
+    <div class="oyw-content-nav col-sm-3">
+
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#header">Für Anbieter</a></li>
+        <li><a href="#vorteile">Warum onYOURway?</a></li>
+        <li><a href="#kosten">Kosten</a></li>
+        <!--<li data-bind="visible: app.user.ventures()"><a href="#eigene">Eigene Unternehmen</a></li>-->
+        <li data-bind="visible: app.user.isAuthenticated"><a href="#neu">Neu Eintragen</a></li>
+        <li><a href="#/about/onyourway">mehr über onYOURway</a></li>
+      </ul>
+
+    </div>
+
+    <section class="oyw-content-main col-sm-9">
+
+      <header id="header" class="jumbotron">
+        <h1>Für Anbieter</h1>
+        <p>
+          Geschäfte, Handwerker, Dienstleister, Sehenswürdigkeiten, Vereine,
+          Private, die etwas zum Kauf oder Tausch anbieten,
+          alle, die in ihrer Region etwas zu beieten haben.
+        </p>
+      </header>
+
+      <article id="vorteile">
+        <h2>Warum onYOURway?</h2>
+        <p>
+          Als Anbieter können auf ganz einfache Weise, vielleicht gleich übers Handy, ihre Kontaktdaten
+          aktualisieren, neue Kunden auf sich und ihre Produkte aufmerksam machen
+          und gestalten gleichzeitig den Einkauf für Ihre bestehenden Kunden angenehmer und attraktiver.
+        </p>
+        <p>
+          Wir arbeiten auch daran, Informationen nach Wunsch automatisch in klassischen Suchdiensten wie
+          z.B. Google-Maps weiter zu veröffentlichen. Damit werden Sie ohne Aufwand oder Spezialwissen digital fit
+          und im Internet weithin sichtbar.
+        </p>
+      </article>
+
+      <article id="kosten">
+        <h2>Kosten</h2>
+        <p>
+          <strong>Keine.</strong> onYOURway ist für Anbieter kostenlos.
+        </p>
+        <p>
+          Wir finanzieren uns auch nicht über Werbung und wir spionieren unsere Benutzer nicht aus.
+          Wie wir diesen Dienst finanzieren? Die Regionen, die auf <strong>onYOURway</strong> vertreten sind,
+          haben erkannt, dass ein Teil des Budgets, das sie für Marketing, oder Ihre Website aufwenden,
+          mit onYOURway mehr bewirken kann und leisten daher ihren Beitrag zum Betrieb dieser Plattform.
+        </p>
+      </article>
+
+      <article id="eigene" data-bind="visible: app.user.ventures">
+        <h2>Meine Unternehmen</h2>
+
+      </article>
+
+      <article id="neu">
+        <h2>Ein neues Unternehmen eintragen</h2>
+        <p>
+          Die Eintragung neuer, regionaler Anbieter wird in Kürze an dieser Stelle freigeschalten.
+          Schauen Sie spätestens Ende März noch einmal hier vorbei.
+        </p>
+      </article>
+
+    </section>
+
+  </div>
+</div>

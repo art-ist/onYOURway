@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="318f1801ece54434ab56fcd4abebe5c3" Name="All" ZoomLevel="100">
+        <EntityTypeShape EntityType="onYOURwayModel.Card" Width="1.5" PointX="11.875" PointY="3.875" />
+        <EntityTypeShape EntityType="onYOURwayModel.ShoppingList" Width="1.5" PointX="13.875" PointY="3.875" />
+        <EntityTypeShape EntityType="onYOURwayModel.UserProfile" Width="1.5" PointX="10.875" PointY="0.5" />
+        <EntityTypeShape EntityType="onYOURwayModel.BikeWay" Width="1.5" PointX="4.625" PointY="3.625" />
+        <EntityTypeShape EntityType="onYOURwayModel.LocationAlias" Width="1.5" PointX="4.625" PointY="5.75" />
+        <EntityTypeShape EntityType="onYOURwayModel.LocationForeignId" Width="1.5" PointX="16" PointY="4.875" />
+        <EntityTypeShape EntityType="onYOURwayModel.LocationOpen" Width="1.5" PointX="9.5" PointY="6.625" />
+        <EntityTypeShape EntityType="onYOURwayModel.LocationOpenHour" Width="1.5" PointX="11.875" PointY="6.75" />
+        <EntityTypeShape EntityType="onYOURwayModel.Partner" Width="1.5" PointX="18.875" PointY="4.875" />
+        <EntityTypeShape EntityType="onYOURwayModel.ProductSuggestion" Width="1.5" PointX="4.625" PointY="8" />
+        <EntityTypeShape EntityType="onYOURwayModel.Region" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="onYOURwayModel.RegionAlias" Width="1.5" PointX="2.5" PointY="0.5" />
+        <EntityTypeShape EntityType="onYOURwayModel.RegionView" Width="1.5" PointX="4.5" PointY="0.5" />
+        <EntityTypeShape EntityType="onYOURwayModel.Tag" Width="1.5" PointX="14.75" PointY="7.25" />
+        <EntityTypeShape EntityType="onYOURwayModel.TagName" Width="1.5" PointX="16.75" PointY="7.125" />
+        <EntityTypeShape EntityType="onYOURwayModel.TransportLine" Width="1.5" PointX="0.625" PointY="5.75" />
+        <EntityTypeShape EntityType="onYOURwayModel.TransportStop" Width="1.5" PointX="2.625" PointY="5.75" />
+        <EntityTypeShape EntityType="onYOURwayModel.Membership" Width="1.5" PointX="13" PointY="0.5" />
+        <EntityTypeShape EntityType="onYOURwayModel.OAuthMembership" Width="1.5" PointX="15.125" PointY="0.5" />
+        <EntityTypeShape EntityType="onYOURwayModel.Role" Width="1.5" PointX="17.25" PointY="0.5" />
+        <AssociationConnector Association="onYOURwayModel.FK_my_Card_UserProfile" />
+        <AssociationConnector Association="onYOURwayModel.FK_my_ShoppingList_UserProfile" />
+        <AssociationConnector Association="onYOURwayModel.FK_oyw_ForeignId_Partner" />
+        <AssociationConnector Association="onYOURwayModel.FK_oyw_LocationOpenHours_LocationOpen" />
+        <AssociationConnector Association="onYOURwayModel.FK_oyw_RegionAlias_Region" />
+        <AssociationConnector Association="onYOURwayModel.FK_oyw_RegionView_Region" />
+        <AssociationConnector Association="onYOURwayModel.FK_oyw_TagAlias_Tag" />
+        <AssociationConnector Association="onYOURwayModel.TagIsA" />
+        <EntityTypeShape EntityType="onYOURwayModel.Location" Width="1.5" PointX="7.125" PointY="4.125" />
+        <AssociationConnector Association="onYOURwayModel.FK_oyw_ForeignId_Location" />
+        <AssociationConnector Association="onYOURwayModel.FK_oyw_LocationAlias_Location" />
+        <AssociationConnector Association="onYOURwayModel.FK_oyw_LocationOpen_Location" />
+        <AssociationConnector Association="onYOURwayModel.FK_oyw_ProductSuggestion_Location" />
+        <AssociationConnector Association="onYOURwayModel.HasTag" />
+        <EntityTypeShape EntityType="onYOURwayModel.MyLocation" Width="1.5" PointX="9.5" PointY="3.875" />
+        <AssociationConnector Association="onYOURwayModel.FK_my_Location_UserProfile1" />
+        <EntityTypeShape EntityType="onYOURwayModel.Street" Width="1.5" PointX="7.375" PointY="0.625" />
+        <EntityTypeShape EntityType="onYOURwayModel.LocationLink" Width="1.5" PointX="9.375" PointY="9.75" />
+        <AssociationConnector Association="onYOURwayModel.FK_oyw_LocationLink_Location" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

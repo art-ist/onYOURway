@@ -1,0 +1,275 @@
+﻿<div class="page-background">
+  <style>
+    .oyw-slide-gray > h2 {
+      background-color: #7e7e7e;
+      color: #fff;
+      background-color: rgba(126, 126, 126, 0.9);
+    }
+
+    .oyw-slide-blue > h2 {
+      background-color: #548ed4;
+      background-color: rgba(84, 142, 212, 0.9);
+    }
+
+    .oyw-slide-orange > h2 {
+      background-color: #f89f1b;
+      background-color: rgba(248, 159, 27, 0.9);
+    }
+
+    .oyw-slide-green > h2 {
+      background-color: #b1d235;
+    }
+
+    #idea_pagination {
+      position: absolute;
+      bottom: 15px;
+      right: 30px;
+    }
+
+    .owl-page > span {
+      margin: 5px 4px !important;
+    }
+
+    .owl-page.active > span {
+      background-color: #b3d236 !important;
+    }
+
+    .idea-control {
+      -webkit-transition: 0.5s ease;
+      -moz-transition: 0.5s ease;
+      -o-transition: 0.5s ease;
+      transition: 0.5s ease;
+    }
+
+      .idea-control:hover {
+        color: #525252;
+      }
+
+      .idea-control.hide {
+        width: 0;
+      }
+
+    a > i.fa-fw {
+      height: 1.2em;
+      margin: -3px 0 -3px 0;
+      padding: 3px 3px 3px 3px;
+    }
+
+    .owl-item > .jumbotron {
+      margin: 0;
+    }
+  </style>
+
+  <section class="container page">
+    <a class="oyw-btn-close hidden-xs fa fa-times" href="#/karte" />
+
+    <div class="oyw-content-nav col-sm-3">
+
+      <ul class="nav nav-pills nav-stacked">
+        <li>
+          <a href="#idee">
+            <i class="idea-control fa fa-fw fa-fast-backward" data-bind="click: firstIdea, css: { hide: currentArticle() !== '#idee' }"></i>
+            <i class="idea-control fa fa-fw fa-step-backward" data-bind="click: prevIdea, css: { hide: currentArticle() !== '#idee' }"></i>
+            Die Idee
+            <i class="idea-control fa fa-fw fa-step-forward" data-bind="click: nextIdea, css: { hide: currentArticle() !== '#idee' }"></i>
+          </a>
+        </li>
+        <li><a href="#video">Video</a></li>
+        <!--<li><a href="#kontakt">Kontakt</a></li>-->
+        <li><a href="#/about/explorer">mehr für Entdecker</a></li>
+        <li><a href="#/about/venture">mehr für Anbieter</a></li>
+        <li><a href="#/about/region">mehr für Regionen</a></li>
+      </ul>
+
+      <div class="owl-theme">
+        <div id="idea_pagination" class="owl-controls idea-control" data-bind="css: { hide: currentArticle() !== '#idee' }"></div>
+      </div>
+    </div>
+
+
+    <div class="oyw-content-main col-sm-9 no-padding">
+
+      <article id="idee" class="OWL-carousel slide no-padding" data-bind="click: nextIdea" style="cursor: pointer;">
+        <div class="sub oyw-slide-gray jumbotron" id="idee1">
+          <h2>Es ist was faul</h2>
+          <h3>an meinem Einkaufsleben!</h3>
+        </div>
+        <div class="sub oyw-slide-gray jumbotron" id="idee2"
+             style="background-image: url('app/images/about/project/slide-2.jpg')">
+          <h2>
+            grüne Früchte<br />
+            schmecken nicht
+          </h2>
+          <p>
+            Grün geerntetes Obst und Gemüse bekommt keine Dellen,
+            lässt sich gut verschiffen und lagern, wen stört da schon,
+            dass es nur wenig Vitamine enthält? Und Aussehen ist doch
+            wichtiger als Geschmack oder Gesundheit?
+            Aber wo finde ich reife Früchte aus der Umgebung?
+          </p>
+        </div>
+        <div class="sub oyw-slide-gray jumbotron" id="idee3"
+             style="background-image: url('app/images/about/project/slide-3.jpg')">
+          <h2>Verkehr ist nicht Freiheit</h2>
+          <p>
+            Oft verwechseln wir bequem und angenehm. Ist es nicht viel
+            angenehmer, 10 Minuten mit dem Rad in die Stadt zu fahren
+            als 20 Minuten, vielleicht im Stau zum Einkaufszentrum?
+            Aber wo sind die Geschäfte oder gar Bauern in meiner
+            Nähe?
+          </p>
+        </div>
+        <div class="sub oyw-slide-gray jumbotron" id="idee4"
+             style="background-image: url('app/images/about/project/slide-4.jpg')">
+          <h2>Nur einer aus der Masse</h2>
+          <p>
+            Fühlen wir uns wirklich "persönlich betreut, wenn der
+            Computer den Barcode auf unserer Kundenkarte erkennt?
+            Oder ist ein „Grüß Sie, wie geht‘s Ihnen? … Wenn‘s wollen,
+            ich hätt Ihnen eins von Ihren Lieblingsbroten aufghob‘n.“
+            doch persönlicher?
+            Aber das ist wahrscheinlich nur in kleineren Geschäften
+            möglich.
+          </p>
+        </div>
+        <div class="sub oyw-slide-blue jumbotron" id="idee5"
+             style="background-image: url('app/images/about/project/slide-5.jpg')">
+          <h2>Ich Wünsche mir …</h2>
+        </div>
+        <div class="sub oyw-slide-orange jumbotron" id="idee6"
+             style="background-image: url('app/images/about/project/slide-6.jpg')">
+          <h2>frisch und reif</h2>
+          <p>
+            Bio, aus der Region, fair gehandelt oder gleich vom
+            Produzenten, reif geerntet, ohne Verpackung, mit
+            meiner regionalen VorteilsCard, ...
+            Nach diesen und weiteren Kriterien will ich Produkte und
+            Dienstleistungen wählen. Gleich in der Nähe, am liebsten in
+            kleinen Geschäften und mit einem kleinen Plausch, möchte ich
+            meine Sachen einkaufen.
+            <strong>onYOURway</strong> findet diese Geschäfte und weiß wann sie
+            offen haben.
+          </p>
+        </div>
+        <div class="sub oyw-slide-orange jumbotron" id="idee7"
+             style="background-image: url('app/images/about/project/slide-7.jpg')">
+          <h2>weniger Verkehr</h2>
+          <p>
+            Wenn ich Dinge aus der Region kaufe, müssen sie weniger
+            transportiert werden. Wenn ich sie in der Nähe, am Weg
+            kaufe muss ich selbst weniger fahren.
+            Weniger Verkehr bedeutet geringere CO² Emissionen und
+            weniger Abhängigkeit von importierten Energieträgern.
+            Weniger Abhängigkeit = mehr Entscheidungsfreiheit.
+            Es geht nicht nur um unsere Enkel. Ich möchte auch selbst,
+            jetzt und den nächsten Jahren in einer schönen Umwelt
+            leben und frische Luft atmen.
+            Und wenn ich weniger Verpackungsmaterial mit nach hause
+            schleppe, muss ich auch weniger Müll raustragen.
+            <strong>onYOURway</strong> findet Anbieter entlang von Routen, die ich
+            ohnehin zurücklege.
+          </p>
+        </div>
+        <div class="sub oyw-slide-orange jumbotron" id="idee8"
+             style="background-image: url('app/images/about/project/slide-8.jpg')">
+          <h2>Vergnügen statt Last</h2>
+          <p>
+            Saisonales, am Heimweg einfach mitnehmen, … ein paar
+            freundliche Worte wechseln, … oder neues entdecken …
+            Ganz in meiner Nähe habe ich das „Bienenlädchen“
+            entdeckt. Die haben sich auf Imkereiprodukte spezialisiert.
+            So eine Vielfalt kann kein Supermarkt bieten.
+            <strong>onYOURway</strong> findet neues und auch Spezialitäten auf
+            Ausflügen.
+          </p>
+        </div>
+        <div class="sub oyw-slide-green jumbotron" id="idee9" style="background-color: #fff;">
+          <h2>Daher:</h2>
+          <img src="app/images/logo-big.jpg"  alt="onYOURway" style="position: absolute; width: 90%; height: 90%;" />
+          <p>
+            Eine bewusstseinsbildende
+            Initiative zur Förderung
+            lokaler Wirtschaft,
+            Reduktion von Wegstrecken
+            und Steigerung der
+            Lebensqualität.
+          </p>
+          <!-- <p class="oyw-slogan">Das gute liegt so nah!</p>-->
+        </div>
+      </article>
+
+      <article id="video" class="video-container">
+        <iframe id="videoFrame" src="http://player.vimeo.com/video/47621875?color=ff9933" frameborder="0" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe>
+      </article>
+
+      <!--<article id="kontakt">
+        <h2>Kontakt</h2>
+        <form role="form">
+
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="inputName">Name</label>
+              <div id="inputName">
+                <style type="text/css">
+                  #inputName {margin-left: -15px; margin-right: -15px;}
+                </style>
+                <div class="form-group col-sm-6" >
+                  <label class="sr-only" for="inputFirstName">Vorname</label>
+                  <input type="text" data-bind="value: FirstName" class="form-control" id="inputFirstName" placeholder="Vorname">
+                </div>
+                <div class="form-group col-sm-6">
+                  <label class="sr-only" for="inputLastName">Nachname</label>
+                  <input type="text" data-bind="value: LastName" class="form-control" id="inputLastName" placeholder="Nachname">
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputCompany">Organisation / Firma / Region</label>
+              <input type="text" data-bind="value: Company" class="form-control" id="inputCompany">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputRole">Interesse / Rolle</label>
+            <select class="form-control" data-bind="value: Role">
+              <option value="Benutzer">Ich will finde die Idee toll. Halten Sie mich auf dem Laufenden.</option>
+              <option value="Feedback">Ich möchte Feedback zu onYOURway geben..</option>
+              <option value="Region">Ich vertrete eine Gemeinde/Region. Wir wollen ein Projekt starten.</option>
+              <option value="Anbieter">Ich habe ein tolles Angebot und möchte dass meine Produkte und Dienstleistungen gefunden werden.</option>
+              <option value="Tester">Ich möchte onYOURway schon testen, bevor es alle anderen haben.</option>
+              <option value="Partner">Ich/Wir haben ein Projekt, das sich mit ähnlichen Themen befasst. Vielleicht können wir zusammenarbeiten.</option>
+              <option value="Sponsor">Ich finde die Idee toll und möchte sie aktiv unterstützen.</option>
+              <option value="Entwickler">Ich bin Software-Entwickler und möchte mitmachen.</option>
+              <option value="Presse">Ich bin Journalist und finde das Projekt interessant. Schicken Sie mir Presseaussendungen.</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail">Email</label>
+              <input type="email" data-bind="value: Email" class="form-control warning" id="inputEmail" placeholder="Email Adresse">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputProject">Projekt</label>
+              <input type="text" data-bind="value: Project" class="form-control warning" id="inputProject" placeholder="Projektname oder Website">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail">Nachricht</label>
+            <textarea class="form-control" data-bind="value: Message" rows="3" id="inputMessage"></textarea>
+          </div>
+
+          <div class="form-group form-inline well-sm">
+            <span data-bind="text: sendQuest1"></span> + <span data-bind="text: sendQuest2"></span> =
+            <input type="number" class="form-control" data-bind="value: res, valueUpdate: 'afterkeydown'" maxlength="2" style="width: 3em;" />
+            (Bitte vor dem Senden ausfüllen.)
+            <button type="button" class="btn btn-success pull-right" data-bind="enable: sendQuestSolved, click: send">Senden</button>
+          </div>
+
+        </form>
+      </article>-->
+
+    </div>
+
+  </section>
+</div>

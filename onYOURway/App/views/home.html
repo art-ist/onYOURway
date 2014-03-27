@@ -1,0 +1,158 @@
+﻿<div class="page-background">
+  <style>
+    .oyw-start-banner {
+      position: relative;
+      height: 380px;
+      background: url("app/images/banner-bg.jpg") no-repeat border-box border-box;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      -webkit-background-size: cover;
+      background-size: cover;
+      z-index: 8;
+    }
+
+    .oyw-start-icon {
+      background-color: #ffffff;
+      padding: 14px 9px 12px 8px;
+      position: absolute;
+      right: 5%;
+      top: 0;
+    }
+
+    .oyw-start-banner > .alert {
+      position: absolute;
+      top: 0;
+      width: 40%;
+      left: 15%;
+      border-radius: 0 0 8px 8px;
+    }
+
+    /*#region go-buttons for target groups*/
+    .oyw-start-go {
+    }
+
+    .oyw-start-go > * {
+      position: relative; /*to be in front of circles*/
+    }
+
+      .oyw-start-go:before { /*insert circles*/
+        content: " ";
+        background: #f9a01b;
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        margin-left: -80px; /*center horizontally*/
+        width: 160px;
+        height: 160px;
+        border-radius: 80px;
+        -webkit-transition: 0.3s ease-in-out;
+        -moz-transition: 0.3s ease-in-out;
+        -o-transition: 0.3s ease-in-out;
+        transition: 0.3s ease-in-out;
+      }
+
+    /*hide in opera TODO: fix z-index problem*/
+    @media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) {
+      .oyw-start-go:before {
+        display: none;
+      }
+    }
+
+      .oyw-start-go:hover {
+        background-color: #e5e5e5;
+        background-position: center center;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+      }
+    #go-explorer:hover { background-image: url(app/images/about/explorer.jpg); }
+    #go-venture:hover { background-image: url(app/images/about/venture.jpg); }
+    #go-region:hover { background-image: url(app/images/about/region.jpg); }
+
+    .oyw-start-go:hover:before {
+      background: #b2d235;
+      top: -23px;
+      left: 50%;
+      margin-left: -84px;
+      width: 168px;
+      height: 168px;
+      border-radius: 84px;
+    }
+
+    .oyw-start-go a {
+      color: inherit;
+    }
+    .oyw-start-go h3 {
+    }
+    
+    .oyw-start-go p {
+      background-color: rgb(248, 248, 248);
+      background-color: rgba(248, 248, 248, 0.6);
+      border: solid 2px rgba(248, 248, 248, 0.2);
+      margin-top: 10px;
+      padding-top: 5px;
+    }
+    .oyw-start-go:hover p {
+      background-color: rgba(248, 248, 248, 0.7);
+    }
+    .oyw-start-go a:hover, .oyw-start-go a:active {
+      text-decoration: none;
+    }
+    /*#endregion go-buttons*/
+  </style>
+
+  <section class="container page">
+    <a class="btn oyw-btn-close hidden-xs fa fa-times" href="#/karte" />
+
+    <header class="oyw-start-banner" id="overview">
+      <div class="oyw-start-icon">
+        <img class="text-center" src="/App/images/logo.targetsize-128.png" alt="onYOURway" />
+      </div>
+      <a href="#/about/preview" class="alert alert-danger" style="color: #fff;">
+        <strong>Public Preview</strong> mit Testdaten
+      </a>
+    </header>
+
+    <div class="row text-center">
+      <div class="col-sm-4 oyw-start-go" id="go-explorer">
+        <a href="#/about/explorer">
+          <h3>
+            <i class="fa fa-user fa-2x"></i>
+            <br />Entdecker
+          </h3>
+          <p>
+            Sie möchten in Ihrer Umgebung oder entlang Ihres Weges Neues entdecken, reifes Obst vom Erzeuger kaufen, wissen wann ein Geschäft geöffnet ist, der Buss fährt oder einfach Ihren Einkaufszettel immer dabei haben, dann
+            erkunden Sie diesen Weg
+          </p>
+        </a>
+      </div>
+      <div class="col-sm-4 oyw-start-go" id="go-venture">
+        <a href="#/about/venture">
+          <h3>
+            <i class="fa fa-shopping-cart fa-2x"></i>
+            <br />Anbieter
+          </h3>
+          <p>
+            Sie betreiben ein Geschäft, führen ein Lokal oder bieten Dienstleistungen an, die Zwetschken in Ihrem Garten sind gerade reif oder Sie kennen einen besonderen Ort in Ihrer Region, dann
+            <br />
+            erkunden Sie diesen Weg
+          </p>
+        </a>
+      </div>
+      <div class="col-sm-4 oyw-start-go" id="go-region">
+        <a href="#/about/region">
+          <h3>
+            <i class="fa fa-road fa-2x"></i>
+            <br />Regionen
+          </h3>
+          <p>
+            Sie fördern Ihre Region, <br /> sind Vertreter Ihrer Gemeinde oder Ihres Bezirks, oder sind Mitgied einer regionalen Connumity und wollen zeigen, was es bei Ihnen alles gibt, dann
+            erkunden Sie diesen Weg
+          </p>
+        </a>
+      </div>
+    </div>
+
+  </section>
+</div>

@@ -1,0 +1,33 @@
+﻿<div class="page-background">
+  <div id="search-page" class="container page">
+
+    <section class="oyw-content col-sm-12">
+      <header class="page-header">
+        <h1>Suche</h1>
+      </header>
+
+      <form class="form-horizontal" role="form">
+        <div class="input-group">
+          <input class="form-control input-lg"
+                 id="searchFor" name="searchFor"
+                 placeholder="z.B. Obst, Heurige, Bio, ..."
+                 autocomplete="off" spellcheck="false" autofocus
+                 data-bind="value: location.searchFor
+                         "
+                 type="text" />
+          <div class="input-group-btn" data-bind="css: {open: app.tools.search }">
+            <button title="Suchen" class="btn btn-default input-lg" type="button" data-bind="click: search" tabindex="-1"><i class="fa fa-search fa-fw"></i></button>
+          </div>
+        </div>
+
+        <!--advanced search-->
+        <div data-bind="compose: 'views/_searchoptions' ">
+          <!--views/_searchoptions-->
+        </div>
+        <!--/advanced search-->
+
+      </form>
+    </section>
+
+  </div>
+</div>
