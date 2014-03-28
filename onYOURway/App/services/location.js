@@ -199,12 +199,12 @@ define([
         for (var i = 0; i < latLngs.length; i++) {
           var ll = latLngs[i] instanceof L.LatLng
                  ? latLngs[i]
-                 : L.latLng(latLngs[i][0], latLngs[i][1]);
+                 : L.latLng(latLngs[i][1], latLngs[i][0]);
           if (project) { //project
             point = transformLatLongToXyMeter(ll); //project
-            result += (i > 0 ? ', ' : '') + point[1] + ' ' + point[0];
+            result += (i > 0 ? ', ' : '') + point[0] + ' ' + point[1];
           } else {
-            result += (i > 0 ? ', ' : '') + ll.lng + ' ' +ll.lat;
+            result += (i > 0 ? ', ' : '') + ll.lng + ' ' + ll.lat;
           }
         }
         result += ')';
@@ -232,8 +232,8 @@ define([
     var x = point[0];
     var y = point[1];
 
-    var lat = y * 180 / (R * PI);
-    var lng = x * 180 / (R * PI * Math.cos(y / R));
+    var lng = y * 180 / (R * PI);
+    var lat = x * 180 / (R * PI * Math.cos(y / R));
     return new L.LatLng(lat, lng);
     } //transformXyMeterToLatLong
 
@@ -693,29 +693,33 @@ define([
       var writer = new jsts.io.WKTWriter();
 
       var wkt = latLngToWkt(aroundWhat, 'LINESTRING', true); //coordsToWkt
+            logger.log('wkt after latLngToWkt(.,.) = ', 'location - _setFiveMinutesIndicator', wkt);
       var input = reader.read(wkt); //including transform
-      logger.log('calculating Buffer for ' + JSON.stringify(input), 'location - _setFiveMinutesIndicator');
-      var buffer = input.buffer(location.settings.walkIn5);
+            logger.log('calculating Buffer for ' + JSON.stringify(input), 'location - _setFiveMinutesIndicator');
+            var buffer = input.buffer(location.settings.walkIn5);
+            logger.log('jsts buffer = ', 'location - _setFiveMinutesIndicator', buffer);
 
       wkt = writer.write(buffer);
-      logger.log('calculated buffer', 'location - _setFiveMinutesIndicator', wkt);
+            logger.log('calculated buffer', 'location - _setFiveMinutesIndicator', wkt);
       var points = wktToCoords(wkt); //convert 2 point array
+      logger.log('points after wktToCoords(wkt) = ', 'location - _setFiveMinutesIndicator', points);
       var latLngs = [];
       for (var i = 0; i < points.length; i++) {  //transform to spherical
-        latLngs.push(transformXyMeterToLatLong(points[i]));
-        }
+          latLngs.push(transformXyMeterToLatLong(points[i]));
+      }
+      logger.log('latLngs nach punktweiser transformXyMeterToLatLong(.) transformation = ', 'location - _setFiveMinutesIndicator', latLngs);
 
       //logger.log('setting Polygon for ' + JSON.stringify(aroundWhat[0]) + ' starting at  ' + JSON.stringify(latLngs[0]), 'location - _setFiveMinutesIndicator');
       indicator = L.polygon(latLngs, indicatorOptions);
       location.layers.fiveMinutesIndicatorLayer = indicator;
       map.addLayer(indicator);
-      }
+    }
     if (typeOf(aroundWhat[0]) === 'number' && aroundWhat.length > 1) { //ok, but it's a coordinate Pair -> position?
       var latLng =[aroundWhat[1], aroundWhat[0]];
       indicator = L.circle(latLng, location.settings.walkIn5, indicatorOptions);
       location.layers.fiveMinutesInidcatorLayer = indicator;
       map.addLayer(indicator);
-      }
+    }
 
     location.mapLocations(location.mapLocations().sort(location.sortBy().Sorter));
     } //_setFiveMinutesInidcator
