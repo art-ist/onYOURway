@@ -190,9 +190,9 @@ define([
           result = 'POINT (' + point.x + ' ' + point.y + ')';
           } else if (latLngs instanceof L.LatLng) {
             result = 'POINT (' + latLngs.lng + ' ' + latLngs.lat + ')';
-            } else {
+          } else {
             result = 'POINT (' + latLngs[1] + ' ' + latLngs[0] + ')';
-            }
+          }
         break;
       case 'LINESTRING':
         result = 'LINESTRING (';
@@ -202,11 +202,11 @@ define([
                  : L.latLng(latLngs[i][0], latLngs[i][1]);
           if (project) { //project
             point = transformLatLongToXyMeter(ll); //project
-            result += (i > 0 ? ', ' : '') + point[0] + ' ' + point[1];
+            result += (i > 0 ? ', ' : '') + point[1] + ' ' + point[0];
           } else {
             result += (i > 0 ? ', ' : '') + ll.lng + ' ' +ll.lat;
           }
-          }
+        }
         result += ')';
         break;
         //case 'Polygon':
@@ -685,16 +685,16 @@ define([
     if (location.layers.fiveMinutesInidcatorLayer) {
       map.removeLayer(location.layers.fiveMinutesInidcatorLayer);
       }
-    if (aroundWhat[0]instanceof L.LatLng) { //aroundWhat is an array and it's first Element is also -> route
-      //if (aroundWhat[0] instanceof Array) { //aroundWhat is an array and it's first Element is also -> route
-      //buffer errechnen
+    //if (aroundWhat[0] instanceof L.LatLng) { //aroundWhat is an array and it's first Element is a L.LatLng -> route
+    if (aroundWhat[0] instanceof Array) { //aroundWhat is an array and it's first Element is also -> route
 
+      //buffer errechnen
       var reader = new jsts.io.WKTReader();
       var writer = new jsts.io.WKTWriter();
 
-      var wkt = latLngToWkt(aroundWhat, 'LINESTRING', true);
+      var wkt = latLngToWkt(aroundWhat, 'LINESTRING', true); //coordsToWkt
       var input = reader.read(wkt); //including transform
-      logger.log('calculating Buffer for ' +JSON.stringify(input), 'location - _setFiveMinutesIndicator');
+      logger.log('calculating Buffer for ' + JSON.stringify(input), 'location - _setFiveMinutesIndicator');
       var buffer = input.buffer(location.settings.walkIn5);
 
       wkt = writer.write(buffer);
