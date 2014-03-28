@@ -44,57 +44,61 @@ namespace onYOURway.Controllers {
         ;
     }
 
-    [HttpGet]   // api/locate/Locations
-    public IQueryable<dynamic> Locations(int RegionId = 1, string lang = "de") {
-      return db.Context.Locations
-        //.Include("Tags") //Tags.Names are explicitly joined
-        //.Include("Aliases")
-        //.Include("Open.Hours") //Includes Open
-        .Include(l => l.Tags)
-        .Include(l => l.Aliases)
-        .Include(l => l.Open.Select(o => o.Hours)) //TODO: Include "Open.Hours" ignores Hours when only l.Open is called
-        .Select(l => new {
-          Id = l.Id,
-          Name = l.Name,
-          Aliases = l.Aliases,
-          Street = l.Street ?? "", //Street = ((l.Street ?? "") + " " + (l.HouseNumber ?? "")).Trim(),
-          HouseNumber = l.HouseNumber ?? "",
-          Zip = l.Zip ?? "",
-          City = l.City ?? "",
-          Position = l.Position,
-          //Group = l.Tags.Where(t => t.Type == "Class").FirstOrDefault().Names.Where(n => n.Lang == lang).FirstOrDefault().Name,
-          kind = l.Tags.Where(t => t.Type == "Branche").FirstOrDefault().Names.Where(n => n.Lang == lang).FirstOrDefault().Name,
-          open = l.Open
-                  .Where(o => !o.EndDate.HasValue || o.EndDate >= DateTime.Now)
-                  .Select(o => new {
-                    OpenId = o.OpenId,
-                    StartDate = o.StartDate,
-                    EndDate = o.EndDate,
-                    Hours = o.Hours.Select(h => new {
-                      TimeBlockId = h.TimeBlockId,
-                      WeekDay = h.WeekDay,
-                      StartTime = h.StartTime,
-                      EndTime = h.EndTime
-                    })
-                  }),
-          tags = l.Tags
-                  .Join(
-                    db.Context.TagNames.Where(n => n.Lang == lang)
-                    , t => t, n => n.Tag,
-                    (t, n) => new { n.TagId, n.Name }
-                  ),
-          //Tags = l.Tags
-          //.Select(t => new {
-          //  Id = t.Id,
-          //  Names = t.Names.Where(n => n.Lang == lang).Select(n => n.Name)
-          //})          
-          ////obsolete: now calculated on the client (keep code, maybe in the future filter by distance)
-          //Distance = string.IsNullOrEmpty(CloseTo) ? null : l.Position.Distance(DbGeography.FromText(CloseTo, 4326))
-        })
-        //.OrderBy(l => l.Id)
-        //.OrderBy(l => l.Distance)
-        ;
-    }
+    ///// <summary>
+    ///// Returns a list of locations including their related properties
+    ///// </summary>
+    ///// <param name="RegionId"></param>
+    ///// <param name="lang"></param>
+    ///// <returns>anonymous locationinfo</returns>
+    ///// <remarks>OBSOLETE, use Places instead</remarks>
+    //[HttpGet]   // api/locate/Locations
+    //public IQueryable<dynamic> Locations(int RegionId = 1, string lang = "de") {
+    //  return db.Context.Locations
+    //    .Include(l => l.Tags)
+    //    .Include(l => l.Aliases)
+    //    .Include(l => l.Open.Select(o => o.Hours))
+    //    .Select(l => new {
+    //      Id = l.Id,
+    //      Name = l.Name,
+    //      Aliases = l.Aliases,
+    //      Street = l.Street ?? "", //Street = ((l.Street ?? "") + " " + (l.HouseNumber ?? "")).Trim(),
+    //      HouseNumber = l.HouseNumber ?? "",
+    //      Zip = l.Zip ?? "",
+    //      City = l.City ?? "",
+    //      Position = l.Position,
+    //      //Group = l.Tags.Where(t => t.Type == "Class").FirstOrDefault().Names.Where(n => n.Lang == lang).FirstOrDefault().Name,
+    //      kind = l.Tags.Where(t => t.Type == "Branche").FirstOrDefault().Names.Where(n => n.Lang == lang).FirstOrDefault().Name,
+    //      open = l.Open
+    //              .Where(o => !o.EndDate.HasValue || o.EndDate >= DateTime.Now)
+    //              .Select(o => new {
+    //                OpenId = o.OpenId,
+    //                StartDate = o.StartDate,
+    //                EndDate = o.EndDate,
+    //                Hours = o.Hours.Select(h => new {
+    //                  TimeBlockId = h.TimeBlockId,
+    //                  WeekDay = h.WeekDay,
+    //                  StartTime = h.StartTime,
+    //                  EndTime = h.EndTime
+    //                })
+    //              }),
+    //      tags = l.Tags
+    //              .Join(
+    //                db.Context.TagNames.Where(n => n.Lang == lang)
+    //                , t => t, n => n.Tag,
+    //                (t, n) => new { n.TagId, n.Name }
+    //              ),
+    //      //Tags = l.Tags
+    //      //.Select(t => new {
+    //      //  Id = t.Id,
+    //      //  Names = t.Names.Where(n => n.Lang == lang).Select(n => n.Name)
+    //      //})          
+    //      ////obsolete: now calculated on the client (keep code, maybe in the future filter by distance)
+    //      //Distance = string.IsNullOrEmpty(CloseTo) ? null : l.Position.Distance(DbGeography.FromText(CloseTo, 4326))
+    //    })
+    //    //.OrderBy(l => l.Id)
+    //    //.OrderBy(l => l.Distance)
+    //    ;
+    //}
 
     //[HttpOptions]
     //[AcceptVerbs("GET", "OPTIONS")]

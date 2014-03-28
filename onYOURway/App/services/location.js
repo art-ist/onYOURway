@@ -1,6 +1,6 @@
-﻿/// <reference path="../services/app.js" />
-/// <reference path="../services/logger.js" />
-/// <reference path="../services/platform.js" />
+﻿/// <reference path="app.js" />
+/// <reference path="logger.js" />
+/// <reference path="platform.js" />
 define([
   'services/app',
   'services/logger',

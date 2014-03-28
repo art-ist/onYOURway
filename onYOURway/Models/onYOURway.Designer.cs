@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Daten\Projekte\onYOURway\Source\0.8\onYOURway\onYOURway\Models\onYOURway.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Daten\Projekte\onYOURway\Source\onYOURway\onYOURway\Models\onYOURway.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
