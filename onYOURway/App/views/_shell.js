@@ -30,6 +30,7 @@ define([
       , { moduleId: 'my/registration',        route: ['my/registration'],                             title: 'Registrieren'   }
       , { moduleId: 'my/registrationExt',     route: ['my/registrationExt'],                          title: 'Registrieren'   }
       , { moduleId: 'my/profile',             route: ['my/profile++'],                                title: 'Profil'         }
+      , { moduleId: 'my/wizardNew',           route: ['my/wizardNew++'],                              title: 'Neuer Eintrag'  }
       , { moduleId: 'my/shoppingList',        route: ['my/shoppingList'],                             title: 'Einkaufsliste'  }
 
       , { moduleId: 'about/explorer',         route: ['about/explorer++', 'ueber/entdecker++'],       title: 'Entdecker'      }

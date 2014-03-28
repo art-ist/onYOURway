@@ -399,6 +399,8 @@
     <None Include="App\_styles\_onYOURway.less" />
     <Content Include="App\views\about\_preview.html" />
     <Content Include="App\views\about\_preview.js" />
+    <Content Include="App\views\my\wizardNew.html" />
+    <Content Include="App\views\my\wizardNew.js" />
     <Content Include="App\_libraries\jquery-ui-1.10.4.custom.js" />
     <Content Include="App\_libraries\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="App\_styles\themes\oyw1\images\animated-overlay.gif" />
