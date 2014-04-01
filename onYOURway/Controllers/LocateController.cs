@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Web.Http;
-using System.Data.Entity;
-using System.Data.Entity.Spatial;
 
 using Breeze.WebApi2;
 using Breeze.ContextProvider.EF6;
-using System.Web.Http.Cors;
-using onYOURway.Models;
-using System.Xml;
-using Newtonsoft.Json;
 using System.Data.SqlClient;
+using System.Xml;
+using System.Web.Http.Cors;
+using Newtonsoft.Json;
+using onYOURway.Models;
 
 namespace onYOURway.Controllers {
 

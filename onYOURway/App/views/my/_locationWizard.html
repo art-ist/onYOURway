@@ -2,14 +2,11 @@
   <ul class="nav nav-pills nav-stacked">
     <li><a href="#step0">Neuer Standort</a></li>
     <li><a href="#step1">Name & Beschreibung</a></li>
-    <li><a href="#step2"></a>K</li>
-    <li>Art</li>
-    <li>Branche</li>
-    <li>Produkte</li>
-    <!--speichern-->
-    <li>Öffnungszeiten</li>
-    <li>Foto</li>
-    <li>Partner</li>
+    <li><a href="#step2">Anschrift</a></li>
+    <li><a href="#step3">Öffnungszeiten & Kontaktdaten</a></li>
+    <li><a href="#step4">Geschäftsart</a></li>
+    <li><a href="#step5">Speichern</a></li>
+    <li><a href="#step6">Foto(s)</a></li>
   </ul>
 </div>
 
@@ -20,6 +17,7 @@
     <p>langer Einleitungstext</p>
   </article>
 
+  <!--Step1: Firma und Beschreibung-->
   <article id="step1">
     <h2>Name</h2>
     <p>Name und Beschreibung Ihres Unternehmens</p>
@@ -37,42 +35,129 @@
       <textarea class="form-control" maxlength="500" placeholder="Was bieten Sie an (max. 500 Zeichen)?" />
     </div>
   </article>
+
+
+  <!--Step2: Anschrift-->
   <article id="step2">
     <h2>Art</h2>
     <p>
       Haben Sie ein Geschäft, betreiben eine Gewerbe oder bieten Sie privat Dienstleistungen an?
       Welche Produkte bieten Sie an?
     </p>
+    <div class="form-inline" role="form">
+      <div class="form-group">
+        <label for="sr-only">Adresse</label>
+        <input type="text" class="form-control" id="=inputStreet" placeholder="Ihre Straße" data-bind="value: Street" />
+        <input type="text" class="form-control" id="inputHouseNumber" placeholder="Ihre Hausnummer" data-bind="value: HouseNumber" />
+      </div>
+    </div>
+    <div class="form-inline" role="form">
+      <div class="form-group">
+        <span class="input-group input-group-sm">
+          <label for="sr-only">PLZ / Ort</label>
+          <input type="text" class="form-control" id="inputZIP" maxlength="4" placeholder="Ihre PLZ" data-bind="value: ZIP" />
+          <input type="text" class="form-control" id="inputTown" placeholder="Ihr Ort" data-bind="value: Town" />
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <span class="input-group input-group-sm">
+        <label for="inputName">Land</label>
+        <input type="text" class="form-control" id="inputCountry" placeholder="AT" data-bind="value: Country" />
+      </span>
+    </div>
+    <button type="submit" class="btn btn-default">Finden!</button>
   </article>
+
+
+  <!--Step3: Öffnungszeiten, Kontaktdaten-->
   <article id="step3">
     <h2>Kontakt</h2>
-    <p>Wie wollen Sie von Ihren Kunden erreicht werden? (Alle Angaben sind optional.)</p>
+    <p>Wie und wann wollen Sie von Ihren Kunden erreicht werden? (Alle Angaben sind optional.)</p>
+    <select multiple class="form-control" aria-labelledby="Geöffnet am">
+      <option>Mo - Do</option>
+      <option>Mo - Fr</option>
+      <option>Sa</option>
+      <option>Do</option>
+      <option>Mo</option>
+      <option>Di</option>
+      <option>Mi</option>
+      <option>Do</option>
+      <option>Fr</option>
+    </select>
+    <select multiple class="form-control" aria-labelledby="Öffnungszeiten">
+      <option>09:00-17:00</option>
+      <option>08:00-18:00</option>
+      <option>08:00-12:00</option>
+      <option>13:00-18:00</option>
+    </select>
+
+    <div class="input-group">
+      <label for="inputName">Ihre spezielle Öffnungszeit</label>
+      <!--see: http://wiki.openstreetmap.org/wiki/Key:opening_hours -->
+      <!--evaluation tool: http://openingh.openstreetmap.de/evaluation_tool -->
+      <input type="text" class="form-control" id="inputDayTimeIndividual" placeholder="Ihre spezielle Öffnungszeit" />
+    </div>
     <div class="form-group">
       <label for="inputName">Telefon</label>
-      <input type="text" class="form-control" id="inputName" placeholder="Tit. Vorname Nachname" />
+      <input type="text" class="form-control" id="inputName" placeholder="z.B.: 02252 123 456 78 " />
     </div>
     <div class="form-group">
       <label for="inputName">Email</label>
-      <input type="text" class="form-control" id="inputName" placeholder="Tit. Vorname Nachname" />
+      <input type="text" class="form-control" id="inputName" placeholder="z.B.: ich@wo.at" />
     </div>
-    <!---->
   </article>
+
+
+  <!--Step4: Geschäftsart-->
   <article id="step4">
-    <h2>Öffnungszeiten</h2>
-    <p>Wöchentlich fixe Öffnungszeiten? Aber vielleicht gibt es auch Ausnahmen.</p>
+    <h2>Geschäftsart</h2>
+    <p>
+      Was ist Ihre hauptsächliche Geschäftsart?
+      Mehrere Angaben möglich:
+    </p>
+    <div class="form-group">
+      <ul class="dropdown-menu" role="menu" aria-labelledby="Hauptsächliche Geschäftsart">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Einzelhandel</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gastronomie</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Erzeuger</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <label for="inputName">Lifestyle</label>
+      <input type="text" class="form-control" id="inputName" placeholder="Welche Lifestyle-Kriterien treffen zu (z.B. Bio, Fairtrade, aus der Region, ....)" />
+    </div>
   </article>
+
+
+  <!--Step5: Speichern-->
   <article id="step5">
+    <h2>Angaben speichern</h2>
+    <p>Speichern Ihrer Angaben</p>
+    <div class="btn-group btn-group-lg">
+      <button type="button" class="btn btn-default">Speichern</button>
+      <button type="button" class="btn btn-default">Abbruch</button>
+    </div>
+  </article>
+
+
+  <!--Step6: Foto(s) hochladen-->
+  <article id="step6">
     <h2>Foto</h2>
     <p>Ein Foto ist wie eine ansprechende Auslage. Eine Einladung.</p>
+    <div class="btn-group-vertical">
+      <button type="button" class="btn btn-default">Foto hochladen</button>
+      <button type="button" class="btn btn-default">Jetzt fotografieren</button>
+      <button type="button" class="btn btn-default">Speichern</button>
+    </div>
+
     <!--
-      crop: http://deepliquid.com/projects/Jcrop/demos.php?demo=live_crop
-      an alternative, commercial idea: http://0.s3.envato.com/files/72583218/index.html
+        crop: http://deepliquid.com/projects/Jcrop/demos.php?demo=live_crop
+        an alternative, commercial idea: http://0.s3.envato.com/files/72583218/index.html
     -->
-
   </article>
-  <article id="step6">
-  </article>
-  <article id="step7">
-  </article>
-
 </form>

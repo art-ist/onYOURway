@@ -48,7 +48,7 @@ define([
 
     user: {
       Name: ko.observable(null),
-      isAuthenticated: ko.observable(true),
+      isAuthenticated: ko.observable(false),
       //accessToken: null,
       //rememberMe: ko.observable(null),
       navigateToLoggedIn: navigateToLoggedIn,

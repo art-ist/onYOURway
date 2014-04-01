@@ -552,12 +552,11 @@ define([
                     "state": "Niederösterreich",
                     "country": "Österreich",
                     "country_code": "at"
-                    }
-                  });
-                } catch (e) {
-                  logger.log('OpeningHours Error: ' +e, 'locate', item);
-                }
-
+                  }
+                });
+              } catch (e) {
+                logger.log('OpeningHours Error: ' +e, 'locate', item);
+              }
             }
 
             //** isOpen **
