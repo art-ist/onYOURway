@@ -1,25 +1,25 @@
 ﻿function AppDataModel() {
   var self = this,
       // Routes
-      addExternalLoginUrl = "/api/Account/AddExternalLogin",
-      changePasswordUrl = "/api/Account/changePassword",
-      loginUrl = "/Token",
-      logoutUrl = "/api/Account/Logout",
-      registerUrl = "/api/Account/Register",
-      registerExternalUrl = "/api/Account/RegisterExternal",
-      removeLoginUrl = "/api/Account/RemoveLogin",
-      setPasswordUrl = "/api/Account/setPassword",
-      siteUrl = "/",
-      userInfoUrl = "/api/Account/UserInfo";
+      addExternalLoginUrl = config.host + "/api/Account/AddExternalLogin",
+      changePasswordUrl = config.host + "/api/Account/changePassword",
+      loginUrl = config.host + "/Token",
+      logoutUrl = config.host + "/api/Account/Logout",
+      registerUrl = config.host + "/api/Account/Register",
+      registerExternalUrl = config.host + "/api/Account/RegisterExternal",
+      removeLoginUrl = config.host + "/api/Account/RemoveLogin",
+      setPasswordUrl = config.host + "/api/Account/setPassword",
+      siteUrl = config.host + "/",
+      userInfoUrl = config.host + "/api/Account/UserInfo";
 
   // Route operations
   function externalLoginsUrl(returnUrl, generateState) {
-    return "/api/Account/ExternalLogins?returnUrl=" + (encodeURIComponent(returnUrl)) +
+    return config.host + "/api/Account/ExternalLogins?returnUrl=" + (encodeURIComponent(returnUrl)) +
         "&generateState=" + (generateState ? "true" : "false");
   }
 
   function manageInfoUrl(returnUrl, generateState) {
-    return "/api/Account/ManageInfo?returnUrl=" + (encodeURIComponent(returnUrl)) +
+    return config.host + "/api/Account/ManageInfo?returnUrl=" + (encodeURIComponent(returnUrl)) +
         "&generateState=" + (generateState ? "true" : "false");
   }
 

@@ -89,7 +89,7 @@
         return;
       }
       $.ajax({
-        url: '/api/my/Notify',
+        url: config.host + '/api/my/Notify',
         type: 'POST',
         contentType: 'application/json',
         data: {

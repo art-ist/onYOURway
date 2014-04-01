@@ -30,7 +30,7 @@ namespace onYOURway.Tests {
       
       //Get data from server
       WebClient client = new WebClient();
-      var response = new StreamReader(client.OpenRead(host + "/api/Locate/Regions")).ReadToEnd();
+      var response = new StreamReader(client.OpenRead(host + config.host + "/api/Locate/Regions")).ReadToEnd();
 
       //basic checks on the JSON string
       Assert.IsTrue(response.Contains("Baden bei Wien"), "JSON should contain 'Baden bei Wien'.");

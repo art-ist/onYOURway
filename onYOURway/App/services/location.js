@@ -9,10 +9,9 @@ define([
 ], function (app, logger, platform, router) {
 
   // serviceUri is route to the Web API controller
-  var locateServiceUri = '/api/locate';
   var locateMetadata = new breeze.MetadataStore(); //see: http://www.breezejs.com/documentation/naming-convention
   var locateContext = new breeze.EntityManager({
-    serviceName: locateServiceUri,
+    serviceName: config.host + '/api/locate',
     metadataStore: locateMetadata
   });
   // add basic auth header to breeze calls
@@ -26,7 +25,7 @@ define([
   // JSON proxy for not CORS-enabled cross domain calls
   var proxy = 'JP.aspx?u=';
 
-  var cmk = config.apiKeys.cloudmade;
+  var cmk = config.apiKey.cloudmade;
   var attribution = ' <a href="http://openstreetmap.org">OpenStreetMap</a> — <a href="http://onyourway.at">onYOURway</a>';
 
   var location = {
@@ -730,7 +729,7 @@ define([
     var lang = 'de';
 
     var url = proxy + 'http://routes.cloudmade.com/' +cmk
-            + '/api/0.3/' +startC[1] + ',' + startC[0] + ',' + endC[1]+ ',' + endC[0]+ '/' + location.settings.mode() + '.js?lang=de&units=km';
+            + config.host + '/api/0.3/' +startC[1] + ',' + startC[0] + ',' + endC[1]+ ',' + endC[0]+ '/' + location.settings.mode() + '.js?lang=de&units=km';
     return $.getJSON(url)
       .pipe(function (route) {
         if(route.status === 0) {
