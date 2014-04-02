@@ -525,15 +525,12 @@ define([
       .executeQuery(query)
       .then(function (d) {
         if(d.results) {
-          //var jsonResponse = $.parseJSON(d.results[0]);
-          var jsonResponse = ko.mapping.fromJSON(d.results[0]);
-          var places = jsonResponse.Places.Place();
-          //logger.log('places found', 'location', places);
+          var places = ko.mapping.fromJS(d.results[0].Places.Place)();
+          //logger.log('places found', 'location - _loadPlaces', places);
 
           //extend places
           //$.each(places, function (i, item) {
           places.forEach(function (item) {
-
             if(item.Position && item.Position().startsWith("POINT")) item.coords = item.Position().replace(/POINT \(/, '').replace(/\)/, '').split(' ');
 
             //** opening_hours **

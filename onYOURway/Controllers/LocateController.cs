@@ -11,15 +11,21 @@ using onYOURway.Models;
 
 namespace onYOURway.Controllers {
 
+  /// <summary>
+  /// Api for mapping data: regions and locations in these regions
+  /// </summary>
   [EnableCors("*", "*", "*")]
   [BreezeController]
   public class LocateController : ApiController {
 
     readonly EFContextProvider<onYOURwayEntities> db = new EFContextProvider<onYOURwayEntities>();
 
-    //[HttpGet]
+    /// <summary>
+    /// Returns object metadata based on the DB schema required by the Breeze client
+    /// </summary>
+    /// <returns>Metadata</returns>
     [HttpOptions]
-    [AcceptVerbs("GET", "OPTIONS")]
+    [AcceptVerbs("GET", "OPTIONS")] //[HttpGet]
     public string Metadata() {
       return db.Metadata();
     }
@@ -235,6 +241,12 @@ namespace onYOURway.Controllers {
     //  return result;
     //} //GetPlaces
 
+    /// <summary>
+    /// Gets all features of the selected region as search suggestions (typeahead) for the main search box
+    /// </summary>
+    /// <param name="RegionId">Id of the current region</param>
+    /// <param name="lang">Language id e.g. "de"</param>
+    /// <returns></returns>
     [HttpGet]
     public dynamic SearchSuggestions(int RegionId, string lang = "de") {
       return
@@ -252,7 +264,6 @@ namespace onYOURway.Controllers {
     [HttpGet]
     public dynamic Places(int RegionId, string lang = "de") {
       ////string xml = db.Context.GetPlaces(RegionId, lang).First().ToString();
-
       string xml = null;
       using (SqlCommand cd = new SqlCommand()) {
         cd.Connection = (SqlConnection)((Glimpse.Ado.AlternateType.GlimpseDbConnection)db.Context.Database.Connection).InnerConnection;
@@ -273,14 +284,9 @@ namespace onYOURway.Controllers {
       }
       XmlDocument doc = new XmlDocument();
       doc.LoadXml(xml);
-      string json = JsonConvert.SerializeXmlNode(doc);
+      //string json = JsonConvert.SerializeXmlNode(doc);
       //return new System.Web.Mvc.ContentResult { Content = json, ContentType = "application/json" };
-      return json;
-
-      //return db.Context
-      //         .GetPlaces(RegionId, lang)
-      //         .ToArray();
-
+      return doc;
     } //Places
 
   } //class

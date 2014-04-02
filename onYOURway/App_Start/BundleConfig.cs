@@ -2,8 +2,16 @@
 using System.Web.Optimization;
 
 namespace onYOURway {
+  
+  /// <summary>
+  /// Handles js and css (static) includes for the Home View (rendered to index.html)
+  /// </summary>
   public class BundleConfig {
 
+    /// <summary>
+    /// Defines bundles of includes that can be used in Razor views.
+    /// </summary>
+    /// <param name="bundles">List of registered bundles</param>
     public static void RegisterBundles(BundleCollection bundles) {
      // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
      bundles.IgnoreList.Clear();
@@ -122,6 +130,10 @@ namespace onYOURway {
 
     } //RegisterBundles
 
+    /// <summary>
+    /// Defines which files to ignore when a bundle is defined to include a complete folder.
+    /// </summary>
+    /// <param name="ignoreList">List of file patterns to be ignored</param>
     public static void AddDefaultIgnorePatterns(IgnoreList ignoreList) {
       if (ignoreList == null) {
         throw new ArgumentNullException("ignoreList");
