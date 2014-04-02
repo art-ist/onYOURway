@@ -45,8 +45,11 @@
     self.location = {
       Name: ko.observable('Willixhofer'),
       Description: ko.observable('Willixhofer'),
-      Street: ko.observable(),
-      HouseNumber: ko.observable(),
+      Street: ko.observable('Hauptplatz'),
+      HouseNumber: ko.observable('12'),
+      PostalCode: ko.observable('2500'),
+      City: ko.observable('Baden'),
+      Country: ko.observable('AT'),
       //...
       HasTag: ko.observableArray(),
       LocationLink:  ko.observableArray()

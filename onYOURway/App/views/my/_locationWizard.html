@@ -21,92 +21,135 @@
   <article id="step1">
     <h2>Name</h2>
     <p>Name und Beschreibung Ihres Unternehmens</p>
-    <div class="form-group">
-      <label for="inputName">Name</label>
-      <input type="text" class="form-control" id="inputName" placeholder="z.B. Firma" data-bind="value: Name" />
-    </div>
-    <div class="form-group">
-      <label for="inputName">Alias-Namen</label>
-      <input type="text" class="form-control" id="inputNewAlias" placeholder="auch bekannt als" />
-      <button type="button" class="btn" />
-    </div>
-    <div class="form-group">
-      <label for="inputName">Beschreibung</label>
-      <textarea class="form-control" maxlength="500" placeholder="Was bieten Sie an (max. 500 Zeichen)?" />
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="z.B. Firma" data-bind="value: Name" />
+      </div>
+      <div class="form-group col-md-12">
+        <label for="inputName">Alias-Namen</label>
+        <input type="text" class="form-control" id="inputNewAlias" placeholder="auch bekannt als" />
+        <!--<button type="button" class="btn" />-->
+      </div>
+      <div class="form-group col-md-12">
+        <label for="inputName">Beschreibung</label>
+        <textarea class="form-control" maxlength="500" placeholder="Was bieten Sie an (max. 500 Zeichen)?" />
+      </div>
     </div>
   </article>
-
 
   <!--Step2: Anschrift-->
   <article id="step2">
-    <h2>Art</h2>
-    <p>
-      Haben Sie ein Geschäft, betreiben eine Gewerbe oder bieten Sie privat Dienstleistungen an?
-      Welche Produkte bieten Sie an?
-    </p>
-    <div class="form-inline" role="form">
-      <div class="form-group">
-        <label for="sr-only">Adresse</label>
-        <input type="text" class="form-control" id="=inputStreet" placeholder="Ihre Straße" data-bind="value: Street" />
-        <input type="text" class="form-control" id="inputHouseNumber" placeholder="Ihre Hausnummer" data-bind="value: HouseNumber" />
-      </div>
-    </div>
-    <div class="form-inline" role="form">
-      <div class="form-group">
-        <span class="input-group input-group-sm">
-          <label for="sr-only">PLZ / Ort</label>
-          <input type="text" class="form-control" id="inputZIP" maxlength="4" placeholder="Ihre PLZ" data-bind="value: ZIP" />
-          <input type="text" class="form-control" id="inputTown" placeholder="Ihr Ort" data-bind="value: Town" />
-        </span>
-      </div>
-    </div>
-    <div class="form-group">
-      <span class="input-group input-group-sm">
-        <label for="inputName">Land</label>
-        <input type="text" class="form-control" id="inputCountry" placeholder="AT" data-bind="value: Country" />
-      </span>
-    </div>
-    <button type="submit" class="btn btn-default">Finden!</button>
-  </article>
+    <h2>Anschrift</h2>
+    <div class="row">
+      <!--Adresse-->
+      <div class="col-sm-6 align-left align-right">
+        <div class="row">
+          <p>Bitte Ihre Adressdaten eintragen:</p>
+          <div class="form-group col-sm-8 align-left">
+            <label class="sr-only" for="inputStreet">Straße</label>
+            <label for="inputStreet">Straße</label>
+            <input type="text" class="form-control" id="inputStreet" placeholder="Straße" data-bind="value: Street">
+          </div>
+          <div class="form-group col-sm-4 align-left">
+            <label class="sr-only" for="inputHausnummer">Hausnummer</label>
+            <label for="inputHausnummer">Hausnummer</label>
+            <input type="text" class="form-control" id="inputHouseNumber" placeholder="00" data-bind="value: HouseNumber">
+          </div>
+          <div class="form-group col-sm-4 align-left">
+            <label class="sr-only" for="inputZIP">PLZ</label>
+            <label for="inputZIP">PLZ</label>
+            <input type="text" class="form-control" id="inputZIP" maxlength="4" placeholder="1234" data-bind="value: PostalCode">
+          </div>
+          <div class="form-group col-sm-8 align-left">
+            <label class="sr-only" for="inputTown">Ort</label>
+            <label for="inputTown">Ort</label>
+            <input type="text" class="form-control" id="inputTown" maxlength="36" placeholder="Ort" data-bind="value: City">
+          </div>
 
+          <div class="col-sm-12 align-left">
+            <label class="sr-only" for="inputCountry">Land</label>
+            <label for="inputCountry">Land</label>
+            <select class="form-control" id="inputCountry" data-bind="value: Country">
+              <option value="DE">Deutschland</option>
+              <option value="FR">Frankreich</option>
+              <option value="AT">Österreich</option>
+              <option value="CH">Schweiz</option>
+              <option value="IT">Südtirol</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <h4>Position</h4>
+          <button type="submit" class="btn btn-default">Adresse anzeigen</button>
+          <button type="submit" class="btn btn-default">Position verwenden</button>
+        </div>
+      </div>
+
+      <!--Karte-->
+      <div class="col-sm-6 well">
+        map here
+      </div>
+    </div>
+  </article>
 
   <!--Step3: Öffnungszeiten, Kontaktdaten-->
   <article id="step3">
     <h2>Kontakt</h2>
-    <p>Wie und wann wollen Sie von Ihren Kunden erreicht werden? (Alle Angaben sind optional.)</p>
-    <select multiple class="form-control" aria-labelledby="Geöffnet am">
-      <option>Mo - Do</option>
-      <option>Mo - Fr</option>
-      <option>Sa</option>
-      <option>Do</option>
-      <option>Mo</option>
-      <option>Di</option>
-      <option>Mi</option>
-      <option>Do</option>
-      <option>Fr</option>
-    </select>
-    <select multiple class="form-control" aria-labelledby="Öffnungszeiten">
-      <option>09:00-17:00</option>
-      <option>08:00-18:00</option>
-      <option>08:00-12:00</option>
-      <option>13:00-18:00</option>
-    </select>
+    <div class="row">
+      <p>Wie und wann wollen Sie von Ihren Kunden erreicht werden? (Alle Angaben sind optional.)</p>
+      <label for="Verkaufstage" class="control-label">Öffnungszeiten</label>
+      <div class="row">
+        <div class="form-group col-sm-5 align-left">
+          <label class="sr-only" aria-labelledby="Verkaufstage"></label>
+          <select class="form-control" aria-labelledby="Verkaufstage">
+            <option value="Mo-Th">Mo-Do</option>
+            <option value="Sa">Sa</option>
+            <option value="Th">Do</option>
+            <option value="Mo">Mo</option>
+            <option value="Tu">Di</option>
+            <option value="We">Mi</option>
+            <option value="Th">Do</option>
+            <option value="Fr">Fr</option>
+            <option value="PH">Feiertag</option>
+          </select>
+        </div>
+        <div class="form-group col-sm-4 align-left">
+          <label class="sr-only" aria-labelledby="Öffnungszeiten"></label>
+          <select class="form-control" aria-labelledby="Öffnungszeiten">
+            <option value="09:00-17:00">09:00-17:00</option>
+            <option value="08:00-18:00">08:00-18:00</option>
+            <option value="08:00-12:00">08:00-12:00</option>
+            <option value="13:00-18:00">13:00-18:00</option>
+          </select>
+        </div>
+        <div class="form-group col-sm-3 align-left">
+          <label class="sr-only" aria-labelledby="geöffnet"></label>
+          <select class="form-control" aria-labelledby="geöffnet">
+            <option value="">geöffnet</option>
+            <option value="closed">geschlossen</option>
+          </select>
+        </div>
+        <div class="form-group col-sm-12 align-left">
+          <label for="sr-only">Ihre Öffnungszeiten</label>
+          <!--see: http://wiki.openstreetmap.org/wiki/Key:opening_hours -->
+          <!--evaluation tool: http://openingh.openstreetmap.de/evaluation_tool -->
+          <input type="text" class="form-control" id="inputDayTimeIndividual" placeholder="z.B.: Mo-Fr 08:00-18:00">
+        </div>
+      </div>
 
-    <div class="input-group">
-      <label for="inputName">Ihre spezielle Öffnungszeit</label>
-      <!--see: http://wiki.openstreetmap.org/wiki/Key:opening_hours -->
-      <!--evaluation tool: http://openingh.openstreetmap.de/evaluation_tool -->
-      <input type="text" class="form-control" id="inputDayTimeIndividual" placeholder="Ihre spezielle Öffnungszeit" />
+      <div class="form-group col-sm-6 align-left">
+        <label class="sr-only" for="inputEmail">Telefon</label>
+        <label for="inputPhone">Telefon</label>
+        <input type="text" class="form-control" id="inputPhone" placeholder="z.B.: 02252 123 456 78 ">
+      </div>
+      <div class="form-group col-sm-6 align-left">
+        <label class="sr-only" for="inputEmail">E-Mail</label>
+        <label for="inputEmail">Email</label>
+        <input type="text" class="form-control" id="inputEmail" placeholder="z.B.: ich@binich.at">
+      </div>
     </div>
-    <div class="form-group">
-      <label for="inputName">Telefon</label>
-      <input type="text" class="form-control" id="inputName" placeholder="z.B.: 02252 123 456 78 " />
-    </div>
-    <div class="form-group">
-      <label for="inputName">Email</label>
-      <input type="text" class="form-control" id="inputName" placeholder="z.B.: ich@wo.at" />
-    </div>
-  </article>
+</article>
 
 
   <!--Step4: Geschäftsart-->
