@@ -28,6 +28,8 @@
 
     //#region control display of map-parts
 
+    //#region Properties
+
     self.showMap = ko.computed(function () {
       if (location.settings.showMap() === 'auto') {
         return true;
@@ -55,37 +57,9 @@
       } 
     });
 
-    self.toggleMap = function () {
-      if(location.settings.showMap() === 'auto') 
-        location.settings.showMap(false);
-      else
-        location.settings.showMap('auto');
-    };
-    self.toggleList = function () {
-      if(location.settings.showList() === 'auto') 
-        location.settings.showList(false);
-      else
-        location.settings.showList('auto');
-      //location.map.invalidateSize(true);
-    };
-    self.toggleDetails = function () {
-      //if(location.settings.showDetails() === 'auto') 
-      //  location.settings.showDetails(false);
-      //else
-      //  location.settings.showDetails('auto');
-      ////location.map.invalidateSize(true);
-      if ($('#ventureDetails').hasClass('detailsOpen')) {
-        $('#ventureDetails, #locationList, #map')
-          .removeClass('detailsOpen');
-      }
-      else {
-        $('#ventureDetails, #locationList, #map')
-          .addClass('detailsOpen');
-      }
-    };
+    //#endregion Properties
 
     //#endregion control display of map-parts
-
 
   };
   return vm;

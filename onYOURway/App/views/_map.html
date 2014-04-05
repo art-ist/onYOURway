@@ -6,15 +6,15 @@
                           , css: { listOpen: showList }
                           ">
 
-    <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: toggleList">
+    <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleList">
       <i class="fa" data-bind="css: { 'fa-arrow-right': location.settings.showMap, 'fa-arrow-left': !location.settings.showMap() }"></i>
     </button>
   </div>
   <!--/Map-->
   <!--List-->
   <div id="locationList" data-bind="css: { listOpen: showList }">
-    <!--<button class="btn oyw-btn-slide oyw-btn-slide-left" data-bind="click: toggleMap"><i class="fa fa-arrow-left"></i></button>-->
-    <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: toggleDetails"><i class="fa fa-arrow-right"></i></button>
+    <!--<button class="btn oyw-btn-slide oyw-btn-slide-left" data-bind="click: location.toggleMap"><i class="fa fa-arrow-left"></i></button>-->
+    <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleDetails"><i class="fa fa-arrow-right"></i></button>
 
     <!--list ventures found-->
     <ul data-bind="foreach: location.mapLocations" class="nav nav-list">
@@ -36,7 +36,7 @@
   <!--/List-->
   <!--/Details-->
   <div id="ventureDetails" data-bind="with: location.selectedItem">
-    <!--<button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: $root.toggleList"><i class="fa fa-arrow-right"></i></button>-->
+    <!--<button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: $root.location.toggleList"><i class="fa fa-arrow-right"></i></button>-->
 
     <div class="ventureDetails-imageArea">
       <img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
