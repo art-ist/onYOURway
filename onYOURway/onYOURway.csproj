@@ -396,6 +396,9 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Content Include="App\_styles\_onYOURway.css.map">
+      <DependentUpon>_onYOURway.css</DependentUpon>
+    </Content>
     <None Include="App\_styles\_onYOURway.less" />
     <Content Include="App\views\about\_preview.html" />
     <Content Include="App\views\about\_preview.js" />

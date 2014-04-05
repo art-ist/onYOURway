@@ -1,7 +1,7 @@
-/*colors*/
+﻿/*colors*/
 /***************************/
 /* Boostrap overrides      */
-/*#region jQueryUI slider*/
+/*# sourceMappingURL=_onYOURway.css.map */
 .ui-slider {
   background: none;
   background-color: #f0f0f0;
@@ -75,8 +75,8 @@
 		overflow: visible;
 	}
 */
-/*#endregion jQueryUI slider (fix)*/
-/*#region theme */
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 .gender {
   opacity: 0.5;
 }
@@ -212,8 +212,8 @@ ol {
   border-bottom: 3px solid #fba21c;
   margin-bottom: 10px;
 }
-/*#endregion theme */
-/*#region layout */
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 /*body.slide-active {
 	overflow-x: hidden;
 }
@@ -324,7 +324,13 @@ form > .row {
 .no-padding {
   padding: 0 !important;
 }
-/*#region responsive tweaks*/
+.align-left {
+  padding-left: 0;
+}
+.align-right {
+  padding-right: 0;
+}
+/*# sourceMappingURL=_onYOURway.css.map */
 /* un fix the navbar when active so that all the menu items are accessible */
 /*.navbar.navbar-fixed-top.slide-active {
 	position: relative;
@@ -398,9 +404,9 @@ form > .row {
   /* lg */
 }
 /* lg */
-/*#endregion responsive tweaks*/
-/*#endregion layout */
-/*#region nav */
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 .navbar {
   border-top: none;
   border-bottom: 1px solid #f1f1f1;
@@ -539,8 +545,8 @@ nav .dropdown-toggle:hover:after {
     left: 92%;
   }
 }
-/*#endregion nav */
-/*#region searchbar*/
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 #searchbar {
   position: absolute;
   z-index: 999;
@@ -586,8 +592,8 @@ nav .dropdown-toggle:hover:after {
   }
 }
 /* xs & sm */
-/*#endregion searchbar*/
-/*#region controls */
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 /*.loader {
 	z-index: 200;
 	visibility: hidden;
@@ -671,8 +677,8 @@ nav .dropdown-toggle:hover:after {
   position: absolute;
   margin-left: -0.5em;
 }
-/*#endregion controls */
-/*#region map*/
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 #map {
   position: absolute;
   top: 50px;
@@ -709,8 +715,8 @@ path.oyw-map-pointer {
   border-radius: 5px;
   border-width: 2px !important;
 }
-/*#endregion map*/
-/*#region locationList */
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 #locationList {
   display: none;
   position: absolute;
@@ -827,8 +833,8 @@ path.oyw-map-pointer {
     width: 100%;
   }
 }
-/*#endregion locationList */
-/*#region locationDetails*/
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 #ventureDetails {
   display: none;
   position: absolute;
@@ -906,8 +912,8 @@ path.oyw-map-pointer {
     width: 100%;
   }
 }
-/*#endregion locationDetails*/
-/*#region shopping list*/
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 .oyw-bg-overlay {
   position: absolute;
   top: 0;
@@ -929,13 +935,13 @@ path.oyw-map-pointer {
   text-decoration: line-through;
   opacity: 0.5;
 }
-/*#endregion shopping list*/
-/*#region owl-carousel*/
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 #idee.owl-carousel {
   overflow: hidden;
 }
-/*#endregion owl-carousel*/
-/*#region media content*/
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 .video-container {
   position: relative;
   padding: 30px 0 56.25% 0;
@@ -951,8 +957,8 @@ path.oyw-map-pointer {
   width: 100%;
   height: 100%;
 }
-/*#endregion media content*/
-/*#region tour (introjs)*/
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 .introjs-helperNumberLayer {
   position: absolute;
   top: -3px;
@@ -985,4 +991,5 @@ a.introjs-button :active {
   text-decoration: none;
   outline: none;
 }
-/*#endregion tour (introjs)*/
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
