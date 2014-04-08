@@ -28,6 +28,9 @@
       //app.tools.search(false);  //hide search panel
       location.search(location.searchFor());
     },
+    test: function () {
+      location.editLocation(138);
+    }
 
     ////#region typeahead search
     //match: function (item) {

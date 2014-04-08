@@ -288,7 +288,21 @@ namespace onYOURway.Controllers {
       //return new System.Web.Mvc.ContentResult { Content = json, ContentType = "application/json" };
       return doc;
     } //Places
+    
+    [HttpGet]
+    public dynamic Location(double Id) {
+      return db.Context
+        .Locations
+        .Include("Aliases")
+        .Include("Tags")
+        .Include("Links")
+        .Where(l => l.Id == Id)
+        .FirstOrDefault()
+        ;
+    }
 
   } //class
+
+
 
 } //ns
