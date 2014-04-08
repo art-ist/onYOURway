@@ -4,7 +4,7 @@
   'services/auth'
 ], function (logger, app, auth) {
 
-var vm = function () {
+  var vm = function () {
     var self = this;
 
     self.app = app;
@@ -23,8 +23,9 @@ var vm = function () {
   //#region Lifecycle Events
 
   function activate() {
-   
   }
 
   //#endregion Lifecycle Events
+
+
 }); //define

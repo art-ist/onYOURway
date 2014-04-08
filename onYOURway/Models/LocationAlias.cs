@@ -17,6 +17,7 @@ namespace onYOURway.Models
         public long LocationId { get; set; }
         public string Lang { get; set; }
         public string Name { get; set; }
+        public long Id { get; set; }
     
         public virtual Location Location { get; set; }
     }

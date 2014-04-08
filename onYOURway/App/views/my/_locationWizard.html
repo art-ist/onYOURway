@@ -28,7 +28,14 @@
       </div>
       <div class="form-group col-md-12">
         <label for="inputName">Alias-Namen</label>
-        <input type="text" class="form-control" id="inputNewAlias" placeholder="auch bekannt als" />
+        <button class="btn btn-success btn-sm" data-bind="click: $root.addAlias"><i class="fa fa-plus"></i><span class="sr-only">Neuer Alias</span></button>
+        <ul data-bind="foreach: Aliases">
+          <li>
+            <input type="text" class="form-control" id="inputNewAlias" data-bind="value: Name" placeholder="auch bekannt als" />
+            <input type="text" class="form-control" id="inputNewAlias" data-bind="value: Lang" placeholder="Sprache" />
+            <button class="btn btn-danger btn-sm" data-bind="click: $root.removeAlias"><i class="fa fa-trash-o"></i><span class="sr-only">Alias löschen</span></button>
+          </li>
+        </ul>
         <!--<button type="button" class="btn" />-->
       </div>
       <div class="form-group col-md-12">
@@ -59,7 +66,7 @@
           <div class="form-group col-sm-4 align-left">
             <label class="sr-only" for="inputZIP">PLZ</label>
             <label for="inputZIP">PLZ</label>
-            <input type="text" class="form-control" id="inputZIP" maxlength="4" placeholder="1234" data-bind="value: PostalCode">
+            <input type="text" class="form-control" id="inputZIP" maxlength="4" placeholder="1234" data-bind="value: Zip">
           </div>
           <div class="form-group col-sm-8 align-left">
             <label class="sr-only" for="inputTown">Ort</label>
@@ -141,7 +148,7 @@
       <div class="form-group col-sm-6 align-left">
         <label class="sr-only" for="inputEmail">Telefon</label>
         <label for="inputPhone">Telefon</label>
-        <input type="text" class="form-control" id="inputPhone" placeholder="z.B.: 02252 123 456 78 ">
+        <input type="text" class="form-control" id="inputPhone" data-bind="Phone" placeholder="z.B.: 02252 123 456 78 ">
       </div>
       <div class="form-group col-sm-6 align-left">
         <label class="sr-only" for="inputEmail">E-Mail</label>

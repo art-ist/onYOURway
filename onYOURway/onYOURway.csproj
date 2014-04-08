@@ -317,12 +317,6 @@
     <Compile Include="Models\LocationLink.cs">
       <DependentUpon>onYOURway.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LocationOpen.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LocationOpenHour.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Membership.cs">
       <DependentUpon>onYOURway.tt</DependentUpon>
     </Compile>
@@ -396,6 +390,8 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Content Include="App\views\my\wizardEdit.html" />
+    <Content Include="App\views\my\wizardEdit.js" />
     <Content Include="App\_styles\_onYOURway.css.map">
       <DependentUpon>_onYOURway.css</DependentUpon>
     </Content>

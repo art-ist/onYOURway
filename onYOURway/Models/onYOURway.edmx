@@ -78,18 +78,17 @@
           <Property Name="ModifiedAt" Type="datetime2" Precision="2" />
           <Property Name="Position" Type="geography" />
           <Property Name="Icon" Type="nvarchar" MaxLength="50" />
+          <Property Name="OpeningHours" Type="varchar" MaxLength="1000" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'onYOURway.oyw.LocationAlias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="LocationAlias">
           <Key>
-            <PropertyRef Name="LocationId" />
-            <PropertyRef Name="Lang" />
-            <PropertyRef Name="Name" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="LocationId" Type="bigint" Nullable="false" />
           <Property Name="Lang" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="LocationForeignId">
           <Key>
@@ -110,29 +109,6 @@ warning 6002: The table/view 'onYOURway.oyw.LocationAlias' does not have a prima
           <Property Name="Lang" Type="char" MaxLength="2" />
           <Property Name="Tag" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="URL" Type="varchar" MaxLength="1000" Nullable="false" />
-        </EntityType>
-        <EntityType Name="LocationOpen">
-          <Key>
-            <PropertyRef Name="LocationId" />
-            <PropertyRef Name="OpenId" />
-          </Key>
-          <Property Name="LocationId" Type="bigint" Nullable="false" />
-          <Property Name="OpenId" Type="int" Nullable="false" />
-          <Property Name="StartDate" Type="date" />
-          <Property Name="EndDate" Type="date" />
-        </EntityType>
-        <EntityType Name="LocationOpenHours">
-          <Key>
-            <PropertyRef Name="LocationId" />
-            <PropertyRef Name="OpenId" />
-            <PropertyRef Name="TimeBlockId" />
-          </Key>
-          <Property Name="LocationId" Type="bigint" Nullable="false" />
-          <Property Name="OpenId" Type="int" Nullable="false" />
-          <Property Name="TimeBlockId" Type="int" Nullable="false" />
-          <Property Name="WeekDay" Type="tinyint" />
-          <Property Name="StartTime" Type="time" Precision="0" Nullable="false" />
-          <Property Name="EndTime" Type="time" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Partner">
           <Key>
@@ -392,32 +368,6 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_oyw_LocationOpen_Location">
-          <End Role="Location1" Type="Self.Location1" Multiplicity="1" />
-          <End Role="LocationOpen" Type="Self.LocationOpen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location1">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LocationOpen">
-              <PropertyRef Name="LocationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_oyw_LocationOpenHours_LocationOpen">
-          <End Role="LocationOpen" Type="Self.LocationOpen" Multiplicity="1" />
-          <End Role="LocationOpenHours" Type="Self.LocationOpenHours" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LocationOpen">
-              <PropertyRef Name="LocationId" />
-              <PropertyRef Name="OpenId" />
-            </Principal>
-            <Dependent Role="LocationOpenHours">
-              <PropertyRef Name="LocationId" />
-              <PropertyRef Name="OpenId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_oyw_ProductSuggestion_Location">
           <End Role="Location1" Type="Self.Location1" Multiplicity="0..1" />
           <End Role="ProductSuggestion" Type="Self.ProductSuggestion" Multiplicity="*" />
@@ -510,10 +460,9 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           <EntitySet Name="BikeWay" EntityType="Self.BikeWay" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="HasTag" EntityType="Self.HasTag" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="Location1" EntityType="Self.Location1" Schema="oyw" Table="Location" store:Type="Tables" />
+          <EntitySet Name="LocationAlias" EntityType="Self.LocationAlias" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="LocationForeignId" EntityType="Self.LocationForeignId" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="LocationLink" EntityType="Self.LocationLink" Schema="oyw" store:Type="Tables" />
-          <EntitySet Name="LocationOpen" EntityType="Self.LocationOpen" Schema="oyw" store:Type="Tables" />
-          <EntitySet Name="LocationOpenHours" EntityType="Self.LocationOpenHours" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="Partner" EntityType="Self.Partner" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="RegionView" EntityType="Self.RegionView" Schema="oyw" store:Type="Tables" />
@@ -525,13 +474,6 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="web" store:Type="Tables" />
           <EntitySet Name="OAuthMembership" EntityType="Self.OAuthMembership" Schema="web" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="web" store:Type="Tables" />
-          <EntitySet Name="LocationAlias" EntityType="Self.LocationAlias" store:Type="Tables" store:Schema="oyw">
-            <DefiningQuery>SELECT 
-[LocationAlias].[LocationId] AS [LocationId], 
-[LocationAlias].[Lang] AS [Lang], 
-[LocationAlias].[Name] AS [Name]
-FROM [oyw].[LocationAlias] AS [LocationAlias]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="ProductSuggestion" EntityType="Self.ProductSuggestion" store:Type="Tables" store:Schema="oyw">
             <DefiningQuery>SELECT 
 [ProductSuggestion].[LocationId] AS [LocationId], 
@@ -590,14 +532,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
             <End Role="Location1" EntitySet="Location1" />
             <End Role="LocationLink" EntitySet="LocationLink" />
           </AssociationSet>
-          <AssociationSet Name="FK_oyw_LocationOpen_Location" Association="Self.FK_oyw_LocationOpen_Location">
-            <End Role="Location1" EntitySet="Location1" />
-            <End Role="LocationOpen" EntitySet="LocationOpen" />
-          </AssociationSet>
-          <AssociationSet Name="FK_oyw_LocationOpenHours_LocationOpen" Association="Self.FK_oyw_LocationOpenHours_LocationOpen">
-            <End Role="LocationOpen" EntitySet="LocationOpen" />
-            <End Role="LocationOpenHours" EntitySet="LocationOpenHours" />
-          </AssociationSet>
           <AssociationSet Name="FK_oyw_ProductSuggestion_Location" Association="Self.FK_oyw_ProductSuggestion_Location">
             <End Role="Location1" EntitySet="Location1" />
             <End Role="ProductSuggestion" EntitySet="ProductSuggestion" />
@@ -632,10 +566,7 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           <EntitySet Name="ShoppingLists" EntityType="onYOURwayModel.ShoppingList" />
           <EntitySet Name="UserProfiles" EntityType="onYOURwayModel.UserProfile" />
           <EntitySet Name="BikeWays" EntityType="onYOURwayModel.BikeWay" />
-          <EntitySet Name="LocationAliases" EntityType="onYOURwayModel.LocationAlias" />
           <EntitySet Name="LocationForeignIds" EntityType="onYOURwayModel.LocationForeignId" />
-          <EntitySet Name="LocationOpens" EntityType="onYOURwayModel.LocationOpen" />
-          <EntitySet Name="LocationOpenHours" EntityType="onYOURwayModel.LocationOpenHour" />
           <EntitySet Name="Partners" EntityType="onYOURwayModel.Partner" />
           <EntitySet Name="ProductSuggestions" EntityType="onYOURwayModel.ProductSuggestion" />
           <EntitySet Name="Regions" EntityType="onYOURwayModel.Region" />
@@ -660,10 +591,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
             <End Role="Partner" EntitySet="Partners" />
             <End Role="LocationForeignId" EntitySet="LocationForeignIds" />
           </AssociationSet>
-          <AssociationSet Name="FK_oyw_LocationOpenHours_LocationOpen" Association="onYOURwayModel.FK_oyw_LocationOpenHours_LocationOpen">
-            <End Role="LocationOpen" EntitySet="LocationOpens" />
-            <End Role="LocationOpenHour" EntitySet="LocationOpenHours" />
-          </AssociationSet>
           <AssociationSet Name="FK_oyw_RegionAlias_Region" Association="onYOURwayModel.FK_oyw_RegionAlias_Region">
             <End Role="Region" EntitySet="Regions" />
             <End Role="RegionAlia" EntitySet="RegionAlias1" />
@@ -684,14 +611,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           <AssociationSet Name="FK_oyw_ForeignId_Location" Association="onYOURwayModel.FK_oyw_ForeignId_Location">
             <End Role="Location" EntitySet="Locations" />
             <End Role="LocationForeignId" EntitySet="LocationForeignIds" />
-          </AssociationSet>
-          <AssociationSet Name="FK_oyw_LocationAlias_Location" Association="onYOURwayModel.FK_oyw_LocationAlias_Location">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="LocationAlia" EntitySet="LocationAliases" />
-          </AssociationSet>
-          <AssociationSet Name="FK_oyw_LocationOpen_Location" Association="onYOURwayModel.FK_oyw_LocationOpen_Location">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="LocationOpen" EntitySet="LocationOpens" />
           </AssociationSet>
           <AssociationSet Name="FK_oyw_ProductSuggestion_Location" Association="onYOURwayModel.FK_oyw_ProductSuggestion_Location">
             <End Role="Location" EntitySet="Locations" />
@@ -720,6 +639,11 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
             <Parameter Name="RegionId" Mode="In" Type="Int32" />
             <Parameter Name="Lang" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="LocationAliases" EntityType="onYOURwayModel.LocationAlias" />
+          <AssociationSet Name="FK_oyw_LocationAlias_Location" Association="onYOURwayModel.FK_oyw_LocationAlias_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="LocationAlia" EntitySet="LocationAliases" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Card">
           <Key>
@@ -762,17 +686,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           <Property Type="Geography" Name="Way" />
           <Property Type="String" Name="Mode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="LocationAlias">
-          <Key>
-            <PropertyRef Name="LocationId" />
-            <PropertyRef Name="Lang" />
-            <PropertyRef Name="Name" />
-          </Key>
-          <Property Type="Int64" Name="LocationId" Nullable="false" />
-          <Property Type="String" Name="Lang" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Location" Relationship="onYOURwayModel.FK_oyw_LocationAlias_Location" FromRole="LocationAlia" ToRole="Location" />
-        </EntityType>
         <EntityType Name="LocationForeignId">
           <Key>
             <PropertyRef Name="LocationId" />
@@ -783,32 +696,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           <Property Type="String" Name="ForeignId" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Partner" Relationship="onYOURwayModel.FK_oyw_ForeignId_Partner" FromRole="LocationForeignId" ToRole="Partner" />
           <NavigationProperty Name="Location" Relationship="onYOURwayModel.FK_oyw_ForeignId_Location" FromRole="LocationForeignId" ToRole="Location" />
-        </EntityType>
-        <EntityType Name="LocationOpen">
-          <Key>
-            <PropertyRef Name="LocationId" />
-            <PropertyRef Name="OpenId" />
-          </Key>
-          <Property Type="Int64" Name="LocationId" Nullable="false" />
-          <Property Type="Int32" Name="OpenId" Nullable="false" />
-          <Property Type="DateTime" Name="StartDate" Precision="0" />
-          <Property Type="DateTime" Name="EndDate" Precision="0" />
-          <NavigationProperty Name="Hours" Relationship="onYOURwayModel.FK_oyw_LocationOpenHours_LocationOpen" FromRole="LocationOpen" ToRole="LocationOpenHour" />
-          <NavigationProperty Name="Location" Relationship="onYOURwayModel.FK_oyw_LocationOpen_Location" FromRole="LocationOpen" ToRole="Location" />
-        </EntityType>
-        <EntityType Name="LocationOpenHour">
-          <Key>
-            <PropertyRef Name="LocationId" />
-            <PropertyRef Name="OpenId" />
-            <PropertyRef Name="TimeBlockId" />
-          </Key>
-          <Property Type="Int64" Name="LocationId" Nullable="false" />
-          <Property Type="Int32" Name="OpenId" Nullable="false" />
-          <Property Type="Int32" Name="TimeBlockId" Nullable="false" />
-          <Property Type="Byte" Name="WeekDay" />
-          <Property Type="Time" Name="StartTime" Nullable="false" Precision="0" />
-          <Property Type="Time" Name="EndTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="LocationOpen" Relationship="onYOURwayModel.FK_oyw_LocationOpenHours_LocationOpen" FromRole="LocationOpenHour" ToRole="LocationOpen" />
         </EntityType>
         <EntityType Name="Partner">
           <Key>
@@ -984,20 +871,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_oyw_LocationOpenHours_LocationOpen">
-          <End Type="onYOURwayModel.LocationOpen" Role="LocationOpen" Multiplicity="1" />
-          <End Type="onYOURwayModel.LocationOpenHour" Role="LocationOpenHour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LocationOpen">
-              <PropertyRef Name="LocationId" />
-              <PropertyRef Name="OpenId" />
-            </Principal>
-            <Dependent Role="LocationOpenHour">
-              <PropertyRef Name="LocationId" />
-              <PropertyRef Name="OpenId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_oyw_RegionAlias_Region">
           <End Type="onYOURwayModel.Region" Role="Region" Multiplicity="1" />
           <End Type="onYOURwayModel.RegionAlias" Role="RegionAlia" Multiplicity="*" />
@@ -1058,12 +931,13 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           <Property Type="DateTime" Name="ModifiedAt" Precision="2" />
           <Property Type="Geography" Name="Position" />
           <NavigationProperty Name="ForeignIds" Relationship="onYOURwayModel.FK_oyw_ForeignId_Location" FromRole="Location" ToRole="LocationForeignId" />
-          <NavigationProperty Name="Aliases" Relationship="onYOURwayModel.FK_oyw_LocationAlias_Location" FromRole="Location" ToRole="LocationAlia" />
-          <NavigationProperty Name="Open" Relationship="onYOURwayModel.FK_oyw_LocationOpen_Location" FromRole="Location" ToRole="LocationOpen" />
           <NavigationProperty Name="ProductSuggestions" Relationship="onYOURwayModel.FK_oyw_ProductSuggestion_Location" FromRole="Location" ToRole="ProductSuggestion" />
           <NavigationProperty Name="Tags" Relationship="onYOURwayModel.HasTag" FromRole="Location" ToRole="Tag" />
           <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Links" Relationship="onYOURwayModel.FK_oyw_LocationLink_Location" FromRole="Location" ToRole="LocationLink" />
+          <Property Name="OpeningHours" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Aliases" Relationship="onYOURwayModel.FK_oyw_LocationAlias_Location" FromRole="Location" ToRole="LocationAlia" />
         </EntityType>
         <Association Name="FK_oyw_ForeignId_Location">
           <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="1" />
@@ -1073,30 +947,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="LocationForeignId">
-              <PropertyRef Name="LocationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_oyw_LocationAlias_Location">
-          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="1" />
-          <End Type="onYOURwayModel.LocationAlias" Role="LocationAlia" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LocationAlia">
-              <PropertyRef Name="LocationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_oyw_LocationOpen_Location">
-          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="1" />
-          <End Type="onYOURwayModel.LocationOpen" Role="LocationOpen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LocationOpen">
               <PropertyRef Name="LocationId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1192,6 +1042,28 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           <Property Type="String" Name="Lines" Nullable="true" MaxLength="Max" />
           <Property Type="String" Name="Open" Nullable="true" MaxLength="Max" />
         </ComplexType>
+        <EntityType Name="LocationAlias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="LocationId" Type="Int64" Nullable="false" />
+          <Property Name="Lang" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Location" Relationship="onYOURwayModel.FK_oyw_LocationAlias_Location" FromRole="LocationAlia" ToRole="Location" />
+        </EntityType>
+        <Association Name="FK_oyw_LocationAlias_Location">
+          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="onYOURwayModel.LocationAlias" Role="LocationAlia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LocationAlia">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1238,42 +1110,11 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LocationAliases">
-            <EntityTypeMapping TypeName="onYOURwayModel.LocationAlias">
-              <MappingFragment StoreEntitySet="LocationAlias">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Lang" ColumnName="Lang" />
-                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LocationForeignIds">
             <EntityTypeMapping TypeName="onYOURwayModel.LocationForeignId">
               <MappingFragment StoreEntitySet="LocationForeignId">
                 <ScalarProperty Name="ForeignId" ColumnName="ForeignId" />
                 <ScalarProperty Name="PartnerId" ColumnName="PartnerId" />
-                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LocationOpens">
-            <EntityTypeMapping TypeName="onYOURwayModel.LocationOpen">
-              <MappingFragment StoreEntitySet="LocationOpen">
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
-                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LocationOpenHours">
-            <EntityTypeMapping TypeName="onYOURwayModel.LocationOpenHour">
-              <MappingFragment StoreEntitySet="LocationOpenHours">
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="WeekDay" ColumnName="WeekDay" />
-                <ScalarProperty Name="TimeBlockId" ColumnName="TimeBlockId" />
-                <ScalarProperty Name="OpenId" ColumnName="OpenId" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1466,6 +1307,8 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="IsTypeOf(onYOURwayModel.Location)">
               <MappingFragment StoreEntitySet="Location1">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OpeningHours" ColumnName="OpeningHours" />
                 <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="Position" ColumnName="Position" />
                 <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
@@ -1505,6 +1348,16 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="LocationAliases">
+            <EntityTypeMapping TypeName="onYOURwayModel.LocationAlias">
+              <MappingFragment StoreEntitySet="LocationAlias">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Lang" ColumnName="Lang" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

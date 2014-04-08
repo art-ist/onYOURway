@@ -85,6 +85,11 @@ define([
       { Name: 'nach Name', Sorter: sortByName },
     ],
 
+    context: locateContext,
+    loactionToEdit: ko.observable(null),
+    getLocation: getLocation,
+    editLocation: editLocation,
+
     //position: new ko.observable(),
     route: [],
     start: {
@@ -636,8 +641,7 @@ define([
       .fail(function (error) {
         var msg = breeze.saveErrorMessageService.getErrorMessage(error);
         error.message = msg;
-        logger.log("Die Angebote der Region konnten nicht geladen werden.", 'location', error);
-        logger.log("Query  failed: " + error.message, 'location');
+        logger.error("Die Angebote der Region konnten nicht geladen werden. Sie können versuchen Sie die Seite neu aufzurufen.", 'location - _loadPlaces', error);
         throw error;
       });
 
@@ -664,8 +668,7 @@ define([
       .fail(function (error) {
         var msg = breeze.saveErrorMessageService.getErrorMessage(error);
         error.message = msg;
-        logger.log("Suchvorschläge konnten nicht geladen werden.", 'location', error);
-        logger.log("Query for Search failed: " + error.message, 'location');
+        logger.logError("Suchvorschläge konnten nicht geladen werden.", 'location - _loadSearchSuggestions', error);
         throw error;
       });
 
@@ -1428,6 +1431,29 @@ define([
   }
 
   //#endregion control display of mapparts
+
+  function getLocation(Id) {
+    var query = breeze.EntityQuery.from("Location");
+    query.parameters = { Id: Id };
+    return locateContext
+      .executeQuery(query)
+      .then(function (d) {
+        var item = d.results[0];
+        location.loactionToEdit(item);
+      })
+      .fail(function (error) {
+        logger.error("Location data could not be loaded: " + error.message, 'location - getLocation', error);
+      });
+  } //getLocation
+
+  function editLocation(Id) {
+     location
+      .getLocation(Id)
+      .then(function () {
+        logger.log('location loaded', 'location - editLocation', location.loactionToEdit());
+        router.navigate('my/wizardNew');
+      });
+  } //editLocation
 
   //#endregion Public Methods
 

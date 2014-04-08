@@ -17,11 +17,10 @@ namespace onYOURway.Models
         public Location()
         {
             this.ForeignIds = new HashSet<LocationForeignId>();
-            this.Aliases = new HashSet<LocationAlias>();
-            this.Open = new HashSet<LocationOpen>();
             this.ProductSuggestions = new HashSet<ProductSuggestion>();
             this.Tags = new HashSet<Tag>();
             this.Links = new HashSet<LocationLink>();
+            this.Aliases = new HashSet<LocationAlias>();
         }
     
         public long Id { get; set; }
@@ -40,12 +39,13 @@ namespace onYOURway.Models
         public Nullable<System.DateTime> ModifiedAt { get; set; }
         public System.Data.Entity.Spatial.DbGeography Position { get; set; }
         public string Icon { get; set; }
+        public string OpeningHours { get; set; }
+        public string Description { get; set; }
     
         public virtual ICollection<LocationForeignId> ForeignIds { get; set; }
-        public virtual ICollection<LocationAlias> Aliases { get; set; }
-        public virtual ICollection<LocationOpen> Open { get; set; }
         public virtual ICollection<ProductSuggestion> ProductSuggestions { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<LocationLink> Links { get; set; }
+        public virtual ICollection<LocationAlias> Aliases { get; set; }
     }
 }

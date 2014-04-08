@@ -10,10 +10,18 @@
     self.app = app;
 
     self.activate = function (article, sub, parameters) {
-       if (article) {
-        self.currentArticle('#' +article);
-       }
-       return true;
+      if (article) {
+        self.currentArticle('#' + article);
+      }
+
+      logger.log('Wizard activated', '_locationWizard  - activate', app.location.loactionToEdit());
+      //app.location
+      //  .getLocation(138)
+      //  .then(function () {
+      //    logger.log('location assigned', '_locationWizard  - activate', app.location.loactionToEdit());
+      //  });
+
+      return true;
     };
 
     self.attached = function (p1, p2, p3) {
@@ -22,18 +30,18 @@
         self.currentArticle(href); //set vm property so databinding can use it
       });
 
-    ////initialize slideshow
-    //  self.step = $("#neu")
-    //    .owlCarousel({          //initialize carousel (see: http://www.owlgraphic.com/owlcarousel/#customizing)
-    //      navigation: false, // Show next and prev buttons
-    //      slideSpeed: 500,
-    //      paginationSpeed: 400,
-    //      singleItem: true,
-    //      rewindNav: false
-    //    })
-    //  .data('owlCarousel')    //get instance of the api in self-idea
-    //    ;
-    //  $('.owl-pagination').appendTo($('#step_pagination'));
+      ////initialize slideshow
+      //  self.step = $("#neu")
+      //    .owlCarousel({          //initialize carousel (see: http://www.owlgraphic.com/owlcarousel/#customizing)
+      //      navigation: false, // Show next and prev buttons
+      //      slideSpeed: 500,
+      //      paginationSpeed: 400,
+      //      singleItem: true,
+      //      rewindNav: false
+      //    })
+      //  .data('owlCarousel')    //get instance of the api in self-idea
+      //    ;
+      //  $('.owl-pagination').appendTo($('#step_pagination'));
 
       return true;
     };
@@ -42,22 +50,21 @@
     self.currentArticle = ko.observable('#uebersicht');
 
     //// Data
-    self.location = {
-      Name: ko.observable('Willixhofer'),
-      Description: ko.observable('Willixhofer'),
-      Street: ko.observable('Hauptplatz'),
-      HouseNumber: ko.observable('12'),
-      PostalCode: ko.observable('2500'),
-      City: ko.observable('Baden'),
-      Country: ko.observable('AT'),
-      //...
-      HasTag: ko.observableArray(),
-      LocationLink:  ko.observableArray()
-    }
+    self.location = app.location.loactionToEdit;
 
-    //// Operations
+    self.addAlias = addAlias;
+    self.removeAlias = removeAlias;
 
   };
   return vm;
+
+  function addAlias() {
+    var item = app.location.context.createEntity("LocationAlias:#onYOURway.Models");
+    app.location.loactionToEdit().Aliases.push(item);
+  }
+  function removeAlias(item) {
+    logger.log('Removing alias', '_locationWizard - removeAlias', item);
+    app.location.loactionToEdit().Aliases.remove(item);
+  }
 
 }); //define

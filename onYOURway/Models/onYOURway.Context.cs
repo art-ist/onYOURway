@@ -32,10 +32,7 @@ namespace onYOURway.Models
         public virtual DbSet<ShoppingList> ShoppingLists { get; set; }
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
         public virtual DbSet<BikeWay> BikeWays { get; set; }
-        public virtual DbSet<LocationAlias> LocationAliases { get; set; }
         public virtual DbSet<LocationForeignId> LocationForeignIds { get; set; }
-        public virtual DbSet<LocationOpen> LocationOpens { get; set; }
-        public virtual DbSet<LocationOpenHour> LocationOpenHours { get; set; }
         public virtual DbSet<Partner> Partners { get; set; }
         public virtual DbSet<ProductSuggestion> ProductSuggestions { get; set; }
         public virtual DbSet<Region> Regions { get; set; }
@@ -52,6 +49,7 @@ namespace onYOURway.Models
         public virtual DbSet<MyLocation> MyLocations { get; set; }
         public virtual DbSet<Street> Streets { get; set; }
         public virtual DbSet<LocationLink> LocationLinks { get; set; }
+        public virtual DbSet<LocationAlias> LocationAliases { get; set; }
     
         public virtual ObjectResult<SearchSuggestion> SearchSuggestions(Nullable<int> regionId, string lang)
         {
