@@ -392,33 +392,33 @@
     <Compile Include="Startup.cs" />
     <Content Include="App\views\my\wizardEdit.html" />
     <Content Include="App\views\my\wizardEdit.js" />
-    <Content Include="App\_styles\_onYOURway.css.map">
+    <Content Include="App\_styles\themes\onYOURway-2\_onYOURway.css.map">
       <DependentUpon>_onYOURway.css</DependentUpon>
     </Content>
-    <None Include="App\_styles\_onYOURway.less" />
+    <None Include="App\_styles\themes\onYOURway-2\_onYOURway.less" />
     <Content Include="App\views\about\_preview.html" />
     <Content Include="App\views\about\_preview.js" />
     <Content Include="App\views\my\wizardNew.html" />
     <Content Include="App\views\my\wizardNew.js" />
     <Content Include="App\_libraries\jquery-ui-1.10.4.custom.js" />
     <Content Include="App\_libraries\jquery-ui-1.10.4.custom.min.js" />
-    <Content Include="App\_styles\themes\oyw1\images\animated-overlay.gif" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-bg_flat_10_000000_40x100.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-bg_glass_100_f6f6f6_1x400.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-bg_glass_100_fdf5ce_1x400.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-icons_222222_256x240.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-icons_228ef1_256x240.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-icons_ef8c08_256x240.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-icons_ffd27a_256x240.png" />
-    <Content Include="App\_styles\themes\oyw1\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="App\_styles\themes\oyw1\jquery-ui-1.10.4.custom.css" />
-    <Content Include="App\_styles\_onYOURway.min.css">
+    <Content Include="App\_styles\jquery-ui\images\animated-overlay.gif" />
+    <Content Include="App\_styles\jquery-ui\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-icons_222222_256x240.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="App\_styles\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="App\_styles\jquery-ui\jquery-ui-1.10.4.custom.css" />
+    <Content Include="App\_styles\themes\onYOURway-2\_onYOURway.min.css">
       <DependentUpon>_onYOURway.css</DependentUpon>
     </Content>
     <Content Include="App\views\about\region.js" />
@@ -439,7 +439,7 @@
     <Content Include="App\views\_map.html" />
     <Content Include="App_Data\onYOURway.XML" />
     <Content Include="App\_styles\bootstrap-datepicker.css" />
-    <Content Include="App\_styles\bootstrap-theme.css" />
+    <Content Include="App\_styles\themes\onYOURway-2\bootstrap-theme.NOT-USED.css" />
     <Content Include="App\_styles\font-awesome.css" />
     <Content Include="App\_styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="App\images\about\explorer.jpg" />
@@ -470,7 +470,7 @@
     <Content Include="App\_libraries\owl.carousel.js" />
     <Content Include="App\_styles\owl.theme.css" />
     <Content Include="App\_styles\typeahead.js-bootstrap.css" />
-    <Content Include="App\_styles\_onYOURway.css">
+    <Content Include="App\_styles\themes\onYOURway-2\_onYOURway.css">
       <DependentUpon>_onYOURway.less</DependentUpon>
     </Content>
     <Content Include="App\_styles\toastr.css" />
@@ -602,7 +602,7 @@
     <Content Include="App\views\_shell.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="App\_styles\bootstrap.css" />
+    <Content Include="App\_styles\themes\onYOURway-2\bootstrap.css" />
     <Content Include="App\_styles\durandal.css" />
     <Content Include="App\_styles\fonts\fontawesome-webfont.svg" />
     <Content Include="App\_styles\ie10mobile.css" />
@@ -620,7 +620,6 @@
     <Content Include="App\_styles\leaflet\MarkerCluster.css" />
     <Content Include="App\_styles\leaflet\MarkerCluster.Default.css" />
     <Content Include="App\_styles\leaflet\MarkerCluster.Default.ie.css" />
-    <Content Include="App\_styles\_site.css" />
     <Content Include="App\_styles\starterkit.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

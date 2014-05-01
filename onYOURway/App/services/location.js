@@ -27,7 +27,7 @@ define([
 
   var cmk = config.apiKey.cloudmade;
   var lrk = config.apiKey.lyrk;
-  var attrib = function(tiles) { return ' Karte: OpenStreetMap — Tiles: ' + tyles + ' — Locations: onYOURway' };
+  var attrib = function(tiles) { return ' Karte: OpenStreetMap — Tiles: ' + tiles + ' — Locations: onYOURway' };
 
   var location = {
     map: null,
@@ -37,22 +37,21 @@ define([
       //Map Styling
       tileLayers: [
         //lyrk
-        { Name: 'Standard', Layer: new L.TileLayer('http://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey=' + lrk, { attribution: attribution, maxZoom: 18 }) },
-        { Name: 'Standard (HD)', Layer: new L.TileLayer('http://tiles.lyrk.org/lr/{z}/{x}/{y}?apikey=' + lrk, { attribution: attribution, maxZoom: 18 }) },
+        { Name: 'Standard', Layer: new L.TileLayer('http://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey=' + lrk, { attribution: attrib('lyrk'), maxZoom: 18 }) },
+        { Name: 'Standard (HD)', Layer: new L.TileLayer('http://tiles.lyrk.org/lr/{z}/{x}/{y}?apikey=' + lrk, { attribution: attrib('lyrk'), maxZoom: 18 }) },
         //cloudmade (depricated)
-        { Name: 'Standard (depricated)', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/93587'/*styleId*/ + '/256/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
-        { Name: 'Grau (depricated)', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/22677/256/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
+        { Name: 'Standard (depricated)', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/93587'/*styleId*/ + '/256/{z}/{x}/{y}.png', { attribution: attrib('cloudmade'), maxZoom: 18, subdomains: 'abc' }) },
+        { Name: 'Grau (depricated)', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/22677/256/{z}/{x}/{y}.png', { attribution: attrib('cloudmade'), maxZoom: 18, subdomains: 'abc' }) },
         //others
-        { Name: 'OpenStreetMap', Layer: new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
-        { Name: 'OpenCycleMap', Layer: new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
-        { Name: 'Wasserfarbe', Layer: new L.TileLayer('http://b.tile.stamen.com/watercolor/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18 }) }
+        { Name: 'OpenStreetMap', Layer: new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: attrib('osm'), maxZoom: 18, subdomains: 'abc' }) },
+        { Name: 'OpenCycleMap', Layer: new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', { attribution: attrib('opencyclemap'), maxZoom: 18, subdomains: 'abc' }) },
+        { Name: 'Wasserfarbe', Layer: new L.TileLayer('http://b.tile.stamen.com/watercolor/{z}/{x}/{y}.png', { attribution: attrib('stamen.com'), maxZoom: 18 }) }
         //'http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png'; subdomains = '1234'; //MapQuest
         //'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png'; subdomains = '1234'; //MapQuest.Sat (no tiles for detailed zoom)
-        //'http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'; //OpenCycleMap
         //'http://{s}.tiles.mapbox.com/v3/' + 'examples.map-zr0njcqy' + '/{z}/{x}/{y}.png'; //MapBox
       ],
-      walkIn5: 330, //m in 5 minuten bei 4 km/h
-      bikeIn5: 1800, //m in 5 minuten bei 21,6 km/h
+      walkIn5: 330,   //meters in 5 minutes at 4 km/h
+      bikeIn5: 1800,  //meters in 5 minutes at 21,6 km/h
       clusterLocations: ko.observable(false),
       zoomToSearchResults: ko.observable(true),
       mapPadding: { top: 50, right: 30, bottom: 20, left: 30 }, //px
@@ -71,7 +70,7 @@ define([
     searchSuggestions: ko.observableArray(),
     tags: ko.observableArray(),
 
-    selectedItem: ko.observable(), //current Location
+    selectedItem: ko.observable(), //current location
 
     searchFor: ko.observable(),
     featuredIf: ko.observableArray([

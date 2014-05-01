@@ -112,18 +112,18 @@ namespace onYOURway {
         , "~/App/_styles/typeahead.js-bootstrap.css"
         , "~/App/_styles/introjs.css"
         , "~/App/_styles/owl.carousel.css"
-
-        /*themes*/
-      //, "~/App/_styles/themes/metro-bootstrap/metro-bootstrap.css"
-      //, "~/App/_styles/themes/metro-bootstrap/bootstrap-datetimepicker.min.css"
-        , "~/App/_styles/themes/oyw1/jquery-ui-{version}.custom.css"        // jQueryUI (using slider)
+        , "~/App/_styles/jquery-ui/jquery-ui-{version}.custom.css"        // jQueryUI (using slider)
         , "~/App/_styles/owl.theme.css"
 
+        /*themes*/
+        //, "~/App/_styles/themes/metro-bootstrap/metro-bootstrap.css"
+        //, "~/App/_styles/themes/metro-bootstrap/bootstrap-datetimepicker.min.css"
+
       ));
-      //~/App/_styles/app-css
-      bundles.Add(new StyleBundle("~/themes").Include(
-        /*App*/
-          "~/App/_styles/_onYOURway.css"
+      bundles.Add(new StyleBundle("~/themes/onYOURway").Include(
+          "~/App/_styles/themes/onYOURway-2/bootstrap.css"
+        ////, "~/App/_styles/themes/onYOURway-2/bootstrap-theme.css"
+        , "~/App/_styles/themes/onYOURway-2/_onYOURway.css"
       ));
 
       #endregion Style Bundles
