@@ -26,7 +26,8 @@ define([
   var proxy = 'JP.aspx?u=';
 
   var cmk = config.apiKey.cloudmade;
-  var attribution = ' Karte: <a href="http://openstreetmap.org">OpenStreetMap</a> — Standorte: <a href="http://onyourway.at">onYOURway</a>';
+  var lrk = config.apiKey.lyrk;
+  var attrib = function(tiles) { return ' Karte: OpenStreetMap — Tiles: ' + tyles + ' — Locations: onYOURway' };
 
   var location = {
     map: null,
@@ -35,11 +36,13 @@ define([
       mode: ko.observable("foot"), //"car", "foot", "bicycle"
       //Map Styling
       tileLayers: [
-        { Name: 'Standard', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/93587'/*styleId*/ + '/256/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
-        { Name: 'Simple Neighborhood', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/102255'/*styleId*/ + '/256/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
-        { Name: 'Grau', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/22677/256/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
-        { Name: 'Dezent', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/1714/256/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
-        { Name: 'Tourist', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/57500/256/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
+        //lyrk
+        { Name: 'Standard', Layer: new L.TileLayer('http://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey=' + lrk, { attribution: attribution, maxZoom: 18 }) },
+        { Name: 'Standard (HD)', Layer: new L.TileLayer('http://tiles.lyrk.org/lr/{z}/{x}/{y}?apikey=' + lrk, { attribution: attribution, maxZoom: 18 }) },
+        //cloudmade (depricated)
+        { Name: 'Standard (depricated)', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/93587'/*styleId*/ + '/256/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
+        { Name: 'Grau (depricated)', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/22677/256/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
+        //others
         { Name: 'OpenStreetMap', Layer: new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
         { Name: 'OpenCycleMap', Layer: new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18, subdomains: 'abc' }) },
         { Name: 'Wasserfarbe', Layer: new L.TileLayer('http://b.tile.stamen.com/watercolor/{z}/{x}/{y}.png', { attribution: attribution, maxZoom: 18 }) }
@@ -72,10 +75,10 @@ define([
 
     searchFor: ko.observable(),
     featuredIf: ko.observableArray([
-      { Name: ko.observable('Bio'), Selected: new ko.observable(true) }
-      , { Name: ko.observable('FairTrade'), Selected: new ko.observable(true) }
-      , { Name: ko.observable('aus der Region'), Selected: new ko.observable(false) }
-      , { Name: ko.observable('Eigenproduktion'), Selected: new ko.observable(false) }
+      { Name: ko.observable('Bio'), Selected: new ko.observable(true) },
+      { Name: ko.observable('FairTrade'), Selected: new ko.observable(true) },
+      { Name: ko.observable('aus der Region'), Selected: new ko.observable(false) },
+      { Name: ko.observable('Eigenproduktion'), Selected: new ko.observable(false) }
     ]),
     sortBy: ko.observable(),
     sortOptions: [
@@ -137,7 +140,7 @@ define([
     toggleList: toggleList,
     toggleDetails: toggleDetails
 
-  };
+  }; //var location
 
   //#region Constructor 
 
@@ -388,141 +391,6 @@ define([
         logger.error("Query for Regions failed: " + error.message, 'location', error);
       });
   } //_loadRegions
-
-  //function _loadLocations() {
-  //  var query = breeze.EntityQuery.from("Locations");
-  //  if (location.start.coords()) {
-  //    query.parameters = { CloseTo: coordsToWkt(location.start.coords(), 'POINT') };
-  //  }
-
-  //  return locateContext
-  //    .executeQuery(query)
-  //    .then(function (d) {
-  //      var locations = d.results;
-
-  //      //add client properties bruteforce-aproach
-  //      locations.forEach(function (loc) {
-  //        if (loc.Position()) loc.coords = loc.Position().Geography.WellKnownText.replace(/POINT \(/, '').replace(/\)/, '').split(' ');
-
-  //        //** isOpen **
-  //        if (loc.isOpen === undefined) {
-  //          loc.isOpen = function () {
-
-  //            if (this.open().length === 0) {
-  //              //logger.log('isOpen: No Opening Info', 'location', this)
-  //              return null;
-  //            }
-
-  //            var result = false;
-  //            var when = !location.when() || location.when() === 'jetzt' ? moment() : moment(location.when());
-  //            var time = when.clone().year(0).month(0).date(0);
-  //            for (var o = 0; o < this.open().length; o++) {
-  //              var open = this.open()[o];
-  //              //logger.log('isOpen: Checking Location ' + this.Id() + ' Open]', 'location', open);
-  //              if (
-  //                (open.StartDate === null || when.isAfter(open.StartDate))
-  //                && (open.EndDate === null || when.isBefore(open.EndDate))
-  //                ) {
-  //                for (var h = 0; h < open.Hours.length; h++) {
-  //                  var hours = open.Hours[h];
-  //                  var startTime = moment.fromPT(hours.StartTime);
-  //                  var endTime = moment.fromPT(hours.EndTime);
-  //                  if (endTime && endTime.hour() === 0 && endTime.minute() === 0) endTime.add(1, 'day');
-  //                  if (endTime === moment()) endTime.add(1, 'day');
-  //                  //logger.log('isOpen: Checking Location ' + this.Id + ' Hours: ' + startTime.toString() + ' - ' + time.toString() + ' - ' + endTime.toString(), 'location');
-  //                  if (
-  //                    (hours.WeekDay === null || hours.WeekDay === when.day())
-  //                    && (startTime === null || time.isAfter(startTime))
-  //                    && (endTime === null || time.isBefore(endTime))
-  //                    ) {
-  //                    return true;
-  //                  }
-  //                }
-  //              }
-  //            }
-  //            return result;
-  //          }; // isOpen()
-  //        } //if (loc.isOpen === undefined)
-
-  //        //** distance **
-  //        if (loc.distance === undefined) {
-  //          if (!loc.coords) return 100000000;
-
-  //          loc.distance = function () {
-  //            ///----------
-  //            var reader = new jsts.io.WKTReader();
-  //            var wkt;
-  //            if (location.route && location.route.length > 0) {
-  //              wkt = latLngToWkt(location.route, 'LINESTRING', false);
-  //            }
-  //            else if (location.start.coords())
-  //              wkt = latLngToWkt(new L.LatLng(location.start.coords()[1], location.start.coords()[0]), 'POINT', false);
-  //            else {
-  //              return -1;
-  //            }
-  //            var to = reader.read(wkt); //including transform
-  //            wkt = latLngToWkt(new L.LatLng(loc.coords[1], loc.coords[0]), 'POINT', false);
-  //            var locPos = reader.read(wkt); //including transform
-  //            var dist = locPos.distance(to);
-  //            //console.log(loc.Name() + ' - ' + dist * 1000);
-  //            return dist;
-  //          };
-  //        }
-
-  //        //** isFeatured **
-  //        if (loc.isFeatured === undefined) {
-  //          loc.isFeatured = function () {
-  //            var t = loc.tags();
-  //            for (var i = 0; i < t.length; i++) {
-  //              for (var f = 0; f < location.featuredIf().length; f++) {
-  //                if (t[i].Name.toLowerCase() === location.featuredIf()[f].Name().toLowerCase() && location.featuredIf()[f].Selected() === true) {
-  //                  return true;
-  //                }
-  //              }
-  //            }
-  //            //if (!loc.Tags) return false;
-  //            //for (var i = 0; i < loc.Tags().length; i++) {
-  //            //  for (var t = 0; t < loc.Tags()[i].Names.length; t++) {
-  //            //    for (var f = 0; f < location.featuredIf().length; f++) {
-  //            //      if (loc.Tags()[i].Names[t].toLowerCase() === location.featuredIf()[f].Name().toLowerCase() && location.featuredIf()[f].Selected() === true) {
-  //            //        return true;
-  //            //      }
-  //            //    }
-  //            //  }
-  //            //}
-  //            return false;
-  //          }; // isFeatured()
-  //        } // if (loc.isFeatured === undefined)
-
-  //        //** icon **
-  //        if (loc.icon === undefined) {
-  //          loc.icon = function () {
-  //            var result;
-  //            switch (loc.kind()) {
-  //              case "Heuriger": result = "glass"; break; //TODO: change to fontawsome
-  //              case "Restaurant": result = "cutlery"; break;
-  //              case "Café": case "Kaffeehaus": result = "coffee"; break;
-  //                //case "Geschäft": icon = "shopping-cart"; break;
-  //                //case "": icon = "icon-"; break;
-  //              default: result = "shopping-cart";
-  //            }
-  //            return result;
-  //          };
-  //        }
-
-  //      });//forEach
-  //      //logger.log(locations.length + " Locations loaded", 'location', locations);
-
-  //      //update locations
-  //      location.locations(locations);
-  //    })
-  //    .fail(function (error) {
-  //      var msg = breeze.saveErrorMessageService.getErrorMessage(error);
-  //      error.message = msg;
-  //      logger.log("Query for Locations failed: " + error.message, 'location', error);
-  //      throw error;
-  //    });
-  //} //_loadLocations
 
   function _loadPlaces() {
     var query = breeze.EntityQuery.from("Places");

@@ -1259,7 +1259,6 @@
 				nov: 10,
 				dec: 11,
 			}, 'Please use the English abbreviation "<ok>" for "<ko>".': {
-				'jänner':   0, // Austria
 				january:    0,
 				february:   1,
 				march:      2,
@@ -1274,7 +1273,9 @@
 				november:  10,
 				december:  11,
 			}, 'Bitte benutze die englische Abkürzung "<ok>" für "<ko>".': {
+				'jänner':   0, // Austria
 				januar:    0,
+				feber:     1,  // Austria
 				februar:   1,
 				'märz':    2,
 				maerz:     2,
