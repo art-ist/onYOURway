@@ -98,7 +98,7 @@ namespace onYOURway {
           "~/App/_styles/ie10mobile.css"
         , "~/App/_styles/durandal.css"  //TODO: replace with consistent bootstrap compliant messaging module
         , "~/App/_styles/toastr.css"    //TODO: replace with consistent bootstrap compliant messaging module
-        , "~/App/_styles/bootstrap.css"
+        //, "~/App/_styles/bootstrap.css"   //moved to theme so theme designers can use a different flovour of bootstrap or BS themes
         , "~/App/_styles/font-awesome.css"
  
         /*map*/

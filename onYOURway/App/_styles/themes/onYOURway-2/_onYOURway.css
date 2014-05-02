@@ -18,6 +18,9 @@
   background: none;
   background-color: #fba21c;
 }
+.ui-slider .ui-slider-handle:focus {
+  outline: none;
+}
 /*
 .ui-slider .ui-slider-range {
 	position: relative;

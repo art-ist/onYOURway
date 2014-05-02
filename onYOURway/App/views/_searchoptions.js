@@ -18,10 +18,10 @@ define([
     //};
 
     self.where = ko.computed(function () {
-      if (location.end.coords()) {
+      if (location.route.end.coords()) {
         return 'auf dem Weg';
       }
-      else if (location.start.coords()) {
+      else if (location.route.start.coords()) {
         return 'in der Nähe';
       }
       else {

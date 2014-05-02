@@ -65,9 +65,9 @@ define([
       items: ko.observableArray([]),
       itemsTodo: function () { return ko.computed(getShoppingListTodoCount, app.shoppingList.items(), { deferEvaluation: true }); },
 
-      addItem: addSchoppingListItem,
+      addItem: addShoppingListItem,
       findItem: function () { location.search(this.Title()); },
-      removeItem: removeSchoppingListItem,
+      removeItem: removeShoppingListItem,
       clean: cleanShoppingList
     },
 
@@ -109,7 +109,7 @@ define([
 
   //#region ShoppingList
 
-  function addSchoppingListItem(item, saveList) {
+  function addShoppingListItem(item, saveList) {
     logger.log('adding Item ' + item.Title(), 'app.shoppingList');
     app.shoppingList.items.push(item);
     if (saveList !== false) { //only when explicitly set to false (default = save)
@@ -119,7 +119,7 @@ define([
     item.Done.subscribe(saveShoppingList); //AutoSave List
   }
 
-  function removeSchoppingListItem(item) {
+  function removeShoppingListItem(item) {
     logger.log('removing Item ' + item.Title(), 'app.shoppingList');
     app.shoppingList.items.remove(item);
     saveShoppingList();

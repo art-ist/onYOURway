@@ -7,7 +7,8 @@
     'knockout'    : './_libraries/knockout-3.0.0',
     'jquery'      : './_libraries/jquery-2.0.1',
     'bootstrap'   : './_libraries/bootstrap',
-    'services'    : './services'
+    'services'    : './services',
+    'providers'   : './services/providers'
 
     , urlArgs: "bust=" + (new Date()).getTime()
   },
