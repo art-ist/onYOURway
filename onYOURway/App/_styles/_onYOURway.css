@@ -594,6 +594,14 @@ nav .dropdown-toggle:hover:after {
 /* xs & sm */
 /*# sourceMappingURL=_onYOURway.css.map */
 /*# sourceMappingURL=_onYOURway.css.map */
+.oyw-input-list {
+  list-style: none;
+}
+.oyw-input-list > li:before {
+  content: none;
+}
+/*# sourceMappingURL=_onYOURway.css.map */
+/*# sourceMappingURL=_onYOURway.css.map */
 /*.loader {
 	z-index: 200;
 	visibility: hidden;

@@ -2,8 +2,8 @@
   <ul class="nav nav-pills nav-stacked">
     <li><a href="#step0">Neuer Standort</a></li>
     <li><a href="#step1">Name & Beschreibung</a></li>
-    <li><a href="#step2">Anschrift</a></li>
-    <li><a href="#step3">Öffnungszeiten & Kontaktdaten</a></li>
+    <li><a href="#step2">Anschrift & Kontaktdaten</a></li>
+    <li><a href="#step3">Öffnungszeiten</a></li>
     <li><a href="#step4">Geschäftsart</a></li>
     <li><a href="#step5">Speichern</a></li>
     <li><a href="#step6">Foto(s)</a></li>
@@ -11,39 +11,68 @@
 </div>
 
 <form role="main" class="oyw-content-main col-md-9" data-bind="with: location">
-
   <article id="step0">
     <h2>Neuer Standort</h2>
-    <p>langer Einleitungstext</p>
+    <p>
+      Um Ihren Standort und Ihre Geschäftstätigkeit möglichst gut zu finden
+      ist es wichtig dass Sie die folgenden vollständig ausfüllen!
+    </p>
   </article>
 
   <!--Step1: Firma und Beschreibung-->
   <article id="step1">
     <h2>Name</h2>
     <p>Name und Beschreibung Ihres Unternehmens</p>
-    <div class="row">
-      <div class="form-group col-md-12">
-        <label for="inputName">Name</label>
-        <input type="text" class="form-control" id="inputName" placeholder="z.B. Firma" data-bind="value: Name" />
-      </div>
-      <div class="form-group col-md-12">
-        <label for="inputName">Alias-Namen</label>
-        <button class="btn btn-success btn-sm" data-bind="click: $root.addAlias"><i class="fa fa-plus"></i><span class="sr-only">Neuer Alias</span></button>
-        <ul data-bind="foreach: Aliases">
-          <li>
-            <input type="text" class="form-control" id="inputNewAlias" data-bind="value: Name" placeholder="auch bekannt als" />
-            <input type="text" class="form-control" id="inputNewAlias" data-bind="value: Lang" placeholder="Sprache" />
-            <button class="btn btn-danger btn-sm" data-bind="click: $root.removeAlias"><i class="fa fa-trash-o"></i><span class="sr-only">Alias löschen</span></button>
-          </li>
-        </ul>
-        <!--<button type="button" class="btn" />-->
-      </div>
-      <div class="form-group col-md-12">
-        <label for="inputName">Beschreibung</label>
-        <textarea class="form-control" maxlength="500" placeholder="Was bieten Sie an (max. 500 Zeichen)?" />
-      </div>
+
+    <div class="form-group col-sm-12 align-left">
+      <label for="inputName">Name</label>
+      <input type="text" class="form-control" id="inputName" placeholder="z.B. Firma" data-bind="value: Name" />
     </div>
-  </article>
+
+    <div class="form-group col-sm-12 align-left">
+      <label for="inputAlias">Weitere Namen</label>
+      <a title="Neuen Alias anlegen" data-bind="click: $root.addAlias">hinzufügen <i class="fa fa-plus fa-fw"></i></a>
+      <ul class="oyw-input-list" data-bind="foreach: Aliases">
+        <li>
+
+          <div class="input-group">
+            <!--<span class="input-group-addon" data-bind="text: Lang"></span>-->
+            <input type="text" class="form-control " placeholder="auch bekannt als" data-bind="value: Name">
+            <span class="input-group-btn">
+              <button title="Alias löschen" class="btn btn-danger" data-bind="click: $root.removeAlias"><i class="fa fa-trash-o"></i><span class="sr-only">Alias löschen</span></button>
+            </span>
+          </div><!-- /input-group -->
+
+        </li>
+      </ul>
+    </div>
+
+    <div class="form-group col-sm-12 align-left">
+      <label for="inputName">Beschreibung</label>
+      <textarea class="form-control" maxlength="500" placeholder="Was bieten Sie an (max. 500 Zeichen)?" />
+    </div>
+
+    <div class="form-group col-sm-8 align-left">
+      <label for="form-control">Kontaktart</label>
+      <select class="form-control" id="inputTag" data-bind="value: Tag">
+        <option>Festnetztelefon</option>
+        <option>Mobiltelefon</option>
+        <option>E-Mail</option>
+        <option>Website</option>
+      </select>
+    </div>
+    <div class="form-group col-sm-4 align-left">
+        <label class="sr-only" for="inputEmail">Telefon</label>
+        <input type="text" class="form-control" id="inputPhone" data-bind="Phone" placeholder="z.B.: 02252 123 456 78 ">
+    </div>
+      <!--<div class="form-group col-sm-6 align-left">
+      <label class="sr-only" for="inputEmail">E-Mail</label>
+      <label for="inputEmail">Email</label>
+      <input type="text" class="form-control" id="inputEmail" placeholder="z.B.: ich@binich.at">
+    </div>-->
+
+
+</article>
 
   <!--Step2: Anschrift-->
   <article id="step2">
@@ -145,7 +174,7 @@
         </div>
       </div>
 
-      <div class="form-group col-sm-6 align-left">
+      <!--<div class="form-group col-sm-6 align-left">
         <label class="sr-only" for="inputEmail">Telefon</label>
         <label for="inputPhone">Telefon</label>
         <input type="text" class="form-control" id="inputPhone" data-bind="Phone" placeholder="z.B.: 02252 123 456 78 ">
@@ -154,9 +183,9 @@
         <label class="sr-only" for="inputEmail">E-Mail</label>
         <label for="inputEmail">Email</label>
         <input type="text" class="form-control" id="inputEmail" placeholder="z.B.: ich@binich.at">
-      </div>
+      </div>-->
     </div>
-</article>
+  </article>
 
 
   <!--Step4: Geschäftsart-->
