@@ -7,7 +7,7 @@
       <div class="input-group-btn">
         <button class="btn btn-default" type="button" title="Aktuelle Position bestimmen" data-bind="click: getCurrentPosition"><i class="fa fa-home fa-fw"></i></button>
       </div>
-      <input class="form-control" id="posStart" name="posStart" data-bind="value: start.text, returnKey: function () { locate('start'); }" type="text">
+      <input class="form-control" id="posStart" name="posStart" data-bind="value: route.start.text, returnKey: function () { locate('start'); }" type="text">
       <div class="input-group-btn">
         <button class="btn btn-default" title="Ausgangspunkt festlegen" data-bind="click: function () { locate('start'); }"><i class="fa fa-map-marker fa-fw"></i></button>
       </div>
@@ -15,16 +15,17 @@
     <label for="posEnd">Ziel</label>
     <div class="input-group">
       <div class="input-group-btn"><button title="Ziel entfernen" class="btn btn-default" type="button" data-bind="click: function () { locate('nothing'); }"><i class="fa fa-times fa-fw"></i></button></div>
-      <input class="form-control" id="posEnd" name="posEnd" data-bind="value: end.text, returnKey: function () { locate('end'); }" type="text">
+      <input class="form-control" id="posEnd" name="posEnd" data-bind="value: route.end.text, returnKey: function () { locate('end'); }" type="text">
       <div class="input-group-btn"><button title="Ziel festlegen" class="btn btn-default" data-bind="click: function () { locate('end'); }"><i class="fa fa-map-marker fa-fw"></i></button></div>
     </div>
     <label>Modus</label>
     <div class="input-group">
       <div class="input-group-btn">
         <!--"car", "foot", "bicycle"-->
-        <button class="btn btn-default btn-sm" type="button" data-bind="click: function () { setMode('foot'); }, css: { 'btn-success': settings.mode() === 'foot' }">Zufuß</button>
-        <!--<button class="btn btn-default btn-xs"  type="button"data-bind="click: function () { setMode('public'); }, css: { 'btn-success': settings.mode() === 'public' }">Öffis</button>-->
         <button class="btn btn-default btn-sm" type="button" data-bind="click: function () { setMode('bicycle'); }, css: { 'btn-success': settings.mode() === 'bicycle' }">Fahrrad</button>
+        <button class="btn btn-default btn-sm" type="button" data-bind="click: function () { setMode('foot'); }, css: { 'btn-success': settings.mode() === 'foot' }">Zufuß</button>
+        <!--<button class="btn btn-default btn-xs"  type="button"data-bind="click: function () { setMode('public'); }, css: { 'btn-success': settings.mode() === 'multi' }">Mulitmodal</button>-->
+        <!--<button class="btn btn-default btn-xs"  type="button"data-bind="click: function () { setMode('public'); }, css: { 'btn-success': settings.mode() === 'public' }">Öffis</button>-->
         <button class="btn btn-default btn-sm" type="button" data-bind="click: function () { setMode('car'); }, css: { 'btn-warning': settings.mode() === 'car' }">Auto</button>
       </div>
     </div>

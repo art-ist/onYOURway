@@ -2,6 +2,7 @@ define([
   'services/logger'
 ], function (logger) {
   var storage = {
+    //methods
     get: get,
     set: set,
     remove: remove,
