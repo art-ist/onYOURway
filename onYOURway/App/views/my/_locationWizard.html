@@ -32,7 +32,7 @@
     <div class="form-group col-sm-12 align-left">
       <label for="inputAlias">Weitere Namen</label>
       <a title="Neuen Alias anlegen" data-bind="click: $root.addAlias">hinzufügen <i class="fa fa-plus fa-fw"></i></a>
-      <ul class="oyw-input-list" data-bind="foreach: Aliases">
+      <ul class="oyw-input-list align-left" data-bind="foreach: Aliases">
         <li>
 
           <div class="input-group">
@@ -52,27 +52,45 @@
       <textarea class="form-control" maxlength="500" placeholder="Was bieten Sie an (max. 500 Zeichen)?" />
     </div>
 
-    <div class="form-group col-sm-8 align-left">
-      <label for="form-control">Kontaktart</label>
-      <select class="form-control" id="inputTag" data-bind="value: Tag">
-        <option>Festnetztelefon</option>
-        <option>Mobiltelefon</option>
-        <option>E-Mail</option>
-        <option>Website</option>
-      </select>
-    </div>
-    <div class="form-group col-sm-4 align-left">
-        <label class="sr-only" for="inputEmail">Telefon</label>
-        <input type="text" class="form-control" id="inputPhone" data-bind="Phone" placeholder="z.B.: 02252 123 456 78 ">
-    </div>
-      <!--<div class="form-group col-sm-6 align-left">
-      <label class="sr-only" for="inputEmail">E-Mail</label>
-      <label for="inputEmail">Email</label>
-      <input type="text" class="form-control" id="inputEmail" placeholder="z.B.: ich@binich.at">
-    </div>-->
+    <div class="form-group col-sm-12 align-left">
 
+      <ul class="oyw-input-list" data-bind="foreach: Tags">
+        <li>
 
-</article>
+          <div class="form-group col-sm-4 align-left align-right">
+            <label for="form-control">Kontaktart</label><a title=" Neue Kontaktart anlegen" data-bind="click: $root.addTag"> hinzufügen <i class="fa fa-plus fa-fw"></i></a>
+            <select class="form-control">
+              <option value="1">Festnetztelefon</option>
+              <option value="2">Mobiltelefon</option>
+              <option value="3">E-Mail</option>
+              <option value="4">Website</option>
+            </select> <!--Martin: Wie wird der value in das Feld "locationId" eingetragen???-->
+          </div>
+
+          <div class="form-group col-sm-4 align-right">
+            <div class="input-group">
+              <label for="form-control">Kontaktart</label><!--In diesem Feld sollte die locationId gespeichert werden  die aus der Liste oben ausgewählt wird-->
+              <input type="text" class="form-control" id="inputlocationId" data-bind="with:locationId" placeholder="Kontaktart">
+              <span class="input-group-btn">
+                <button title="Kontaktart löschen" type="button" class=" btn btn-danger click $root.removetag"> <i class="fa fa-trash-o"></i><span class="sr-only">Kontaktart löschen</span></button>
+              </span> <!--Martin: WARUM ist der Button bei "weitere Namen" KLEINER ????-->
+            </div>
+          </div>
+
+          <div class="form-group col-sm-4 align-right">
+
+            <label for="form-control">Ihr Eintrag</label><!--In diesem Feld sollte der eigentliche Tag gespeichert werden-->
+            <input type="text" class="form-control" id="inputTag" data-bind="with:Tag" placeholder="02252 123 456 78 oder me@you.at">
+
+          </div>
+
+        </li>
+
+      </ul>
+
+    </div>
+
+  </article>
 
   <!--Step2: Anschrift-->
   <article id="step2">
@@ -167,26 +185,15 @@
           </select>
         </div>
         <div class="form-group col-sm-12 align-left">
+          <!--Martin: Wie werden die drei Feldinhalte Verkaufstage, Öffnungszeiten und "offen" in einen Feldinhalt "verschmolzen"???-->
           <label for="sr-only">Ihre Öffnungszeiten</label>
           <!--see: http://wiki.openstreetmap.org/wiki/Key:opening_hours -->
           <!--evaluation tool: http://openingh.openstreetmap.de/evaluation_tool -->
-          <input type="text" class="form-control" id="inputDayTimeIndividual" placeholder="z.B.: Mo-Fr 08:00-18:00">
+          <input type="text" class="form-control" id="inputDayTimeIndividual" placeholder="z.B.: Mo-Fr 08:00-18:00" data-bind="value: Location.OpeningHours">
         </div>
       </div>
-
-      <!--<div class="form-group col-sm-6 align-left">
-        <label class="sr-only" for="inputEmail">Telefon</label>
-        <label for="inputPhone">Telefon</label>
-        <input type="text" class="form-control" id="inputPhone" data-bind="Phone" placeholder="z.B.: 02252 123 456 78 ">
-      </div>
-      <div class="form-group col-sm-6 align-left">
-        <label class="sr-only" for="inputEmail">E-Mail</label>
-        <label for="inputEmail">Email</label>
-        <input type="text" class="form-control" id="inputEmail" placeholder="z.B.: ich@binich.at">
-      </div>-->
     </div>
   </article>
-
 
   <!--Step4: Geschäftsart-->
   <article id="step4">
@@ -196,7 +203,8 @@
       Mehrere Angaben möglich:
     </p>
     <div class="form-group">
-      <ul class="dropdown-menu" role="menu" aria-labelledby="Hauptsächliche Geschäftsart">
+      <!--Martin: Stimmt data-bind???-->
+      <ul class="dropdown-menu" role="menu" aria-labelledby="Hauptsächliche Geschäftsart" data-bind="value: location.Description">
         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Einzelhandel</a></li>
         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gastronomie</a></li>
         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Erzeuger</a></li>
@@ -212,7 +220,6 @@
     </div>
   </article>
 
-
   <!--Step5: Speichern-->
   <article id="step5">
     <h2>Angaben speichern</h2>
@@ -222,7 +229,6 @@
       <button type="button" class="btn btn-default">Abbruch</button>
     </div>
   </article>
-
 
   <!--Step6: Foto(s) hochladen-->
   <article id="step6">
