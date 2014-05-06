@@ -595,21 +595,16 @@ nav .dropdown-toggle:hover:after {
   }
 }
 /* xs & sm */
-<<<<<<< HEAD:onYOURway/App/_styles/_onYOURway.css
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion searchbar*/
+/*#region forms */
 .oyw-input-list {
   list-style: none;
 }
 .oyw-input-list > li:before {
   content: none;
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
-=======
-/*#endregion searchbar*/
+/*#endregion forms */
 /*#region controls */
->>>>>>> e55cef71432ac12f015559d6bb9f5248285dc068:onYOURway/App/_styles/themes/onYOURway-2/_onYOURway.css
 /*.loader {
 	z-index: 200;
 	visibility: hidden;
@@ -624,7 +619,7 @@ nav .dropdown-toggle:hover:after {
   width: 35px;
   height: 35px;
   text-align: right;
-  padding: 7px 8px 0 0;
+  padding: 2px 10px 0 0;
   color: #ccc;
   opacity: 0.5;
   z-index: 9;

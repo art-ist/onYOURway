@@ -9,9 +9,8 @@
     'bootstrap'   : './_libraries/bootstrap',
     'services'    : './services',
     'providers'   : './services/providers'
-
-    , urlArgs: "bust=" + (new Date()).getTime()
   },
+  urlArgs: "bust=" + (new Date()).getTime(),
   shim: {
     'bootstrap': {
       deps: ['jquery'],

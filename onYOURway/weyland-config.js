@@ -4,26 +4,28 @@ exports.config = function (weyland) {
         include: 'App/**/*.js'
       })
       .task.uglifyjs({
-        include: ['App/**/*.js', 'Scripts/durandal/**/*.js']
+        include: ['App/**/*.js']
       })
       .task.rjs({
-        include: ['App/**/*.{js,html}', 'Scripts/durandal/**/*.js'],
+        include: ['App/**/*.{js,html}'],
         loaderPluginExtensionMaps: {
           '.html': 'text'
         },
         rjs: {
-          name: '../Scripts/almond-custom', //to deploy with require.js, use the build's name here instead
+          name: 'App/onYOURway-built', //to deploy with require.js, use the build's name here instead
           insertRequire: ['main'], //not needed for require
           baseUrl: 'App',
           wrap: true, //not needed for require
           paths: {
-            'text': '../Scripts/text',
-            'durandal': '../Scripts/durandal',
-            'plugins': '../Scripts/durandal/plugins',
-            'transitions': '../Scripts/durandal/transitions',
-            'knockout': '../Scripts/knockout-3.0.0',
-            'bootstrap': '../Scripts/bootstrap',
-            'jquery': '../Scripts/jquery-2.0.1'
+            'text': './_libraries/text',
+            'durandal': './_libraries/durandal',
+            'plugins': './_libraries/durandal/plugins',
+            'transitions': './_libraries/durandal/transitions',
+            'knockout': './_libraries/knockout-3.0.0',
+            'jquery': './_libraries/jquery-2.0.1',
+            'bootstrap': './_libraries/bootstrap',
+            'services': './services',
+            'providers': './services/providers'
           },
           inlineText: true,
           optimize: 'none',
@@ -32,7 +34,7 @@ exports.config = function (weyland) {
           },
           stubModules: ['text'],
           keepBuildDir: true,
-          out: 'App/main-built.js'
+          out: 'App/onYOURway-built.js'
         }
       });
 }

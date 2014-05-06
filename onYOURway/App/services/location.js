@@ -44,12 +44,15 @@ define([
         //lyrk
         { Name: 'Standard', Layer: new L.TileLayer('http://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey=' + lrk, { attribution: attrib('lyrk'), maxZoom: 18 }) },
         { Name: 'Standard (HD)', Layer: new L.TileLayer('http://tiles.lyrk.org/lr/{z}/{x}/{y}?apikey=' + lrk, { attribution: attrib('lyrk'), maxZoom: 18 }) },
-        //cloudmade (depricated)
-        { Name: 'Standard (depricated)', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/93587'/*styleId*/ + '/256/{z}/{x}/{y}.png', { attribution: attrib('cloudmade'), maxZoom: 18, subdomains: 'abc' }) },
-        { Name: 'Grau (depricated)', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/22677/256/{z}/{x}/{y}.png', { attribution: attrib('cloudmade'), maxZoom: 18, subdomains: 'abc' }) },
+        ////cloudmade (CLOSED)
+        //{ Name: 'Standard (depricated)', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/93587'/*styleId*/ + '/256/{z}/{x}/{y}.png', { attribution: attrib('cloudmade'), maxZoom: 18, subdomains: 'abc' }) },
+        //{ Name: 'Grau (depricated)', Layer: new L.TileLayer('http://{s}.tile.cloudmade.com/' + cmk + '/22677/256/{z}/{x}/{y}.png', { attribution: attrib('cloudmade'), maxZoom: 18, subdomains: 'abc' }) },
+        //OSM
+        { Name: 'OSM Graustufen', Layer: new L.TileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', { attribution: attrib('osm'), maxZoom: 18, subdomains: 'abc' }) },
+        { Name: 'OSM Unbeschriftet', Layer: new L.TileLayer('http://{s}.www.toolserver.org/tiles/osm-no-labels/{z}/{x}/{y}.png', { attribution: attrib('osm'), maxZoom: 18, subdomains: 'abc' }) },
+        { Name: 'OSM Standard', Layer: new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: attrib('osm'), maxZoom: 18, subdomains: 'abc' }) },
         //others
-        { Name: 'OpenStreetMap', Layer: new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: attrib('osm'), maxZoom: 18, subdomains: 'abc' }) },
-        { Name: 'OpenCycleMap', Layer: new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', { attribution: attrib('opencyclemap'), maxZoom: 18, subdomains: 'abc' }) },
+		{ Name: 'OpenCycleMap', Layer: new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', { attribution: attrib('opencyclemap'), maxZoom: 18, subdomains: 'abc' }) },
         { Name: 'Wasserfarbe', Layer: new L.TileLayer('http://b.tile.stamen.com/watercolor/{z}/{x}/{y}.png', { attribution: attrib('stamen.com'), maxZoom: 18 }) }
         //'http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png'; subdomains = '1234'; //MapQuest
         //'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png'; subdomains = '1234'; //MapQuest.Sat (no tiles for detailed zoom)
@@ -311,8 +314,10 @@ define([
               //** opening_hours **
               if (item.oh === undefined && item.OpeningHours && item.OpeningHours()) {
                 try {
-                  //TODO: get from start or center of map or region (but actually not used as long as nobody uses sunrise/sunset and, oh, holidays)
                   item.oh = new opening_hours(item.OpeningHours(), {
+                    //initialize opening_hours property
+                    //TODO: move definition to locate property
+                    //TODO: get from start or center of map or region (but actually not used as long as nobody uses sunrise/sunset and, oh, holidays)
                     "place_id": "97604310",
                     "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
                     "osm_type": "relation",
