@@ -68,8 +68,12 @@ define([
       showPointer: true,
       showIndicator: true,
 
-      routeColor: '#0067a3'
-    },
+      routeColor: '#0067a3',
+
+      forceMap: false,
+      disableDetails: false,
+      maxSelectedItems: 5
+  },
 
     regions: ko.observableArray(),
     region: ko.observable(),        //selected region
@@ -80,6 +84,7 @@ define([
     tags: ko.observableArray(),
 
     selectedItem: ko.observable(), //current location
+    selectedItems: ko.observableArray(), //last selected locations (max: settings.maxSelectedItems)
 
     searchFor: ko.observable(),
     featuredIf: ko.observableArray([
@@ -1103,6 +1108,15 @@ define([
       ;
     }
 
+    var selItmsIdx = location.selectedItems.indexOf(loc);
+    if (selItmsIdx >= 0) {
+        location.selectedItems.splice(selItmsIdx, 1);
+    }
+    location.selectedItems.unshift(loc);
+    if (location.selectedItems().length > location.settings.maxSelectedItems) {
+        location.selectedItems.pop();
+    }
+
     _drawPointer();
     _scrollList('#' + loc.Id());
     _panMap(marker);
@@ -1112,42 +1126,48 @@ define([
   //#region control display of mapparts
 
   function toggleMap(mode) {
-    if (mode === 'hide' || location.settings.showMap() === 'auto')
-      location.settings.showMap(false);
-    else
-      location.settings.showMap('auto');
+      if (!location.settings.forceMap) {
+          if (mode === 'hide' || location.settings.showMap() === 'auto')
+              location.settings.showMap(false);
+          else
+              location.settings.showMap('auto');
+      }
   }
 
   function toggleList(mode) {
-    if (mode === 'hide' || location.settings.showList() === 'auto')
-      location.settings.showList(false);
-    else
-      location.settings.showList('auto');
-    //location.map.invalidateSize(true);
+      if ((!location.settings.disableDetails) || !location.settings.forceMap) {
+          if (mode === 'hide' || location.settings.showList() === 'auto')
+              location.settings.showList(false);
+          else
+              location.settings.showList('auto');
+          //location.map.invalidateSize(true);
+      }
   }
 
   function toggleDetails(mode) {
-    if (mode === 'hide' || $('#ventureDetails').hasClass('detailsOpen')) {
-      location.drawPointer('hide');
-      $('#ventureDetails, #locationList, #map').removeClass('detailsOpen');
-      logger.log('details hidden', 'location - toggleDetails');
-      setTimeout(function () { //500ms later
-        location.panIntoView();
-        location.drawPointer();
-        //map.panBy([0, 0]);
-      }, 500);
-    }
-    else {
-      location.drawPointer('hide');
-      $('#ventureDetails, #locationList, #map')
-        .addClass('detailsOpen');
-      logger.log('details opened', 'location - toggleDetails');
-      setTimeout(function () { //500ms later
-        location.panIntoView();
-        location.drawPointer();
-        //location.map.panBy([0, 0]);
-      }, 500);
-    }
+      if (!location.settings.disableDetails) {
+          if (mode === 'hide' || $('#ventureDetails').hasClass('detailsOpen')) {
+              location.drawPointer('hide');
+              $('#ventureDetails, #locationList, #map').removeClass('detailsOpen');
+              logger.log('details hidden', 'location - toggleDetails');
+              setTimeout(function () { //500ms later
+                  location.panIntoView();
+                  location.drawPointer();
+                  //map.panBy([0, 0]);
+              }, 500);
+          }
+          else {
+              location.drawPointer('hide');
+              $('#ventureDetails, #locationList, #map')
+                .addClass('detailsOpen');
+              logger.log('details opened', 'location - toggleDetails');
+              setTimeout(function () { //500ms later
+                  location.panIntoView();
+                  location.drawPointer();
+                  //location.map.panBy([0, 0]);
+              }, 500);
+          }
+      }
   }
 
   //#endregion control display of mapparts
