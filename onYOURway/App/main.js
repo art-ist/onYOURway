@@ -106,21 +106,22 @@ define([
         switch (platform.device.type) {
           case 'Phone':
             logger.log('starting Phone shell', 'main');
-            durandal.setRoot('views/vonMorgen/_shell', 'entrance'); //TODO: expected to set the default transition
+            durandal.setRoot('views/_shell', 'entrance'); //TODO: expected to set the default transition
             break;
           //case 'Tablet':
           //case 'PC':
           default:
             logger.log('starting default shell on device type: ' + platform.device.type, 'main');
-            durandal.setRoot('views/vonMorgen/_shell', 'entrance'); //TODO: expected to set the default transition
+            durandal.setRoot('views/_shell', 'entrance'); //TODO: expected to set the default transition
             break;
         } //switch (platform.device.type)
 
-        app.location.settings.showMap(true);
-        app.location.settings.showList(false);
-        app.location.settings.showDetails(false);
-        app.location.settings.forceMap = true;
-        app.location.settings.disableDetails = true;
+        // for vonMorgen view only
+        //app.location.settings.showMap(true);
+        //app.location.settings.showList(false);
+        //app.location.settings.showDetails(false);
+        //app.location.settings.forceMap = true;
+        //app.location.settings.disableDetails = true;
 
         app.initialize();
 

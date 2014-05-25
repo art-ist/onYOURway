@@ -260,6 +260,7 @@
     <Content Include="App\appConfig.base.js" />
     <Content Include="App\images\vonMorgen\photo-1.PNG" />
     <Content Include="App\images\vonMorgen\photo-2.PNG" />
+    <Content Include="App\images\vonMorgen\photo-3.PNG" />
     <Content Include="App\services\geoUtils.js" />
     <Content Include="App\services\location.js" />
     <Content Include="App\services\providers\routing-yours.js" />
@@ -504,6 +505,15 @@
     <Content Include="App\views\about\venture.html" />
     <Content Include="App\views\about\explorer.html" />
     <Content Include="App\views\_map.html" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\variables.css">
+      <DependentUpon>variables.less</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\_onYOURway.css">
+      <DependentUpon>_onYOURway.less</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\_onYOURway.min.css">
+      <DependentUpon>_onYOURway.css</DependentUpon>
+    </Content>
     <Content Include="App_Data\onYOURway.XML" />
     <Content Include="App\_styles\bootstrap-datepicker.css" />
     <Content Include="App\_styles\themes\onYOURway-2\bootstrap-theme.NOT-USED.css" />
@@ -770,6 +780,59 @@
     <Content Include="App\_styles\themes\vonMorgen\_vonMorgen.min.css">
       <DependentUpon>_vonMorgen.css</DependentUpon>
     </Content>
+    <Content Include="App\_styles\themes\vonMorgen\_onYOURway.css.map">
+      <DependentUpon>_onYOURway.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\_onYOURway.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\alerts.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\badges.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.css">
+      <DependentUpon>bootstrap.less</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.css.map">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\breadcrumbs.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\button-groups.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\buttons.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\carousel.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\close.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\code.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\component-animations.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\dropdowns.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\forms.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\glyphicons.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\grid.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\input-groups.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\jumbotron.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\labels.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\list-group.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\media.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\mixins.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\modals.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\navbar.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\navs.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\normalize.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\pager.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\pagination.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\panels.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\popovers.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\print.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\progress-bars.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\responsive-utilities.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\scaffolding.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\tables.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\theme.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\thumbnails.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\tooltip.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\type.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\utilities.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\variables.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\wells.less" />
     <None Include="Properties\PublishProfiles\onYOURway.at.pubxml" />
     <Content Include="App\_libraries\breeze.debug.js" />
     <Content Include="App\_libraries\knockout.validation.debug.js" />

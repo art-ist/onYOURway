@@ -5,10 +5,9 @@
   'services/platform'
 ], function (app, location, logger, platform) {
 
-  var vm = function () {
-    var self = this;
-    self.app = app;
-    self.location = location;
+  var vm = {
+    app: app,
+    location: location,
 
     //#region lifecycle events
 
@@ -30,11 +29,22 @@
 
     //#region Properties
 
-    self.showMap = true;
+    showMap: true,
 
-    self.showList = false;
+    showList: false,
 
-    self.showDetails = false;
+    showDetails: false,
+
+    showInfo: ko.observable(false),
+    showEco: ko.observable(false),
+    showRate: ko.observable(false),
+
+    toggleInfo: toggleInfo,
+    toggleEco: toggleEco,
+    toggleRate: toggleRate,
+    selectInfo: selectInfo,
+    selectEco: selectEco,
+    selectRate: selectRate
 
     //#endregion Properties
 
@@ -42,5 +52,40 @@
 
   };
   return vm;
+
+  function toggleInfo(place) {
+      vm.showInfo(!vm.showInfo());
+      vm.showEco(false);
+      vm.showRate(false);
+  }
+  function toggleEco(place) {
+      vm.showInfo(false);
+      vm.showEco(!vm.showEco());
+      vm.showRate(false);
+  }
+  function toggleRate(place) {
+      vm.showInfo(false);
+      vm.showEco(false);
+      vm.showRate(!vm.showRate());
+  }
+  function selectInfo(place) {
+      vm.location.itemClick(place);
+      vm.showInfo(true);
+      vm.showEco(false);
+      vm.showRate(false);
+  }
+  function selectEco(place) {
+      vm.location.itemClick(place);
+      vm.showInfo(false);
+      vm.showEco(true);
+      vm.showRate(false);
+  }
+  function selectRate(place) {
+      vm.location.itemClick(place);
+      vm.showInfo(false);
+      vm.showEco(false);
+      vm.showRate(true);
+  }
+
 
 }); //module

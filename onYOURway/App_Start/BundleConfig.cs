@@ -129,7 +129,9 @@ namespace onYOURway {
         , "~/App/_styles/themes/onYOURway-2/_onYOURway.css"
       ));
       bundles.Add(new StyleBundle("~/themes/vonMorgen").Include(
-          "~/App/_styles/themes/vonMorgen/_vonMorgen.css"
+          "~/App/_styles/themes/vonMorgen/bootstrap/bootstrap.css"
+        , "~/App/_styles/themes/vonMorgen/_onYOURway.css"
+        , "~/App/_styles/themes/vonMorgen/_vonMorgen.css"
       ));
 
       #endregion Style Bundles
