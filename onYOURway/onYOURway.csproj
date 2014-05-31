@@ -261,6 +261,7 @@
     <Content Include="App\images\vonMorgen\photo-1.PNG" />
     <Content Include="App\images\vonMorgen\photo-2.PNG" />
     <Content Include="App\images\vonMorgen\photo-3.PNG" />
+    <Content Include="App\mainVonMorgen.js" />
     <Content Include="App\services\geoUtils.js" />
     <Content Include="App\services\location.js" />
     <Content Include="App\services\providers\routing-yours.js" />
