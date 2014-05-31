@@ -1,0 +1,244 @@
+﻿<div id="oyw-map-container">
+
+    <!--Map-->
+    <div id="map" data-bind=" map: { initialize: location.initializeMap }
+                          , ventures : { map: location.map, data: location.mapLocations }
+                          , css: { listOpen: showList }
+                          ">
+
+        <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleList">
+            <i class="fa" data-bind="css: { 'fa-arrow-right': location.settings.showMap, 'fa-arrow-left': !location.settings.showMap() }"></i>
+        </button>
+    </div>
+    <!--/Map-->
+    <!--SelectedItems-->
+    <div id="selectedItems" data-bind="foreach: location.selectedItems" class="locBoxCtnr">
+        <div class="locBox">
+            <div class="locBoxIcons">
+                <span class="locBoxEvent">Event</span>
+            </div>
+            <div class="locBoxTitle">
+                <div data-bind="text: $data.Name"></div>
+                <div>
+                    <!-- ko if: $data.ShortDesc -->
+                    <span data-bind="text: $data.ShortDesc"></span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: $data.ShortDesc -->
+                    <span data-bind="text: $data.Street"></span>, <span data-bind="text: $data.City"></span>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <!-- ko ifnot: $index() == 0 -->
+            <div>
+                <span class="locBoxArrow" data-bind="click: $root.selectInfo">v</span>
+                <button class="locBoxBtn" data-bind="click: $root.selectInfo">INFO</button>
+                <button class="locBoxBtn" data-bind="click: $root.selectEco">BILANZ</button>
+                <button class="locBoxBtn" data-bind="click: $root.selectRate">****</button>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: $index() == 0 -->
+            <div>
+                <span class="locBoxArrow" data-bind="click: $root.toggleInfo">v</span>
+                <button class="locBoxBtn" data-bind="click: $root.toggleInfo">INFO</button>
+                <button class="locBoxBtn" data-bind="click: $root.toggleEco">BILANZ</button>
+                <button class="locBoxBtn" data-bind="click: $root.toggleRate">****</button>
+            </div>
+            <div class="locBoxInfo" data-bind="css: { unhide: $root.showInfo }">
+                <img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
+                <ul class="ventureDetails-taglist" data-bind="foreach: Tag">
+                    <li><a class="btn btn-success btn-xs" data-bind="text: Name, attr: { href: '#/karte?tag=' + Name() }"></a></li>
+                </ul>
+
+                <!-- ko if: $data.Phone -->
+                <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: 'tel:' + $data.Phone() }"><span class="fa fa-fw fa-phone" /> <span data-bind="text: $data.Phone" /></a>
+                <!-- /ko -->
+                <!-- ko with: $data.Link -->
+                <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: Url}"><span class="fa fa-fw fa-globe" /> <span data-bind="text: Tag" /></a>
+                <!-- /ko -->
+                <!-- ko foreach: $data.Link -->
+                <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: Url}"><span class="fa fa-fw fa-globe" /> <span data-bind="text: Tag" /></a>
+                <!-- /ko -->
+                <!-- ko if: $data.Street -->
+                <h4>Adresse</h4>
+                <p class="detail-address">
+                    <span data-bind="text: $data.Street"></span> <span data-bind="  text: $data.HouseNumber"></span><br />
+                    <span data-bind="text: $data.Zip"></span> <span data-bind="  text: $data.City"></span>
+                </p>
+                <!-- /ko -->
+                <!-- ko if: $data.OpenDisplay -->
+                <h4>Öffnungszeiten</h4>
+                <p data-bind="html: $data.OpenDisplay"></p>
+                <!-- /ko -->
+                <!-- ko if: $data.Description -->
+                <h4>Beschreibung</h4>
+                <div class="detail-content" data-bind="html: $data.Description"></div>
+                <!-- /ko -->
+
+            </div>
+
+            <div class="locBoxEco" data-bind="css: { unhide: $root.showEco }">
+                <h4>Ökobilanz</h4>
+                <ul>
+                    <li>
+                        <a class="explainable">
+                            Intention
+                            <span class="explain">Nachhaltigkeit wird Chefsache: Welche Philosophie bzw. nachhaltiges Ziel  d.h. Mehrwert für Mensch, Gesellschaft und Erde  . erfolgt eine sinnvolle Umsetzungsstrategie? (Umweltschutz, Frieden, Gerechtigkeit, Zukunftsvision. Machen die Produkte Sinn für Mensch und Umwelt? [bei dieser Frage ist die reale Situation egal, es geht nur darum was die Initiative/ das Unternehmen gerne hätte])</span>
+                        </a>: ****o
+                    </li>
+                    <li>
+                        <strong>Umwelt:</strong>
+                        <ul>
+                            <li>
+                                <a class="explainable">
+                                    Biologisch
+                                    <span class="explain">Bilden an dem Ort Boden, Umwelt, Tiere und Menschen einen natürlichen Kreislauf? (Natürliche Rohstoffe, Biologische Landwirtschaft und Nahrungsmittel, Bodenfruchtbarkeit, Biodiversität, Demeter, Permakultur. Naturheilmittel, keine toxische od. chemisch Umweltbelastung. Viel Gründfläche, Expandieren nur auf bebauten flächen, gesunde, gesunde Lebensmittel für Mitarbeiter…) Wie geht das Unternehmen mit dem natürlichen Kreislauf zwischen Boden, Umwelt, Tiere und Menschen um?</span>
+                                </a>: ***oo
+                            </li>
+                            <li>
+                                <a class="explainable">
+                                    Erneuerbar
+                                    <span class="explain">Bezieht das Unternehmen Strom aus erneuerbaren Energien?   Werden Rohstoffe Effizient genutzt (oder ist Verschwendung erkennbar, falls ja, wo?)? (grüne Energien, Wärmeschutz, Energiesparen, regional, kurze Transportwege, Intelligente Mobilität, (Lasten)Fahrrad und öffentlichen Verkehrsmitteln, Rohstoffschonend, Creadle to Creadle, Müllvermeidung, Papier- statt Plastiktüten, Wassersparen. keine Kühlhaltung, Saisonales Angebot…)</span>
+                                </a>: **ooo
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Mensch:</strong>
+                        <ul>
+                            <li>
+                                <a class="explainable">
+                                    Arbeitsbedingungen
+                                    <span class="explain">Sind die Arbeitsbedingungen in der gesamten Wertschöpfungskette sicher, fair und angemessen? (Fair-Trade Sigel, Menschenrechte, Einhaltung von Arbeitsrechten, Keine Ausbeutung und Druck, familienfreundliches und angenehmes Arbeitsklima KITA, ähnliche Löhne, Inklusion, Gleichstellung, flexible Arbeitszeiten und Work-life-Balance…)</span>
+                                </a>: ****o
+                            </li>
+                            <li>
+                                <a class="explainable">
+                                    Menschlich
+                                    <span class="explain">Haben die Mitgestaltenden der Initiative und alle Beteiligten Freiraum für Kreativität, Mitbestimmung und Weiterentwicklung? (flache Hierachien, Ausbildung, lebenslanges Lernen, Raum für Ideen und eine gesunde Fehlerkultur, demokratische Entscheidungsfindung, Ideen der Mitwirkenden werden beachtet und zeigen Wirkung. Offen füreinandern, neue Mitgestalter sind willkommen, Glück des Einzelnen und Gemeinwohl wird gefördert,  Diversität, kulturelle Vielfalt, Menschen mit Behinderungen…</span>
+                                </a>: *****
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Wirtschaft:</strong>
+                        <ul>
+                            <li>
+                                <a class="explainable">
+                                    Transparent
+                                    <span class="explain">Ist die gesamte Produktions- und Handelskette öffentlich verfolgbar? Und dürfen Beteiligte öffentliche Auskunft über Arbeitsbedingungen,  Nahchaltigkeit (Umweltverschmutzung, Gesundheit usw.) geben? (Von regelmäßigen Transparenz- und Nachhaltigkeitsberichten bis hin zur vollständigen Offenlegung aller Geld und Warenströme. Pressefreiheit, Wirtschaftsbeziehungen, Produktherkünfte, keine Täuschung in Werbung, Öffentlichkeitsarbeit für Nachhaltigkeit. Andere werden aktiv für positive Veränderung motiviert…)</span>
+                                </a>: ****o
+                            </li>
+                            <li>
+                                <a class="explainable">
+                                    Nachhaltig
+                                    <span class="explain">Sind Finanzierung und Investitionen im nachhaltigen und etischen Kontext vertretbar? #und sind Preise nachhaltig kalkuliert?# (Kredite und Konten mit ethischen Banken, Geld wird durch nachhaltige Tätigkeit erwirtschaftet, Tragfähige und nachhaltige Finanzierung, Das Unternehmen ist im Besitz der Mitarbeiter, Faire Preise für beide Seiten)</span>
+                                </a>: *oooo
+                            </li>
+                            <li>
+                                <a class="explainable">
+                                    Solidarisch
+                                    <span class="explain">Handelt die Initiative geschwisterlich und solidarisch anderen Initiativen gegenüber? #Handelt die Initiative kooperativ mit anderen Institutionen?# (Abnahmegarantien und absprachen mit Zulieferern, Wirtschaftpartnern, regionale Wertschöpfung, Weitergabe von Know-How, zinsfreien Krediten und Arbeitskräften an Unternehmen in Kriesen. Gewinnausschüttung nur an Mitarbeiter und Involvierte. Gemeinschaftlicher Landbesitz, Commons…)</span>
+                                </a>: *****
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="locBoxRate" data-bind="css: { unhide: $root.showRate }">
+                <h4>Kommentare</h4>
+                <div class="locBoxComment">
+                    <span class="locBoxStars3">***oo</span>
+                    <span>Hat mir gut gefallen, aber das Essen war so lala. Das Gemüse war verkocht und dann gabs auch noch Fleisch dazu.</span>
+                </div>
+                <div class="locBoxComment">
+                    <span class="locBoxStars1">*oooo</span>
+                    <span>Ich wußte garnicht, daß es jetzt auch schon Bio-Pressfleisch gibt.</span>
+                </div>
+                <div class="locBoxComment">
+                    <span class="locBoxStars5">*****</span>
+                    <span>Der absolute Hammer; von dem Schnitzel wäre meine ganze Familie satt geworden, und das alles für unter 5 Euro!!  wär echt fast geplatzt</span>
+                </div>
+                <form class="locBoxForm">
+                    <input type="text" name="comment" placeholder="Dein Kommentar" size="30" style="width: 100%" />
+                    <select name="rating">
+                        <option value="1" class="locBoxStars1">*oooo</option>
+                        <option value="2" class="locBoxStars2">**ooo</option>
+                        <option value="3" class="locBoxStars3" selected="selected">***oo</option>
+                        <option value="4" class="locBoxStars4">****o</option>
+                        <option value="5" class="locBoxStars5">*****</option>
+                    </select>
+                    <button type="submit" style="float:right;">Senden</button>
+                </form>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+
+
+    <!--/SelectedItems-->
+    <!--List-- >
+    <div id="locationList" data-bind="css: { listOpen: showList }">
+      <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleDetails"><i class="fa fa-arrow-right"></i></button>
+
+      <ul data-bind="foreach: location.mapLocations" class="nav nav-list">
+        <li class="locationInfo" data-bind="css: { isOpen: isOpen()
+                                                 , isFeatured: isFeatured()
+                                                 , selected: $data === $root.location.selectedItem() }
+                                                 , click: $root.location.itemClick, attr: { id: Id }
+                                            ">
+          <div class="locationInfo-imageArea">
+            <i class=" fa fa-2x" data-bind="css: $data.Icon"></i>
+          </div>
+          <i class="fa fa-chevron-right detailsIndicator"></i>
+          <h5 class="locationInfo-title" data-bind="text: Name" style="max-height: 30px; overflow: hidden; overflow-wrap: break-word; -ms-word-wrap: hyphenate; word-wrap:hyphenate;"></h5>
+          <p class="locationInfo-addr"><span data-bind="  text: $data.Street"></span> <span data-bind="  text: $data.HouseNumber"></span></p>
+        </li>
+      </ul>
+    </div>
+    <!--/List-->
+    <!--/Details-- >
+    <div id="ventureDetails" data-bind="with: location.selectedItem">
+
+      <div class="ventureDetails-imageArea">
+        <img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
+        <h2 class="ventureDetails-header" data-bind="text: Name"></h2>
+        <ul class="ventureDetails-taglist" data-bind="foreach: Tag">
+          <li><a class="btn btn-success btn-xs" data-bind="text: Name, attr: { href: '#/karte?tag=' + Name() }"></a></li>
+        </ul>
+      </div>
+
+      <div class="oyw-action-list btn-group-vertical pull-right">
+        <!-- ko if: $data.Phone -- >
+        <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: 'tel:' + $data.Phone() }"><span class="fa fa-fw fa-phone" /> <span data-bind="text: $data.Phone" /></a>
+        <!-- /ko -->
+    <!-- ko with: $data.Link -- >
+      <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: Url}"><span class="fa fa-fw fa-globe" /> <span data-bind="text: Tag" /></a>
+      <!-- /ko -- >
+      <!-- ko foreach: $data.Link -- >
+      <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: Url}"><span class="fa fa-fw fa-globe" /> <span data-bind="text: Tag" /></a>
+      <!-- /ko -- >
+    </div>
+
+    <div class="ventureDetails-details">
+      <!-- ko if: $data.Street -- >
+      <h4>Adresse</h4>
+      <p class="detail-address">
+        <span data-bind="text: $data.Street"></span> <span data-bind="  text: $data.HouseNumber"></span><br />
+        <span data-bind="text: $data.Zip"></span> <span data-bind="  text: $data.City"></span>
+      </p>
+      <!-- /ko -- >
+      <!-- ko if: $data.OpenDisplay -- >
+      <h4>Öffnungszeiten</h4>
+      <p data-bind="html: $data.OpenDisplay"></p>
+      <!-- /ko -- >
+      <!-- ko if: $data.Description -- >
+    <h4>Beschreibung</h4>
+    <div class="detail-content" data-bind="html: $data.Description"></div>
+    <!-- /ko -- >
+        </div>
+
+      </div>
+
+    </div>
+    <!--/Details-->
+</div>

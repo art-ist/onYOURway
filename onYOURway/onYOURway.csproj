@@ -258,6 +258,10 @@
     <Content Include="App\app.Debug.config.js" />
     <Content Include="App\app.Release.config.js" />
     <Content Include="App\appConfig.base.js" />
+    <Content Include="App\images\vonMorgen\photo-1.PNG" />
+    <Content Include="App\images\vonMorgen\photo-2.PNG" />
+    <Content Include="App\images\vonMorgen\photo-3.PNG" />
+    <Content Include="App\mainVonMorgen.js" />
     <Content Include="App\services\geoUtils.js" />
     <Content Include="App\services\location.js" />
     <Content Include="App\services\providers\routing-yours.js" />
@@ -393,9 +397,72 @@
     <Compile Include="Startup.cs" />
     <Content Include="App\views\my\wizardEdit.html" />
     <Content Include="App\views\my\wizardEdit.js" />
+    <Content Include="App\views\vonMorgen\home.html" />
+    <Content Include="App\views\vonMorgen\home.js" />
+    <Content Include="App\views\vonMorgen\_map.html" />
+    <Content Include="App\views\vonMorgen\_map.js" />
+    <Content Include="App\views\vonMorgen\_nav.html" />
+    <Content Include="App\views\vonMorgen\_nav.js" />
+    <Content Include="App\views\vonMorgen\_shell.html" />
+    <Content Include="App\views\vonMorgen\_shell.js" />
+    <Content Include="App\_libraries\select2\select2.js" />
+    <Content Include="App\_libraries\select2\select2.min.js" />
+    <Content Include="App\_libraries\select2\select2_locale_ar.js" />
+    <Content Include="App\_libraries\select2\select2_locale_bg.js" />
+    <Content Include="App\_libraries\select2\select2_locale_ca.js" />
+    <Content Include="App\_libraries\select2\select2_locale_cs.js" />
+    <Content Include="App\_libraries\select2\select2_locale_da.js" />
+    <Content Include="App\_libraries\select2\select2_locale_de.js" />
+    <Content Include="App\_libraries\select2\select2_locale_el.js" />
+    <Content Include="App\_libraries\select2\select2_locale_es.js" />
+    <Content Include="App\_libraries\select2\select2_locale_et.js" />
+    <Content Include="App\_libraries\select2\select2_locale_eu.js" />
+    <Content Include="App\_libraries\select2\select2_locale_fa.js" />
+    <Content Include="App\_libraries\select2\select2_locale_fi.js" />
+    <Content Include="App\_libraries\select2\select2_locale_fr.js" />
+    <Content Include="App\_libraries\select2\select2_locale_gl.js" />
+    <Content Include="App\_libraries\select2\select2_locale_he.js" />
+    <Content Include="App\_libraries\select2\select2_locale_hr.js" />
+    <Content Include="App\_libraries\select2\select2_locale_hu.js" />
+    <Content Include="App\_libraries\select2\select2_locale_id.js" />
+    <Content Include="App\_libraries\select2\select2_locale_is.js" />
+    <Content Include="App\_libraries\select2\select2_locale_it.js" />
+    <Content Include="App\_libraries\select2\select2_locale_ja.js" />
+    <Content Include="App\_libraries\select2\select2_locale_ka.js" />
+    <Content Include="App\_libraries\select2\select2_locale_ko.js" />
+    <Content Include="App\_libraries\select2\select2_locale_lt.js" />
+    <Content Include="App\_libraries\select2\select2_locale_lv.js" />
+    <Content Include="App\_libraries\select2\select2_locale_mk.js" />
+    <Content Include="App\_libraries\select2\select2_locale_ms.js" />
+    <Content Include="App\_libraries\select2\select2_locale_nl.js" />
+    <Content Include="App\_libraries\select2\select2_locale_no.js" />
+    <Content Include="App\_libraries\select2\select2_locale_pl.js" />
+    <Content Include="App\_libraries\select2\select2_locale_pt-BR.js" />
+    <Content Include="App\_libraries\select2\select2_locale_pt-PT.js" />
+    <Content Include="App\_libraries\select2\select2_locale_ro.js" />
+    <Content Include="App\_libraries\select2\select2_locale_rs.js" />
+    <Content Include="App\_libraries\select2\select2_locale_ru.js" />
+    <Content Include="App\_libraries\select2\select2_locale_sk.js" />
+    <Content Include="App\_libraries\select2\select2_locale_sv.js" />
+    <Content Include="App\_libraries\select2\select2_locale_th.js" />
+    <Content Include="App\_libraries\select2\select2_locale_tr.js" />
+    <Content Include="App\_libraries\select2\select2_locale_uk.js" />
+    <Content Include="App\_libraries\select2\select2_locale_vi.js" />
+    <Content Include="App\_libraries\select2\select2_locale_zh-CN.js" />
+    <Content Include="App\_libraries\select2\select2_locale_zh-TW.js" />
+    <Content Include="App\_styles\images\select2-spinner.gif" />
+    <Content Include="App\_styles\images\select2.png" />
+    <Content Include="App\_styles\images\select2x2.png" />
+    <Content Include="App\_styles\select2-bootstrap.css" />
+    <Content Include="App\_styles\select2.css" />
     <Content Include="App\_styles\themes\onYOURway-2\_onYOURway.css.map">
       <DependentUpon>_onYOURway.css</DependentUpon>
     </Content>
+    <Content Include="App\_libraries\select2\bower.json" />
+    <Content Include="App\_libraries\select2\component.json" />
+    <Content Include="App\_libraries\select2\composer.json" />
+    <Content Include="App\_libraries\select2\package.json" />
+    <Content Include="App\_libraries\select2\select2.jquery.json" />
     <None Include="App\_styles\themes\onYOURway-2\_onYOURway.less" />
     <Content Include="App\views\about\_preview.html" />
     <Content Include="App\views\about\_preview.js" />
@@ -438,6 +505,15 @@
     <Content Include="App\views\about\venture.html" />
     <Content Include="App\views\about\explorer.html" />
     <Content Include="App\views\_map.html" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\variables.css">
+      <DependentUpon>variables.less</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\_onYOURway.css">
+      <DependentUpon>_onYOURway.less</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\_onYOURway.min.css">
+      <DependentUpon>_onYOURway.css</DependentUpon>
+    </Content>
     <Content Include="App_Data\onYOURway.XML" />
     <Content Include="App\_styles\bootstrap-datepicker.css" />
     <Content Include="App\_styles\themes\onYOURway-2\bootstrap-theme.NOT-USED.css" />
@@ -694,6 +770,69 @@
     <Content Include="App\_styles\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="App\views\my\registration.html" />
     <Content Include="App\views\my\registrationExt.html" />
+    <Content Include="App\_styles\themes\vonMorgen\_vonMorgen.less" />
+    <Content Include="App\_styles\themes\vonMorgen\_vonMorgen.css.map">
+      <DependentUpon>_vonMorgen.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\_vonMorgen.css">
+      <DependentUpon>_vonMorgen.less</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\_vonMorgen.min.css">
+      <DependentUpon>_vonMorgen.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\_onYOURway.css.map">
+      <DependentUpon>_onYOURway.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\_onYOURway.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\alerts.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\badges.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.css">
+      <DependentUpon>bootstrap.less</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.css.map">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\breadcrumbs.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\button-groups.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\buttons.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\carousel.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\close.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\code.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\component-animations.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\dropdowns.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\forms.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\glyphicons.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\grid.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\input-groups.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\jumbotron.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\labels.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\list-group.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\media.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\mixins.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\modals.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\navbar.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\navs.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\normalize.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\pager.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\pagination.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\panels.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\popovers.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\print.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\progress-bars.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\responsive-utilities.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\scaffolding.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\tables.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\theme.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\thumbnails.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\tooltip.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\type.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\utilities.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\variables.less" />
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\wells.less" />
     <None Include="Properties\PublishProfiles\onYOURway.at.pubxml" />
     <Content Include="App\_libraries\breeze.debug.js" />
     <Content Include="App\_libraries\knockout.validation.debug.js" />

@@ -66,6 +66,7 @@ namespace onYOURway {
          , "~/App/_libraries/bootstrap-typeahead.js"               // Autocomplete (see: https://github.com/bassjobsen/Bootstrap-3-Typeahead)
          , "~/App/_libraries/intro.js"                             // Help/Tour (see: https://github.com/usablica/intro.js)
          , "~/App/_libraries/owl.carousel.js"                      // slideshow & wizard
+         , "~/App/_libraries/select2/select2.js"                   // select2 multiselect
 
          /*bindinghandlers*/
          , "~/App/_libraries/knockout-bootstrap.js"                // bindinghandlers for typeahead, progress, alert, tooltip, popover
@@ -114,6 +115,8 @@ namespace onYOURway {
         , "~/App/_styles/owl.carousel.css"
         , "~/App/_styles/jquery-ui/jquery-ui-{version}.custom.css"        // jQueryUI (using slider)
         , "~/App/_styles/owl.theme.css"
+        , "~/App/_styles/select2.css"                // select2 multiselect
+        , "~/App/_styles/select2-bootstrap.css"
 
         /*themes*/
         //, "~/App/_styles/themes/metro-bootstrap/metro-bootstrap.css"
@@ -124,6 +127,11 @@ namespace onYOURway {
           "~/App/_styles/themes/onYOURway-2/bootstrap.css"
         ////, "~/App/_styles/themes/onYOURway-2/bootstrap-theme.css"
         , "~/App/_styles/themes/onYOURway-2/_onYOURway.css"
+      ));
+      bundles.Add(new StyleBundle("~/themes/vonMorgen").Include(
+          "~/App/_styles/themes/vonMorgen/bootstrap/bootstrap.css"
+        , "~/App/_styles/themes/vonMorgen/_onYOURway.css"
+        , "~/App/_styles/themes/vonMorgen/_vonMorgen.css"
       ));
 
       #endregion Style Bundles
