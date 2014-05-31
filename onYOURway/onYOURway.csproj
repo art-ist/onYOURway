@@ -255,8 +255,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.config.js" />
-    <Content Include="App\app.Release.config.js" />
     <Content Include="App\app.Debug.config.js" />
+    <Content Include="App\app.Release.config.js" />
     <Content Include="App\appConfig.base.js" />
     <Content Include="App\images\vonMorgen\photo-1.PNG" />
     <Content Include="App\images\vonMorgen\photo-2.PNG" />
@@ -265,7 +265,6 @@
     <Content Include="App\services\geoUtils.js" />
     <Content Include="App\services\location.js" />
     <Content Include="App\services\providers\routing-yours.js" />
-    <Content Include="App\services\providers\OSM.not_used.js" />
     <Content Include="App\services\storage.js" />
     <Content Include="App\services\_ko.bindingHandlers.js" />
     <Compile Include="App_Start\BundleConfig.cs" />

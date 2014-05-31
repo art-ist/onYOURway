@@ -15,12 +15,7 @@ define([
   //create global viewModel
   var app = {
 
-    initialize: function(){
-      logger.log('app initializing', '_app');
-
-      loadShoppingList();
-
-    },
+    initialize: initialize,
 
     //simple properties
     title: 'onYOURway',
@@ -48,7 +43,7 @@ define([
 
     user: {
       Name: ko.observable(null),
-      isAuthenticated: ko.observable(true),
+      isAuthenticated: ko.observable(false),
       //accessToken: null,
       //rememberMe: ko.observable(null),
       navigateToLoggedIn: navigateToLoggedIn,
@@ -75,6 +70,14 @@ define([
 
   };
   return app;
+
+  function initialize(){
+    logger.log('app initializing', '_app');
+
+    //load shopping list
+    loadShoppingList();
+
+  }
 
   function navigateToLoggedIn(userName, access_token, rememberMe) {
     var user = app.user;

@@ -1,248 +1,250 @@
 ﻿<div role="navigation" class="oyw-content-nav col-md-3">
-  <ul class="nav nav-pills nav-stacked">
-    <li><a href="#step0">Neuer Standort</a></li>
-    <li><a href="#step1">Name & Beschreibung</a></li>
-    <li><a href="#step2">Anschrift & Kontaktdaten</a></li>
-    <li><a href="#step3">Öffnungszeiten</a></li>
-    <li><a href="#step4">Geschäftsart</a></li>
-    <li><a href="#step5">Speichern</a></li>
-    <li><a href="#step6">Foto(s)</a></li>
-  </ul>
+	<ul class="nav nav-pills nav-stacked">
+		<li><a href="#stepIntro">Neuer Standort</a></li>
+		<li><a href="#stepName">Name & Beschreibung</a></li>
+		<li><a href="#stepLocation">Anschrift & Kontaktdaten</a></li>
+		<li><a href="#stepOpeningHours">Öffnungszeiten</a></li>
+		<li><a href="#stepTags">Geschäftsart</a></li>
+		<li><a href="#stepPicture">Foto(s)</a></li>
+		<li><a href="#stepSave">Speichern</a></li>
+	</ul>
 </div>
 
 <form role="main" class="oyw-content-main col-md-9" data-bind="with: location">
-  <article id="step0">
-    <h2>Neuer Standort</h2>
-    <p>
-      Um Ihren Standort und Ihre Geschäftstätigkeit möglichst gut zu finden
-      ist es wichtig dass Sie die folgenden vollständig ausfüllen!
-    </p>
-  </article>
 
-  <!--Step1: Firma und Beschreibung-->
-  <article id="step1">
-    <h2>Name</h2>
-    <p>Name und Beschreibung Ihres Unternehmens</p>
+	<article id="stepIntro">
+		<h2>Neuer Standort</h2>
+		<p>
+			Füllen Sie die folgenden Angaben möglichst vollständig aus.
+			Nur so können Interessenten Ihre Angebot gut finden.
+		</p>
+	</article>
 
-    <div class="form-group col-sm-12 align-left">
-      <label for="inputName">Name</label>
-      <input type="text" class="form-control" id="inputName" placeholder="z.B. Firma" data-bind="value: Name" />
-    </div>
+	<!--stepName: Firma und Beschreibung-->
+	<article id="stepName">
+		<h2>Name</h2>
+		<p>Name und Beschreibung Ihres Unternehmens</p>
 
-    <div class="form-group col-sm-12 align-left">
-      <label for="inputAlias">Weitere Namen</label>
-      <a title="Neuen Alias anlegen" data-bind="click: $root.addAlias">hinzufügen <i class="fa fa-plus fa-fw"></i></a>
-      <ul class="oyw-input-list align-left" data-bind="foreach: Aliases">
-        <li>
+		<div class="form-group col-sm-12 align-left">
+			<label for="inputName">Name</label>
+			<input type="text" class="form-control" id="inputName" placeholder="z.B. Firma" data-bind="value: Name" />
+		</div>
 
-          <div class="input-group">
-            <!--<span class="input-group-addon" data-bind="text: Lang"></span>-->
-            <input type="text" class="form-control " placeholder="auch bekannt als" data-bind="value: Name">
-            <span class="input-group-btn">
-              <button title="Alias löschen" class="btn btn-danger" data-bind="click: $root.removeAlias"><i class="fa fa-trash-o"></i><span class="sr-only">Alias löschen</span></button>
-            </span>
-          </div><!-- /input-group -->
+		<div class="form-group col-sm-12 align-left">
+			<label for="inputAlias">Weitere Namen</label>
+			<a title="Neuen Alias anlegen" data-bind="click: $root.addAlias">hinzufügen <i class="fa fa-plus fa-fw"></i></a>
+			<ul class="oyw-input-list align-left" data-bind="foreach: Aliases">
+				<li>
 
-        </li>
-      </ul>
-    </div>
+					<div class="input-group">
+						<!--<span class="input-group-addon" data-bind="text: Lang"></span>-->
+						<input type="text" class="form-control " placeholder="auch bekannt als" data-bind="value: Name">
+						<span class="input-group-btn">
+							<button title="Alias löschen" class="btn btn-danger" data-bind="click: $root.removeAlias"><i class="fa fa-trash-o"></i><span class="sr-only">Alias löschen</span></button>
+						</span>
+					</div><!-- /input-group -->
 
-    <div class="form-group col-sm-12 align-left">
-      <label for="inputName">Beschreibung</label>
-      <textarea class="form-control" maxlength="500" placeholder="Was bieten Sie an (max. 500 Zeichen)?" />
-    </div>
+				</li>
+			</ul>
+		</div>
 
-    <div class="form-group col-sm-12 align-left">
+		<div class="form-group col-sm-12 align-left">
+			<label for="inputName">Beschreibung</label>
+			<textarea class="form-control" maxlength="500" placeholder="Was bieten Sie an (max. 500 Zeichen)?" />
+		</div>
 
-      <ul class="oyw-input-list" data-bind="foreach: Tags">
-        <li>
+		<div class="form-group col-sm-12 align-left">
 
-          <div class="form-group col-sm-4 align-left align-right">
-            <label for="form-control">Kontaktart</label><a title=" Neue Kontaktart anlegen" data-bind="click: $root.addTag"> hinzufügen <i class="fa fa-plus fa-fw"></i></a>
-            <select class="form-control">
-              <option value="1">Festnetztelefon</option>
-              <option value="2">Mobiltelefon</option>
-              <option value="3">E-Mail</option>
-              <option value="4">Website</option>
-            </select> <!--Martin: Wie wird der value in das Feld "locationId" eingetragen???-->
-          </div>
+			<ul class="oyw-input-list" data-bind="foreach: Tags">
+				<li>
 
-          <div class="form-group col-sm-4 align-right">
-            <div class="input-group">
-              <label for="form-control">Kontaktart</label><!--In diesem Feld sollte die locationId gespeichert werden  die aus der Liste oben ausgewählt wird-->
-              <input type="text" class="form-control" id="inputlocationId" data-bind="with:locationId" placeholder="Kontaktart">
-              <span class="input-group-btn">
-                <button title="Kontaktart löschen" type="button" class=" btn btn-danger click $root.removetag"> <i class="fa fa-trash-o"></i><span class="sr-only">Kontaktart löschen</span></button>
-              </span> <!--Martin: WARUM ist der Button bei "weitere Namen" KLEINER ????-->
-            </div>
-          </div>
+					<div class="form-group col-sm-4 align-left align-right">
+						<label for="form-control">Kontaktart</label><a title=" Neue Kontaktart anlegen" data-bind="click: $root.addTag"> hinzufügen <i class="fa fa-plus fa-fw"></i></a>
+						<select class="form-control">
+							<option value="1">Festnetztelefon</option>
+							<option value="2">Mobiltelefon</option>
+							<option value="3">E-Mail</option>
+							<option value="4">Website</option>
+						</select> <!--Martin: Wie wird der value in das Feld "locationId" eingetragen???-->
+					</div>
 
-          <div class="form-group col-sm-4 align-right">
+					<div class="form-group col-sm-4 align-right">
+						<div class="input-group">
+							<label for="form-control">Kontaktart</label><!--In diesem Feld sollte die locationId gespeichert werden  die aus der Liste oben ausgewählt wird-->
+							<input type="text" class="form-control" id="inputlocationId" data-bind="with:locationId" placeholder="Kontaktart">
+							<span class="input-group-btn">
+								<button title="Kontaktart löschen" type="button" class=" btn btn-danger click $root.removetag"> <i class="fa fa-trash-o"></i><span class="sr-only">Kontaktart löschen</span></button>
+							</span> <!--Martin: WARUM ist der Button bei "weitere Namen" KLEINER ????-->
+						</div>
+					</div>
 
-            <label for="form-control">Ihr Eintrag</label><!--In diesem Feld sollte der eigentliche Tag gespeichert werden-->
-            <input type="text" class="form-control" id="inputTag" data-bind="with:Tag" placeholder="02252 123 456 78 oder me@you.at">
+					<div class="form-group col-sm-4 align-right">
 
-          </div>
+						<label for="form-control">Ihr Eintrag</label><!--In diesem Feld sollte der eigentliche Tag gespeichert werden-->
+						<input type="text" class="form-control" id="inputTag" data-bind="with:Tag" placeholder="02252 123 456 78 oder me@you.at">
 
-        </li>
+					</div>
 
-      </ul>
+				</li>
 
-    </div>
+			</ul>
 
-  </article>
+		</div>
 
-  <!--Step2: Anschrift-->
-  <article id="step2">
-    <h2>Anschrift</h2>
-    <div class="row">
-      <!--Adresse-->
-      <div class="col-sm-6 align-left align-right">
-        <div class="row">
-          <p>Bitte Ihre Adressdaten eintragen:</p>
-          <div class="form-group col-sm-8 align-left">
-            <label class="sr-only" for="inputStreet">Straße</label>
-            <label for="inputStreet">Straße</label>
-            <input type="text" class="form-control" id="inputStreet" placeholder="Straße" data-bind="value: Street">
-          </div>
-          <div class="form-group col-sm-4 align-left">
-            <label class="sr-only" for="inputHausnummer">Hausnummer</label>
-            <label for="inputHausnummer">Hausnummer</label>
-            <input type="text" class="form-control" id="inputHouseNumber" placeholder="00" data-bind="value: HouseNumber">
-          </div>
-          <div class="form-group col-sm-4 align-left">
-            <label class="sr-only" for="inputZIP">PLZ</label>
-            <label for="inputZIP">PLZ</label>
-            <input type="text" class="form-control" id="inputZIP" maxlength="4" placeholder="1234" data-bind="value: Zip">
-          </div>
-          <div class="form-group col-sm-8 align-left">
-            <label class="sr-only" for="inputTown">Ort</label>
-            <label for="inputTown">Ort</label>
-            <input type="text" class="form-control" id="inputTown" maxlength="36" placeholder="Ort" data-bind="value: City">
-          </div>
+	</article>
 
-          <div class="col-sm-12 align-left">
-            <label class="sr-only" for="inputCountry">Land</label>
-            <label for="inputCountry">Land</label>
-            <select class="form-control" id="inputCountry" data-bind="value: Country">
-              <option value="DE">Deutschland</option>
-              <option value="FR">Frankreich</option>
-              <option value="AT">Österreich</option>
-              <option value="CH">Schweiz</option>
-              <option value="IT">Südtirol</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <h4>Position</h4>
-          <button type="submit" class="btn btn-default">Adresse anzeigen</button>
-          <button type="submit" class="btn btn-default">Position verwenden</button>
-        </div>
-      </div>
+	<!--stepLocation: Anschrift-->
+	<article id="stepLocation">
+		<h2>Anschrift</h2>
+		<div class="row">
+			<!--Adresse-->
+			<div class="col-sm-6 align-left align-right">
+				<div class="row">
+					<p>Bitte Ihre Adressdaten eintragen:</p>
+					<div class="form-group col-sm-8 align-left">
+						<label class="sr-only" for="inputStreet">Straße</label>
+						<label for="inputStreet">Straße</label>
+						<input type="text" class="form-control" id="inputStreet" placeholder="Straße" data-bind="value: Street">
+					</div>
+					<div class="form-group col-sm-4 align-left">
+						<label class="sr-only" for="inputHausnummer">Hausnummer</label>
+						<label for="inputHausnummer">Hausnummer</label>
+						<input type="text" class="form-control" id="inputHouseNumber" placeholder="00" data-bind="value: HouseNumber">
+					</div>
+					<div class="form-group col-sm-4 align-left">
+						<label class="sr-only" for="inputZIP">PLZ</label>
+						<label for="inputZIP">PLZ</label>
+						<input type="text" class="form-control" id="inputZIP" maxlength="4" placeholder="1234" data-bind="value: Zip">
+					</div>
+					<div class="form-group col-sm-8 align-left">
+						<label class="sr-only" for="inputTown">Ort</label>
+						<label for="inputTown">Ort</label>
+						<input type="text" class="form-control" id="inputTown" maxlength="36" placeholder="Ort" data-bind="value: City">
+					</div>
 
-      <!--Karte-->
-      <div class="col-sm-6 well">
-        map here
-      </div>
-    </div>
-  </article>
+					<div class="col-sm-12 align-left">
+						<label class="sr-only" for="inputCountry">Land</label>
+						<label for="inputCountry">Land</label>
+						<select class="form-control" id="inputCountry" data-bind="value: Country">
+							<option value="DE">Deutschland</option>
+							<option value="FR">Frankreich</option>
+							<option value="AT">Österreich</option>
+							<option value="CH">Schweiz</option>
+							<option value="IT">Südtirol</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<h4>Position</h4>
+					<button type="submit" class="btn btn-default">Adresse anzeigen</button>
+					<button type="submit" class="btn btn-default">Position verwenden</button>
+				</div>
+			</div>
 
-  <!--Step3: Öffnungszeiten, Kontaktdaten-->
-  <article id="step3">
-    <h2>Kontakt</h2>
-    <div class="row">
-      <p>Wie und wann wollen Sie von Ihren Kunden erreicht werden? (Alle Angaben sind optional.)</p>
-      <label for="Verkaufstage" class="control-label">Öffnungszeiten</label>
-      <div class="row">
-        <div class="form-group col-sm-5 align-left">
-          <label class="sr-only" aria-labelledby="Verkaufstage"></label>
-          <select class="form-control" aria-labelledby="Verkaufstage">
-            <option value="Mo-Th">Mo-Do</option>
-            <option value="Sa">Sa</option>
-            <option value="Th">Do</option>
-            <option value="Mo">Mo</option>
-            <option value="Tu">Di</option>
-            <option value="We">Mi</option>
-            <option value="Th">Do</option>
-            <option value="Fr">Fr</option>
-            <option value="PH">Feiertag</option>
-          </select>
-        </div>
-        <div class="form-group col-sm-4 align-left">
-          <label class="sr-only" aria-labelledby="Öffnungszeiten"></label>
-          <select class="form-control" aria-labelledby="Öffnungszeiten">
-            <option value="09:00-17:00">09:00-17:00</option>
-            <option value="08:00-18:00">08:00-18:00</option>
-            <option value="08:00-12:00">08:00-12:00</option>
-            <option value="13:00-18:00">13:00-18:00</option>
-          </select>
-        </div>
-        <div class="form-group col-sm-3 align-left">
-          <label class="sr-only" aria-labelledby="geöffnet"></label>
-          <select class="form-control" aria-labelledby="geöffnet">
-            <option value="">geöffnet</option>
-            <option value="closed">geschlossen</option>
-          </select>
-        </div>
-        <div class="form-group col-sm-12 align-left">
-          <!--Martin: Wie werden die drei Feldinhalte Verkaufstage, Öffnungszeiten und "offen" in einen Feldinhalt "verschmolzen"???-->
-          <label for="sr-only">Ihre Öffnungszeiten</label>
-          <!--see: http://wiki.openstreetmap.org/wiki/Key:opening_hours -->
-          <!--evaluation tool: http://openingh.openstreetmap.de/evaluation_tool -->
-          <input type="text" class="form-control" id="inputDayTimeIndividual" placeholder="z.B.: Mo-Fr 08:00-18:00" data-bind="value: Location.OpeningHours">
-        </div>
-      </div>
-    </div>
-  </article>
+			<!--Karte-->
+			<div class="col-sm-6 well">
+				map here
+			</div>
+		</div>
+	</article>
 
-  <!--Step4: Geschäftsart-->
-  <article id="step4">
-    <h2>Geschäftsart</h2>
-    <p>
-      Was ist Ihre hauptsächliche Geschäftsart?
-      Mehrere Angaben möglich:
-    </p>
-    <div class="form-group">
-      <!--Martin: Stimmt data-bind???-->
-      <ul class="dropdown-menu" role="menu" aria-labelledby="Hauptsächliche Geschäftsart" data-bind="value: location.Description">
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Einzelhandel</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gastronomie</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Erzeuger</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
-      </ul>
-    </div>
-    <div class="form-group">
-      <label for="inputName">Lifestyle</label>
-      <input type="text" class="form-control" id="inputName" placeholder="Welche Lifestyle-Kriterien treffen zu (z.B. Bio, Fairtrade, aus der Region, ....)" />
-    </div>
-  </article>
+	<!--stepOpeningHours: Öffnungszeiten, Kontaktdaten-->
+	<article id="stepOpeningHours">
+		<h2>Kontakt</h2>
+		<div class="row">
+			<p>Wie und wann wollen Sie von Ihren Kunden erreicht werden? (Alle Angaben sind optional.)</p>
+			<label for="Verkaufstage" class="control-label">Öffnungszeiten</label>
+			<div class="row">
+				<div class="form-group col-sm-5 align-left">
+					<label class="sr-only" aria-labelledby="Verkaufstage"></label>
+					<select class="form-control" aria-labelledby="Verkaufstage">
+						<option value="Mo-Th">Mo-Do</option>
+						<option value="Sa">Sa</option>
+						<option value="Th">Do</option>
+						<option value="Mo">Mo</option>
+						<option value="Tu">Di</option>
+						<option value="We">Mi</option>
+						<option value="Th">Do</option>
+						<option value="Fr">Fr</option>
+						<option value="PH">Feiertag</option>
+					</select>
+				</div>
+				<div class="form-group col-sm-4 align-left">
+					<label class="sr-only" aria-labelledby="Öffnungszeiten"></label>
+					<select class="form-control" aria-labelledby="Öffnungszeiten">
+						<option value="09:00-17:00">09:00-17:00</option>
+						<option value="08:00-18:00">08:00-18:00</option>
+						<option value="08:00-12:00">08:00-12:00</option>
+						<option value="13:00-18:00">13:00-18:00</option>
+					</select>
+				</div>
+				<div class="form-group col-sm-3 align-left">
+					<label class="sr-only" aria-labelledby="geöffnet"></label>
+					<select class="form-control" aria-labelledby="geöffnet">
+						<option value="">geöffnet</option>
+						<option value="closed">geschlossen</option>
+					</select>
+				</div>
+				<div class="form-group col-sm-12 align-left">
+					<!--Martin: Wie werden die drei Feldinhalte Verkaufstage, Öffnungszeiten und "offen" in einen Feldinhalt "verschmolzen"???-->
+					<label for="sr-only">Ihre Öffnungszeiten</label>
+					<!--see: http://wiki.openstreetmap.org/wiki/Key:opening_hours -->
+					<!--evaluation tool: http://openingh.openstreetmap.de/evaluation_tool -->
+					<input type="text" class="form-control" id="inputDayTimeIndividual" placeholder="z.B.: Mo-Fr 08:00-18:00" data-bind="value: Location.OpeningHours">
+				</div>
+			</div>
+		</div>
+	</article>
 
-  <!--Step5: Speichern-->
-  <article id="step5">
-    <h2>Angaben speichern</h2>
-    <p>Speichern Ihrer Angaben</p>
-    <div class="btn-group btn-group-lg">
-      <button type="button" class="btn btn-default">Speichern</button>
-      <button type="button" class="btn btn-default">Abbruch</button>
-    </div>
-  </article>
+	<!--stepTags: Geschäftsart-->
+	<article id="stepTags">
+		<h2>Geschäftsart</h2>
+		<p>
+			Was ist Ihre hauptsächliche Geschäftsart?
+			Mehrere Angaben möglich:
+		</p>
+		<div class="form-group">
+			<!--Martin: Stimmt data-bind???-->
+			<ul class="dropdown-menu" role="menu" aria-labelledby="Hauptsächliche Geschäftsart" data-bind="value: location.Description">
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Einzelhandel</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gastronomie</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Erzeuger</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">xxx</a></li>
+			</ul>
+		</div>
+		<div class="form-group">
+			<label for="inputName">Lifestyle</label>
+			<input type="text" class="form-control" id="inputName" placeholder="Welche Lifestyle-Kriterien treffen zu (z.B. Bio, Fairtrade, aus der Region, ....)" />
+		</div>
+	</article>
 
-  <!--Step6: Foto(s) hochladen-->
-  <article id="step6">
-    <h2>Foto</h2>
-    <p>Ein Foto ist wie eine ansprechende Auslage. Eine Einladung.</p>
-    <div class="btn-group-vertical">
-      <button type="button" class="btn btn-default">Foto hochladen</button>
-      <button type="button" class="btn btn-default">Jetzt fotografieren</button>
-      <button type="button" class="btn btn-default">Speichern</button>
-    </div>
+	<!--stepPicture: Foto(s) hochladen-->
+	<article id="stepPicture">
+		<h2>Foto</h2>
+		<p>Ein Foto ist wie eine ansprechende Auslage. Eine Einladung.</p>
+		<div class="btn-group-vertical">
+			<button type="button" class="btn btn-default">Foto hochladen</button>
+			<button type="button" class="btn btn-default">Jetzt fotografieren</button>
+			<button type="button" class="btn btn-default">Speichern</button>
+		</div>
 
-    <!--
-        crop: http://deepliquid.com/projects/Jcrop/demos.php?demo=live_crop
-        an alternative, commercial idea: http://0.s3.envato.com/files/72583218/index.html
-    -->
-  </article>
+		<!--
+			crop: http://deepliquid.com/projects/Jcrop/demos.php?demo=live_crop
+			an alternative, commercial idea: http://0.s3.envato.com/files/72583218/index.html
+		-->
+	</article>
+
+	<!--stepSave: Speichern-->
+	<article id="stepSave">
+		<h2>Angaben speichern</h2>
+		<p>Speichern Ihrer Angaben</p>
+		<div class="btn-group btn-group-lg">
+			<button type="button" class="btn btn-default">Speichern</button>
+			<button type="button" class="btn btn-default">Abbruch</button>
+		</div>
+	</article>
+
 </form>
