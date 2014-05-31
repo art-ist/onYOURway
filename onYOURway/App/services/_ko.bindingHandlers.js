@@ -22,7 +22,7 @@
 ko.bindingHandlers.map = {
 	init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 		var options = valueAccessor();
-		console.log('[bindingHandlers] map binding init', options);
+		//console.log('[bindingHandlers] map binding init', options);
 		options.initialize(element.id);
 	} //init
 }; //map
@@ -34,7 +34,7 @@ ko.bindingHandlers.ventures = {
 	//}, //init
 	update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 		var options = valueAccessor();
-		console.log('[bindingHandlers] ventures binding update', viewModel, options.data);
+		//console.log('[bindingHandlers] ventures binding update', viewModel, options.data);
 		viewModel.location.drawMarkers(options.map, options.data());
 	} //update
 }; //ventures

@@ -619,7 +619,7 @@ nav .dropdown-toggle:hover:after {
   width: 35px;
   height: 35px;
   text-align: right;
-  padding: 2px 10px 0 0;
+  padding: 7px 8px 0 0;
   color: #ccc;
   opacity: 0.5;
   z-index: 9;
@@ -629,10 +629,12 @@ nav .dropdown-toggle:hover:after {
 .oyw-btn-close:focus {
   text-decoration: none;
 }
-.oyw-btn-close:hover {
+.oyw-btn-close:hover,
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
   opacity: 1;
-  background-color: #fba21c;
-  color: #fff;
+  background-color: #fba21c !important;
+  color: #fff !important;
 }
 .oyw-btn-slide {
   position: absolute;
@@ -719,13 +721,36 @@ path.oyw-map-pointer {
   fill: #375662;
   fill-opacity: 0.6;
 }
-.leaflet-control-container {
-  display: none;
+.leaflet-left .leaflet-control {
+  margin-left: 18px;
+}
+.leaflet-top .leaflet-control {
+  margin-top: 20px;
 }
 .leaflet-control {
-  border-radius: 5px;
+  border-radius: 12px;
   border-width: 2px !important;
 }
+.leaflet-bar {
+  box-shadow: none;
+  border: none;
+}
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px !important;
+  outline: none;
+  color: #ccc !important;
+  opacity: 0.4;
+  vertical-align: central;
+}
+.leaflet-control-zoom-out {
+  margin-top: 5px;
+}
+/*.leaflet-control-attribution {
+	display: none;
+}*/
 /*#endregion map*/
 /*#region locationList */
 #locationList {
