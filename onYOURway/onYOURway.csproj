@@ -394,7 +394,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
-    <Compile Include="Startup.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Content Include="App\views\my\wizardEdit.html" />
     <Content Include="App\views\my\wizardEdit.js" />
     <Content Include="App\views\vonMorgen\home.html" />
@@ -519,7 +519,6 @@
     </Content>
     <Content Include="App_Data\onYOURway.XML" />
     <Content Include="App\_styles\bootstrap-datepicker.css" />
-    <Content Include="App\_styles\themes\onYOURway-2\bootstrap-theme.NOT-USED.css" />
     <Content Include="App\_styles\font-awesome.css" />
     <Content Include="App\_styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="App\images\about\explorer.jpg" />
@@ -555,7 +554,7 @@
     </Content>
     <Content Include="App\_styles\toastr.css" />
     <Content Include="App\_styles\toastr.min.css" />
-    <Content Include="index.html" />
+    <Content Include="index.alternativestartup.html" />
     <Content Include="JP.aspx" />
     <Content Include="App\_libraries\app\app.datamodel.js" />
     <Content Include="Content\documents\onYOURway - Projektinformation Regionalpartner.pdf" />
@@ -774,9 +773,6 @@
     <Content Include="App\views\my\registration.html" />
     <Content Include="App\views\my\registrationExt.html" />
     <Content Include="App\_styles\themes\vonMorgen\_vonMorgen.less" />
-    <Content Include="App\_styles\themes\vonMorgen\_vonMorgen.css.map">
-      <DependentUpon>_vonMorgen.css</DependentUpon>
-    </Content>
     <Content Include="App\_styles\themes\vonMorgen\_vonMorgen.css">
       <DependentUpon>_vonMorgen.less</DependentUpon>
     </Content>
@@ -794,9 +790,6 @@
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
     <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.css.map">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
     <Content Include="App\_styles\themes\vonMorgen\bootstrap\breadcrumbs.less" />
@@ -905,6 +898,8 @@
           <DevelopmentServerPort>56353</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:56303/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:56303/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
