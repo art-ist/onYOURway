@@ -508,6 +508,9 @@
     <Content Include="App\_styles\themes\vonMorgen\bootstrap\variables.css">
       <DependentUpon>variables.less</DependentUpon>
     </Content>
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\variables.min.css">
+      <DependentUpon>variables.css</DependentUpon>
+    </Content>
     <Content Include="App\_styles\themes\vonMorgen\_onYOURway.css">
       <DependentUpon>_onYOURway.less</DependentUpon>
     </Content>
