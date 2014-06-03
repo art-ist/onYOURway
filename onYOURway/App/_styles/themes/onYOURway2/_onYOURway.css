@@ -118,13 +118,14 @@ ol {
 	color: #fff;
 }*/
 .btn-success {
-  background-color: #b3d236;
+  background-color: #a5c135;
   border-color: #a5c135;
 }
 .btn-success:active,
 .btn-success:focus,
 .btn-success:hover {
-  background-color: #a5c135;
+  background-color: #b3d236;
+  border-color: #a5c135;
 }
 .btn-warning {
   background-color: #fba21c;
@@ -149,7 +150,7 @@ ol {
 .open .dropdown-toggle.datepicker table tr td.active:hover,
 .open .dropdown-toggle.datepicker table tr td.active.disabled,
 .open .dropdown-toggle.datepicker table tr td.active.disabled:hover {
-  background-color: #b3d236;
+  background-color: #a5c135;
 }
 .datepicker table tr td.today,
 .datepicker table tr td.today:hover,
@@ -480,7 +481,7 @@ nav .dropdown-toggle:hover:after {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:focus,
 .nav-pills > li.active > a:hover {
-  background-color: #b3d236;
+  background-color: #a5c135;
 }
 .dropdown-menu > li > a:focus,
 .nav-pills > li > a:active,
@@ -834,10 +835,10 @@ path.oyw-map-pointer {
   color: inherit;
 }
 .locationInfo.isFeatured {
-  border-left-color: #70ad25;
+  border-left-color: #a5c135;
 }
 .locationInfo.isFeatured > .locationInfo-imageArea {
-  background-color: #90ad6d;
+  background-color: #a5c135;
 }
 .locationInfo.selected {
   border-color: #375662;
@@ -1007,7 +1008,7 @@ path.oyw-map-pointer {
   text-align: center;
 }
 .introjs-bullets ul li a.active {
-  background-color: #b3d236;
+  background-color: #a5c135;
 }
 .introjs-tooltip {
   padding: 20px;

@@ -43,7 +43,9 @@
       <!--<i class=" fa fa-5x" data-bind="css: $data.Icon()"></i>-->
       <h2 class="ventureDetails-header" data-bind="text: Name"></h2>
       <ul class="ventureDetails-taglist" data-bind="foreach: Tag">
+				<!-- ko if: Show() == 1 -->
         <li><a class="btn btn-success btn-xs" data-bind="text: Name, attr: { href: '#/karte?tag=' + Name() }"></a></li>
+				<!-- /ko -->
       </ul>
     </div>
 
