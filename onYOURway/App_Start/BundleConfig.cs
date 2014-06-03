@@ -124,9 +124,8 @@ namespace onYOURway {
 
       ));
       bundles.Add(new StyleBundle("~/themes/onYOURway").Include(
-          "~/App/_styles/themes/onYOURway-2/bootstrap.css"
-        ////, "~/App/_styles/themes/onYOURway-2/bootstrap-theme.css"
-        , "~/App/_styles/themes/onYOURway-2/_onYOURway.css"
+          "~/App/_styles/themes/onYOURway2/bootstrap.css"
+        , "~/App/_styles/themes/onYOURway2/_onYOURway.css"
       ));
       bundles.Add(new StyleBundle("~/themes/vonMorgen").Include(
           "~/App/_styles/themes/vonMorgen/bootstrap/bootstrap.css"

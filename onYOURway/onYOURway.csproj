@@ -455,7 +455,7 @@
     <Content Include="App\_styles\images\select2x2.png" />
     <Content Include="App\_styles\select2-bootstrap.css" />
     <Content Include="App\_styles\select2.css" />
-    <Content Include="App\_styles\themes\onYOURway-2\_onYOURway.css.map">
+    <Content Include="App\_styles\themes\onYOURway2\_onYOURway.css.map">
       <DependentUpon>_onYOURway.css</DependentUpon>
     </Content>
     <Content Include="App\_libraries\select2\bower.json" />
@@ -463,7 +463,7 @@
     <Content Include="App\_libraries\select2\composer.json" />
     <Content Include="App\_libraries\select2\package.json" />
     <Content Include="App\_libraries\select2\select2.jquery.json" />
-    <None Include="App\_styles\themes\onYOURway-2\_onYOURway.less" />
+    <None Include="App\_styles\themes\onYOURway2\_onYOURway.less" />
     <Content Include="App\views\about\_preview.html" />
     <Content Include="App\views\about\_preview.js" />
     <Content Include="App\views\my\wizardNew.html" />
@@ -486,7 +486,7 @@
     <Content Include="App\_styles\jquery-ui\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="App\_styles\jquery-ui\images\ui-icons_ffffff_256x240.png" />
     <Content Include="App\_styles\jquery-ui\jquery-ui-1.10.4.custom.css" />
-    <Content Include="App\_styles\themes\onYOURway-2\_onYOURway.min.css">
+    <Content Include="App\_styles\themes\onYOURway2\_onYOURway.min.css">
       <DependentUpon>_onYOURway.css</DependentUpon>
     </Content>
     <Content Include="App\views\about\region.js" />
@@ -549,7 +549,7 @@
     <Content Include="App\_libraries\owl.carousel.js" />
     <Content Include="App\_styles\owl.theme.css" />
     <Content Include="App\_styles\typeahead.js-bootstrap.css" />
-    <Content Include="App\_styles\themes\onYOURway-2\_onYOURway.css">
+    <Content Include="App\_styles\themes\onYOURway2\_onYOURway.css">
       <DependentUpon>_onYOURway.less</DependentUpon>
     </Content>
     <Content Include="App\_styles\toastr.css" />
@@ -681,7 +681,7 @@
     <Content Include="App\views\_shell.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="App\_styles\themes\onYOURway-2\bootstrap.css" />
+    <Content Include="App\_styles\themes\onYOURway2\bootstrap.css" />
     <Content Include="App\_styles\durandal.css" />
     <Content Include="App\_styles\fonts\fontawesome-webfont.svg" />
     <Content Include="App\_styles\ie10mobile.css" />

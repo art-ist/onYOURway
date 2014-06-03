@@ -35,7 +35,6 @@ define([
   'services/logger'
 ],
   function (system, durandal, viewLocator, router, app, platform, logger) {
-    //durandal.title = 'onYOURway';
 
     //specify which plugins to install and their configuration
     durandal.configurePlugins({
@@ -78,7 +77,7 @@ define([
 
       //START
       durandal.start().then(function () {
-        durandal.title = "onYOURway";
+        durandal.title = "Karte von Morgen";
 
         //configure toastr (see: http://codeseven.github.io/toastr/demo.html)
         toastr.options.positionClass = 'toast-top-left';

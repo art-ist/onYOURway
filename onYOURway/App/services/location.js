@@ -1102,12 +1102,12 @@ define([
 		//get new marker and loc(ation)
 		var marker, loc;
 		if (e.target) { //marker ... loc in e.target.data
-			marker = this;
+			marker = e.target;
 			loc = e.target.data;
 		}
 		else if (e.marker) { //bound item (e.g. locationList) ... marker in e.marker
 			marker = e.marker;
-			loc = this;
+			loc = e;
 		}
 
 		//if already selected toggle details and return

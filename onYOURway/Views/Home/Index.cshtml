@@ -3,14 +3,10 @@
 <html>
 <head>
 	@{
-		String dataMain = "/App/main";
-		String theme = "~/themes/onYourWay";
-		String httpHost = HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
-		if (httpHost != null && (
-			httpHost.ToLower().Contains("vonmorgen")
-			|| httpHost.ToLower().Contains("von-morgen")
-			//|| httpHost.ToLower().Contains("localhost")
-			)) {
+		string dataMain = "/App/main";
+		string theme = "~/themes/onYOURway";
+		string httpHost = HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
+		if (httpHost != null && ( httpHost.ToLower().Contains("morgen") )) {
 			dataMain = "/App/mainVonMorgen";
 			theme = "~/themes/vonMorgen";
 		}
@@ -57,7 +53,7 @@
 
 </head>
 <body>
-	<div style="position:absolute; left:0; bottom:0;z-index:100000;background-color:white;">@httpHost</div>
+	@*<div style="position:absolute; left:0; bottom:0;z-index:100000;background-color:white;">@httpHost</div>*@
 
 	<div id="applicationHost">
 		@Html.Partial("_splash")
