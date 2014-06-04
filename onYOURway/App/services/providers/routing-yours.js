@@ -12,7 +12,7 @@
   };
   return routing;
 
-  function getRoute(route, start, end, when, mode) {
+  function getRoute(route, start, end, when, mode, via) { //TODO: add routing via stores at shopping list
     //transform mode
     if (mode === 'car') mode='motorcar'; //mode: "car", "foot", "bicycle" -> motorcar, bicycle or foot
     //set url parameters

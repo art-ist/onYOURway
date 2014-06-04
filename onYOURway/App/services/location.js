@@ -10,8 +10,9 @@ define([
   'services/platform',
   'services/geoUtils',
   'plugins/router',
-  'providers/routing-yours'
-], function (app, logger, platform, geoUtils, router, routingProvider) {
+  'providers/routing-yours',
+  'providers/geocode-google'
+], function (app, logger, platform, geoUtils, router, routingProvider, geocodingProvider) {
 
 	// serviceUri is route to the Web API controller
 	var locateMetadata = new breeze.MetadataStore(); //see: http://www.breezejs.com/documentation/naming-convention
@@ -640,33 +641,28 @@ define([
 
 	function _geoCode(searchString, writeResultTo) {
 		logger.log('geocoding: ' + searchString, 'location - geoCode');
-		//TODO: implement provider model
 
-		////google v3
-		var geocoder = 'http://maps.googleapis.com/maps/api/geocode/json?address=';
-		//TODO: get bounds from region
-		var query = searchString + '+2500+Baden+AT';
-		var params = '&bounds=' + '48.0055366633946,16.226806640625|48.0104104459036,16.2411510944366'
-				   + '&sensor=false';
-
-		var url = geocoder + query + params;
-
-		return $.getJSON(url)
-		  .pipe(function (result, param) {
-		  	if (result.status === 'OK') {
-		  		var res = result.results[0].geometry.location;
-		  		writeResultTo([res.lng, res.lat]);  //observable variable to write the result to (e.g. start.coords or end.coords)
-		  		logger.log('found: ' + JSON.stringify(writeResultTo) + ' param: ' + param, 'location - geoCode', location.route.start);
-		  	}
-		  	else {
-		  		logger.error('Die Koordinaten zu diesem Standort konnten nicht gefunden werden.', 'location - geoCode', result);
-		  	}
-		  });
+		return geocodingProvider
+			.getCoords(searchString, location.region)
+			.done(function (result) {
+				if (result.success) {
+		  			writeResultTo(result.coords);  //observable variable to write the result to (e.g. start.coords or end.coords)
+		  			logger.log('found: ' + JSON.stringify(result.coords), 'location - geoCode', writeResultTo);
+				}
+				else {
+		  			logger.error('Die Koordinaten zu diesem Standort konnten nicht gefunden werden.', 'location - geoCode', result);
+				}
+			})
+			.fail(function (err) {
+				logger.error('Die Koordinaten zu diesem Standort konnten nicht gefunden werden.', 'location - geoCode', err);
+		  	});
 
 	} //_geoCode
 
 	function _getRoute() {
-		routingProvider
+		//TODO: add routing via stores at shopping list
+		//var via = [];
+		return routingProvider
 		  .getRoute(location.route, location.route.start.coords(), location.route.end.coords(), location.when(), location.settings.mode())
 		  .done(function (route) {
 		  	var map = location.map;
@@ -676,6 +672,7 @@ define([
 		  	location.routeLayer = L.polyline(location.route.geometry, { color: location.settings.routeColor });
 		  	map.addLayer(location.routeLayer);
 		  	_setFiveMinutesInidcator(location.route.geometry);
+		  	return route;
 		  })
 		  .fail(function (err) {
 		  	logger.error('Die Route konnte nicht berechnet werden.', 'location - locate', err);
@@ -1080,9 +1077,9 @@ define([
 			if (location.route.start.coords()) { _setFiveMinutesInidcator(location.route.start.coords()) };
 		}
 		else if (what === 'start') { //get position of start
-			_geoCode(location.route.start.text(), location.route.start.coords)   //location.route.start.coords ... passing function reference
+			_geoCode(location.route.start.text(), location.route.start.coords)	//location.route.start.coords ... passing function reference
 			  .done(function () {
-			  	_setRouteMarker(location.route.start.coords(), 'start');        //location.route.start.coords ... passing value
+			  	_setRouteMarker(location.route.start.coords(), 'start');		//location.route.start.coords ... passing value
 			  	_setFiveMinutesInidcator(location.route.start.coords());
 			  });
 		}
@@ -1090,7 +1087,7 @@ define([
 			_geoCode(location.route.end.text(), location.route.end.coords)
 			  .done(function () {
 			  	_setRouteMarker(location.route.end.coords(), 'end');
-			  	_getRoute();
+			  	_getRoute(); //calls _setFiveMinutesInidcator()
 			  });
 		}
 
