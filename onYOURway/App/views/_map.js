@@ -57,6 +57,8 @@
       } 
     });
 
+    self.showSiteCollector = ko.computed(function () { return document.location.hash && document.location.hash.indexOf('siteCollector') >= 0; });
+
     //#endregion Properties
 
     //#endregion control display of map-parts

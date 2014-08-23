@@ -102,6 +102,9 @@ define([
 		selectedItem: ko.observable(), //current location
 		selectedItems: ko.observableArray(), //last selected locations (max: settings.maxSelectedItems)
 
+		siteCollectorMode: ko.computed(function () { return document.location.hash && document.location.hash.indexOf('siteCollector') >= 0; }),
+        siteCollectorAddress: ko.observable(),
+
 		searchFor: ko.observable(),
 		featuredIf: ko.observableArray([
 		  { Name: ko.observable('Bio'), Selected: new ko.observable(true) },
@@ -170,6 +173,8 @@ define([
 		drawPointer: _drawPointer,
 		panIntoView: _panMap,
 
+		setSiteCollectorMarker: _setSiteCollectorMarker,
+
 		toggleMap: toggleMap,
 		toggleList: toggleList,
 		toggleDetails: toggleDetails
@@ -202,6 +207,11 @@ define([
 		map.on({
 			'move': function () {
 				_drawPointer();
+			},
+			'click': function (event) {
+			    if (location.siteCollectorMode()) {
+			        _setSiteCollectorMarkerLoc(event.latlng, true);
+			    }
 			}
 		});
 
@@ -286,7 +296,48 @@ define([
 	} //_drawVeilOfSilence
 
 	//function _itemMouseOver() { }
-	//function _itemMouseOut() { }
+    //function _itemMouseOut() { }
+
+	function _setSiteCollectorMarkerLoc(geo, updateAddress) {
+	    if (!location.siteCollectorMarker) {
+	        location.siteCollectorMarker = L.marker(geo.coords ? [geo.coords[1], geo.coords[0]] : geo, {
+	            dragable: true,
+	            prefix: "fa",
+	            title: "New Entry",
+	            icon: _getLocationIcon(false, true)
+	        });
+	        location.siteCollectorMarker.addTo(location.map);
+	        location.siteCollectorMarker.dragging.enable();
+	        location.siteCollectorMarker.on("dragend", function (event) {
+	            var ll = location.siteCollectorMarker.getLatLng();
+	            geocodingProvider.getAddress([ll.lng, ll.lat]).done(function (res) {
+	                location.siteCollectorAddress(res);
+	            }).fail(function () {
+	                logger.error('Address not found for coordinates ', 'location - siteCollectorMarker dragend', geo.coords ? geo.coords : [geo.lng, geo.lat]);
+	                return null;
+	            });
+	        })
+	    } else {
+	        location.siteCollectorMarker.setLatLng(geo.coords  ? [geo.coords[1], geo.coords[0]] : geo);
+	    }
+	    if (updateAddress) {
+	        geocodingProvider.getAddress(geo.coords ? geo.coords : [geo.lng, geo.lat]).done(function (res) {
+	            location.siteCollectorAddress(res);
+	        }).fail(function () {
+	            logger.error('Address not found for coordinates ', 'location - _setSiteCollectorMarkerLoc', geo.coords ? geo.coords : [geo.lng, geo.lat]);
+	            return null;
+	        });
+	    }
+	    _panMap(location.siteCollectorMarker);
+	    return location.siteCollectorMarker;
+	}
+
+	function _setSiteCollectorMarker(addr) {
+	    geocodingProvider.getCoords(addr).done(_setSiteCollectorMarkerLoc).fail(function () {
+	        logger.error('Coordinates not found for address ', 'location - _setSiteCollectorMarker', addr);
+	        return null;
+	    });
+	}
 
 	function _drawPointer(mode) { //draws a pointer to connect the listitem of the selected venture with its marker
 		var map = location.map;
