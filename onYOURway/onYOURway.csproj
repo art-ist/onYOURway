@@ -347,6 +347,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>onYOURway.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\onYOURway.Views.cs" />
     <Compile Include="Models\Partner.cs">
       <DependentUpon>onYOURway.tt</DependentUpon>
     </Compile>
@@ -408,6 +409,7 @@
     <Content Include="App\views\vonMorgen\_nav.js" />
     <Content Include="App\views\vonMorgen\_shell.html" />
     <Content Include="App\views\vonMorgen\_shell.js" />
+    <Content Include="App\_libraries\jQuery.scrollTo-1.4.8.js" />
     <Content Include="App\_libraries\select2\select2.js" />
     <Content Include="App\_libraries\select2\select2.min.js" />
     <Content Include="App\_libraries\select2\select2_locale_ar.js" />
@@ -572,10 +574,8 @@
     <None Include="App\_libraries\jquery-2.0.1.intellisense.js" />
     <Content Include="App\_libraries\jquery-2.0.1.js" />
     <Content Include="App\_libraries\jquery-2.0.1.min.js" />
-    <Content Include="App\_libraries\jquery.localscroll-1.2.7.js.sdx" />
     <Content Include="App\_libraries\jquery.scrollIntoView.js" />
     <Content Include="App\_libraries\jquery.scrollIntoView.min.js" />
-    <Content Include="App\_libraries\jquery.scrollTo-1.4.8.js" />
     <Content Include="App\_libraries\knockout-3.0.0.js" />
     <Content Include="App\_libraries\knockout-3.0.0.min.js" />
     <Content Include="App\_libraries\knockout-bootstrap.js" />
