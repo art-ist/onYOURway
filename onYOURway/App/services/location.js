@@ -107,7 +107,7 @@ define([
 		selectedItem: ko.observable(), //current location
 		selectedItems: ko.observableArray(), //last selected locations (max: settings.maxSelectedItems)
 
-		siteCollectorMode: ko.computed(function () { return document.location.hash && document.location.hash.indexOf('siteCollector') >= 0; }),
+		siteCollectorMode: ko.observable(),
         siteCollectorAddress: ko.observable(),
 
 		searchFor: ko.observable(),
@@ -305,6 +305,16 @@ define([
 	//function _itemMouseOver() { }
     //function _itemMouseOut() { }
 
+	function _updateSiteCollectorAddress() {
+	    var ll = location.siteCollectorMarker.getLatLng();
+	    geocodingProvider.getAddress([ll.lng, ll.lat]).done(function (res) {
+	        location.siteCollectorAddress(res);
+	    }).fail(function () {
+	        logger.error('Address not found for coordinates ', 'location - siteCollectorMarker dragend', geo.coords ? geo.coords : [geo.lng, geo.lat]);
+	        return null;
+	    });
+	}
+
 	function _setSiteCollectorMarkerLoc(geo, updateAddress) {
 	    if (!location.siteCollectorMarker) {
 	        location.siteCollectorMarker = L.marker(geo.coords ? [geo.coords[1], geo.coords[0]] : geo, {
@@ -315,25 +325,12 @@ define([
 	        });
 	        location.siteCollectorMarker.addTo(location.map);
 	        location.siteCollectorMarker.dragging.enable();
-	        location.siteCollectorMarker.on("dragend", function (event) {
-	            var ll = location.siteCollectorMarker.getLatLng();
-	            geocodingProvider.getAddress([ll.lng, ll.lat]).done(function (res) {
-	                location.siteCollectorAddress(res);
-	            }).fail(function () {
-	                logger.error('Address not found for coordinates ', 'location - siteCollectorMarker dragend', geo.coords ? geo.coords : [geo.lng, geo.lat]);
-	                return null;
-	            });
-	        })
+	        location.siteCollectorMarker.on("dragend", _updateSiteCollectorAddress)
 	    } else {
 	        location.siteCollectorMarker.setLatLng(geo.coords  ? [geo.coords[1], geo.coords[0]] : geo);
 	    }
 	    if (updateAddress) {
-	        geocodingProvider.getAddress(geo.coords ? geo.coords : [geo.lng, geo.lat]).done(function (res) {
-	            location.siteCollectorAddress(res);
-	        }).fail(function () {
-	            logger.error('Address not found for coordinates ', 'location - _setSiteCollectorMarkerLoc', geo.coords ? geo.coords : [geo.lng, geo.lat]);
-	            return null;
-	        });
+	        _updateSiteCollectorAddress();
 	    }
 	    _panMap(location.siteCollectorMarker);
 	    return location.siteCollectorMarker;
@@ -919,7 +916,6 @@ define([
 	function drawMarkers(map, locationsToDraw) {
 		if (location.layers.locationLayer) map.removeLayer(location.layers.locationLayer);
 		if (location.layers.pointerLayer) map.removeLayer(location.layers.pointerLayer);
-
 		var group = location.settings.clusterLocations()
 				  ? new L.MarkerClusterGroup()
 				  : new L.LayerGroup();

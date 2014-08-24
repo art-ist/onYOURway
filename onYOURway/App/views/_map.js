@@ -40,7 +40,10 @@
     });
 
     self.showList = ko.computed(function () {
-      if(location.settings.showList() === 'auto') {
+      if (location.showSiteCollector) {
+        return false;
+      }
+      if (location.settings.showList() === 'auto') {
         return (location.mapLocations().length > 0);
       }
       else {
@@ -49,6 +52,9 @@
     });
 
     self.showDetails = ko.computed(function () {
+      if (location.showSiteCollector) {
+          return false;
+      }
       if (location.settings.showDetails() === 'auto') {
         return (location.selectedItem());
       }
@@ -57,7 +63,7 @@
       } 
     });
 
-    self.showSiteCollector = ko.computed(function () { return document.location.hash && document.location.hash.indexOf('siteCollector') >= 0; });
+    self.showSiteCollector = location.siteCollectorMode;
 
     //#endregion Properties
 

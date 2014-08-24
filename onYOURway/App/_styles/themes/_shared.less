@@ -1,0 +1,61 @@
+﻿/*#region mySiteList */
+
+#mySiteList {
+	position: absolute;
+	top: 50px;
+	bottom: 0;
+	right: 0;
+	width: 200px;
+	z-index: 2;
+	background-color: #fff;
+	overflow: auto;
+	-webkit-transition: 0.3s ease-in-out;
+	-moz-transition: 0.3s ease-in-out;
+	-o-transition: 0.3s ease-in-out;
+	transition: 0.3s ease-in-out;
+	right: 525px;
+}
+
+#mySiteList ul {
+	position: relative;
+	padding: 0;
+}
+
+@media (max-width: 767px) { /*xs*/
+	#mySiteList {
+		width: 100%;
+	}
+}
+
+/*#endregion mySiteList */
+
+/*#region mySiteCollector*/
+
+#mySiteCollector {
+	position: absolute;
+	top: 50px;
+	bottom: 0;
+	right: 0;
+	width: 75%;
+	z-index: 1;
+	overflow: auto;
+	background-color: #f1f1f1;
+	-webkit-transition: 0.3s ease-in-out;
+	-moz-transition: 0.3s ease-in-out;
+	-o-transition: 0.3s ease-in-out;
+	transition: 0.3s ease-in-out;
+}
+
+@media (max-width: 767px) { /*xs*/
+	#mySiteCollector {
+		width: 100%;
+	}
+}
+
+/*#endregion locationDetails*/
+
+/**#region map */
+#map.siteCollectorOpen {
+    right: 75%;
+}
+/**#endregion map */
