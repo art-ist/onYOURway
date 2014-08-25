@@ -1,187 +1,194 @@
 ﻿<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-  <span class="sr-only">Menü ein- oder ausblenden</span>
-  <i class="fa fa-bars fa-fw"></i>
+	<span class="sr-only">Menü ein- oder ausblenden</span>
+	<i class="fa fa-bars fa-fw"></i>
 </button>
 <header id="navbar" class="navbar navbar-default bs-docs-nav" role="navigation">
-  <div class="container">
+	<div class="container">
 
-    <div class="navbar-header hidden-xs">
+		<div class="navbar-header hidden-xs">
 
-      <!--branding-->
-      <a class="brand navbar-left" href="#">
-        <img src="../App/images/logo.targetsize-48.png" alt="onYOURway">
-      </a>
-      <!--/branding-->
-    </div>
+			<!--branding-->
+			<a class="brand navbar-left" href="#">
+				<img src="../App/images/logo.targetsize-48.png" alt="onYOURway">
+			</a>
+			<!--/branding-->
+		</div>
 
-    <!--search-->
-    <form class="navbar-form col-sm-4 hidden-xs" role="search">
-      <div class="input-group">
-        <input class="form-control"
-               id="searchFor" name="searchFor"
-               placeholder="Obst, Heurige, Bio, ..."
-               autocomplete="off" spellcheck="false"
-               autofocus="autofocus"
-               data-bind="value: location.searchFor
+		<!--search-->
+		<form class="navbar-form col-sm-4 hidden-xs" role="search">
+			<div class="input-group">
+				<input class="form-control"
+					   id="searchFor" name="searchFor"
+					   placeholder="Obst, Heurige, Bio, ..."
+					   autocomplete="off" spellcheck="false"
+					   autofocus="autofocus"
+					   data-bind="value: location.searchFor
                         , typeahead: location.searchSuggestions
                         , autoSelect: false
                          "
-               type="text" />
-        <!--
-                        , updater: app.tools.search
-        -->
-        <!--
-                        , event: { change: function(p1){alert(p1);} }
-                        , matcher: match
-                        , sorter: sort
-                        , highlight: highlight
-                        , event: { change: search }
-                        , typeahead: ['Sepp','Fritz','Susi']
-          class="typeahead
-          data-template="{{id}}"
-          data-provider="typeahead"
-          data-items="10"
-        -->
-        <div class="input-group-btn" data-bind="css: {open: app.tools.search }">
-          <button id="startSearchBtn" title="Suchen" class="btn btn-default tour-e-step-search" tabindex="-1" data-bind="click: search"><i class="fa fa-search fa-fw"></i></button>
-          <button id="toggleAdvancedSearchBtn" title="Erweiterte Suche" class="btn btn-default" type="button" data-bind="click: app.tools.toggleSearch, css: { active: app.tools.search }">Wann &amp; Wo<i class="caret"></i></button>
-          <!--<div id="search-adv" class="dropdown-menu">
-            <i class="btn oyw-btn-close fa fa-times" data-bind="click: app.tools.toggleSearch" />
-          </div>-->
-        </div>
-      </div>
-    </form>
-    <!--search-->
-    <!--nav-->
-    <nav class="collapse navbar-collapse bs-navbar-collapse">
+					   type="text" />
+				<!--
+								, updater: app.tools.search
+				-->
+				<!--
+								, event: { change: function(p1){alert(p1);} }
+								, matcher: match
+								, sorter: sort
+								, highlight: highlight
+								, event: { change: search }
+								, typeahead: ['Sepp','Fritz','Susi']
+				  class="typeahead
+				  data-template="{{id}}"
+				  data-provider="typeahead"
+				  data-items="10"
+				-->
+				<div class="input-group-btn" data-bind="css: {open: app.tools.search }">
+					<button id="startSearchBtn" title="Suchen" class="btn btn-default tour-e-step-search" tabindex="-1" data-bind="click: search"><i class="fa fa-search fa-fw"></i></button>
+					<button id="toggleAdvancedSearchBtn" title="Erweiterte Suche" class="btn btn-default" type="button" data-bind="click: app.tools.toggleSearch, css: { active: app.tools.search }">Wann &amp; Wo<i class="caret"></i></button>
+					<!--<div id="search-adv" class="dropdown-menu">
+					  <i class="btn oyw-btn-close fa fa-times" data-bind="click: app.tools.toggleSearch" />
+					</div>-->
+				</div>
+			</div>
+		</form>
+		<!--search-->
+		<!--nav-->
+		<nav class="collapse navbar-collapse bs-navbar-collapse">
 
-      <!--<ul class="nav" data-bind="foreach: router.visibleRoutes">
-        <li class="" data-bind="css: { active: isActive }">
-          <a data-bind="attr: { href: hash }, text: name" href="#"></a>
-        </li>
-      </ul>-->
+			<!--<ul class="nav" data-bind="foreach: router.visibleRoutes">
+			  <li class="" data-bind="css: { active: isActive }">
+				<a data-bind="attr: { href: hash }, text: name" href="#"></a>
+			  </li>
+			</ul>-->
 
-      <ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right">
 
-        <!--Search-->
-        <li class="visible-xs">
-          <a href="#/search" title="Suchen">
-            <i class="fa fa-search fa-fw hidden-xs"></i>
-            <i class="fa fa-search fa-fw visible-xs pull-left"></i>
-            <span class="visible-xs"> &nbsp;Suche</span>
-          </a>
-        </li>
-        <!--Search-->
-        <!--View-->
-        <li class="dropdown hidden-xs">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu-view">
-            <i class="fa fa-eye fa-fw hidden-xs"></i>
-            <i class="fa fa-eye fa-fw visible-xs pull-left"></i>
-            <span class="visible-xs"> &nbsp;Ansicht</span>
-          </a>
-          <ul class="dropdown-menu">
+				<!--Search-->
+				<li class="visible-xs">
+					<a href="#/search" title="Suchen">
+						<i class="fa fa-search fa-fw hidden-xs"></i>
+						<i class="fa fa-search fa-fw visible-xs pull-left"></i>
+						<span class="visible-xs"> &nbsp;Suche</span>
+					</a>
+				</li>
+				<!--Search-->
+				<!--View-->
+				<li class="dropdown hidden-xs">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu-view">
+						<i class="fa fa-eye fa-fw hidden-xs"></i>
+						<i class="fa fa-eye fa-fw visible-xs pull-left"></i>
+						<span class="visible-xs"> &nbsp;Ansicht</span>
+					</a>
+					<ul class="dropdown-menu">
 
-            <li class="dropdown-header">Demo (Baden)</li>
-            <li class="dropdown-header" data-bind="text: location.region.Name">Zoom</li>
-            <!-- ko foreach: location.views -->
-            <li><a href="#" data-bind="text: Name, click: function () { $parent.location.setView($index()); }">Name</a></li>
-            <!-- /ko -->
+						<li class="dropdown-header">Demo (Baden)</li>
+						<li class="dropdown-header" data-bind="text: location.region.Name">Zoom</li>
+						<!-- ko foreach: location.views -->
+						<li><a href="#" data-bind="text: Name, click: function () { $parent.location.setView($index()); }">Name</a></li>
+						<!-- /ko -->
 
-            <li class="divider"></li>
-            <li class="dropdown-header">Region</li>
-            <li class="disabled"><a href="#/regionen">Region wählen</a></li>
+						<li class="divider"></li>
+						<li class="dropdown-header">Region</li>
+						<li class="disabled"><a href="#/regionen">Region wählen</a></li>
 
-            <!--
-            <li class="divider"></li>
-            <li class="dropdown-header">Orte</li>
-            <li><a href="#" data-bind="click: function () { location.settings.clusterLocations(!location.settings.clusterLocations()); location.filter(); }">zusammenfassen <i class="icon-ok" data-bind="  visible: location.settings.clusterLocations()"></i></a></li>
-            <li><a href="#" data-bind="click: function () { location.settings.clusterLocations(!location.settings.zoomToSearchResults()); location.filter(); }">Treffer einpassen <i class="icon-ok" data-bind="  visible: location.settings.zoomToSearchResults()"></i></a></li>
-              -->
+						<!--
+						<li class="divider"></li>
+						<li class="dropdown-header">Orte</li>
+						<li><a href="#" data-bind="click: function () { location.settings.clusterLocations(!location.settings.clusterLocations()); location.filter(); }">zusammenfassen <i class="icon-ok" data-bind="  visible: location.settings.clusterLocations()"></i></a></li>
+						<li><a href="#" data-bind="click: function () { location.settings.clusterLocations(!location.settings.zoomToSearchResults()); location.filter(); }">Treffer einpassen <i class="icon-ok" data-bind="  visible: location.settings.zoomToSearchResults()"></i></a></li>
+						-->
 
-            <li class="divider"></li>
-            <li class="dropdown-header">Kartenstil</li>
-            <!-- ko foreach: location.settings.tileLayers -->
-            <li><a href="#" data-bind="text: Name, click: function () { $parent.location.setTileLayer($index()); }"> <!--<i class="icon-ok" data-bind="visible: location.settings.tileLayers[$index()] === location.layers.tileLayer"></i>--></a></li>
-            <!-- /ko -->
-          </ul>
-        </li>
-        <!--View-->
-        <!--Shopping List-->
-        <li>
-          <a href="#/my/shoppingList" title="Unterwegs erledigen / Einkaufsliste" id="menu-shoppingList">
-            <span class="badge badge-sup badge-warning" data-bind="text: shoppingList.itemsTodo(), visible: shoppingList.itemsTodo()"></span>
-            <i class="fa fa-shopping-cart fa-fw hidden-xs"></i>
-            <i class="fa fa-shopping-cart fa-fw visible-xs pull-left"></i>
-            <span class="visible-xs"> &nbsp;Einkaufsliste</span>
-          </a>
-        </li>
-        <!--Shopping List-->
-        <!--My-->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-user fa-fw hidden-xs"></i>
-            <i class="fa fa-user fa-fw visible-xs pull-left"></i>
-            <span class="visible-xs"> &nbsp;Meine ...</span>
-          </a>
-          <ul class="dropdown-menu">
-            <!--<li><a href="#/my/shoppingList" title="Unterwegs erledigen">Einkaufsliste</a></li>
-            <li class="divider"></li>-->
-            <!-- ko if: !app.user.isAuthenticated() -->
-            <li><a href="#/my/login">Anmelden</a></li>
-            <li><a href="#/my/registration">Registrieren</a></li>
-            <!-- /ko -->
-            <!-- ko if: app.user.isAuthenticated -->
-            <li class="dropdown-header">Mitgliederbereich</li>
-            <li><a href="#/my/profile">Übersicht</a></li>
-            <!--<li><a href="#/my/wizardNew">Neuer Standort</a></li>-->
-            <li><a data-bind="click: test">Neuer Standort</a></li>
-            <li><a href="#/my/profile/profil">Profil</a></li>
-            <li><a href="#/my/profile/einstellungen">Einstellungen</a></li>
-            <li class="divider"></li>
-            <li><a href="#" data-bind="click: app.auth.logout">Abmelden</a></li>
-            <!-- /ko -->
-          </ul>
-        </li>
-        <!--My-->
-        <!--onYOURway-->
-        <li class="dropdown navbar-header">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bind="css: {open: function() { return $(this).css('open'); } }">
-            <i class="fa fa-info fa-fw visible-xs pull-left"></i>
-            <span class="hidden-xs">onYOURway</span>
-            <span class="visible-xs"> &nbsp;onYOURway</span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Start</a></li>
-            <li><a href="#/about/onyourway">die Idee</a></li>
-            <!--<li><a href="#/about/video">Video</a></li>-->
-            <!--<li><a href="#">News / Blog</a></li>-->
+						<li class="divider"></li>
+						<li class="dropdown-header">Kartenstil</li>
+						<!-- ko foreach: location.settings.tileLayers -->
+						<li><a href="#" data-bind="text: Name, click: function () { $parent.location.setTileLayer($index()); }"> <!--<i class="icon-ok" data-bind="visible: location.settings.tileLayers[$index()] === location.layers.tileLayer"></i>--></a></li>
+						<!-- /ko -->
 
-            <li class="divider"></li>
-            <li class="dropdown-header">onYOURway</li>
-            <li><a href="#/about/explorer">für Entdecker</a></li>
-            <li><a href="#/about/venture">für Anbieter</a></li>
-            <li><a href="#/about/region">für Regionen</a></li>
+					</ul>
+				</li>
+				<!--View-->
+				<!--Shopping List-->
+				<li>
+					<a href="#/my/shoppingList" title="Unterwegs erledigen / Einkaufsliste" id="menu-shoppingList">
+						<span class="badge badge-sup badge-warning" data-bind="text: shoppingList.itemsTodo(), visible: shoppingList.itemsTodo()"></span>
+						<i class="fa fa-shopping-cart fa-fw hidden-xs"></i>
+						<i class="fa fa-shopping-cart fa-fw visible-xs pull-left"></i>
+						<span class="visible-xs"> &nbsp;Einkaufsliste</span>
+					</a>
+				</li>
+				<!--Shopping List-->
+				<!--My-->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="fa fa-user fa-fw hidden-xs"></i>
+						<i class="fa fa-user fa-fw visible-xs pull-left"></i>
+						<span class="visible-xs"> &nbsp;Meine ...</span>
+					</a>
+					<ul class="dropdown-menu">
+						<!--<li><a href="#/my/shoppingList" title="Unterwegs erledigen">Einkaufsliste</a></li>
+						<li class="divider"></li>-->
+						<!-- ko if: !app.user.isAuthenticated() -->
+						<li><a href="#/my/login">Anmelden</a></li>
+						<li><a href="#/my/registration">Registrieren</a></li>
+						<!-- /ko -->
+						<!-- ko if: app.user.isAuthenticated -->
+						<li class="dropdown-header">Mitgliederbereich</li>
+						<li><a href="#/my/profile">Übersicht</a></li>
+						<!--<li><a href="#/my/wizardNew">Neuer Standort</a></li>-->
+						<li><a data-bind="click: test">Neuer Standort</a></li>
+						<li><a href="#/my/profile/profil">Profil</a></li>
+						<li><a href="#/my/profile/einstellungen">Einstellungen</a></li>
+						<li class="divider"></li>
+						<li><a href="#" data-bind="click: app.auth.logout">Abmelden</a></li>
+						<!-- /ko -->
+					</ul>
+				</li>
+				<!--My-->
+				<!--onYOURway-->
+				<li class="dropdown navbar-header">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bind="css: {open: function() { return $(this).css('open'); } }">
+						<i class="fa fa-info fa-fw visible-xs pull-left"></i>
+						<span class="hidden-xs">onYOURway</span>
+						<span class="visible-xs"> &nbsp;onYOURway</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Start</a></li>
+						<li><a href="#/about/onyourway">die Idee</a></li>
+						<!--<li><a href="#/about/video">Video</a></li>-->
+						<!--<li><a href="#">News / Blog</a></li>-->
 
-            <li class="divider"></li>
-            <li class="dropdown-header">Über</li>
-            <li><a href="#/about/privacy">Privatsphäre</a></li>
-            <!--<li><a href="#">Kontakt</a></li>-->
-            <li><a href="#/about/impress">Impressum</a></li>
-          </ul>
-        </li>
-        <!--onYOURway-->
+						<li class="divider"></li>
+						<li class="dropdown-header">onYOURway</li>
+						<li><a href="#/about/explorer">für Entdecker</a></li>
+						<li><a href="#/about/venture">für Anbieter</a></li>
+						<li><a href="#/about/region">für Regionen</a></li>
 
-      </ul>
-    </nav>
-    <!--/nav-->
+						<li class="divider"></li>
+						<li class="dropdown-header">Grundkarte</li>
+						<li><a href="#" data-bind="click: location.baseMap.open">OpenStreetMap</a></li>
+						<li><a href="http://www.openstreetmap.org/about" data-bind="click: location.baseMap.about">Über OSM</a></li>
+						<li class=""><a href="#" data-bind="click: location.baseMap.edit">OSM bearbeiten</a></li>
 
-  </div>
+						<li class="divider"></li>
+						<li class="dropdown-header">Über</li>
+						<li><a href="#/about/privacy">Privatsphäre</a></li>
+						<!--<li><a href="#">Kontakt</a></li>-->
+						<li><a href="#/about/impress">Impressum</a></li>
+					</ul>
+				</li>
+				<!--onYOURway-->
+
+			</ul>
+		</nav>
+		<!--/nav-->
+
+	</div>
 </header>
 
 <div id="searchbar" class="hidden-xs" data-bind="css: { open: app.tools.search }">
-  <div id="search-adv" class="container ">
-    <a class="btn oyw-btn-close hidden-xs fa fa-times" data-bind="click: app.tools.toggleSearch" />
-    <!--ko compose:'views/_searchoptions' -->
-    <!--/ko-->
-  </div>
+	<div id="search-adv" class="container ">
+		<a class="btn oyw-btn-close hidden-xs fa fa-times" data-bind="click: app.tools.toggleSearch" />
+		<!--ko compose:'views/_searchoptions' -->
+		<!--/ko-->
+	</div>
 </div>

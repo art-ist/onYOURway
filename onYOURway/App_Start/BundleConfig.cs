@@ -58,6 +58,7 @@ namespace onYOURway {
          , "~/App/_libraries/leaflet/leaflet.awesome-markers.js"   // easy markers
          , "~/App/_libraries/leaflet/leaflet.markercluster-src.js" // cluster nearby markers
          , "~/App/_libraries/leaflet/leaflet.overpass-layer.js"    // dirctly display results (nodes only) of overpass-osm queries
+		 , "~/App/_libraries/leaflet/leaflet.draw.js"			   // map features, see: https://github.com/Leaflet/Leaflet.draw
 
          /*components*/
          , "~/App/_libraries/jquery-ui-{version}.custom.js"        // jQueryUI (using slider)
@@ -107,6 +108,7 @@ namespace onYOURway {
         , "~/App/_styles/leaflet/leaflet.awesome-markers.css"
         , "~/App/_styles/leaflet/MarkerCluster.css"
         , "~/App/_styles/leaflet/MarkerCluster.Default.css"
+		, "~/App/_styles/leaflet/leaflet.draw"
 
         /*components*/
         , "~/App/_styles/bootstrap-datepicker.css"

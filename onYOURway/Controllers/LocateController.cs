@@ -41,6 +41,7 @@ namespace onYOURway.Controllers {
       return db.Context.Regions
         .Include("Views")
         .Include("Aliases")
+		.OrderBy(r => r.Id)
         ;
     }
 
@@ -290,7 +291,7 @@ namespace onYOURway.Controllers {
     } //Places
     
     [HttpGet]
-    public dynamic Location(double Id) {
+	public dynamic Place(double Id) {
       return db.Context
         .Locations
         .Include("Aliases")

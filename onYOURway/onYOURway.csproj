@@ -407,6 +407,11 @@
     <Content Include="App\views\vonMorgen\_nav.js" />
     <Content Include="App\views\vonMorgen\_shell.html" />
     <Content Include="App\views\vonMorgen\_shell.js" />
+    <Content Include="App\_libraries\leaflet\images\spritesheet-2x.png" />
+    <Content Include="App\_libraries\leaflet\images\spritesheet.png" />
+    <Content Include="App\_libraries\leaflet\leaflet.draw-src.js" />
+    <Content Include="App\_styles\leaflet\leaflet.draw.css" />
+    <Content Include="App\_libraries\leaflet\leaflet.draw.js" />
     <Content Include="App\_libraries\jQuery.scrollTo-1.4.8.js" />
     <Content Include="App\_libraries\select2\select2.js" />
     <Content Include="App\_libraries\select2\select2.min.js" />
