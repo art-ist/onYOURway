@@ -120,8 +120,10 @@ namespace onYOURway {
         , "~/App/_styles/select2.css"                // select2 multiselect
         , "~/App/_styles/select2-bootstrap.css"
 
-        /*themes*/
-        //, "~/App/_styles/themes/metro-bootstrap/metro-bootstrap.css"
+
+          /*themes*/
+        , "~/App/_styles/themes/_shared.css" // css shared between all themes
+          //, "~/App/_styles/themes/metro-bootstrap/metro-bootstrap.css"
         //, "~/App/_styles/themes/metro-bootstrap/bootstrap-datetimepicker.min.css"
 
       ));

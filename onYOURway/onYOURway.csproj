@@ -397,6 +397,8 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Content Include="App\views\my\siteCollector.js" />
+    <Content Include="App\views\my\siteCollector.html" />
     <Content Include="App\views\my\wizardEdit.html" />
     <Content Include="App\views\my\wizardEdit.js" />
     <Content Include="App\views\vonMorgen\home.html" />
@@ -835,6 +837,19 @@
     <Content Include="App\_styles\themes\vonMorgen\bootstrap\utilities.less" />
     <Content Include="App\_styles\themes\vonMorgen\bootstrap\variables.less" />
     <Content Include="App\_styles\themes\vonMorgen\bootstrap\wells.less" />
+    <Content Include="App\_styles\themes\vonMorgen\_vonMorgen.css.map">
+      <DependentUpon>_vonMorgen.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\vonMorgen\bootstrap\bootstrap.css.map">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\_shared.less" />
+    <Content Include="App\_styles\themes\_shared.css">
+      <DependentUpon>_shared.less</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\_shared.css.map">
+      <DependentUpon>_shared.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\onYOURway.at.pubxml" />
     <Content Include="App\_libraries\breeze.debug.js" />
     <Content Include="App\_libraries\knockout.validation.debug.js" />
@@ -904,8 +919,6 @@
           <DevelopmentServerPort>56353</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:56303/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:56303/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

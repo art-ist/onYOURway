@@ -35,6 +35,8 @@
 
     showDetails: false,
 
+    showSiteCollector: location.showSiteCollector,
+
     showInfo: ko.observable(false),
     showEco: ko.observable(false),
     showRate: ko.observable(false),
@@ -69,19 +71,19 @@
       vm.showRate(!vm.showRate());
   }
   function selectInfo(place) {
-      vm.location.itemClick(place);
+      $root.location.itemClick(place);
       vm.showInfo(true);
       vm.showEco(false);
       vm.showRate(false);
   }
   function selectEco(place) {
-      vm.location.itemClick(place);
+      $root.location.itemClick(place);
       vm.showInfo(false);
       vm.showEco(true);
       vm.showRate(false);
   }
   function selectRate(place) {
-      vm.location.itemClick(place);
+      $root.location.itemClick(place);
       vm.showInfo(false);
       vm.showEco(false);
       vm.showRate(true);

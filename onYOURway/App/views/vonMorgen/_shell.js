@@ -25,6 +25,7 @@ define([
       , { moduleId: 'regions',                route: ['regions', 'regionen'],                         title: 'Regionen'       }
       , { moduleId: 'discover',               route: ['map', 'karte', 'discover', 'erkunden'],        title: 'Erkunden'       }
       , { moduleId: 'search',                 route: ['search', 'suche'],                             title: 'Suchen'         }
+      , { moduleId: 'my/siteCollector',       route: ['my/siteCollector', 'siteCollector', 'add'],    title: 'Neuer Eintrag' }
 
       , { moduleId: 'my/login',               route: ['my/login'],                                    title: 'Anmelden'       }
       , { moduleId: 'my/registration',        route: ['my/registration'],                             title: 'Registrieren'   }

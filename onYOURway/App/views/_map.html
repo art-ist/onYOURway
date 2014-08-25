@@ -1,15 +1,15 @@
 ﻿<div id="oyw-map-container">
 
   <!--Map-->
-  <div id="map" data-bind=" map: { initialize: location.initializeMap }
+    <div id="map" data-bind=" map: { initialize: location.initializeMap }
                           , ventures : { map: location.map, data: location.mapLocations }
-                          , css: { listOpen: showList }
+                          , css: { listOpen: showList, siteCollectorOpen: showSiteCollector }
                           ">
 
-    <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleList">
-      <i class="fa" data-bind="css: { 'fa-arrow-right': location.settings.showMap, 'fa-arrow-left': !location.settings.showMap() }"></i>
-    </button>
-  </div>
+        <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleList">
+            <i class="fa" data-bind="css: { 'fa-arrow-right': location.settings.showMap, 'fa-arrow-left': !location.settings.showMap() }"></i>
+        </button>
+    </div>
   <!--/Map-->
   <!--List-->
   <div id="locationList" data-bind="css: { listOpen: showList }">
