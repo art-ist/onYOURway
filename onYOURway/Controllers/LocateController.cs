@@ -8,6 +8,7 @@ using System.Xml;
 using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using onYOURway.Models;
+using System.Collections.Generic;
 
 namespace onYOURway.Controllers {
 
@@ -301,6 +302,33 @@ namespace onYOURway.Controllers {
         .FirstOrDefault()
         ;
     }
+
+	[HttpGet]
+	public dynamic MyPlaces(int RegionId, string lang = "de") {
+		//get UserId
+
+		return db.Context
+		  .Locations
+		  .Include("Aliases")
+		  .Include("Tags")
+		  .Include("Links")
+		  .FirstOrDefault()
+		  ;
+	}
+
+	[HttpGet]
+	public IQueryable<Tag> Tags(int? RegionId = 1, string lang = "de") {
+		//TODO: add Region specific Tags or "TagSets"
+
+		var result = db.Context
+			.Tags
+			.Include("Names")
+			.Include("Children")
+			.AsQueryable()
+			;
+		return result;
+
+	}
 
   } //class
 
