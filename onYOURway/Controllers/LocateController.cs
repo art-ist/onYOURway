@@ -317,14 +317,21 @@ namespace onYOURway.Controllers {
 	}
 
 	[HttpGet]
-	public IQueryable<Tag> Tags(int? RegionId = 1, string lang = "de") {
+	public dynamic Tags(int? RegionId = 1, string lang = "de") {
 		//TODO: add Region specific Tags or "TagSets"
 
 		var result = db.Context
 			.Tags
-			.Include("Names")
-			.Include("Children")
-			.AsQueryable()
+			//.Include("Names")
+			//.Include("Children")
+			.Select(t => new { 
+				t.Id,
+				t.Type,
+				Names = t.Names/*.Where(n => n.Lang == lang || string.IsNullOrEmpty(n.Lang))*/.Select(n => new { n.Name, n.Lang, n.Show }),
+ 				Parents = t.Parents.Select(p => p.Id),
+				Children = t.Children.Select(c => c.Id)
+			})
+			/*.Where(t => t.Names.Where(n => n.Lang == lang || string.IsNullOrEmpty(n.Lang)).Count() > 0)*/
 			;
 		return result;
 

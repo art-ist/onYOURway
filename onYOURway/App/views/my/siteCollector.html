@@ -1,179 +1,171 @@
 ﻿  <!--List-->
 <!--<div id="mySiteList" data-bind="css: { listOpen: showList }">
-    <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleDetails"><i class="fa fa-arrow-right"></i></button>
+	<button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleDetails"><i class="fa fa-arrow-right"></i></button>
 
-    <ul data-bind="foreach: location.mapLocations" class="nav nav-list">
-        <li class="locationInfo" data-bind="css: { isOpen: isOpen()
-                                               , isFeatured: isFeatured()
-                                               , selected: $data === $root.location.selectedItem() }
-                                               , click: $root.location.itemClick, attr: { id: Id }
-                                          ">
-            <div class="locationInfo-imageArea">
-                <i class=" fa fa-2x" data-bind="css: $data.Icon"></i>
-            </div>
-            <i class="fa fa-chevron-right detailsIndicator"></i>
-            <h5 class="locationInfo-title" data-bind="text: Name" style="max-height: 30px; overflow: hidden; overflow-wrap: break-word; -ms-word-wrap: hyphenate; word-wrap:hyphenate;"></h5>
-            <p class="locationInfo-addr"><span data-bind="  text: $data.Street"></span> <span data-bind="  text: $data.HouseNumber"></span></p>
-        </li>
-    </ul>
+	<ul data-bind="foreach: location.mapLocations" class="nav nav-list">
+		<li class="locationInfo" data-bind="css: { isOpen: isOpen()
+											   , isFeatured: isFeatured()
+											   , selected: $data === $root.location.selectedItem() }
+											   , click: $root.location.itemClick, attr: { id: Id }
+										  ">
+			<div class="locationInfo-imageArea">
+				<i class=" fa fa-2x" data-bind="css: $data.Icon"></i>
+			</div>
+			<i class="fa fa-chevron-right detailsIndicator"></i>
+			<h5 class="locationInfo-title" data-bind="text: Name" style="max-height: 30px; overflow: hidden; overflow-wrap: break-word; -ms-word-wrap: hyphenate; word-wrap:hyphenate;"></h5>
+			<p class="locationInfo-addr"><span data-bind="  text: $data.Street"></span> <span data-bind="  text: $data.HouseNumber"></span></p>
+		</li>
+	</ul>
 </div>-->
 <!--/List-->
 <!--/Details-->
-<div id="mySiteCollector">
+<div id="mySiteCollector" style="padding: 15px;">
+
+	<form class="form">
+
+		<div class="row">
+			<h1><span class="translate">Add a new site</span></h1>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6">
+
+				<div class="form-group">
+					<label class="translate">Selected region/map:</label>
+					<div class="form-control changeMap btn btn-select">
+						<i class="icon-angle-right"></i>
+						<span class="position hilight"><i class="icon-location-arrow"></i> <span class="distance"></span>km</span>
+						<span class="mapName">My Map</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="addSiteName" class="translate">Name:</label>
+					<input id="addSiteName" type="text" class="form-control siteName translatePlaceholder" placeholder="What is the name of the site?" />
+				</div>
+
+				<div class="form-group">
+					<label for="addSiteDescription" class="translate">Description:</label>
+					<textarea class="form-control translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"></textarea>
+				</div>
+
+				<!--<section class="panel locationContainer position">
+				<header class="panel-heading">
+					Position
+				</header>-->
+
+				<label for="addSiteLocationStreet">Adresse</label>
+
+				<div class="control-group">
+					<input data-bind="value: street" id="addSiteLocationStreet" type="text" class="form-control locationLat" placeholder="Straße + Nr." />
+					<input data-bind="value: city" id="addSiteLocationCity" type="text" class="form-control locationLng" placeholder="Stadt" />
+				</div>
+
+				<div class="btn btn-large btn-default selectPosition"><i class="fa fa-map-marker"></i> <span class="translate" data-bind="click: setMarker">Confirm on map</span></div>
+				<div class="btn btn-large btn-default updatePosition"><i class="fa fa-location-arrow"></i> <span class="translate">Refresh GPS</span></div>
+
+				<div class="line accuracy">
+					<div class="error hilight hidden"><span class="translate">Position accuracy</span>: &plusmn;<span class="value"></span>m</div>
+				</div>
+				<!--</section>-->
+
+			</div>
+
+			<div class="col-sm-6">
+				<div class="form-group country">
+					<label for="addCountryName" class="translate">Country:</label>
+
+					<div class="form-control btn btn-select">
+						<i class="icon-angle-right"></i> <span id="addCountryName" class="countryName"></span>
+					</div>
+				</div>
+
+				<!--tags/icons-->
+				<div class="form-group">
+
+					<label class="translate">Icons:</label>
+
+					<div class="form-control">
+
+						<ul class="iconList hide"></ul>
+
+						<div class="btn btn-default btn-block" id="addSiteIcon"><i class="icon-plus"></i> <span class="translate">select icons</span></div>
+					</div>
+				</div>
+
+				<!--picture-->
+				<div class="form-group photo empty">
+					<label>
+						<span class="translate">Photo:</span>
+					</label>
+					<div class="controls">
+						<div id="dropzone">
+							<form action="test.html" class="dropzone dz-clickable">
+
+								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!--<div class="line photo">
+					<label for="addSitePhoto">
+						<span id="addSitePhotoContainer">
+							<div class="label"><i class="icon-picture"></i><br /><span class="translate">Select a picture</span></div>
+							<img />
+
+							<div class="remove"><i class="icon-remove-sign"></i></div>
+						</span>
+					</label>
+
+					<input type="file" id="addSitePhoto" accept="image/*;capture=camera">
+				</div>-->
+
+				<label for="addSitePhotoCaption" class="translate">Photo caption:</label>
+				<input id="addSitePhotoCaption" type="text" class="form-control photoCaption translatePlaceholder" placeholder="What is in the photo?" />
+			</div>
+		</div>
 
 
+		<div class="row panel-body">
+			<button class="ok btn btn-success btn-large pull-right"><i class="fa fa-check"></i> <span class="translate">submit</span> </button>
+		</div class="row">
+	</form>
 
-    <h1><div class="ok btn btn-default"><i class="icon-ok"></i></div><span class="translate">Add a new site</span></h1>
-
-    <div class="column">
-        <div class="field">
-            <div class="selectedMap">
-                <label class="translate">Selected map:</label>
-
-                <div class="line changeMap btn-select">
-                    <i class="icon-angle-right"></i>
-                    <div class="position hilight"><i class="icon-location-arrow"></i> <span class="distance"></span>km</div>
-                    <span class="mapName">My Map</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="field">
-            <label for="addSiteName" class="translate">Name:</label>
-
-            <div class="line">
-                <input id="addSiteName" type="text" class="siteName translatePlaceholder" placeholder="What is the name of the site?" />
-            </div>
-        </div>
-
-        <div class="field">
-            <label for="addSiteDescription" class="translate">Description:</label>
-
-            <div class="line">
-                <textarea class="translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"></textarea>
-            </div>
-        </div>
-
-        <div class="locationContainer position">
-            <div class="field">
-
-                <label for="addSiteLocationStreet">
-                    <span class="translate">Straße und Nr.</span>
-                    <span class="translate">Ortsname</span>
-                </label>
-
-                <div class="line">
-                    <input data-bind="value: street" id="addSiteLocationStreet" type="text" class="locationLat" placeholder="Straße + Nr." />
-                    <input data-bind="value: city" id="addSiteLocationCity" type="text" class="locationLng" placeholder="Stadt" />
-                </div>
-
-                <div class="line">
-                    <div class="btn btn-large btn-default selectPosition"><i class="icon-map-marker"></i> <span class="translate" data-bind="click: setMarker">Confirm on map</span></div>
-                    <div class="btn btn-large btn-default updatePosition"><i class="icon-location-arrow"></i> <span class="translate">Refresh GPS</span></div>
-                </div>
-
-                <div class="line accuracy">
-                    <div class="error hilight hidden"><span class="translate">Position accuracy</span>: &plusmn;<span class="value"></span>m</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="column secondColumn">
-        <div class="field country">
-            <label for="addCountryName" class="translate">Country:</label>
-
-            <div class="line btn-select">
-                <i class="icon-angle-right"></i> <span id="addCountryName" class="countryName"></span>
-            </div>
-        </div>
-
-        <div class="field">
-
-            <label class="translate">Icons:</label>
-
-            <div class="line">
-
-                <ul class="iconList hide"></ul>
-
-                <div class="btn btn-default btn-block" id="addSiteIcon"><i class="icon-plus"></i> <span class="translate">select icons</span></div>
-            </div>
-        </div>
-
-        <div class="field photo empty">
-            <label>
-                <div class="btn btn-default rotate"><i class="icon-rotate-right"></i> <span class="translate">Rotate</span></div>
-                <span class="translate">Photo:</span>
-            </label>
-
-            <div class="line photo">
-                <label for="addSitePhoto">
-                    <div id="addSitePhotoContainer">
-                        <div class="label"><i class="icon-picture"></i><br /><span class="translate">Select a picture</span></div>
-                        <img />
-
-                        <div class="remove"><i class="icon-remove-sign"></i></div>
-                    </div>
-                </label>
-
-                <input type="file" id="addSitePhoto" accept="image/*;capture=camera">
-            </div>
-
-        </div>
-
-        <div class="field photoCaptionContainer">
-            <label for="addSitePhotoCaption" class="translate">Photo caption:</label>
-
-            <div class="line">
-                <input id="addSitePhotoCaption" type="text" class="photoCaption translatePlaceholder" placeholder="What is in the photo?" />
-            </div>
-        </div>
-
-
-        <div class="ok btn btn-default btn-block"><i class="icon-ok"></i> <span class="translate">submit</span> </div>
-
-        <br />
-        <br />
-        <br />
-    </div>
-</div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="pictureModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title translate">Site photo</h4>
-            </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title translate">Site photo</h4>
+			</div>
 
-            <div class="modal-body">
-                <p class="translate">You did not attach a picture of the site. Do you want to continue?</p>
-            </div>
+			<div class="modal-body">
+				<p class="translate">You did not attach a picture of the site. Do you want to continue?</p>
+			</div>
 
-            <div class="modal-footer">
-                <button type="button" id="selectPhoto" class="btn btn-default translate" data-dismiss="modal">Select photo</button>
-                <button type="button" id="addSite" class="btn btn-danger translate" data-dismiss="modal">Add without picture</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+			<div class="modal-footer">
+				<button type="button" id="selectPhoto" class="btn btn-default translate" data-dismiss="modal">Select photo</button>
+				<button type="button" id="addSite" class="btn btn-danger translate" data-dismiss="modal">Add without picture</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<!--<button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: $root.location.toggleList"><i class="fa fa-arrow-right"></i></button>-->
 
-
-    <!--<button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: $root.location.toggleList"><i class="fa fa-arrow-right"></i></button>-->
-
-    <div class="ventureDetails-imageArea">
-        <img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
-        <h2 class="ventureDetails-header" data-bind="text: Name"></h2>
-        <ul class="ventureDetails-taglist" data-bind="foreach: Tag"></ul>
-    </div>
-
-    <div class="oyw-action-list btn-group-vertical pull-right">
-    </div>
-
-    <div class="ventureDetails-details">
-    </div>
-
+<div class="ventureDetails-imageArea">
+	<img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
+	<h2 class="ventureDetails-header" data-bind="text: Name"></h2>
+	<ul class="ventureDetails-taglist" data-bind="foreach: Tag"></ul>
 </div>
+
+<div class="oyw-action-list btn-group-vertical pull-right">
+</div>
+
+<div class="ventureDetails-details">
+</div>
+
 <!--/Details-->
