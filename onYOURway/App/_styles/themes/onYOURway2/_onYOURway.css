@@ -1,7 +1,7 @@
 ﻿/*colors*/
 /***************************/
 /* Boostrap overrides      */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#region jQueryUI slider*/
 .ui-slider {
   background: none;
   background-color: #f0f0f0;
@@ -78,8 +78,8 @@
 		overflow: visible;
 	}
 */
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion jQueryUI slider (fix)*/
+/*#region theme */
 .gender {
   opacity: 0.5;
 }
@@ -216,8 +216,8 @@ ol {
   border-bottom: 3px solid #fba21c;
   margin-bottom: 10px;
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion theme */
+/*#region layout */
 /*body.slide-active {
 	overflow-x: hidden;
 }
@@ -334,7 +334,7 @@ form > .row {
 .align-right {
   padding-right: 0;
 }
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#region responsive tweaks*/
 /* un fix the navbar when active so that all the menu items are accessible */
 /*.navbar.navbar-fixed-top.slide-active {
 	position: relative;
@@ -408,9 +408,9 @@ form > .row {
   /* lg */
 }
 /* lg */
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion responsive tweaks*/
+/*#endregion layout */
+/*#region nav */
 .navbar {
   border-top: none;
   border-bottom: 1px solid #f1f1f1;
@@ -549,8 +549,8 @@ nav .dropdown-toggle:hover:after {
     left: 92%;
   }
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion nav */
+/*#region searchbar*/
 #searchbar {
   position: absolute;
   z-index: 999;
@@ -596,16 +596,16 @@ nav .dropdown-toggle:hover:after {
   }
 }
 /* xs & sm */
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion searchbar*/
+/*#region forms */
 .oyw-input-list {
   list-style: none;
 }
 .oyw-input-list > li:before {
   content: none;
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion forms */
+/*#region controls */
 /*.loader {
 	z-index: 200;
 	visibility: hidden;
@@ -691,8 +691,8 @@ nav .dropdown-toggle:hover:after {
   position: absolute;
   margin-left: -0.5em;
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion controls */
+/*#region map*/
 #map {
   position: absolute;
   top: 50px;
@@ -752,8 +752,8 @@ path.oyw-map-pointer {
 /*.leaflet-control-attribution {
 	display: none;
 }*/
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion map*/
+/*#region locationList */
 #locationList {
   display: none;
   position: absolute;
@@ -870,8 +870,8 @@ path.oyw-map-pointer {
     width: 100%;
   }
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion locationList */
+/*#region locationDetails*/
 #ventureDetails {
   display: none;
   position: absolute;
@@ -949,8 +949,8 @@ path.oyw-map-pointer {
     width: 100%;
   }
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion locationDetails*/
+/*#region shopping list*/
 .oyw-bg-overlay {
   position: absolute;
   top: 0;
@@ -972,13 +972,13 @@ path.oyw-map-pointer {
   text-decoration: line-through;
   opacity: 0.5;
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion shopping list*/
+/*#region owl-carousel*/
 #idee.owl-carousel {
   overflow: hidden;
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion owl-carousel*/
+/*#region media content*/
 .video-container {
   position: relative;
   padding: 30px 0 56.25% 0;
@@ -994,8 +994,8 @@ path.oyw-map-pointer {
   width: 100%;
   height: 100%;
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion media content*/
+/*#region tour (introjs)*/
 .introjs-helperNumberLayer {
   position: absolute;
   top: -3px;
@@ -1028,5 +1028,4 @@ a.introjs-button :active {
   text-decoration: none;
   outline: none;
 }
-/*# sourceMappingURL=_onYOURway.css.map */
-/*# sourceMappingURL=_onYOURway.css.map */
+/*#endregion tour (introjs)*/

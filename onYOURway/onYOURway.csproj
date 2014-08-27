@@ -527,6 +527,9 @@
     <Content Include="App\_styles\themes\vonMorgen\_onYOURway.min.css">
       <DependentUpon>_onYOURway.css</DependentUpon>
     </Content>
+    <Content Include="App\_styles\themes\_shared.min.css">
+      <DependentUpon>_shared.css</DependentUpon>
+    </Content>
     <Content Include="App_Data\onYOURway.XML" />
     <Content Include="App\_styles\bootstrap-datepicker.css" />
     <Content Include="App\_styles\font-awesome.css" />

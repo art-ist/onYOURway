@@ -1,4 +1,4 @@
-﻿/*# sourceMappingURL=_shared.css.map */
+﻿/*#region mySiteList */
 #mySiteList {
   position: absolute;
   top: 50px;
@@ -24,8 +24,8 @@
     width: 100%;
   }
 }
-/*# sourceMappingURL=_shared.css.map */
-/*# sourceMappingURL=_shared.css.map */
+/*#endregion mySiteList */
+/*#region mySiteCollector*/
 #mySiteCollector {
   position: absolute;
   top: 50px;
@@ -46,10 +46,42 @@
     width: 100%;
   }
 }
-/*# sourceMappingURL=_shared.css.map */
+/*#endregion locationDetails*/
 /**#region map */
 #map.siteCollectorOpen {
   right: 75%;
 }
 /**#endregion map */
-/*# sourceMappingURL=_shared.css.map */
+/*#region bootstrap form tweaks*/
+/*.input-group-btn {
+    position: relative;
+    font-size: 0px;
+    white-space: nowrap;
+}
+.input-group-addon, .input-group-btn {
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+}*/
+.input-group-c2 {
+  width: 16.6% !important;
+}
+.input-group-c3 {
+  width: 33% !important;
+}
+.input-group-c4 {
+  width: 50% !important;
+}
+.input-group-c6 {
+  width: 50% !important;
+}
+.input-group-c9 {
+  width: 67% !important;
+}
+.input-group-c10 {
+  width: 83.3% !important;
+}
+.input-group-c12 {
+  width: 100% !important;
+}
+/*#endregion bootstrap form tweaks*/

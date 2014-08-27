@@ -10,6 +10,8 @@ define([
         self.app = app;
         self.location = location;
 
+    	site: ko.observable();
+
         self.activate = function (queryString) {
             logger.log('activate', 'siteCollector', queryString);
             if (queryString && queryString.tag) {
