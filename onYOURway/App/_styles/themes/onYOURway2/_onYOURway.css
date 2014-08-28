@@ -216,6 +216,9 @@ ol {
   border-bottom: 3px solid #fba21c;
   margin-bottom: 10px;
 }
+.icon-highlight {
+  color: #333333;
+}
 /*#endregion theme */
 /*#region layout */
 /*body.slide-active {

@@ -53,30 +53,34 @@
 				<header class="panel-heading">
 					Position
 				</header>-->
-
-
+				<!--Address and Position-->
 				<div class="form-group">
 					<div class="btn btn-sm btn-warning pull-right selectPosition"><i class="fa fa-location-arrow"></i> <span class="translate">use current location</span></div>
 					<label for="addSiteLocationStreet">Adresse:</label>
-					<input data-bind="value: street" id="addSiteLocationStreet" type="text" class="form-control locationLat" placeholder="Straße + Nr." />
 				</div>
 				<div class="form-group">
-					<div class="input-group input-group-c12" style="width: 100%;">
-						<input data-bind="" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3 locationLng" placeholder="PLZ" />
-						<input data-bind="value: city" id="addSiteLocationCity" type="text" class="form-control input-group-c9 locationLng" placeholder="Stadt" />
-					</div>
-				</div>
-				<div class="form-group">
-					<input class="form-control translate" placeholder="Country" />
-				</div>
-				<div class="form-group">
-					<div class="btn btn-large btn-warning updatePosition"><i class="fa fa-map-marker" /> <span class="translate" data-bind="click: setMarker">set position</span> <i class="fa fa-arrow-down" /></div>
-					<div class="btn btn-large btn-warning pull-right updateAddress"><i class="fa fa-arrow-up" /> <span class="translate">set address</span> <i class="fa fa-envelope" /></div>
+					<input data-bind="value: country" class="form-control translate" placeholder="Country" />
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input data-bind="" id="addSiteLocationLat" type="text" class="form-control locationLat input-group-c6" placeholder="Breitengrad" />
-						<input data-bind="" id="addSiteLocationLng" type="text" class="form-control locationLng input-group-c6" placeholder="Längengrad" />
+						<input data-bind="value: postcode" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3" placeholder="PLZ" />
+						<input data-bind="value: city" id="addSiteLocationCity" type="text" class="form-control input-group-c9" placeholder="Stadt" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group input-group-c12">
+						<input data-bind="value: street" id="addSiteLocationStreet" type="text" class="form-control input-group-c9" placeholder="Straße" />
+						<input data-bind="value: nr" id="addSiteLocationNr" type="text" class="form-control input-group-c3" placeholder="Nr." />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="btn btn-large btn-warning updatePosition"><i class="fa fa-map-marker" /> <span class="translate" data-bind="click: setMarker">set position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
+					<div class="btn btn-large btn-warning pull-right updateAddress"><i class="fa fa-arrow-up icon-highlight" /> <span class="translate">set address</span> <i class="fa fa-envelope" /></div>
+				</div>
+				<div class="form-group">
+					<div class="input-group input-group-c12">
+						<input data-bind="value: lat" id="addSiteLocationLat" type="text" class="form-control locationLat input-group-c6" placeholder="Breitengrad" />
+						<input data-bind="value: lng" id="addSiteLocationLng" type="text" class="form-control locationLng input-group-c6" placeholder="Längengrad" />
 					</div>
 					<div class="line accuracy">
 						<div class="error hilight hidden"><span class="translate">Position accuracy</span>: &plusmn;<span class="value"></span>m</div>
