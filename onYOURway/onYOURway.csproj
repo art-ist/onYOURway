@@ -399,8 +399,8 @@
     <Compile Include="App_Start\Startup.cs" />
     <Content Include="App\views\my\siteCollector.js" />
     <Content Include="App\views\my\siteCollector.html" />
-    <Content Include="App\views\my\wizardEdit.html" />
-    <Content Include="App\views\my\wizardEdit.js" />
+    <Content Include="App\views\my\wizardEdit.BAK.html" />
+    <Content Include="App\views\my\wizardEdit.BAK.js" />
     <Content Include="App\views\vonMorgen\home.html" />
     <Content Include="App\views\vonMorgen\home.js" />
     <Content Include="App\views\vonMorgen\_map.html" />
@@ -476,8 +476,8 @@
     <None Include="App\_styles\themes\onYOURway2\_onYOURway.less" />
     <Content Include="App\views\about\_preview.html" />
     <Content Include="App\views\about\_preview.js" />
-    <Content Include="App\views\my\wizardNew.html" />
-    <Content Include="App\views\my\wizardNew.js" />
+    <Content Include="App\views\my\wizardNew.BAK.html" />
+    <Content Include="App\views\my\wizardNew.BAK.js" />
     <Content Include="App\_libraries\jquery-ui-1.10.4.custom.js" />
     <Content Include="App\_libraries\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="App\_styles\jquery-ui\images\animated-overlay.gif" />
@@ -502,8 +502,8 @@
     <Content Include="App\views\about\region.js" />
     <Content Include="App\views\about\venture.js" />
     <Content Include="App\views\about\explorer.js" />
-    <Content Include="App\views\my\_locationWizard.html" />
-    <Content Include="App\views\my\_locationWizard.js" />
+    <Content Include="App\views\my\_locationWizard.BAK.html" />
+    <Content Include="App\views\my\_locationWizard.BAK.js" />
     <Content Include="App\views\_searchoptions.html" />
     <Content Include="App\views\_searchoptions.js" />
     <Content Include="App\views\search.html" />
@@ -526,6 +526,9 @@
     </Content>
     <Content Include="App\_styles\themes\vonMorgen\_onYOURway.min.css">
       <DependentUpon>_onYOURway.css</DependentUpon>
+    </Content>
+    <Content Include="App\_styles\themes\_shared.min.css">
+      <DependentUpon>_shared.css</DependentUpon>
     </Content>
     <Content Include="App_Data\onYOURway.XML" />
     <Content Include="App\_styles\bootstrap-datepicker.css" />

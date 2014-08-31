@@ -8,6 +8,7 @@ using System.Xml;
 using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using onYOURway.Models;
+using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Breeze.ContextProvider;
 
@@ -303,6 +304,40 @@ namespace onYOURway.Controllers {
         .FirstOrDefault()
         ;
     }
+
+	[HttpGet]
+	public dynamic MyPlaces(int RegionId, string lang = "de") {
+		//get UserId
+
+		return db.Context
+		  .Locations
+		  .Include("Aliases")
+		  .Include("Tags")
+		  .Include("Links")
+		  .FirstOrDefault()
+		  ;
+    }
+
+	[HttpGet]
+	public dynamic Tags(int? RegionId = 1, string lang = "de") {
+		//TODO: add Region specific Tags or "TagSets"
+
+		var result = db.Context
+			.Tags
+			//.Include("Names")
+			//.Include("Children")
+			.Select(t => new { 
+				t.Id,
+				t.Type,
+				Names = t.Names/*.Where(n => n.Lang == lang || string.IsNullOrEmpty(n.Lang))*/.Select(n => new { n.Name, n.Lang, n.Show }),
+ 				Parents = t.Parents.Select(p => p.Id),
+				Children = t.Children.Select(c => c.Id)
+			})
+			/*.Where(t => t.Names.Where(n => n.Lang == lang || string.IsNullOrEmpty(n.Lang)).Count() > 0)*/
+			;
+		return result;
+
+	}
 
     // ~api/locate/SaveChanges
     [HttpPost]
