@@ -343,7 +343,14 @@ define([
 	}
 
 	function _setSiteCollectorMarker(addr) {
-	    geocodingProvider.getCoords(addr).done(_setSiteCollectorMarkerLoc).fail(function () {
+	    var addr_str;
+	    if (addr.address) {
+	        var a = addr.address;
+	        addr_str = a.street + ' ' + a.nr + ', ' + a.postcode + ' ' + a.city + ', ' + a.country_code;
+	    } else {
+	        addr_str = addr;
+	    }
+	    geocodingProvider.getCoords(addr_str).done(_setSiteCollectorMarkerLoc).fail(function () {
 	        logger.error('Coordinates not found for address ', 'location - _setSiteCollectorMarker', addr);
 	        return null;
 	    });

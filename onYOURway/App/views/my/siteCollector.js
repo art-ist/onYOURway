@@ -96,7 +96,7 @@ define([
         		    }
         		    location.siteCollectorAddress(val);
         	    },
-        	    deferEvaluation: true
+        	    deferEvaluation: false
         });
         self.city = ko.computed({
             read: function () {
@@ -119,7 +119,7 @@ define([
                 }
                 location.siteCollectorAddress(val);
             },
-            deferEvaluation: true
+            deferEvaluation: false
         });
         self.postcode = ko.computed({
             read: function () {
@@ -142,7 +142,7 @@ define([
         		    }
         		    location.siteCollectorAddress(val);
         	    },
-        	    deferEvaluation: true
+        	    deferEvaluation: false
         });
         self.country = ko.computed({
             read: function () {
@@ -152,7 +152,7 @@ define([
                     return '';
                 }
                 if (addr) {
-                    entity.Country(addr.address.country);
+                    entity.Country(addr.address.country_code);
                 }
                 return entity.Country() || '';
             },
@@ -172,35 +172,35 @@ define([
     	//#region position
 
         self.lat = ko.computed({
-        	read: function () {
-        		var ll = location.siteCollectorMarker ? location.siteCollectorMarker().getLatLng() : null;
-        		return ll ? ll.lat : null;
-        	},
-        	write: function (arg) {
-        		var val = location.setSiteCollectorMarker();
-        		var newLatLng = new L.LatLng(arg, val.getLatLng().lng);
-        		val.setLatLng(newLatLng);
-        		//if (self.addressModeAuto) { //update address only if not entered manually (TODO)
-        		//	location.siteCollectorAddress(val);
-        		//}
-        	},
-        	deferEvaluation: true
+        	    read: function () {
+        		    var ll = location.siteCollectorMarker ? location.siteCollectorMarker().getLatLng() : null;
+        		    return ll ? ll.lat : null;
+        	    },
+        	    write: function (arg) {
+        		    var val = location.setSiteCollectorMarker();
+        		    var newLatLng = new L.LatLng(arg, val.getLatLng().lng);
+        		    val.setLatLng(newLatLng);
+        		    //if (self.addressModeAuto) { //update address only if not entered manually (TODO)
+        		    //	location.siteCollectorAddress(val);
+        		    //}
+        	    },
+        	    deferEvaluation: true
         });
 
         self.lng = ko.computed({
-        	read: function () {
-        		var ll = location.siteCollectorMarker ? location.siteCollectorMarker().getLatLng() : null;
-        		return ll ? ll.lng : null;
-        	},
-        	write: function (arg) {
-        		var val = location.setSiteCollectorMarker();
-        		var newLatLng = new L.LatLng(val.getLatLng().lat, arg);
-        		val.setLatLng(newLatLng);
-        		//if (self.addressModeAuto) { //update address only if not entered manually (TODO)
-        		//	location.siteCollectorAddress(val);
-        		//}
-        	},
-        	deferEvaluation: true
+        	    read: function () {
+        		    var ll = location.siteCollectorMarker ? location.siteCollectorMarker().getLatLng() : null;
+        		    return ll ? ll.lng : null;
+        	    },
+        	    write: function (arg) {
+        		    var val = location.setSiteCollectorMarker();
+        		    var newLatLng = new L.LatLng(val.getLatLng().lat, arg);
+        		    val.setLatLng(newLatLng);
+        		    //if (self.addressModeAuto) { //update address only if not entered manually (TODO)
+        		    //	location.siteCollectorAddress(val);
+        		    //}
+        	    },
+        	    deferEvaluation: true
         });
 
 		//#endregion position
