@@ -8,6 +8,8 @@ using System.Xml;
 using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using onYOURway.Models;
+using Newtonsoft.Json.Linq;
+using Breeze.ContextProvider;
 
 namespace onYOURway.Controllers {
 
@@ -300,6 +302,13 @@ namespace onYOURway.Controllers {
         .Where(l => l.Id == Id)
         .FirstOrDefault()
         ;
+    }
+
+    // ~api/locate/SaveChanges
+    [HttpPost]
+    public SaveResult SaveChanges(JObject saveBundle)
+    {
+        return db.SaveChanges(saveBundle);
     }
 
   } //class

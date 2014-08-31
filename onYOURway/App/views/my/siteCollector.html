@@ -42,7 +42,8 @@
             <label for="addSiteName" class="translate">Name:</label>
 
             <div class="line">
-                <input id="addSiteName" type="text" class="siteName translatePlaceholder" placeholder="What is the name of the site?" />
+                <input id="addSiteName" type="text" class="siteName translatePlaceholder" placeholder="What is the name of the site?"
+                       data-bind="value: entity.Name" />
             </div>
         </div>
 
@@ -50,7 +51,8 @@
             <label for="addSiteDescription" class="translate">Description:</label>
 
             <div class="line">
-                <textarea class="translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"></textarea>
+                <textarea class="translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"
+                          data-bind="value: entity.Description"></textarea>
             </div>
         </div>
 
@@ -130,7 +132,7 @@
         </div>
 
 
-        <div class="ok btn btn-default btn-block"><i class="icon-ok"></i> <span class="translate">submit</span> </div>
+        <div class="ok btn btn-default btn-block" data-bind="click: submit"><i class="icon-ok"></i> <span class="translate">submit</span> </div>
 
         <br />
         <br />
