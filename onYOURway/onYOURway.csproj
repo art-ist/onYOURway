@@ -502,8 +502,6 @@
     <Content Include="App\views\about\region.js" />
     <Content Include="App\views\about\venture.js" />
     <Content Include="App\views\about\explorer.js" />
-    <Content Include="App\views\my\_locationWizard.BAK.html" />
-    <Content Include="App\views\my\_locationWizard.BAK.js" />
     <Content Include="App\views\_searchoptions.html" />
     <Content Include="App\views\_searchoptions.js" />
     <Content Include="App\views\search.html" />

@@ -32,11 +32,16 @@
 
 				<div class="form-group">
 					<label class="translate">Selected region/map:</label>
-					<div class="form-control changeMap btn btn-select">
-						<i class="icon-angle-right"></i>
-						<span class="position hilight"><i class="icon-location-arrow"></i> <span class="distance"></span>km</span>
-						<span class="mapName">My Map</span>
-					</div>
+
+					<select data-bind="value: region" id="accessibility" class="form-control">
+						<option value="1">Baden</option>
+						<option value="3">Transformap</option>
+					</select>
+
+					<!--<input type="text" class="form-control" placeholder="region" style="width: 200px; min-height: 34px;"
+						   id="searchFor" name="searchFor" autocomplete="off" spellcheck="false" autofocus="autofocus"
+						   data-bind="value: region, select2: {multiple: false, minimumInputLength: 0, query: getRegions }">-->
+
 				</div>
 
 				<div class="form-group">
@@ -56,7 +61,7 @@
 				<!--Address and Position-->
 				<div class="form-group">
 					<div class="btn btn-sm btn-warning pull-right selectPosition"><i class="fa fa-location-arrow"></i> <span class="translate">use current location</span></div>
-					<label for="addSiteLocationStreet">Adresse:</label>
+					<label for="addSiteLocationStreet">Address:</label>
 				</div>
 				<div class="form-group">
 					<input data-bind="value: country" class="form-control translate" placeholder="Country" />
@@ -74,8 +79,8 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="btn btn-large btn-warning updatePosition"><i class="fa fa-map-marker" /> <span class="translate" data-bind="click: setMarker">set position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
-					<div class="btn btn-large btn-warning pull-right updateAddress"><i class="fa fa-arrow-up icon-highlight" /> <span class="translate">set address</span> <i class="fa fa-envelope" /></div>
+					<div class="btn btn-large btn-warning updatePosition"><i class="fa fa-map-marker" /> <span class="translate" data-bind="click: setMarker">get position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
+					<div class="btn btn-large btn-warning pull-right updateAddress"><i class="fa fa-arrow-up icon-highlight" /> <span class="translate">get address</span> <i class="fa fa-envelope" /></div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
@@ -94,11 +99,11 @@
 
 					<label class="translate">Tags:</label>
 
-					<div class="form-control">
+					<div class="form-group">
 
 						<ul class="iconList hide"></ul>
 
-						<div class="btn btn-default btn-block" id="addSiteIcon"><i class="icon-plus"></i> <span class="translate">select icons</span></div>
+						<button class="btn btn-warning btn-block" id="addTags" data-bind="click: toggleTagSelection"><i class="icon-plus"></i> <span class="translate">Select Tags</span></button>
 					</div>
 				</div>
 
@@ -123,7 +128,7 @@
 				<!--opening_hours-->
 				<div class="form-group">
 					<label>
-						<span class="translate">Öffnungszeiten:</span>
+						<span class="translate">Opening Hours: (<a href="http://openingh.openstreetmap.de/evaluation_tool" target="_blank">how to set this</a>)</span>
 					</label>
 					<input data-bind="" id="openingHours" type="text" class="form-control" placeholder="Opening Hours (editor comming soon)" />
 				</div>
@@ -134,7 +139,7 @@
 						<span class="translate">Accessibility:</span>
 					</label>
 					<select data-bind="" id="accessibility" class="form-control">
-						<option value="">unbekannt</option>
+						<option value="">unknown</option>
 						<option value="yes">voll rollstuhlgerecht</option>
 						<option value="limited">teilweise rollstuhlgerecht</option>
 						<option value="no">nicht rollstuhlgerecht</option>
@@ -159,35 +164,264 @@
 
 		<div class="row panel-body">
 			<button class="ok btn btn-success btn-large pull-right" data-bind="click: submit"><i class="fa fa-check"></i> <span class="translate">submit</span> </button>
-			<button class="ok btn btn-default btn-large pull-right"><i class="fa fa-remove"></i> <span class="translate">abbrechen</span> </button>
+			<button class="ok btn btn-default btn-large pull-right"><i class="fa fa-remove"></i> <span class="translate">cancel</span> </button>
 		</div>
 	</form>
 
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="pictureModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+<div class="modal fade in hidden" style="display: block; z-index: 1000000;" id="tagSelectionModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title translate">Site photo</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h4 data-text="Select icons" class="modal-title translate">Select icons</h4>
 			</div>
-
 			<div class="modal-body">
-				<p class="translate">You did not attach a picture of the site. Do you want to continue?</p>
-			</div>
+				<div class=" open">
+					<h3>
+						<i class="icon-plus"></i><i class="icon-minus"></i>
+						<span data-text="Sustainable Living" class="translate">General Tags</span>
+					</h3>
+					<h3>
+						<i class="icon-plus"></i><i class="icon-minus"></i>
+						<span data-text="Sustainable Living" class="translate">Transformap</span>
+					</h3>
 
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="">
+									<a data-toggle="collapse" data-parent="#accordion" href="#group_172">
+										<i class="icon-plus"></i><i class="icon-minus"></i> <span class="translate">Needs</span>
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div id="group_172" class="panel-collapse collapse">
+							<ul class="panel-body list-group">
+
+								<li class="list-group-item" id="key_1">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: food<br />
+										<small>Here you can find food, that is produced sustainably and cooperatively or 'saved' from being thrown away. Some is shared, some produced together, and some is given away.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_2">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: beverages<br />
+										<small>Here you can find water and other drinks, free for everyone or produced and distributed in a cooperative way</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_3">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: land<br />
+										<small>Here you find land to use and share, which has been withdrawn from the real estate market.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_4">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: mobility<br />
+										<small>Here you find possibilities to go from A to B without having to pay the usual market price. By joining someone in his/her car, driving together or sharing a car, to name a few</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_5">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: health<br />
+										<small>Here you find what keeps and makes us healthy - without health insurance. Healthcare and preventive health are organised collectively</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_6">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: culture<br />
+										<small>Here you find non-commercial cultural events or free spaces to organize an event or to perform as an artist yourself. Or you can join facilities/events without a ticket and for a donation.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_7">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: safety<br />
+										<small>Places and people that provide a sense of security, support and safety.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_8">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: housing<br />
+										<small>Here you find shelter - for a short time or permanently without buying or renting it from the real estate market.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_9">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: space<br />
+										<small>Here you find free spaces to meet, hang out or do whatever you want.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_10">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: objets_of_utility<br />
+										<small>Here you can get or borrow different tools and other things, that others don't need any longer or only ocassionally use.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_11">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: clothes<br />
+										<small>Here you can find clothes that are secondhand, homemade, produced collectively or come from fair-trade sources.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_12">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: knowledge<br />
+										<small>Here is a space where knowledge is shared or where people learn and research together.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_13">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: skills<br />
+										<small>Here you can learn practical, useful knowledge, that engages head and hand.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_14">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: energy<br />
+										<small>Electricity, heating, transportation - all these require energy. Here you find projects, ideas and places, where this energy is generated sustainable or collectively.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_15">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: community<br />
+										<small>A diverse group of people that offers support and empowerment by coming together.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_16">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										provides: participation<br />
+										<small>Here is an opportunity to initiate activities, participate or deliberate on public issues.</small>
+									</h5>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+					
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="">
+									<a data-toggle="collapse" data-parent="#accordion" href="#group_171">
+										<i class="icon-plus"></i><i class="icon-minus"></i> <span class="translate">Mode of Production</span>
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div id="group_171" class="panel-collapse collapse">
+							<ul class="panel-body list-group">
+								<li class="list-group-item" id="key_34">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										P2P<br />
+										<small>Here you find things produced P2P, that is in a cooperative way among peers, where everybody contributes what he/she can. See also: http://p2pfoundation.net/Peer_Production</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_35">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										diy&dit<br />
+										<small>Here you can produce or repair, upcycle or downcycle something by yourself or together with others.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_36">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										Commoning<br />
+										<small>Here, commons are produced, that is people produce and use together what they need for a good and meaningful life.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_37">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										Open Manufacturing<br />
+										<small>Here the process of designing, producing and distributing physical goods is defined by combining open knowledge with distributed infrastructures.</small>
+									</h5>
+								</li>
+								<li class="list-group-item" id="key_38">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										fair-production<br />
+										<small>Projects, cooperatives and firms who cooperates with others to fullfill the needs of all people involved and to contribute to a locally embedded, sustainable and globally fair economy.</small>
+									</h5>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="">
+									<a data-toggle="collapse" data-parent="#accordion" href="#group_168">
+										<i class="icon-plus"></i><i class="icon-minus"></i> <span class="translate">Knowledge and Resource Management</span>
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div id="group_168" class="panel-collapse collapse">
+							<ul class="panel-body list-group"></ul>
+						</div>
+					</div>
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="">
+									<a data-toggle="collapse" data-parent="#accordion" href="#group_169">
+										<i class="icon-plus"></i><i class="icon-minus"></i> <span class="translate">Mode of Interaction</span>
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div id="group_169" class="panel-collapse collapse">
+							<ul class="panel-body list-group"></ul>
+						</div>
+					</div>
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="">
+									<a data-toggle="collapse" data-parent="#accordion" href="#group_170">
+										<i class="icon-plus"></i><i class="icon-minus"></i> <span class="translate">Mode of Organization</span>
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div id="group_170" class="panel-collapse collapse">
+							<ul class="panel-body list-group"></ul>
+						</div>
+					</div>
+
+
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="">
+									<a data-toggle="collapse" data-parent="#accordion" href="#group_173">
+										<i class="icon-plus"></i><i class="icon-minus"></i> <span class="translate">Political Identity</span>
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div id="group_173" class="panel-collapse collapse">
+							<ul class="panel-body list-group"></ul>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
 			<div class="modal-footer">
-				<button type="button" id="selectPhoto" class="btn btn-default translate" data-dismiss="modal">Select photo</button>
-				<button type="button" id="addSite" class="btn btn-danger translate" data-dismiss="modal">Add without picture</button>
+				<div data-text="Cancel" class="btn btn-default updateIcons translate" data-bind="click: toggleTagSelection">Cancel</div>
+				<div data-text="Done" class="btn btn-success updateIcons translate" data-bind="click: addTags">Done</div>
 			</div>
 		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!--<button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: $root.location.toggleList"><i class="fa fa-arrow-right"></i></button>-->
+	</div><!-- /.modal-dialog --><div style="width: 578px; left: 428px; z-index: 9999999; display: none;" class="sticky"><div data-i="0" data-text="Done" class="btn btn-default updateIcons translate">Done</div></div>
+</div>
 
-<div class="ventureDetails-imageArea">
+<!--<button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: $root.location.toggleList"><i class="fa fa-arrow-right"></i></button>---->
+<!--<div class="ventureDetails-imageArea">
 	<img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
 	<h2 class="ventureDetails-header" data-bind="text: Name"></h2>
 	<ul class="ventureDetails-taglist" data-bind="foreach: Tag"></ul>
@@ -197,6 +431,17 @@
 </div>
 
 <div class="ventureDetails-details">
-</div>
-
+</div>-->
 <!--/Details-->
+
+
+<div class="modal-backdrop fade in hidden"></div>
+
+
+<li class="list-group-item" data-url="http://www.opengreenmap.org/sites/default/files/taxonomy_image/category_pictures_0.gif" data-name="Farmers/Local Market" data-category="Sustainable Living" data-subcategory="Green Economy">
+	<h5 class="m-t-n-xxs m-b-n-xxs translate">
+		by way of bartering<br />
+		<small>Here you can exchange something: give & take</small>
+	</h5>
+
+</li>

@@ -10,6 +10,30 @@ define([
         self.app = app;
         self.location = location;
         self.manager = location.context;
+        self.region = ko.observable(3);
+
+    	getRegions = function (query) {
+    		if (query && query.term) {
+    			var s = location.regions();
+    			var data = [];
+    			var data2 = [];
+    			var i;
+    			for (i = 0; i < s.length; i++) {
+    				if (s[i]) {
+    					var idx = s[i].toLowerCase().indexOf(query.term.toLowerCase());
+    					if (idx == 0) {
+    						data.push({ id: s[i], text: s[i] });
+    					} else if (idx > 0) {
+    						data2.push({ id: s[i], text: s[i] });
+    					}
+    				}
+    			}
+    			for (i = 0; i < data2.length; i++) {
+    				data.push(data2[i]);
+    			}
+    			query.callback({ results: data });
+    		}
+    	};
 
 		//lifecycle callbacks
         self.activate = function (queryString) {
@@ -26,7 +50,7 @@ define([
                 Country: 'at',
                 Province: 'bad',
                 City: 'Baden',
-                Zip: '5200',
+                Zip: '2500',
                 Street: 'Straße',
                 HouseNumber: 'Nr',
                 Phone: '12345',
@@ -42,7 +66,7 @@ define([
             });
 
             return true;
-        };
+        };  
 
         self.deactivate = function (queryString) {
             location.siteCollectorMode(false);
@@ -87,16 +111,16 @@ define([
                 }
                 return entity.HouseNumber() || '';
         	    },
-        	    write: function (arg) {
-        		    var val = location.siteCollectorAddress();
-        		    if (val && val.address) {
-        			    val.address.nr = arg;
-        		    } else {
-        			    val = { address: { nr: arg } };
-        		    }
-        		    location.siteCollectorAddress(val);
-        	    },
-        	    deferEvaluation: false
+        	write: function (arg) {
+        		var val = location.siteCollectorAddress();
+        		if (val && val.address) {
+        			val.address.nr = arg;
+        		} else {
+        			val = { address: { nr: arg } };
+        		}
+        		location.siteCollectorAddress(val);
+        	},
+        	deferEvaluation: false
         });
         self.city = ko.computed({
             read: function () {
@@ -220,6 +244,17 @@ define([
                 logger.info("Nothing to save");
             };
         };
+
+        self.toggleTagSelection = function () {
+        	$('#tagSelectionModal, .modal-backdrop')
+				.toggleClass('hidden');
+        }
+
+        self.addTags = function () {
+        	
+        	self.toggleTagSelection();
+        }
+
 
     };
     return vm;
