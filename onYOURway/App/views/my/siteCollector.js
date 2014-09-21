@@ -75,6 +75,18 @@ define([
 		//breeze Entity for location/site/place
         site = ko.observable();
 
+    	//#region opening_hours
+
+        self.opening_hour_samples = [
+			'Mo-Fr 09:00-18:00; PH closed',
+			'Mo-Fr 09:00-19:00; Sa 09:00-13:00; PH closed',
+			'Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; PH closed',
+			'Mo,Tu,Th,Fr 8:00-12:00, 14:00-18:00; We 08:00-12:00, 14:00-20:00; Sa 08:00-16:00; PH closed',
+			'09:00-16:00; Su,PH closed'
+        ];
+
+    	//#endregion opening_hours
+
 		//#region address
         self.street = ko.computed({
             read: function () {
@@ -250,11 +262,9 @@ define([
 				.toggleClass('hidden');
         }
 
-        self.addTags = function () {
-        	
+        self.addTags = function () {       	
         	self.toggleTagSelection();
         }
-
 
     };
     return vm;

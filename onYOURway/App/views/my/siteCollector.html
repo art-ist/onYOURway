@@ -114,10 +114,9 @@
 					</label>
 					<div class="controls">
 						<div id="dropzone">
-							<form action="test.html" class="dropzone dz-clickable">
-
+							<!--<form action="test.html" class="dropzone dz-clickable">-->
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
-							</form>
+							<!--</form>-->
 						</div>
 					</div>
 				</div>
@@ -131,6 +130,7 @@
 						<span class="translate">Opening Hours: (<a href="http://openingh.openstreetmap.de/evaluation_tool" target="_blank">how to set this</a>)</span>
 					</label>
 					<input data-bind="" id="openingHours" type="text" class="form-control" placeholder="Opening Hours (editor comming soon)" />
+					<select data-bind="options: opening_hour_samples" id="openingHours_Select" class="form-control"></select>
 				</div>
 
 				<!--picture-->
@@ -143,7 +143,7 @@
 						<option value="yes">voll rollstuhlgerecht</option>
 						<option value="limited">teilweise rollstuhlgerecht</option>
 						<option value="no">nicht rollstuhlgerecht</option>
-					</select>
+
 				</div>
 
 				<!--<div class="line photo">
