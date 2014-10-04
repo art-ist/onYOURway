@@ -11,5 +11,5 @@ Partners and contributors:
 - The [Transformap](http://blog.allmende.io) Project
 
 Supported by:
-- [netidee - Internet Providers Austria](https://www.netidee.at)
+- [netidee - Internet Foundation Austria (IPA)](https://www.netidee.at)
 - [Heinrich Böll Stiftung](http://www.boell.de)
