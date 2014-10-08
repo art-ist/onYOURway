@@ -5,5 +5,6 @@ var config = {
   apiKeys: {
     cloudmade: 'YOUR CLOUDMADE API KEY HERE',
     lyrk: 'YOUR lyrk.org API KEY HERE'
-  }
+  },
+  serviceEmail: 'web@onyourway.at' //Change if running your own app instance
 }

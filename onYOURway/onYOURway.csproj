@@ -264,6 +264,7 @@
     <Content Include="App\mainVonMorgen.js" />
     <Content Include="App\services\geoUtils.js" />
     <Content Include="App\services\location.js" />
+    <Content Include="App\services\providers\geocode-nominatim.js" />
     <Content Include="App\services\providers\geocode-google.js" />
     <Content Include="App\services\providers\routing-yours.js" />
     <Content Include="App\services\storage.js" />

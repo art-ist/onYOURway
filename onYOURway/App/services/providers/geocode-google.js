@@ -1,9 +1,6 @@
 ﻿define([
 ], function () {
 
-	//// JSON proxy for NOT-CORS-enabled cross domain calls
-	//var proxy = 'JP.aspx?u=';
-
 	////google v3
     var service = 'http://maps.googleapis.com/maps/api/geocode/json?address=';
     var serviceReverse = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=';

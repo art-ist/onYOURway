@@ -11,7 +11,7 @@ define([
   'services/geoUtils',
   'plugins/router',
   'providers/routing-yours',
-  'providers/geocode-google'
+  'providers/geocode-nominatim'
 ], function (app, logger, platform, geoUtils, router, routingProvider, geocodingProvider) {
 
 	// serviceUri is route to the Web API controller
