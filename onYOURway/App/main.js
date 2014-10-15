@@ -34,7 +34,6 @@ define([
   'services/logger'
 ],
   function (system, durandal, viewLocator, router, app, platform, logger) {
-    //durandal.title = 'onYOURway';
 
     //specify which plugins to install and their configuration
     durandal.configurePlugins({
@@ -101,24 +100,27 @@ define([
         //durandal.adaptToDevice();
 
         //Show the app by setting the root view model for our application.
-        //choose shell depending on environment
-        switch (platform.device.type) {
-          case 'Phone':
-            logger.log('starting Phone shell', 'main');
-            durandal.setRoot('views/_shell', 'entrance'); //TODO: expected to set the default transition
-            break;
-          //case 'Tablet':
-          //case 'PC':
-          default:
-            logger.log('starting default shell on device type: ' + platform.device.type, 'main');
-            durandal.setRoot('views/_shell', 'entrance'); //TODO: expected to set the default transition
-            break;
-        } //switch (platform.device.type)
-
+        startShell();
         app.initialize();
 
       }); //durandal.start().then
     } //_onDeviceReady
+
+    function startShell() {
+    	var shell = 'themes/' + window.theme + '/shell';
+    	switch (platform.device.type) { //choose shell depending on environment
+    		case 'Phone':
+    			logger.log('starting Phone shell', 'main');
+    			durandal.setRoot(shell, 'entranceLeft'); //TODO: expected to set the default transition
+    			break;
+    			//case 'Tablet':
+    			//case 'PC':
+    		default:
+    			logger.log('starting default shell on device type: ' + platform.device.type, 'main');
+    			durandal.setRoot(shell, { entrance: 'entranceLeft'/*, fadeOnly: true*/ }); //TODO: expected to set the default transition
+    			break;
+    	} //switch (platform.device.type)
+    }
 
   }); //define
 

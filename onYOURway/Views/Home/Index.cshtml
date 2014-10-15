@@ -4,11 +4,11 @@
 <head>
 	@{
 		string dataMain = "/App/main";
-		string theme = "~/themes/onYOURway";
+		string theme = "onYOURway";
 		string httpHost = HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
+		//TODO: move theme configuration to app.config e.g. appSettings: key="morgen" value="vonMorgen" or custom section handler
 		if (httpHost != null && ( httpHost.ToLower().Contains("morgen") )) {
-			dataMain = "/App/mainVonMorgen";
-			theme = "~/themes/vonMorgen";
+			theme = "vonMorgen";
 		}
 	}
 
@@ -36,7 +36,10 @@
 	*@
 
 	@Styles.Render("~/styles")
-	@Styles.Render(theme)
+	@*set theme based on host*@
+	<script type="text/javascript">
+		window.theme = '@theme';
+	</script>
 
 	<!-- Browser Tweaks -->
 	<script type="text/javascript">
@@ -59,7 +62,7 @@
 		@Html.Partial("_splash")
 	</div>
 
-	@Scripts.Render("~/libraries")
+	@Scripts.Render("~/scripts")
 	@*  @if (HttpContext.Current.IsDebuggingEnabled) {*@
 	<script type="text/javascript" src="~/App/_libraries/require.js" data-main="@dataMain"></script>
 	@*}

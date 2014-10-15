@@ -19,13 +19,13 @@ namespace onYOURway {
 
       #region Script Bundles
       //~/bundles/scripts
-      bundles.Add(new ScriptBundle("~/libraries").Include(
+      bundles.Add(new ScriptBundle("~/scripts").Include(
         /*debugging tools - DISABLE FOR PRODUCTION*/
         //"~/App/_libraries/_test/IE.CompatInspector.js",             //check for compatibility issues (see: http://ie.microsoft.com/testdrive/HTML5/CompatInspector/help/post.htm)
-    
-        /*config*/
-           "~/App/app.config.js"                                   // client config file
 
+		/*config*/
+		   "~/App/app.config.js"                                   // client config file
+  
         /*framework*/
          , "~/App/_libraries/jquery-{version}.js"                  // the js toolbelt
          , "~/App/_libraries/knockout-{version}.js"                // mvvm, databinding
@@ -37,7 +37,7 @@ namespace onYOURway {
          , "~/App/_libraries/toastr.js"                            // TODO: integrate into logger and integrate logger as durandal plugin
          , "~/App/_libraries/breeze.debug.js"                      // serverside datastorage using e.g. WebAPI & EF
          , "~/App/_libraries/breeze.saveErrorExtensions.js"        // analyze breeze errormessages
-         //, "~/App/_libraries/lawnchair-{version}.js"               // local storage
+         //, "~/App/_libraries/lawnchair-{version}.js"             // local storage
 
          /*polyfills*/
          , "~/App/_libraries/modernizr-{version}.js"               // detect browser capabilities (see: http://modernizr.com)
@@ -126,15 +126,6 @@ namespace onYOURway {
           //, "~/App/_styles/themes/metro-bootstrap/metro-bootstrap.css"
         //, "~/App/_styles/themes/metro-bootstrap/bootstrap-datetimepicker.min.css"
 
-      ));
-      bundles.Add(new StyleBundle("~/themes/onYOURway").Include(
-          "~/App/_styles/themes/onYOURway2/bootstrap.css"
-        , "~/App/_styles/themes/onYOURway2/_onYOURway.css"
-      ));
-      bundles.Add(new StyleBundle("~/themes/vonMorgen").Include(
-          "~/App/_styles/themes/vonMorgen/bootstrap/bootstrap.css"
-        , "~/App/_styles/themes/vonMorgen/_onYOURway.css"
-        , "~/App/_styles/themes/vonMorgen/_vonMorgen.css"
       ));
 
       #endregion Style Bundles

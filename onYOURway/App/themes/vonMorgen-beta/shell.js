@@ -1,13 +1,16 @@
-﻿/// <reference path="../../Scripts/require.js" />
-/// <reference path="../durandal/plugins/router.js" />
-/// <reference path="../services/logger.js" />
-/// <reference path="../services/app.js" />
+﻿/*
+Theme:
+	vonMorgen (beta)
+URLs: (set in Views/Home/Index.cshtml)
+	kartevonmorgen.org
+*/
 
 define([
   'plugins/router',
+  'durandal/app',
   'services/app',
   'services/logger'
-], function (router, app, logger) {
+], function (router, durandal, app, logger) {
   var shell = {
     router: router,
     app: app,
@@ -20,6 +23,14 @@ define([
   //#region Internal Methods
 
   function onActivate() {
+  	durandal.title = "Karte von Morgen";
+
+  	app.location.settings.showMap(true);
+  	app.location.settings.showList(false);
+  	app.location.settings.showDetails(false);
+  	app.location.settings.forceMap = true;
+  	app.location.settings.disableDetails = true;
+
     var routes = [
         { moduleId: 'vonMorgen/home',         route: ['', 'home', 'start'],                           title: ''               }
       , { moduleId: 'regions',                route: ['regions', 'regionen'],                         title: 'Regionen'       }

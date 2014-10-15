@@ -1,49 +1,43 @@
 ﻿<header id="navbar" class="navbar navbar-default bs-docs-nav" role="navigation">
-    <div class="container-fluid">
+	<div class="container-fluid">
 
-        <div class="navbar-header hidden-xs" style="height:85px;width:210px;">
-            <img src="../App/images/vonMorgen/photo-3.PNG" height="130" style="height:130px;position: absolute; z-index:111;" />
-        </div>
+		<div class="navbar-header hidden-xs">
+			<img src="/App/themes/vonMorgen/images/logoanimation.gif" style="width: 200px; height: 100px;" />
+		</div>
 
-        <!--nav-->
-        <nav class="collapse navbar-collapse bs-navbar-collapse">
-            <div class="btn-group form-group">
-                <button type="button" class="btn btn-default">INITIATIVEN</button>
-                <button type="button" class="btn btn-default">UNTERNEHMEN</button>
-                <button type="button" class="btn btn-default">EVENTS</button>
-            </div>
-            <div class="btn-group form-group">
-                <button type="button" class="btn btn-default">ÜBER UNS</button>
-                <button type="button" class="btn btn-default">KRITERIEN</button>
-                <button type="button" class="btn btn-default">UNTERSTÜTZUNG</button>
-                <button type="button" class="btn btn-default">BLOG</button>
-                <button type="button" class="btn btn-default">LOGIN</button>
-            </div>
-            <br/>
-            <form class="navbar-form col-sm-4 hidden-xs" role="search" style="margin:0; padding: 0 2px 0 0; width: auto; ">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Was" style="width: 200px; min-height: 34px;"
-                           id="searchFor" name="searchFor" autocomplete="off" spellcheck="false" autofocus="autofocus"
-                           data-bind="value: location.searchFor, select2: {multiple: true, minimumInputLength: 1, query: suggestQuery }">
-                    <input type="text" class="form-control" placeholder="Wo" style="margin-left:-1px;"
-                           id="posStart" name="posStart" data-bind="value: location.route.start.text, returnKey: function () { location.locate('start'); }">
-                    <div class="input-group-btn" style="vertical-align:top;">
-                        <button id="startSearchBtn" title="Suchen" class="btn btn-default tour-e-step-search" tabindex="-1" data-bind="click: search"><i class="fa fa-search fa-fw"></i></button>
-                    </div>
-                    <select id="sortBy" class="form-control hidden" data-bind=" options: location.sortOptions , optionsText: 'Name', value: location.sortBy "></select>
-                </div>
-            </form>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default">++</button>
-                <button type="button" class="btn btn-default">o</button>
-                <button type="button" class="btn btn-default">--</button>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default">ORT HINZUFÜGEN</button>
-            </div>
-        </nav>
-        <!--/nav-->
+		<!--nav-->
+		<nav class="collapse navbar-collapse bs-navbar-collapse">
+			<div class="btn-group form-group">
+				<button type="button" class="btn btn-default">Karte</button>
+				<button type="button" class="btn btn-default">Blog</button>
+				<button type="button" class="btn btn-default">Workshops</button>
+				<button type="button" class="btn btn-default">Mitmachen</button>
+				<button type="button" class="btn btn-default">Info</button>
+			</div>
+			<div class="btn-group form-group">
+				<button type="button" class="btn btn-default">Initiativen &amp; Inspirationen</button>
+				<button type="button" class="btn btn-default">Initiativen &amp; Inspirationen</button>
+				<button type="button" class="btn btn-default">Events &amp; Begegnungen</button>
+				<button type="button" class="btn btn-default">Unterehmen &amp; Einkaufen</button>
+			</div>
 
+			<br />
+			<form class="navbar-form col-sm-4 hidden-xs" role="search" style="margin:0; padding: 0 2px 0 0; width: auto; ">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="search" style="width: 200px; min-height: 34px;"
+						   id="searchFor" name="searchFor" autocomplete="off" spellcheck="false" autofocus="autofocus"
+						   data-bind="value: location.searchFor, select2: {multiple: true, minimumInputLength: 1, query: suggestQuery }">
+					<div class="input-group-btn" style="vertical-align:top;">
+						<button id="startSearchBtn" title="Suchen" class="btn btn-default tour-e-step-search" tabindex="-1" data-bind="click: search"><i class="fa fa-search fa-fw"></i></button>
+					</div>
+					<select id="sortBy" class="form-control hidden" data-bind=" options: location.sortOptions , optionsText: 'Name', value: location.sortBy "></select>
+				</div>
+			</form>
+			<div class="btn-group">
+				<button type="button" class="btn btn-default">+</button>
+			</div>
+		</nav>
+		<!--/nav-->
 
-    </div>
+	</div>
 </header>

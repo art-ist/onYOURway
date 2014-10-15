@@ -15,8 +15,8 @@
 
 	    //TODO: get bounds from region
 	    var rgn = region ? region() : undefined;
-	    var query = searchString + (rgn && rgn.Name() == 'Baden bei Wien' ? '+2500+Baden+AT' : '');
-	    var params = (rgn && rgn.Name() == 'Baden bei Wien' ? ('&bounds=' + '48.0055366633946,16.226806640625|48.0104104459036,16.2411510944366') : '')
+	    var query = searchString + (rgn && rgn.Name() == 'Baden' ? '+2500+Baden+AT' : '');
+	    var params = (rgn && rgn.Name() == 'Baden' ? ('&bounds=' + '48.0055366633946,16.226806640625|48.0104104459036,16.2411510944366') : '')
 				   + '&sensor=false';
 		var url = /*config.host + proxy + */ service + query + params;
 

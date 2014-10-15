@@ -1,13 +1,16 @@
-﻿/// <reference path="../../Scripts/require.js" />
-/// <reference path="../durandal/plugins/router.js" />
-/// <reference path="../services/logger.js" />
-/// <reference path="../services/app.js" />
+﻿/*
+Theme:
+	onYOURway 2.1
+URLs: (set in Views/Home/Index.cshtml)
+	onYOURway.at, onYOURway.de, onYOURway.in
+*/
 
 define([
   'plugins/router',
+  'durandal/app',
   'services/app',
   'services/logger'
-], function (router, app, logger) {
+], function (router, durandal, app, logger) {
   var shell = {
     router: router,
     app: app,
@@ -20,6 +23,10 @@ define([
   //#region Internal Methods
 
   function onActivate() {
+  	durandal.title = "onYOURway";
+
+	//put app.location.settings here
+
     var routes = [
         { moduleId: 'home',                   route: ['', 'home', 'start'],                           title: ''               }
       , { moduleId: 'regions',                route: ['regions', 'regionen'],                         title: 'Regionen'       }
