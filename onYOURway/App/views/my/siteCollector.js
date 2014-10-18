@@ -36,14 +36,17 @@ define([
     	};
 
 		//lifecycle callbacks
-        self.activate = function (queryString) {
-            logger.log('activate', 'siteCollector', queryString);
-            if (queryString && queryString.tag) {
-                location.showByTagName(queryString.tag);
-            }
-            location.mapLocations([]);
-            location.siteCollectorMode(true);
+    	    self.activate = function (queryString) {
+    	        logger.log('activate', 'siteCollector', queryString);
+    	        if (queryString && queryString.tag) {
+    	            location.showByTagName(queryString.tag);
+    	        }
+    	        location.mapLocations([]);
+    	        location.siteCollectorMode(true);
+    	        return true;
+    	    };
 
+        self.binding = function() {
             self.entity = self.manager.createEntity('Location', {
                 Name: 'name',
                 Lang: 'de',

@@ -578,6 +578,9 @@
     <Content Include="App\_libraries\app\app.datamodel.js" />
     <Content Include="Content\documents\onYOURway - Projektinformation Regionalpartner.pdf" />
     <Content Include="Content\documents\onYOURway - Was ist faul.pdf" />
+    <Content Include="App\themes\vonMorgen-beta\_vonMorgen.css.map">
+      <DependentUpon>_vonMorgen.css</DependentUpon>
+    </Content>
     <None Include="App\_libraries\breeze.intellisense.js" />
     <Content Include="App\_libraries\bootstrap-datepicker.js" />
     <Content Include="App\_libraries\bootstrap-tour.js" />
