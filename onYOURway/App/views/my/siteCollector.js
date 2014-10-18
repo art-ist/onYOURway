@@ -46,7 +46,8 @@ define([
     	        return true;
     	    };
 
-        self.binding = function() {
+    	    self.binding = function () {
+    	        logger.log('binder', 'siteCollector');
             self.entity = self.manager.createEntity('Location', {
                 Name: 'name',
                 Lang: 'de',

@@ -166,7 +166,8 @@ define([
 			editLayer: null
 		},
 
-		//methods
+	    //methods
+		initializeMetadata: initializeMetadata,
 		initializeMap: initializeMap,
 
 		setTileLayer: setTileLayer,
@@ -200,6 +201,23 @@ define([
 
 	//#endregion Constructor 
 	return location;
+
+	function initializeMetadata() {
+	    //Fetch Metadata, add COMPUTED PROPERTIES and LOAD DATA
+	    //locateContext.fetchMetadata()
+	    //  .then(function () {
+	    locateMetadata.importMetadata(location.metadata);
+	    //logger.log('matadata loaded', 'location');
+
+	    //Extensions for computed Properties (see: http://stackoverflow.com/questions/17323290/accessing-notmapped-computed-properties-using-breezejs-and-angularjs)
+	    var Location = function () {
+	        this.kind = "";
+	        this.tags = [];
+	        this.open = [];
+	    };
+
+	    locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location);
+	}
 
 	//#region Initializer
 	function initializeMap(containerId) {
@@ -236,21 +254,6 @@ define([
 		setTileLayer(0);
 
 		//getCurrentPosition();
-
-		//Fetch Metadata, add COMPUTED PROPERTIES and LOAD DATA
-		//locateContext.fetchMetadata()
-		//  .then(function () {
-		locateMetadata.importMetadata(location.metadata);
-		//logger.log('matadata loaded', 'location');
-
-		//Extensions for computed Properties (see: http://stackoverflow.com/questions/17323290/accessing-notmapped-computed-properties-using-breezejs-and-angularjs)
-		var Location = function () {
-			this.kind = "";
-			this.tags = [];
-			this.open = [];
-		};
-
-		locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location);
 
 		//get regions
 		_loadRegions(map);
