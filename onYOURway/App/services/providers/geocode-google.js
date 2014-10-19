@@ -57,16 +57,23 @@
 		                    } else if (valType == "postal_code") {
 		                        address.Zip = val.long_name;
 		                    } else if (valType == "administrative_area_level_1") {
-		                        address.Province = val.long_name;
+		                        address.Province = val.short_name;
+		                        address.ProvinceName = val.long_name;
 		                    } else if (valType == "administrative_area_level_2") {
-		                        address.Region = val.long_name;
+		                        address.Region = val.short_name;
+		                        address.RegionName = val.long_name;
 		                    }
 		                });
 		                if (address.Region && !address.Province) {
 		                    address.Province = address.Region;
 		                    address.Region = null;
+		                    address.ProvinceName = address.RegionName;
+		                    address.RegionName = null;
+                        }
+		                if (address.Province.length > 3) {
+		                    address.Province = address.Province.substr(0, 3);
 		                }
-		            }
+                    }
 		        });
 		    }
 		    // debugging alert(address.Street + ' ' + address.HouseNumber + ', ' + address.Country + '-' + address.Zip + ' ' + address.City + ', ' + address.Province + '\n\n' + res.formatted_address);

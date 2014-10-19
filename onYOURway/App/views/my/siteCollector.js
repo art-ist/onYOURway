@@ -51,14 +51,14 @@ define([
     	        logger.log('binder', 'siteCollector');
             self.entity = self.manager.createEntity('Location', {
                 Name: '',
-                Lang: '',
+                Lang: 'de',
                 Country: '',
                 Province: '',
                 City: '',
                 Zip: '',
                 Street: '',
                 HouseNumber: '',
-                Phone: '',
+                Phone: '123',
                 CreatedBy: 1,
                 CreatedAt: new Date(),
                 ModifiedBy: null,
@@ -97,7 +97,10 @@ define([
                 return location.siteCollectorCoords() && location.siteCollectorCoords().lat;
             },
             write: function (lat) {
-                var lng = location.siteCollectorCoords() && location.siteCollectorCoords().lng;
+                if (!lat) {
+                    lat = 0.0;
+                }
+                var lng = location.siteCollectorCoords() && location.siteCollectorCoords().lng || 0.0;
                 if (self.entity && self.entity.Position) {
                     self.entity.Position("POINT (" + lng + " " + lat + ")");
                 }
@@ -110,7 +113,10 @@ define([
                 return location.siteCollectorCoords() && location.siteCollectorCoords().lng;
             },
             write: function (lng) {
-                var lat = location.siteCollectorCoords() && location.siteCollectorCoords().lat;
+                if (!lng) {
+                    lat = 0.0;
+                }
+                var lat = location.siteCollectorCoords() && location.siteCollectorCoords().lat || 0.0;
                 if (self.entity && self.entity.Position) {
                     self.entity.Position("POINT (" + lng + " " + lat + ")");
                 }
@@ -118,28 +124,32 @@ define([
             }
         });
 
-        self.setMarker = function () {
-            var addr = self.entity;
-            var addr_str = (addr.Street() || '') + (addr.Street() && addr.HouseNumber() && ' ') + (addr.HouseNumber() || '')
-                + ((addr.Street() || addr.HouseNumber()) && (addr.Zip() || addr.City()) && ', ')
-                + (addr.Zip() || '') + (addr.Zip() && addr.City() && ' ') + (addr.City() || '')
-                + (addr.Country() && ', ') + (addr.Country() || '');
-            geocodingProvider.getCoords(addr_str).done(function (res) {
-                if (res && res.coords && res.coords.length && res.coords.length > 1 && res.coords[0] && res.coords[1]) {
-                    self.latitude(res.coords[1]);
-                    self.longitude(res.coords[0]);
-                } else {
-                    //toastr.warning("No coordinates found for this address. Please select location manually!");
-                    logger.warn("Empty Coordinates received for address", 'siteCollector - setMarker', addr_str)
-                }
-            }).fail(function () {
-                //toastr.warning("No coordinates found for this address. Please select location manually!", undefined, undefined, true);
-                logger.warn('Coordinates not found for this address. Please select location manually!', 'siteCollector - setMarker', addr_str);
-                return null;
-            });
-        };
+        var markerSetter = function (callback) {
+                var addr = self.entity;
+                var addr_str = (addr.Street() || '') + (addr.Street() && addr.HouseNumber() && ' ') + (addr.HouseNumber() || '')
+                    + ((addr.Street() || addr.HouseNumber()) && (addr.Zip() || addr.City()) && ', ')
+                    + (addr.Zip() || '') + (addr.Zip() && addr.City() && ' ') + (addr.City() || '')
+                    + (addr.Country() && ', ') + (addr.Country() || '');
+                geocodingProvider.getCoords(addr_str).done(function (res) {
+                    if (res && res.coords && res.coords.length && res.coords.length > 1 && res.coords[0] && res.coords[1]) {
+                        self.latitude(res.coords[1]);
+                        self.longitude(res.coords[0]);
+                    } else {
+                        //toastr.warning("No coordinates found for this address. Please select location manually!");
+                        logger.warn("Empty Coordinates received for address", 'siteCollector - setMarker', addr_str)
+                    }
+                }).fail(function () {
+                    //toastr.warning("No coordinates found for this address. Please select location manually!", undefined, undefined, true);
+                    logger.warn('Coordinates not found for this address. Please select location manually!', 'siteCollector - setMarker', addr_str);
+                    return null;
+                });
+        };        
 
-        self.setAddress = function () {
+        self.setMarker = function () {
+            markerSetter();
+        }
+
+        var addressSetter = function (callback) {
             geocodingProvider.getAddress([self.longitude(), self.latitude()]).done(function (res) {
                 var addr = res && res.address;
                 if (addr) {
@@ -159,24 +169,47 @@ define([
             });
         };
 
-        self.submit = function saveChanges() {
-            if (!self.entity.City()) {
-            } else if (self.latitude() <= 0 || self.longitude <= 0) {
+        self.setAddress = function () {
+            addressSetter();
+        }
 
+        var saveChanges = function () {
+            if (!self.entity.City()) {
+                logger.error("Please enter the city before saving!", 'siteCollector - saveChanges');
+            } else if ((!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0) {
+                logger.error("Please select a location in the map before saving!", 'siteCollector - saveChanges');
             } else if (self.manager.hasChanges()) {
+                if (self.entity && self.entity.Position && !self.entity.Position()) {
+                    self.entity.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
+                }
                 self.manager.saveChanges()
                     .then(function () {
-                        logger.success("Thank You, the new site was successfully saved!", 'siteCollector - submit');
+                        logger.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
                         //toastr.success("Thank You, the new site was successfully saved!", undefined, undefined, true);
                     })
-                    .fail(function () {
-                        logger.error("There was an error saving your new site. Please try again.", 'siteCollector - submit');
+                    .fail(function (err) {
+                        logger.error("There was an error saving your new site. Please try again.", 'siteCollector - saveChanges', err);
                         //toastr.error("There was an error saving your new site. Please try again.", undefined, undefined, true);
                     });
             } else {
-                logger.warn("Nothing to save - you didn't edit anything since last save", 'siteCollector - submit');
+                logger.warn("Nothing to save - you didn't edit anything since last save", 'siteCollector - saveChanges');
                 //toastr.warning("Nothing to save - you didn't edit anything since last save", undefined, undefined, true);
             };
+        }
+
+        self.submit = function () {
+            var noCoords = (!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0;
+            if (!self.entity.Name()) {
+                logger.error("Please enter a name before saving", 'siteCollector - submit');
+            } else if (noCoords && (!self.entity.City())) {
+                logger.error("Please enter the city or select a location in the map before saving!", 'siteCollector - submit');
+            } else if (!self.entity.City()) {
+                addressSetter(saveChanges);
+            } else if (noCoords) {
+                markerSetter(saveChanges);
+            } else {
+                saveChanges();
+            }
         };
 
         self.toggleTagSelection = function () {

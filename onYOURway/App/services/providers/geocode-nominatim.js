@@ -53,15 +53,23 @@
 		    var success = (res.address == true);
 		    var address = {};
 		    if (res && res.address) {
-		    	if (res.address.city)			address.City		    = res.address.city.replace("Gemeinde Baden", "Baden");
-		    	if (res.address.country)	        address.CountryName	= res.address.country;
-		    	if (res.address.country_code)	address.Country     = res.address.country_code.toUpperCase();
-		    	if (res.address.road)			address.Street		= res.address.road;
-		    	if (res.address.house_number)	address.HouseNumber	= res.address.house_number;
-		    	if (res.address.postcode)		address.Zip 	        = res.address.postcode;
-		    	if (res.address.state_district
-                    || res.address.state)   address.Province    = res.address.state_district ? res.address.state_district : res.address.state;
-		    	if (res.address.state)			address.Region		= res.address.state_district ? res.address.state : null;
+		        if (res.address.city || res.address.town) address.City = res.address.town || res.address.city.replace("Gemeinde Baden", "Baden");
+		    	    if (res.address.country)	        address.CountryName	= res.address.country;
+		    	    if (res.address.country_code)	address.Country     = res.address.country_code.toUpperCase();
+		    	    if (res.address.road)			address.Street		= res.address.road;
+		    	    if (res.address.house_number)	address.HouseNumber	= res.address.house_number;
+		    	    if (res.address.postcode)		address.Zip 	        = res.address.postcode;
+		    	    if (res.address.state_district
+                        || res.address.state)   address.Province    = res.address.state_district ? res.address.state_district : res.address.state;
+		    	    if (res.address.state) address.Region = res.address.state_district ? res.address.state : null;
+		    	    if (address.Province === 'Niederösterreich') {
+		    	        address.Province = "NOE";
+		    	    } else if (address.Province) {
+		    	        address.Province = address.Province.toUpperCase();
+		    	        if (address.Province.length > 3) {
+		    	            address.Province = address.Province.substr(0, 3);
+		    	        }
+		    	    }
 		    }
 			// debugging 
 		    //alert(address.Street + ' ' + address.HouseNumber + ', ' + address.Country + '-' + address.Zip + ' ' + address.City + ', ' + address.Province + '\n\n' + res.formatted_address);

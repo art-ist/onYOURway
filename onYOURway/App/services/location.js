@@ -206,7 +206,7 @@ define([
 	    //locateContext.fetchMetadata()
 	    //  .then(function () {
 	    locateMetadata.importMetadata(location.metadata);
-	    //logger.log('matadata loaded', 'location');
+	    logger.log('metadata loaded', 'location');
 
 	    //Extensions for computed Properties (see: http://stackoverflow.com/questions/17323290/accessing-notmapped-computed-properties-using-breezejs-and-angularjs)
 	    var Location = function () {
@@ -215,44 +215,7 @@ define([
 	        this.open = [];
 	    };
 
-	    /*var LocationInitializer = function (myLocation) {
-	        myLocation.Latitude = ko.computed({
-	            read: function () {
-	                if (myLocation.Position && myLocation.Position() && myLocation.Position().startsWith("POINT")) {
-	                    var coords = item.Position().replace(/POINT \(/, '').replace(/\)/, '').split(' ');
-	                    if (coords && coords.length) {
-	                        return coords[0];
-	                    }
-	                }
-	                return 0.0;
-	            },
-	            write: function (arg) {
-	                if (myLocation.Position) {
-	                    myLocation.Position("POINT (" + arg + " " + myLocation.Longitude + ")");
-	                }
-	            },
-	            deferEvaluation: false
-	        });
-	        myLocation.Longitude = ko.computed({
-	            read: function () {
-	                if (myLocation.Position && myLocation.Position() && myLocation.Position().startsWith("POINT")) {
-	                    var coords = item.Position().replace(/POINT \(/, '').replace(/\)/, '').split(' ');
-	                    if (coords && coords.length && coords.length > 1) {
-	                        return coords[1];
-	                    }
-	                }
-	                return 0.0;
-	            },
-	            write: function (arg) {
-	                if (myLocation.Position) {
-	                    myLocation.Position("POINT (" + myLocation.Latitude + " " + arg + ")");
-	                }
-	            },
-	            deferEvaluation: false
-	        });
-	    }*/
-
-	    locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location/*, LocationInitializer*/);
+	    locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location);
 	}
 
 	function initializeMap(containerId) {
