@@ -310,6 +310,7 @@
     <Compile Include="Models\Card.cs">
       <DependentUpon>onYOURway.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DbGeographyConverter.cs" />
     <Compile Include="Models\Location.cs">
       <DependentUpon>onYOURway.tt</DependentUpon>
     </Compile>

@@ -1064,9 +1064,9 @@ define([
 						return false;
 					}
 					//check name, strasse
-					if ((loc.Name && loc.Name().toLowerCase().indexOf(what) !== -1)
+					if ((loc.Name && loc.Name() && loc.Name().toLowerCase().indexOf(what) !== -1)
 						||
-						(loc.Street && loc.Street().toLowerCase().indexOf(what) !== -1)
+						(loc.Street && loc.Street() && loc.Street().toLowerCase().indexOf(what) !== -1)
 					   ) { //substring search in name
 						return true;
 					}
