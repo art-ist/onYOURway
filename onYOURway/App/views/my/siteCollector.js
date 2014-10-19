@@ -75,6 +75,14 @@ define([
 
         self.deactivate = function (queryString) {
             location.siteCollectorMode(false);
+            window.setTimeout(function () {
+                    location.map && location.map.invalidateSize();
+                }, 300
+            );
+            window.setTimeout(function () {
+                    location.map && location.map.invalidateSize();
+                }, 750
+            );
         };
 
 		//breeze Entity for location/site/place
@@ -101,9 +109,8 @@ define([
                     lat = 0.0;
                 }
                 var lng = location.siteCollectorCoords() && location.siteCollectorCoords().lng || 0.0;
-                if (self.entity && self.entity.Position) {
-                    self.entity.Position("POINT (" + lng + " " + lat + ")");
-                }
+                // computing position disabled, will be done on save 
+                // if (self.entity && self.entity.Position) { self.entity.Position("POINT (" + lng + " " + lat + ")"); }
                 location.siteCollectorCoords({ lat: lat, lng: lng });
             }
         });
@@ -117,9 +124,8 @@ define([
                     lat = 0.0;
                 }
                 var lat = location.siteCollectorCoords() && location.siteCollectorCoords().lat || 0.0;
-                if (self.entity && self.entity.Position) {
-                    self.entity.Position("POINT (" + lng + " " + lat + ")");
-                }
+                // computing position disabled, will be done on save 
+                // if (self.entity && self.entity.Position) { self.entity.Position("POINT (" + lng + " " + lat + ")"); }
                 location.siteCollectorCoords({ lat: lat, lng: lng });
             }
         });
@@ -185,9 +191,7 @@ define([
             } else if ((!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0) {
                 logger.error("Please select a location in the map before saving!", 'siteCollector - saveChanges');
             } else if (self.manager.hasChanges()) {
-                if (self.entity && self.entity.Position && !self.entity.Position()) {
-                    self.entity.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
-                }
+                self.entity.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
                 self.manager.saveChanges()
                     .then(function () {
                         logger.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');

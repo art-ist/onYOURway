@@ -24,6 +24,7 @@ define([
 		dataService: locareDataService,
 		metadataStore: locateMetadata
 	});
+	
 	// add basic auth header to breeze calls
 	//var ajaxAdapter = breeze.config.getAdapterInstance("ajax");
 	//ajaxAdapter.defaultSettings = {
@@ -167,7 +168,6 @@ define([
 		},
 
 	    //methods
-		initializeMetadata: initializeMetadata,
 		initializeMap: initializeMap,
 
 		setTileLayer: setTileLayer,
@@ -196,6 +196,8 @@ define([
 	location.sortBy.subscribe(function (newValue) {
 		location.mapLocations(location.mapLocations().sort(newValue.Sorter));
 	});
+
+	initializeMetadata();
 
 	//#endregion Constructor 
 	return location;

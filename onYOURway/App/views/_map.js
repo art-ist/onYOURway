@@ -5,8 +5,6 @@
   'services/platform'
 ], function (app, location, logger, platform) {
 
-  location.initializeMetadata();
-
   var vm = function () {
     var self = this;
     self.app = app;
