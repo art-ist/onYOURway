@@ -11,6 +11,7 @@ using onYOURway.Models;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Breeze.ContextProvider;
+using System.Web;
 
 namespace onYOURway.Controllers {
 
@@ -32,6 +33,13 @@ namespace onYOURway.Controllers {
     public string Metadata() {
       return db.Metadata();
     }
+
+	private string GetLang() {
+		var langs = HttpContext.Current.Request.UserLanguages;
+		if (langs.Count() == 0)
+			return "";
+		return langs[0].Substring(0, 2);
+	}
 
     //[HttpGet]   // api/locate/Regions
     /// <summary>
@@ -56,7 +64,8 @@ namespace onYOURway.Controllers {
     ///// <returns>anonymous locationinfo</returns>
     ///// <remarks>OBSOLETE, use Places instead</remarks>
     //[HttpGet]   // api/locate/Locations
-    //public IQueryable<dynamic> Locations(int RegionId = 1, string lang = "de") {
+    //public IQueryable<dynamic> Locations(int RegionId = 1, string lang = null) {
+	//	if (string.IsNullOrEmpty(lang)) lang = GetLocale();
     //  return db.Context.Locations
     //    .Include(l => l.Tags)
     //    .Include(l => l.Aliases)
@@ -252,8 +261,9 @@ namespace onYOURway.Controllers {
     /// <param name="lang">Language id e.g. "de"</param>
     /// <returns></returns>
     [HttpGet]
-    public dynamic SearchSuggestions(int RegionId, string lang = "de") {
-      return
+    public dynamic SearchSuggestions(int RegionId, string lang = null) {
+		if (string.IsNullOrEmpty(lang)) lang = GetLang();
+		return
         db.Context
           .SearchSuggestions(RegionId, lang)
           .ToArray();
@@ -266,7 +276,8 @@ namespace onYOURway.Controllers {
     /// <param name="lang"></param>
     /// <returns>Ventures</returns>
     [HttpGet]
-    public dynamic Places(int RegionId, string lang = "de") {
+    public dynamic Places(int RegionId, string lang = null) {
+		if (string.IsNullOrEmpty(lang)) lang = GetLang();
       ////string xml = db.Context.GetPlaces(RegionId, lang).First().ToString();
       string xml = null;
       using (SqlCommand cd = new SqlCommand()) {
@@ -306,7 +317,8 @@ namespace onYOURway.Controllers {
     }
 
 	[HttpGet]
-	public dynamic MyPlaces(int RegionId, string lang = "de") {
+	public dynamic MyPlaces(int RegionId, string lang = null) {
+		if (string.IsNullOrEmpty(lang)) lang = GetLang();
 		//get UserId
 
 		return db.Context
@@ -319,21 +331,22 @@ namespace onYOURway.Controllers {
     }
 
 	[HttpGet]
-	public dynamic Tags(int? RegionId = 1, string lang = "de") {
+	public dynamic Tags(int? RegionId = 1, string lang = null) {
+		if (string.IsNullOrEmpty(lang)) lang = GetLang();
 		//TODO: add Region specific Tags or "TagSets"
 
 		var result = db.Context
 			.Tags
-			//.Include("Names")
-			//.Include("Children")
 			.Select(t => new { 
 				t.Id,
 				t.Type,
-				Names = t.Names/*.Where(n => n.Lang == lang || string.IsNullOrEmpty(n.Lang))*/.Select(n => new { n.Name, n.Lang, n.Show }),
- 				Parents = t.Parents.Select(p => p.Id),
-				Children = t.Children.Select(c => c.Id)
+				Names = t.Names.Where(n => t.Names.Any(_n => _n.Lang == lang) ? n.Lang == lang : string.IsNullOrEmpty(n.Lang)).Select(n => new { n.Name, n.Lang, n.Show }),
+				//TODO: fix query instead of just exchanging property names
+				Children = t.Parents.Select(p => p.Id),
+				Parents = t.Children.Select(c => c.Id)
 			})
-			/*.Where(t => t.Names.Where(n => n.Lang == lang || string.IsNullOrEmpty(n.Lang)).Count() > 0)*/
+			//get all having either a neutral name or one of the current lang
+			.Where(t => t.Names.Any(n => n.Lang == lang || string.IsNullOrEmpty(n.Lang)))
 			;
 		return result;
 
