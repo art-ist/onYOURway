@@ -134,6 +134,9 @@ define([
                     if (res && res.coords && res.coords.length && res.coords.length > 1 && res.coords[0] && res.coords[1]) {
                         self.latitude(res.coords[1]);
                         self.longitude(res.coords[0]);
+                        if (callback) {
+                            callback();
+                        }
                     } else {
                         //toastr.warning("No coordinates found for this address. Please select location manually!");
                         logger.warn("Empty Coordinates received for address", 'siteCollector - setMarker', addr_str)
@@ -159,6 +162,9 @@ define([
                     self.entity.Country(addr.Country || '');
                     self.entity.Province(addr.Province || '');
                     self.entity.Zip(addr.Zip || '');
+                    if (callback) {
+                        callback();
+                    }
                 } else {
                     //toastr.warning("No address found for these coordinates. Please enter address manually!", undefined, undefined, true);
                     logger.warn('Address not found for these coordinates. Please enter address manually!', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
