@@ -46,12 +46,12 @@
 
 				<div class="form-group">
 					<label for="addSiteName" class="translate">Name:</label>
-					<input id="addSiteName" type="text" data-bind="" class="form-control siteName translatePlaceholder" placeholder="What is the name of the site?" />
+					<input id="addSiteName" type="text" data-bind="value: entity.Name" class="form-control siteName translatePlaceholder" placeholder="What is the name of the site?" />
 				</div>
 
 				<div class="form-group">
 					<label for="addSiteDescription" class="translate">Description:</label>
-					<textarea class="form-control translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"></textarea>
+                    <textarea data-bind="value: entity.Description"  class="form-control translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"></textarea>
 				</div>
 
 				<!--<section class="panel locationContainer position">
@@ -64,28 +64,28 @@
 					<label for="addSiteLocationStreet">Address:</label>
 				</div>
 				<div class="form-group">
-					<input data-bind="value: country" class="form-control translate" placeholder="Country" />
+					<input data-bind="value: entity.Country" class="form-control translate" placeholder="Country" />
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input data-bind="value: postcode" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3" placeholder="PLZ" />
-						<input data-bind="value: city" id="addSiteLocationCity" type="text" class="form-control input-group-c9" placeholder="Stadt" />
+						<input data-bind="value: entity.Zip" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3" placeholder="PLZ" />
+						<input data-bind="value: entity.City" id="addSiteLocationCity" type="text" class="form-control input-group-c9" placeholder="Stadt" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input data-bind="value: street" id="addSiteLocationStreet" type="text" class="form-control input-group-c9" placeholder="Straße" />
-						<input data-bind="value: nr" id="addSiteLocationNr" type="text" class="form-control input-group-c3" placeholder="Nr." />
+						<input data-bind="value: entity.Street" id="addSiteLocationStreet" type="text" class="form-control input-group-c9" placeholder="Straße" />
+						<input data-bind="value: entity.HouseNumber" id="addSiteLocationNr" type="text" class="form-control input-group-c3" placeholder="Nr." />
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="btn btn-large btn-warning updatePosition"><i class="fa fa-map-marker" /> <span class="translate" data-bind="click: setMarker">get position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
-					<div class="btn btn-large btn-warning pull-right updateAddress"><i class="fa fa-arrow-up icon-highlight" /> <span class="translate">get address</span> <i class="fa fa-envelope" /></div>
+                    <div class="btn btn-large btn-warning updatePosition" data-bind="click: setMarker"><i class="fa fa-map-marker" /> <span class="translate">get position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
+                    <div class="btn btn-large btn-warning pull-right updateAddress" data-bind="click: setAddress"><i class="fa fa-arrow-up icon-highlight" /> <span class="translate">get address</span> <i class="fa fa-envelope" /></div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input data-bind="value: lat" id="addSiteLocationLat" type="text" class="form-control locationLat input-group-c6" placeholder="Breitengrad" />
-						<input data-bind="value: lng" id="addSiteLocationLng" type="text" class="form-control locationLng input-group-c6" placeholder="Längengrad" />
+						<input data-bind="value: latitude" id="addSiteLocationLat" type="text" class="form-control locationLat input-group-c6" placeholder="Breitengrad" />
+						<input data-bind="value: longitude" id="addSiteLocationLng" type="text" class="form-control locationLng input-group-c6" placeholder="Längengrad" />
 					</div>
 					<div class="line accuracy">
 						<div class="error hilight hidden"><span class="translate">Position accuracy</span>: &plusmn;<span class="value"></span>m</div>
@@ -107,16 +107,16 @@
 					</div>
 				</div>
 
-				<!--picture-->
+				<!--picture-- >
 				<div class="form-group photo empty">
 					<label>
 						<span class="translate">Photo:</span>
 					</label>
 					<div class="controls">
 						<div id="dropzone">
-							<!--<form action="test.html" class="dropzone dz-clickable">-->
+							<!--<form action="test.html" class="dropzone dz-clickable">-- >
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
-							<!--</form>-->
+							<!--</form>-- >
 						</div>
 					</div>
 				</div>
@@ -133,7 +133,7 @@
 					<select data-bind="options: opening_hour_samples" id="openingHours_Select" class="form-control"></select>
 				</div>
 
-				<!--picture-->
+				<!--accessibility-->
 				<div class="form-group">
 					<label>
 						<span class="translate">Accessibility:</span>

@@ -27,7 +27,6 @@
 		.then(function (result, param) {
 			var res = result.results[0].geometry.location;
 			var success = (result.status === 'OK');
-			getAddress([res.lng, res.lat]);
 			return { success: success, coords: [res.lng, res.lat] }
 		});
 
@@ -47,27 +46,31 @@
 		            if (val.types) {
 		                $.each(val.types, function (index2, valType) {
 		                    if (valType == "locality") {
-		                        address.city = val.long_name;
+		                        address.City = val.long_name;
 		                    } else if (valType == "country") {
-		                        address.country = val.long_name;
-		                        address.country_code = val.short_name;
+		                        address.CountryName = val.long_name;
+		                        address.Country = val.short_name;
 		                    } else if (valType == "street" || valType == "route") {
-		                        address.street = val.long_name;
+		                        address.Street = val.long_name;
 		                    } else if (valType == "street_number") {
-		                        address.nr = val.long_name;
+		                        address.HouseNumber = val.long_name;
 		                    } else if (valType == "postal_code") {
-		                        address.postcode = val.long_name;
+		                        address.Zip = val.long_name;
 		                    } else if (valType == "administrative_area_level_1") {
-		                        address.county = val.long_name;
+		                        address.Province = val.long_name;
 		                    } else if (valType == "administrative_area_level_2") {
-		                        address.region = val.long_name;
+		                        address.Region = val.long_name;
 		                    }
 		                });
+		                if (address.Region && !address.Province) {
+		                    address.Province = address.Region;
+		                    address.Region = null;
+		                }
 		            }
 		        });
 		    }
-		    // debugging alert(address.street + ' ' + address.nr + ', ' + address.country_code + '-' + address.postcode + ' ' + address.city + ', ' + address.region + ', ' + address.county + ', ' + address.country + '\n\n' + res.formatted_address);
-            return { success: success, address: address, formatted_address: result.formatted_address }
+		    // debugging alert(address.Street + ' ' + address.HouseNumber + ', ' + address.Country + '-' + address.Zip + ' ' + address.City + ', ' + address.Province + '\n\n' + res.formatted_address);
+		    return { success: success, address: address, formatted_address: result.formatted_address }
 		});
 	}
 

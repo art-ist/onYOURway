@@ -3,7 +3,8 @@ define([
   'services/app',
   'services/location',
   'services/logger',
-], function (app, location, logger, platform) {
+  'providers/geocode-nominatim',
+], function (app, location, logger, geocodingProvider) {
 
     var vm = function () {
         var self = this;
@@ -49,15 +50,15 @@ define([
     	    self.binding = function () {
     	        logger.log('binder', 'siteCollector');
             self.entity = self.manager.createEntity('Location', {
-                Name: 'name',
-                Lang: 'de',
-                Country: 'at',
-                Province: 'bad',
-                City: 'Baden',
-                Zip: '2500',
-                Street: 'Straße',
-                HouseNumber: 'Nr',
-                Phone: '12345',
+                Name: '',
+                Lang: '',
+                Country: '',
+                Province: '',
+                City: '',
+                Zip: '',
+                Street: '',
+                HouseNumber: '',
+                Phone: '',
                 CreatedBy: 1,
                 CreatedAt: new Date(),
                 ModifiedBy: null,
@@ -65,7 +66,7 @@ define([
                 Position: null,
                 Icon: 'fa-cutlery',
                 OpeningHours: null,
-                Description: 'Beschreibung',
+                Description: '',
                 Type: 'SitCllctr'
             });
 
@@ -89,175 +90,92 @@ define([
 			'09:00-16:00; Su,PH closed'
         ];
 
-    	//#endregion opening_hours
+        //#endregion opening_hours
 
-		//#region address
-        self.street = ko.computed({
+        self.latitude = ko.computed({
             read: function () {
-                var addr = location.siteCollectorAddress();
-                var entity = self.entity;
-                if (!entity) {
-                    return '';
-                }
-                if (addr) {
-                    entity.Street(addr.address.street);
-                }
-                return entity.Street() || '';
+                return location.siteCollectorCoords() && location.siteCollectorCoords().lat;
             },
-            write: function (arg) {
-                var val = location.siteCollectorAddress();
-                if (val && val.address) {
-                    val.address.street = arg;
-                } else {
-                    val = { address: { street: arg } };
+            write: function (lat) {
+                var lng = location.siteCollectorCoords() && location.siteCollectorCoords().lng;
+                if (self.entity && self.entity.Position) {
+                    self.entity.Position("POINT (" + lng + " " + lat + ")");
                 }
-                location.siteCollectorAddress(val);
-            },
-            deferEvaluation: false
-        });
-        self.nr = ko.computed({
-            read: function () {
-                var addr = location.siteCollectorAddress();
-                var entity = self.entity;
-                if (!entity) {
-                    return '';
-                }
-                if (addr) {
-                    entity.HouseNumber(addr.address.nr);
-                }
-                return entity.HouseNumber() || '';
-        	    },
-        	write: function (arg) {
-        		var val = location.siteCollectorAddress();
-        		if (val && val.address) {
-        			val.address.nr = arg;
-        		} else {
-        			val = { address: { nr: arg } };
-        		}
-        		location.siteCollectorAddress(val);
-        	},
-        	deferEvaluation: false
-        });
-        self.city = ko.computed({
-            read: function () {
-                var entity = self.entity;
-                var addr = location.siteCollectorAddress();
-                if (!entity) {
-                    return '';
-                }
-                if (addr) {
-                    entity.City(addr.address.city);
-                }
-                return entity.City() || '';
-            },
-            write: function (arg) {
-                var val = location.siteCollectorAddress();
-                if (val && val.address) {
-                    val.address.city = arg;
-                } else {
-                    val = { address: { city: arg } };
-                }
-                location.siteCollectorAddress(val);
-            },
-            deferEvaluation: false
-        });
-        self.postcode = ko.computed({
-            read: function () {
-                var entity = self.entity;
-                var addr = location.siteCollectorAddress();
-                if (!entity) {
-                    return '';
-                }
-                if (addr) {
-                    entity.Zip(addr.address.postcode);
-                }
-                return entity.Zip() || '';
-            },
-        	    write: function (arg) {
-        		    var val = location.siteCollectorAddress();
-        		    if (val) {
-        			    val.address.postcode = arg;
-        		    } else {
-        			    val = { address: { postcode: arg } };
-        		    }
-        		    location.siteCollectorAddress(val);
-        	    },
-        	    deferEvaluation: false
-        });
-        self.country = ko.computed({
-            read: function () {
-                var entity = self.entity;
-                var addr = location.siteCollectorAddress();
-                if (!entity) {
-                    return '';
-                }
-                if (addr) {
-                    entity.Country(addr.address.country_code);
-                }
-                return entity.Country() || '';
-            },
-         	write: function (arg) {
-        		    var val = location.siteCollectorAddress();
-        		    if (val) {
-                    val.address.country = '';
-                } else {
-        			    val = { address: { country: arg } };
-                }
-                location.siteCollectorAddress(val);
-            },
-            deferEvaluation: false
-        });
-    	//#endregion address
-
-    	//#region position
-
-        self.lat = ko.computed({
-        	    read: function () {
-        		    var ll = location.siteCollectorMarker ? location.siteCollectorMarker().getLatLng() : null;
-        		    return ll ? ll.lat : null;
-        	    },
-        	    write: function (arg) {
-        		    var val = location.setSiteCollectorMarker();
-        		    var newLatLng = new L.LatLng(arg, val.getLatLng().lng);
-        		    val.setLatLng(newLatLng);
-        		    //if (self.addressModeAuto) { //update address only if not entered manually (TODO)
-        		    //	location.siteCollectorAddress(val);
-        		    //}
-        	    },
-        	    deferEvaluation: true
+                location.siteCollectorCoords({ lat: lat, lng: lng });
+            }
         });
 
-        self.lng = ko.computed({
-        	    read: function () {
-        		    var ll = location.siteCollectorMarker ? location.siteCollectorMarker().getLatLng() : null;
-        		    return ll ? ll.lng : null;
-        	    },
-        	    write: function (arg) {
-        		    var val = location.setSiteCollectorMarker();
-        		    var newLatLng = new L.LatLng(val.getLatLng().lat, arg);
-        		    val.setLatLng(newLatLng);
-        		    //if (self.addressModeAuto) { //update address only if not entered manually (TODO)
-        		    //	location.siteCollectorAddress(val);
-        		    //}
-        	    },
-        	    deferEvaluation: true
+        self.longitude = ko.computed({
+            read: function () {
+                return location.siteCollectorCoords() && location.siteCollectorCoords().lng;
+            },
+            write: function (lng) {
+                var lat = location.siteCollectorCoords() && location.siteCollectorCoords().lat;
+                if (self.entity && self.entity.Position) {
+                    self.entity.Position("POINT (" + lng + " " + lat + ")");
+                }
+                location.siteCollectorCoords({ lat: lat, lng: lng });
+            }
         });
-
-		//#endregion position
 
         self.setMarker = function () {
-            //location.setSiteCollectorMarker(this.street() + ' ' + this.city());
-            	location.setSiteCollectorMarker(location.siteCollectorAddress());
-        }
+            var addr = self.entity;
+            var addr_str = (addr.Street() || '') + (addr.Street() && addr.HouseNumber() && ' ') + (addr.HouseNumber() || '')
+                + ((addr.Street() || addr.HouseNumber()) && (addr.Zip() || addr.City()) && ', ')
+                + (addr.Zip() || '') + (addr.Zip() && addr.City() && ' ') + (addr.City() || '')
+                + (addr.Country() && ', ') + (addr.Country() || '');
+            geocodingProvider.getCoords(addr_str).done(function (res) {
+                if (res && res.coords && res.coords.length && res.coords.length > 1 && res.coords[0] && res.coords[1]) {
+                    self.latitude(res.coords[1]);
+                    self.longitude(res.coords[0]);
+                } else {
+                    //toastr.warning("No coordinates found for this address. Please select location manually!");
+                    logger.warn("Empty Coordinates received for address", 'siteCollector - setMarker', addr_str)
+                }
+            }).fail(function () {
+                //toastr.warning("No coordinates found for this address. Please select location manually!", undefined, undefined, true);
+                logger.warn('Coordinates not found for this address. Please select location manually!', 'siteCollector - setMarker', addr_str);
+                return null;
+            });
+        };
+
+        self.setAddress = function () {
+            geocodingProvider.getAddress([self.longitude(), self.latitude()]).done(function (res) {
+                var addr = res && res.address;
+                if (addr) {
+                    self.entity.Street(addr.Street || '');
+                    self.entity.HouseNumber(addr.HouseNumber || '');
+                    self.entity.City(addr.City || '');
+                    self.entity.Country(addr.Country || '');
+                    self.entity.Province(addr.Province || '');
+                    self.entity.Zip(addr.Zip || '');
+                } else {
+                    //toastr.warning("No address found for these coordinates. Please enter address manually!", undefined, undefined, true);
+                    logger.warn('Address not found for these coordinates. Please enter address manually!', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
+                }
+            }).fail(function () {
+                //toastr.warning("No address found for these coordinates. Please enter address manually!", undefined, undefined, true);
+                logger.warn('No address found for these coordinates. Please enter address manually!', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
+            });
+        };
 
         self.submit = function saveChanges() {
+            if (!self.entity.City()) {
+            } else if (self.latitude() <= 0 || self.longitude <= 0) {
 
-            if (self.manager.hasChanges()) {
+            } else if (self.manager.hasChanges()) {
                 self.manager.saveChanges()
-                    .then(function () { alert('save success')})
-                    .fail(function () { alert('save error') });
+                    .then(function () {
+                        logger.success("Thank You, the new site was successfully saved!", 'siteCollector - submit');
+                        //toastr.success("Thank You, the new site was successfully saved!", undefined, undefined, true);
+                    })
+                    .fail(function () {
+                        logger.error("There was an error saving your new site. Please try again.", 'siteCollector - submit');
+                        //toastr.error("There was an error saving your new site. Please try again.", undefined, undefined, true);
+                    });
             } else {
-                logger.info("Nothing to save");
+                logger.warn("Nothing to save - you didn't edit anything since last save", 'siteCollector - submit');
+                //toastr.warning("Nothing to save - you didn't edit anything since last save", undefined, undefined, true);
             };
         };
 

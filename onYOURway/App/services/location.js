@@ -108,7 +108,7 @@ define([
 		selectedItems: ko.observableArray(), //last selected locations (max: settings.maxSelectedItems)
 
 		siteCollectorMode: ko.observable(),
-        siteCollectorAddress: ko.observable(),
+		siteCollectorCoords: ko.observable(),
 
 		searchFor: ko.observable(),
 		featuredIf: ko.observableArray([
@@ -185,8 +185,6 @@ define([
 		drawPointer: _drawPointer,
 		panIntoView: _panMap,
 
-		setSiteCollectorMarker: _setSiteCollectorMarker,
-
 		toggleMap: toggleMap,
 		toggleList: toggleList,
 		toggleDetails: toggleDetails
@@ -202,6 +200,7 @@ define([
 	//#endregion Constructor 
 	return location;
 
+    //#region Initializer
 	function initializeMetadata() {
 	    //Fetch Metadata, add COMPUTED PROPERTIES and LOAD DATA
 	    //locateContext.fetchMetadata()
@@ -216,10 +215,46 @@ define([
 	        this.open = [];
 	    };
 
-	    locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location);
+	    /*var LocationInitializer = function (myLocation) {
+	        myLocation.Latitude = ko.computed({
+	            read: function () {
+	                if (myLocation.Position && myLocation.Position() && myLocation.Position().startsWith("POINT")) {
+	                    var coords = item.Position().replace(/POINT \(/, '').replace(/\)/, '').split(' ');
+	                    if (coords && coords.length) {
+	                        return coords[0];
+	                    }
+	                }
+	                return 0.0;
+	            },
+	            write: function (arg) {
+	                if (myLocation.Position) {
+	                    myLocation.Position("POINT (" + arg + " " + myLocation.Longitude + ")");
+	                }
+	            },
+	            deferEvaluation: false
+	        });
+	        myLocation.Longitude = ko.computed({
+	            read: function () {
+	                if (myLocation.Position && myLocation.Position() && myLocation.Position().startsWith("POINT")) {
+	                    var coords = item.Position().replace(/POINT \(/, '').replace(/\)/, '').split(' ');
+	                    if (coords && coords.length && coords.length > 1) {
+	                        return coords[1];
+	                    }
+	                }
+	                return 0.0;
+	            },
+	            write: function (arg) {
+	                if (myLocation.Position) {
+	                    myLocation.Position("POINT (" + myLocation.Latitude + " " + arg + ")");
+	                }
+	            },
+	            deferEvaluation: false
+	        });
+	    }*/
+
+	    locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location/*, LocationInitializer*/);
 	}
 
-	//#region Initializer
 	function initializeMap(containerId) {
 		logger.log('[location] Initializing Map', 'location', containerId);
 
@@ -239,10 +274,12 @@ define([
 			},
 			'click': function (event) {
 			    if (location.siteCollectorMode()) {
-			        _setSiteCollectorMarkerLoc(event.latlng, true);
+			        _setSiteCollectorMarker(event.latlng, true);
 			    }
 			}
 		});
+
+		location.siteCollectorCoords.subscribe(_setSiteCollectorMarker);
 
 		//register eventhandlers for list
 		var list = $('#locationList');
@@ -280,7 +317,6 @@ define([
 	} //initializeMap
 	//#endregion Initializer
 
-
 	//#region Private Members
 
 	function _getLocationIcon(loc, selected) {
@@ -314,17 +350,11 @@ define([
 	//function _itemMouseOver() { }
     //function _itemMouseOut() { }
 
-	function _updateSiteCollectorAddress() {
-	    var ll = location.siteCollectorMarker.getLatLng();
-	    geocodingProvider.getAddress([ll.lng, ll.lat]).done(function (res) {
-	        location.siteCollectorAddress(res);
-	    }).fail(function () {
-	        logger.error('Address not found for coordinates ', 'location - siteCollectorMarker dragend', geo.coords ? geo.coords : [geo.lng, geo.lat]);
-	        return null;
-	    });
-	}
-
-	function _setSiteCollectorMarkerLoc(geo, updateAddress) {
+    /** this function is registered as click-handler for the map during map initialization,
+     *   but this click handler it is only executed if location.siteCollectorMode is active! 
+     *  this function is also called when the siteCollectorCoords observable gets updated!
+     */
+	function _setSiteCollectorMarker(geo, updateCoords) {
 	    if (!location.siteCollectorMarker) {
 	        location.siteCollectorMarker = L.marker(geo.coords ? [geo.coords[1], geo.coords[0]] : geo, {
 	            dragable: true,
@@ -334,29 +364,17 @@ define([
 	        });
 	        location.siteCollectorMarker.addTo(location.map);
 	        location.siteCollectorMarker.dragging.enable();
-	        location.siteCollectorMarker.on("dragend", _updateSiteCollectorAddress)
+	        location.siteCollectorMarker.on("dragend", function() {
+	            location.siteCollectorCoords(location.siteCollectorMarker.getLatLng());
+	        });
 	    } else {
-	        location.siteCollectorMarker.setLatLng(geo.coords  ? [geo.coords[1], geo.coords[0]] : geo);
+	        location.siteCollectorMarker.setLatLng(geo.coords ? [geo.coords[1], geo.coords[0]] : geo);
 	    }
-	    if (updateAddress) {
-	        _updateSiteCollectorAddress();
+	    if (updateCoords) {
+	        location.siteCollectorCoords(location.siteCollectorMarker.getLatLng());
 	    }
 	    _panMap(location.siteCollectorMarker);
 	    return location.siteCollectorMarker;
-	}
-
-	function _setSiteCollectorMarker(addr) {
-	    var addr_str;
-	    if (addr.address) {
-	        var a = addr.address;
-	        addr_str = a.street + ' ' + a.nr + ', ' + a.postcode + ' ' + a.city + ', ' + a.country_code;
-	    } else {
-	        addr_str = addr;
-	    }
-	    geocodingProvider.getCoords(addr_str).done(_setSiteCollectorMarkerLoc).fail(function () {
-	        logger.error('Coordinates not found for address ', 'location - _setSiteCollectorMarker', addr);
-	        return null;
-	    });
 	}
 
 	function _drawPointer(mode) { //draws a pointer to connect the listitem of the selected venture with its marker
