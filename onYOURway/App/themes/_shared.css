@@ -1,4 +1,7 @@
-﻿/*#region mySiteList */
+﻿.navbar-collapse {
+  z-index: 10000;
+}
+/*#region mySiteList */
 #mySiteList {
   position: absolute;
   top: 50px;
