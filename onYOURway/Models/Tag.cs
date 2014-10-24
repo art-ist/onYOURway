@@ -24,6 +24,10 @@ namespace onYOURway.Models
     
         public int Id { get; set; }
         public string Type { get; set; }
+        public string CssClass { get; set; }
+        public string Icon { get; set; }
+        public string Values { get; set; }
+        public string ForeignId { get; set; }
     
         public virtual ICollection<TagName> Names { get; set; }
         public virtual ICollection<Tag> Children { get; set; }

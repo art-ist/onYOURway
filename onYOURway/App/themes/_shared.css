@@ -1,5 +1,5 @@
-﻿.navbar-collapse {
-  z-index: 10000;
+﻿#navbar {
+  z-index: 1000;
 }
 /*#region mySiteList */
 #mySiteList {

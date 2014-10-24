@@ -76,5 +76,18 @@ namespace onYOURway.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Place>("GetPlaces", regionIdParameter, langParameter);
         }
+    
+        public virtual ObjectResult<string> GetTaxonomy(string idSet, string lang)
+        {
+            var idSetParameter = idSet != null ?
+                new ObjectParameter("idSet", idSet) :
+                new ObjectParameter("idSet", typeof(string));
+    
+            var langParameter = lang != null ?
+                new ObjectParameter("lang", lang) :
+                new ObjectParameter("lang", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetTaxonomy", idSetParameter, langParameter);
+        }
     }
 }

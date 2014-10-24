@@ -184,7 +184,11 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="20" />
-        </EntityType>
+			<Property Name="CssClass" Type="nvarchar" MaxLength="200" />
+			<Property Name="Icon" Type="nvarchar" MaxLength="1000" />
+			<Property Name="Values" Type="nvarchar" />
+			<Property Name="ForeignId" Type="varchar"  MaxLength="40"/>
+		</EntityType>
         <EntityType Name="TagIsA">
           <Key>
             <PropertyRef Name="TagId" />
@@ -192,6 +196,7 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           </Key>
           <Property Name="TagId" Type="int" Nullable="false" />
           <Property Name="ParentId" Type="int" Nullable="false" />
+			<Property Name="Position" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TagName">
           <Key>
@@ -444,10 +449,14 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           <Parameter Name="wkt" Type="varchar(max)" Mode="In" />
           <Parameter Name="meters" Type="int" Mode="In" />
         </Function>
-        <Function Name="GetPlaces" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw">
-          <Parameter Name="RegionId" Type="int" Mode="In" />
-          <Parameter Name="Lang" Type="char" Mode="In" />
+        <Function Name="GetTaxonomy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw">
+          <Parameter Name="idSet" Type="nvarchar" Mode="In" />
+          <Parameter Name="lang" Type="char" Mode="In" />
         </Function>
+		<Function Name="GetPlaces" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw">
+			<Parameter Name="RegionId" Type="int" Mode="In" />
+			<Parameter Name="Lang" Type="char" Mode="In" />
+		</Function>
         <Function Name="SearchSuggestions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw">
           <Parameter Name="regionId" Type="int" Mode="In" />
           <Parameter Name="Lang" Type="char" Mode="In" />
@@ -644,6 +653,10 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
             <End Role="Location" EntitySet="Locations" />
             <End Role="LocationAlia" EntitySet="LocationAliases" />
           </AssociationSet>
+          <FunctionImport Name="GetTaxonomy" ReturnType="Collection(String)">
+            <Parameter Name="idSet" Mode="In" Type="String" />
+            <Parameter Name="lang" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Card">
           <Key>
@@ -762,7 +775,11 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Type" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Names" Relationship="onYOURwayModel.FK_oyw_TagAlias_Tag" FromRole="Tag" ToRole="TagName" />
+			<Property Type="String" Name="CssClass" MaxLength="200" FixedLength="false" Unicode="true" />
+			<Property Type="String" Name="Icon" MaxLength="1000" FixedLength="false" Unicode="true" />
+			<Property Type="String" Name="Values" FixedLength="false" Unicode="true" />
+			<Property Type="String" Name="ForeignId" MaxLength="40" FixedLength="false" Unicode="false" />
+			<NavigationProperty Name="Names" Relationship="onYOURwayModel.FK_oyw_TagAlias_Tag" FromRole="Tag" ToRole="TagName" />
           <NavigationProperty Name="Children" Relationship="onYOURwayModel.TagIsA" FromRole="Tag" ToRole="Parent" />
           <NavigationProperty Name="Parents" Relationship="onYOURwayModel.TagIsA" FromRole="Parent" ToRole="Tag" />
           <NavigationProperty Name="Locations" Relationship="onYOURwayModel.HasTag" FromRole="Tag" ToRole="Location" />
@@ -1178,6 +1195,10 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
               <MappingFragment StoreEntitySet="Tag">
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+				  <ScalarProperty Name="CssClass" ColumnName="CssClass" />
+				  <ScalarProperty Name="Icon"  ColumnName="Icon" />
+				  <ScalarProperty Name="Values"  ColumnName="Values" />
+				  <ScalarProperty Name="ForeignId"  ColumnName="ForeignId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1358,6 +1379,7 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetTaxonomy" FunctionName="onYOURwayModel.Store.GetTaxonomy" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

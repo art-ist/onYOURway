@@ -303,6 +303,38 @@ namespace onYOURway.Controllers {
       //return new System.Web.Mvc.ContentResult { Content = json, ContentType = "application/json" };
       return doc;
     } //Places
+
+	public dynamic GetTaxonomy(int RegionId, string lang = null) {
+		//switch (RegionId) {
+		//	case 1:
+
+		//	default:
+		//		break;
+		//}
+		if (string.IsNullOrEmpty(lang)) lang = GetLang();
+		////string xml = db.Context.GetPlaces(RegionId, lang).First().ToString();
+		string xml = null;
+		using (SqlCommand cd = new SqlCommand()) {
+			cd.Connection = (SqlConnection)((Glimpse.Ado.AlternateType.GlimpseDbConnection)db.Context.Database.Connection).InnerConnection;
+			cd.CommandType = System.Data.CommandType.StoredProcedure;
+			cd.CommandText = "oyw.GetTaxonomy";
+			cd.Parameters.AddWithValue("@idSet", RegionId.ToString());
+			cd.Parameters.AddWithValue("@lang", lang);
+			cd.Connection.Open();
+			using (XmlReader xr = cd.ExecuteXmlReader()) {
+				if (xr != null) {
+					System.Text.StringBuilder sb = new System.Text.StringBuilder();
+					while (xr.Read()) {
+						sb.AppendLine(xr.ReadOuterXml());
+					}
+					xml = sb.ToString();
+				}
+			}
+		}
+		XmlDocument doc = new XmlDocument();
+		doc.LoadXml(xml);
+		return doc;
+	} //Places
     
     [HttpGet]
 	public dynamic Place(double Id) {
