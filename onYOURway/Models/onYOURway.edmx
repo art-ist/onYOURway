@@ -196,7 +196,7 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           </Key>
           <Property Name="TagId" Type="int" Nullable="false" />
           <Property Name="ParentId" Type="int" Nullable="false" />
-			<Property Name="Position" Type="int" Nullable="false" />
+			<!--<Property Name="Position" Type="int" Nullable="false" />-->
         </EntityType>
         <EntityType Name="TagName">
           <Key>

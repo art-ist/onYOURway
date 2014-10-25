@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "onYOURway", "onYOURway\onYOURway.csproj", "{2BC5A796-0DFB-431A-B3AA-390BACB91F22}"
 EndProject
@@ -15,6 +15,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|ARM = Release|ARM
 		Release|x86 = Release|x86
+		vonMorgen|Any CPU = vonMorgen|Any CPU
+		vonMorgen|ARM = vonMorgen|ARM
+		vonMorgen|x86 = vonMorgen|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -25,6 +28,10 @@ Global
 		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.Release|ARM.ActiveCfg = Release|Any CPU
 		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.Release|x86.ActiveCfg = Release|Any CPU
+		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.vonMorgen|Any CPU.ActiveCfg = vonMorgen|Any CPU
+		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.vonMorgen|Any CPU.Build.0 = vonMorgen|Any CPU
+		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.vonMorgen|ARM.ActiveCfg = vonMorgen|Any CPU
+		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.vonMorgen|x86.ActiveCfg = vonMorgen|Any CPU
 		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -33,6 +40,10 @@ Global
 		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Release|Any CPU.Build.0 = Release|Any CPU
 		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Release|ARM.ActiveCfg = Release|Any CPU
 		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Release|x86.ActiveCfg = Release|Any CPU
+		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.vonMorgen|Any CPU.ActiveCfg = vonMorgen|Any CPU
+		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.vonMorgen|Any CPU.Build.0 = vonMorgen|Any CPU
+		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.vonMorgen|ARM.ActiveCfg = vonMorgen|Any CPU
+		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.vonMorgen|x86.ActiveCfg = vonMorgen|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

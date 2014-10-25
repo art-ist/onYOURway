@@ -1,15 +1,20 @@
 ﻿@using System.Web.Optimization
+@using System.Configuration
 <!DOCTYPE html>
 <html>
 <head>
 	@{
 		string dataMain = "/App/main";
-		string theme = "onYOURway";
+		string theme = ConfigurationManager.AppSettings["DefaultTheme"] ?? "onYOURway";
 		string httpHost = HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
 		//TODO: move theme configuration to app.config e.g. appSettings: key="morgen" value="vonMorgen" or custom section handler
 		if (httpHost != null && ( httpHost.ToLower().Contains("morgen") )) {
 			theme = "vonMorgen";
 		}
+		if (httpHost != null && (httpHost.ToLower().Contains("onyourway"))) {
+			theme = "onYOURway";
+		}
+
 	}
 
 	<title>art-ist : onYOURway</title>

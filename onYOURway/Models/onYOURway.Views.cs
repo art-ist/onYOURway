@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(onYOURway.Models.onYOURwayEntities),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets1278f5b9cf771724c1e236b4d310b5feebfde73b9d4d54d83537b7546b6f089b))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsabaec308794d8076a8646471b929464a48ee6aa829d34f80f8af3807141df044))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySets1278f5b9cf771724c1e236b4d310b5feebfde73b9d4d54d83537b7546b6f089b : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySetsabaec308794d8076a8646471b929464a48ee6aa829d34f80f8af3807141df044 : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "1278f5b9cf771724c1e236b4d310b5feebfde73b9d4d54d83537b7546b6f089b"; }
+            get { return "abaec308794d8076a8646471b929464a48ee6aa829d34f80f8af3807141df044"; }
         }
 
         /// <summary>
@@ -553,11 +553,15 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Tag
-        [onYOURwayModel.Store.Tag](T1.Tag_Id, T1.Tag_Type)
+        [onYOURwayModel.Store.Tag](T1.Tag_Id, T1.Tag_Type, T1.Tag_CssClass, T1.Tag_Icon, T1.Tag_Values, T1.Tag_ForeignId)
     FROM (
         SELECT 
             T.Id AS Tag_Id, 
             T.Type AS Tag_Type, 
+            T.CssClass AS Tag_CssClass, 
+            T.Icon AS Tag_Icon, 
+            T.Values AS Tag_Values, 
+            T.ForeignId AS Tag_ForeignId, 
             True AS _from0
         FROM onYOURwayEntities.Tags AS T
     ) AS T1");
@@ -759,11 +763,15 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Tags
-        [onYOURwayModel.Tag](T1.Tag_Id, T1.Tag_Type)
+        [onYOURwayModel.Tag](T1.Tag_Id, T1.Tag_Type, T1.Tag_CssClass, T1.Tag_Icon, T1.Tag_Values, T1.Tag_ForeignId)
     FROM (
         SELECT 
             T.Id AS Tag_Id, 
             T.Type AS Tag_Type, 
+            T.CssClass AS Tag_CssClass, 
+            T.Icon AS Tag_Icon, 
+            T.Values AS Tag_Values, 
+            T.ForeignId AS Tag_ForeignId, 
             True AS _from0
         FROM onYOURwayModelStoreContainer.Tag AS T
     ) AS T1");
