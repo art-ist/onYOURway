@@ -1,43 +1,57 @@
-﻿<header id="navbar" class="navbar navbar-default bs-docs-nav" role="navigation">
-	<div class="container-fluid">
+﻿<!--
+	Karte von Morgen
+-->
 
-		<div class="navbar-header hidden-xs">
-			<img src="/App/themes/vonMorgen/images/logoanimation.gif" style="width: 200px; height: 100px;" />
+<header id="navbar" class="navbar navbar-default bs-docs-nav" role="navigation">
+	<div class="container">
+		<!--header-->
+		<div id="vm-header-row" class="row">
+			<div id="vm-header-logo" class="hidden-xs pull-left">
+				<img src="/App/themes/vonMorgen/images/logoanimation.gif" style="width: 139px; height: 69px;" />
+			</div>
+			<!--nav-->
+			<nav class="collapse navbar-collapse bs-navbar-collapse">
+				<div id="vm-nav-2">
+					<a class="" href="#map">Spenden</a>
+					<a class="" href="#">Kontakt</a>
+					<a class="" href="#">Login/Sign Up</a>
+				</div>
+				<div id="vm-nav-1">
+					<a class="" href="#map">Karte</a>
+					<a class="" href="#">Blog</a>
+					<a class="" href="#">Workshops</a>
+					<a class="" href="#">Mitmachen</a>
+					<a class="" href="#">Info</a>
+				</div>
+			</nav>
+			<!--/nav-->
 		</div>
 
-		<!--nav-->
-		<nav class="collapse navbar-collapse bs-navbar-collapse">
-			<div class="btn-group form-group">
-				<button type="button" class="btn btn-default">Karte</button>
-				<button type="button" class="btn btn-default">Blog</button>
-				<button type="button" class="btn btn-default">Workshops</button>
-				<button type="button" class="btn btn-default">Mitmachen</button>
-				<button type="button" class="btn btn-default">Info</button>
+		<!--search-->
+		<div id="vm-search-row" class="row">
+			<div id="vm-nav-direct" class="btn-group pull-left">
+				<a href="#add" class="btn bd-l bd-r" title="Neuen Eintrag hinzufügen"><i id="vm-nav-add" class="fa fa-fw fa-plus"></i></a>
+				<a href="#" class="btn bd-l bd-r disabled" title="aktuelle Position bestimmen"><i id="vm-nav-add" class="fa fa-fw fa-crosshairs"></i></a>
 			</div>
-			<div class="btn-group form-group">
-				<button type="button" class="btn btn-default">Initiativen &amp; Inspirationen</button>
-				<button type="button" class="btn btn-default">Initiativen &amp; Inspirationen</button>
-				<button type="button" class="btn btn-default">Events &amp; Begegnungen</button>
-				<button type="button" class="btn btn-default">Unterehmen &amp; Einkaufen</button>
-			</div>
-
-			<br />
-			<form class="navbar-form col-sm-4 hidden-xs" role="search" style="margin:0; padding: 0 2px 0 0; width: auto; ">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="search" style="width: 200px; min-height: 34px;"
-						   id="searchFor" name="searchFor" autocomplete="off" spellcheck="false" autofocus="autofocus"
-						   data-bind="value: location.searchFor, select2: {multiple: true, minimumInputLength: 1, query: suggestQuery }">
-					<div class="input-group-btn" style="vertical-align:top;">
-						<button id="startSearchBtn" title="Suchen" class="btn btn-default tour-e-step-search" tabindex="-1" data-bind="click: search"><i class="fa fa-search fa-fw"></i></button>
-					</div>
-					<select id="sortBy" class="form-control hidden" data-bind=" options: location.sortOptions , optionsText: 'Name', value: location.sortBy "></select>
+			<form id="search-bar" class="navbar-form hidden-xs" role="search">
+				<input name="searchFor"
+					   class="searchFor"
+					   type="text"
+					   placeholder="search"
+					   autocomplete="off" spellcheck="false" autofocus="autofocus"
+					   >
+				<!--data-bind="value: location.searchFor, select2: {multiple: true, minimumInputLength: 1, query: suggestQuery }"-->
+				<a id="startSearchBtn" title="Suchen" class="" tabindex="-1" data-bind="click: search"> <i class="fa fa-fw fa-search"></i></a>
+				<div id="vm-search-options" class="pull-right">
+					<a class="btn bd-l bd-r initiative active" href="#">
+						Initiativen &amp; Inspirationen
+					</a><a class="btn bd-l bd-r event" href="#">
+						Events &amp; Begegnungen
+					</a><a class="btn bd-l bd-r shop" href="#">
+						Unterehmen &amp; Einkaufen
+					</a> <a id="searchOptionsBtn" class="" tabindex="-1" data-bind=""> <i class="fa fa-fw fa-bars"></i></a>
 				</div>
 			</form>
-			<div class="btn-group">
-				<button type="button" class="btn btn-default">+</button>
-			</div>
-		</nav>
-		<!--/nav-->
-
+		</div>
 	</div>
 </header>

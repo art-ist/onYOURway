@@ -11,7 +11,7 @@ define([
         self.app = app;
         self.location = location;
         self.manager = location.context;
-        self.region = ko.observable(3);
+        self.region = ko.observable(1);
 
     	getRegions = function (query) {
     		if (query && query.term) {
