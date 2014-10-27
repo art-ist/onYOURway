@@ -52,7 +52,7 @@
 
 				<div class="form-group">
 					<label for="addSiteDescription" class="translate">Description:</label>
-                    <textarea data-bind="value: entity.Description"  class="form-control translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"></textarea>
+					<textarea data-bind="value: entity.Description" class="form-control translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"></textarea>
 				</div>
 
 				<!--<section class="panel locationContainer position">
@@ -80,8 +80,8 @@
 					</div>
 				</div>
 				<div class="form-group">
-                    <div class="btn btn-large btn-warning updatePosition" data-bind="click: setMarker"><i class="fa fa-map-marker" /> <span class="translate">get position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
-                    <div class="btn btn-large btn-warning pull-right updateAddress" data-bind="click: setAddress"><i class="fa fa-arrow-up icon-highlight" /> <span class="translate">get address</span> <i class="fa fa-envelope" /></div>
+					<div class="btn btn-large btn-warning updatePosition" data-bind="click: setMarker"><i class="fa fa-map-marker" /> <span class="translate">get position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
+					<div class="btn btn-large btn-warning pull-right updateAddress" data-bind="click: setAddress"><i class="fa fa-arrow-up icon-highlight" /> <span class="translate">get address</span> <i class="fa fa-envelope" /></div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
@@ -144,7 +144,7 @@
 						<option value="yes">voll rollstuhlgerecht</option>
 						<option value="limited">teilweise rollstuhlgerecht</option>
 						<option value="no">nicht rollstuhlgerecht</option>
-                    </select>
+					</select>
 				</div>
 
 				<!--<div class="line photo">
@@ -181,14 +181,34 @@
 			</div>
 			<div class="modal-body">
 				<div class=" open">
-					<h3>
-						<i class="icon-plus"></i><i class="icon-minus"></i>
-						<span data-text="Sustainable Living" class="translate">General Tags</span>
-					</h3>
-					<h3>
+
+					<!--<h3>
 						<i class="icon-plus"></i><i class="icon-minus"></i>
 						<span data-text="Sustainable Living" class="translate">Transformap</span>
-					</h3>
+					</h3>-->
+
+					<!--<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="">
+									<a data-toggle="collapse" data-parent="#accordion" href="#group_172" data-bind="attr: { href: '#'+Id }">
+										<i class="icon-plus"></i><i class="icon-minus"></i> <span data-bind="text: $data.name.Name || $data.name[0].Name"></span>
+									</a>
+								</h4>
+							</div>
+						</div>
+						<div id="group_172" class="panel-collapse collapse" data-bind="attr: { id: Id }">
+							<ul class="panel-body list-group" data-bind="foreach: tags">
+
+								<li class="list-group-item" data-bind="attr: { id: Id }">
+									<h5 class="m-t-n-xxs m-b-n-xxs translate">
+										<span data-bind="text: $data.name.Name || $data.name[0].Name"></span><br />
+										<small data-bind="text: $data.name.Name || $data.name[0].Name">Here you can find food, that is produced sustainably and cooperatively or 'saved' from being thrown away. Some is shared, some produced together, and some is given away.</small>
+									</h5>
+								</li>
+							</ul>
+						</div>
+					</div>-->
 
 					<div class="panel-group" id="accordion">
 						<div class="panel panel-default">
@@ -303,7 +323,7 @@
 							</ul>
 						</div>
 					</div>
-					
+
 					<div class="panel-group" id="accordion">
 						<div class="panel panel-default">
 							<div class="panel-heading">

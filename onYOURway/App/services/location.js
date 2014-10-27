@@ -24,7 +24,7 @@ define([
 		dataService: locareDataService,
 		metadataStore: locateMetadata
 	});
-	
+
 	// add basic auth header to breeze calls
 	//var ajaxAdapter = breeze.config.getAdapterInstance("ajax");
 	//ajaxAdapter.defaultSettings = {
@@ -104,6 +104,7 @@ define([
 		mapLocations: ko.observableArray(),
 		searchSuggestions: ko.observableArray(),
 		tags: ko.observableArray(),
+		getTaxonomy: getTaxonomy,
 
 		selectedItem: ko.observable(), //current location
 		selectedItems: ko.observableArray(), //last selected locations (max: settings.maxSelectedItems)
@@ -167,7 +168,7 @@ define([
 			editLayer: null
 		},
 
-	    //methods
+		//methods
 		initializeMap: initializeMap,
 
 		setTileLayer: setTileLayer,
@@ -202,22 +203,22 @@ define([
 	//#endregion Constructor 
 	return location;
 
-    //#region Initializer
+	//#region Initializer
 	function initializeMetadata() {
-	    //Fetch Metadata, add COMPUTED PROPERTIES and LOAD DATA
-	    //locateContext.fetchMetadata()
-	    //  .then(function () {
-	    locateMetadata.importMetadata(location.metadata);
-	    logger.log('metadata loaded', 'location');
+		//Fetch Metadata, add COMPUTED PROPERTIES and LOAD DATA
+		//locateContext.fetchMetadata()
+		//  .then(function () {
+		locateMetadata.importMetadata(location.metadata);
+		logger.log('metadata loaded', 'location');
 
-	    //Extensions for computed Properties (see: http://stackoverflow.com/questions/17323290/accessing-notmapped-computed-properties-using-breezejs-and-angularjs)
-	    var Location = function () {
-	        this.kind = "";
-	        this.tags = [];
-	        this.open = [];
-	    };
+		//Extensions for computed Properties (see: http://stackoverflow.com/questions/17323290/accessing-notmapped-computed-properties-using-breezejs-and-angularjs)
+		var Location = function () {
+			this.kind = "";
+			this.tags = [];
+			this.open = [];
+		};
 
-	    locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location);
+		locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location);
 	}
 
 	function initializeMap(containerId) {
@@ -238,9 +239,9 @@ define([
 				_drawPointer();
 			},
 			'click': function (event) {
-			    if (location.siteCollectorMode()) {
-			        _setSiteCollectorMarker(event.latlng, true);
-			    }
+				if (location.siteCollectorMode()) {
+					_setSiteCollectorMarker(event.latlng, true);
+				}
 			}
 		});
 
@@ -313,33 +314,33 @@ define([
 	} //_drawVeilOfSilence
 
 	//function _itemMouseOver() { }
-    //function _itemMouseOut() { }
+	//function _itemMouseOut() { }
 
-    /** this function is registered as click-handler for the map during map initialization,
+	/** this function is registered as click-handler for the map during map initialization,
      *   but this click handler it is only executed if location.siteCollectorMode is active! 
      *  this function is also called when the siteCollectorCoords observable gets updated!
      */
 	function _setSiteCollectorMarker(geo, updateCoords) {
-	    if (!location.siteCollectorMarker) {
-	        location.siteCollectorMarker = L.marker(geo.coords ? [geo.coords[1], geo.coords[0]] : geo, {
-	            dragable: true,
-	            prefix: "fa",
-	            title: "New Entry",
-	            icon: _getLocationIcon(false, true)
-	        });
-	        location.siteCollectorMarker.addTo(location.map);
-	        location.siteCollectorMarker.dragging.enable();
-	        location.siteCollectorMarker.on("dragend", function() {
-	            location.siteCollectorCoords(location.siteCollectorMarker.getLatLng());
-	        });
-	    } else {
-	        location.siteCollectorMarker.setLatLng(geo.coords ? [geo.coords[1], geo.coords[0]] : geo);
-	    }
-	    if (updateCoords) {
-	        location.siteCollectorCoords(location.siteCollectorMarker.getLatLng());
-	    }
-	    _panMap(location.siteCollectorMarker);
-	    return location.siteCollectorMarker;
+		if (!location.siteCollectorMarker) {
+			location.siteCollectorMarker = L.marker(geo.coords ? [geo.coords[1], geo.coords[0]] : geo, {
+				dragable: true,
+				prefix: "fa",
+				title: "New Entry",
+				icon: _getLocationIcon(false, true)
+			});
+			location.siteCollectorMarker.addTo(location.map);
+			location.siteCollectorMarker.dragging.enable();
+			location.siteCollectorMarker.on("dragend", function () {
+				location.siteCollectorCoords(location.siteCollectorMarker.getLatLng());
+			});
+		} else {
+			location.siteCollectorMarker.setLatLng(geo.coords ? [geo.coords[1], geo.coords[0]] : geo);
+		}
+		if (updateCoords) {
+			location.siteCollectorCoords(location.siteCollectorMarker.getLatLng());
+		}
+		_panMap(location.siteCollectorMarker);
+		return location.siteCollectorMarker;
 	}
 
 	function _drawPointer(mode) { //draws a pointer to connect the listitem of the selected venture with its marker
@@ -420,7 +421,7 @@ define([
 		  	var regions = d.results;
 		  	logger.log(regions.length + " Regions found", 'location');
 		  	location.regions(regions);
-			//TODO: Set first region as default -> select default region based on  settings / current location
+		  	//TODO: Set first region as default -> select default region based on  settings / current location
 		  	setRegion(0);
 		  })
 		  .fail(function (error) {
@@ -796,7 +797,7 @@ define([
 			//ToDo: in Select Region auslagern?
 			setView(0);
 		}
-		_drawVeilOfSilence(location.map, [ regions[index] ]); //highlight the selected region only
+		_drawVeilOfSilence(location.map, [regions[index]]); //highlight the selected region only
 	}
 
 	function setView(i) {
@@ -1279,6 +1280,26 @@ define([
 		 });
 	} //editLocation
 
+	function getTaxonomy(region, lang) {
+		var query = breeze.EntityQuery.from("GetTaxonomy");
+		query.parameters = {
+			RegionId: region || 1,
+			Lang: lang
+		};
+
+		return locateContext
+			.executeQuery(query)
+			.then(function (d) {
+				logger.log(d.results.length + " Tags loaded", 'location - getTaxonomy', d.results);
+			})
+			.fail(function (error) {
+				var msg = breeze.saveErrorMessageService.getErrorMessage(error);
+				error.message = msg;
+				logger.logError("Loading Tags failed.", 'location - getTaxonomy', error);
+				throw error;
+			});
+	} //loadTags
+
 	//#endregion edit
 
 	//#region baseMap
@@ -1294,7 +1315,7 @@ define([
 		var center = location.map.getCenter();
 		var z = location.map.getZoom();
 		logger.log('called', 'baseMap Edit Osm', { center: center, zoom: z });
-		window.open('http://www.openstreetmap.org/edit?'+ 'editor=id' + '#map=' + z + '/' + center.lat + '/' + center.lng);
+		window.open('http://www.openstreetmap.org/edit?' + 'editor=id' + '#map=' + z + '/' + center.lat + '/' + center.lng);
 	}
 
 	function baseMapAboutOsm() {
