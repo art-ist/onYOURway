@@ -29,6 +29,7 @@ define([
   	app.location.settings.showList(false);
   	app.location.settings.showDetails(false);
   	app.location.settings.forceMap = true;
+  	app.location.settings.showVeilOfSilence = false;
   	app.location.settings.disableDetails = true;
 
     var routes = [

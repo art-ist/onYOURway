@@ -87,6 +87,7 @@ define([
 			showMap: ko.observable('auto'),
 			showList: ko.observable('auto'),
 			showDetails: ko.observable('auto'),
+			showVeilOfSilence: true,
 			showPointer: true,
 			showIndicator: true,
 
@@ -296,6 +297,7 @@ define([
 	} //_getLocationIcon
 
 	function _drawVeilOfSilence(map, regions) {
+		if (!location.settings.showVeilOfSilence) return;
 		var bounds = [
 		  L.GeoJSON.coordsToLatLngs([[90, -180], [90, 180], [-90, 180], [-90, -180], [90, -180]])
 		];
