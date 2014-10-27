@@ -14,14 +14,16 @@
 				<div id="vm-nav-2">
 					<a class="" href="#map">Spenden</a>
 					<a class="" href="#">Kontakt</a>
-					<a class="" href="#">Login/Sign Up</a>
+					<a class="" href="#">Anmelden</a>
 				</div>
 				<div id="vm-nav-1">
-					<a class="" href="#map">Karte</a>
-					<a class="" href="#">Blog</a>
-					<a class="" href="#">Workshops</a>
-					<a class="" href="#">Mitmachen</a>
-					<a class="" href="#">Info</a>
+					<div>
+						<a class="" href="#map">Karte</a>
+						<a class="" href="#">Blog</a>
+						<a class="" href="#">Workshops</a>
+						<a class="" href="#">Mitmachen</a>
+						<a class="" href="#">Info</a>
+					</div>
 				</div>
 			</nav>
 			<!--/nav-->
@@ -38,18 +40,21 @@
 					   class="searchFor"
 					   type="text"
 					   placeholder="search"
-					   autocomplete="off" spellcheck="false" autofocus="autofocus"
-					   >
+					   autocomplete="off" spellcheck="false" autofocus="autofocus">
 				<!--data-bind="value: location.searchFor, select2: {multiple: true, minimumInputLength: 1, query: suggestQuery }"-->
 				<a id="startSearchBtn" title="Suchen" class="" tabindex="-1" data-bind="click: search"> <i class="fa fa-fw fa-search"></i></a>
 				<div id="vm-search-options" class="pull-right">
 					<a class="btn bd-l bd-r initiative active" href="#">
-						Initiativen &amp; Inspirationen
+						<span class="hidden-sm">Initiativen &amp; Inspirationen</span>
+						<span class="visible-sm">Initiativen</span>
 					</a><a class="btn bd-l bd-r event" href="#">
-						Events &amp; Begegnungen
+						<span class="hidden-sm">Events &amp; Begegnungen</span>
+						<span class="visible-sm">Events</span>
 					</a><a class="btn bd-l bd-r shop" href="#">
-						Unterehmen &amp; Einkaufen
-					</a> <a id="searchOptionsBtn" class="" tabindex="-1" data-bind=""> <i class="fa fa-fw fa-bars"></i></a>
+						<span class="hidden-sm">Unterehmen &amp; Einkaufen</span>
+						<span class="visible-sm">Unterehmen</span>
+					</a>
+					<a id="searchOptionsBtn" class="" tabindex="-1" data-bind=""> <i class="fa fa-fw fa-bars"></i></a>
 				</div>
 			</form>
 		</div>

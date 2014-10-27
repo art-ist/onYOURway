@@ -17,7 +17,7 @@
 
 //colors
 @initiatives: @gruen;
-@events:  @rosa;
+@events: @rosa;
 @shops: @blau;
 
 @accent1: @dunkelgrau;
@@ -30,7 +30,7 @@
 /* onyYOURway overrides      */
 
 #mySiteCollector {
-	background-color: @weiss; 
+	background-color: @weiss;
 	top: 113px;
 	/*bottom: 0px;
 	top: 30%;
@@ -50,6 +50,7 @@ html {
 	line-height: 1.2em;
 	letter-spacing: 0.06em;
 }
+
 body {
 	background-color: @weiss;
 	color: @kohle;
@@ -69,6 +70,12 @@ body {
 #navbar > .container {
 	position: relative;
 }
+
+#vm-header-logo {
+	position: absolute;
+	margin-top: 10px;
+}
+
 #vm-header-row {
 	height: 70px;
 	width: 100%;
@@ -83,6 +90,7 @@ body {
 	text-decoration: none !important;
 	text-align: center;
 }
+
 #navbar a:hover {
 	font-weight: 600;
 }
@@ -94,22 +102,35 @@ body {
 	height: 10px;
 	font-size: 10px;
 }
+
 #vm-nav-2 a {
 	width: 90px;
-	margin-left: 3px; margin-right: 3px;
+	margin-left: 3px;
+	margin-right: 3px;
 }
 
 #vm-nav-1 {
+	width: 100%;
 	position: relative;
 	margin: 35px auto 0;
 	font-size: 15px;
 }
+
+#vm-nav-1 > div {
+	display: table;
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 #vm-nav-1 a {
 	width: 120px;
-	padding: 6px 0; 
-	margin-left: 5px; margin-right: 5px;
+	padding: 6px 0;
+	margin-left: 5px;
+	margin-right: 5px;
 	border-bottom: 1px solid @weiss;
 }
+
 #vm-nav-1 a:hover {
 	font-weight: 600;
 	border-bottom: 1px solid @kohle;
@@ -121,20 +142,25 @@ body {
 	width: 100%;
 	padding-top: 5px;
 }
+
 #search-bar {
 	width: 100%;
 }
+
 #vm-search-row > * {
 	display: inline-block;
 	height: 36px;
 }
+
 #vm-search-row i {
 	font-size: 20px;
 }
+
 #vm-search-row .bd-l {
 	border-left: 1px solid @hellgrau;
 	margin-right: 0;
 }
+
 #vm-search-row .bd-r {
 	border-right: 1px solid @hellgrau;
 	margin-right: -1px;
@@ -150,8 +176,8 @@ body {
 
 #vm-search-options {
 	/*width: 680px;*/
-
 }
+
 #vm-search-options a.btn {
 	width: 220px;
 	text-align: center;
@@ -162,13 +188,33 @@ body {
 	border-radius: 0;
 	border-bottom: 3px solid @hellgrau;
 }
-#vm-search-options .initiative	{ border-bottom-color: @initiatives; }
-#vm-search-options .event		{ border-bottom-color: @events; }
-#vm-search-options .shop		{ border-bottom-color: @shops; }
 
-#vm-search-options .active.initiative	{ color: @weiss	!important; background-color: @initiatives; }
-#vm-search-options .active.event		{ color: @weiss	!important; background-color: @events; }
-#vm-search-options .active.shop			{ color: @weiss	!important; background-color: @shops; }
+#vm-search-options .initiative {
+	border-bottom-color: @initiatives;
+}
+
+#vm-search-options .event {
+	border-bottom-color: @events;
+}
+
+#vm-search-options .shop {
+	border-bottom-color: @shops;
+}
+
+#vm-search-options .active.initiative {
+	color: @weiss !important;
+	background-color: @initiatives;
+}
+
+#vm-search-options .active.event {
+	color: @weiss !important;
+	background-color: @events;
+}
+
+#vm-search-options .active.shop {
+	color: @weiss !important;
+	background-color: @shops;
+}
 
 #vm-nav-direct {
 	position: absolute;
@@ -180,11 +226,22 @@ input.searchFor {
 	margin-left: 45px;
 	width: 360px !important;
 }
-
-@media (min-width: 992px) and (max-width: 1199px) { /* md */
+/*(min-width: 992px) and*/
+@media (max-width: 1199px) { /* md */
 	input.searchFor {
 		margin-left: 0;
 		width: 205px !important;
+	}
+}
+
+@media (max-width: 991px) { /* md */
+	#vm-search-options a.btn {
+		width: 130px;
+	}
+	#vm-nav-1 a {
+		width: 110px;
+		margin-left: 0;
+		margin-right: 0;
 	}
 }
 /* md */
@@ -265,7 +322,6 @@ ul, ol {
 }
 
 .btn-success:active, .btn-success:focus, .btn-success:hover {
-
 }
 
 .btn-warning {

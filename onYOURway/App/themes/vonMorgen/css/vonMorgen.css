@@ -34,6 +34,10 @@ body {
 #navbar > .container {
   position: relative;
 }
+#vm-header-logo {
+  position: absolute;
+  margin-top: 10px;
+}
 #vm-header-row {
   height: 70px;
   width: 100%;
@@ -62,9 +66,16 @@ body {
   margin-right: 3px;
 }
 #vm-nav-1 {
+  width: 100%;
   position: relative;
   margin: 35px auto 0;
   font-size: 15px;
+}
+#vm-nav-1 > div {
+  display: table;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 #vm-nav-1 a {
   width: 120px;
@@ -149,11 +160,23 @@ input.searchFor {
   margin-left: 45px;
   width: 360px !important;
 }
-@media (min-width: 992px) and (max-width: 1199px) {
+/*(min-width: 992px) and*/
+@media (max-width: 1199px) {
   /* md */
   input.searchFor {
     margin-left: 0;
     width: 205px !important;
+  }
+}
+@media (max-width: 991px) {
+  /* md */
+  #vm-search-options a.btn {
+    width: 130px;
+  }
+  #vm-nav-1 a {
+    width: 110px;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 /* md */
