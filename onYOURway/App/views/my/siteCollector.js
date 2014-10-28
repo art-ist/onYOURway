@@ -45,18 +45,20 @@ define([
 			}
 			location.mapLocations([]);
 			location.siteCollectorMode(true);
-			if (self.taxonomy().length == 0) {
-				location.getTaxonomy(self.region(), app.lang)
-					.then(function (d) {
-						self.taxonomy(d.results[0].tags);
-						logger.warn('taxonomy loaded', 'siteCollector - activate', self.taxonomy());
-					})
-			}
 			return true;
 		};
 
 		self.binding = function () {
-			logger.log('binder', 'siteCollector');
+		    logger.log('binder', 'siteCollector');
+
+			if (self.taxonomy().length == 0) {
+			    location.getTaxonomy(3 /* self.region() */, app.lang)
+					.then(function (d) {
+					    logger.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
+					    self.taxonomy(d.results[0].tags.tag);
+					})
+			}
+
 			self.entity = self.manager.createEntity('Location', {
 				Name: '',
 				Lang: 'de',
@@ -239,6 +241,14 @@ define([
 
 		self.addTags = function () {
 			self.toggleTagSelection();
+		}
+
+		self.toggleTag = function (tag) {
+		    if (self.entity.Tags.indexOf(tag) >= 0) {
+		        self.entity.Tags.remove(tag);
+		    } else {
+		        self.entity.Tags.push(tag);
+		    }
 		}
 
 	};

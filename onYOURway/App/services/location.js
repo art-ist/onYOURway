@@ -220,7 +220,11 @@ define([
 			this.open = [];
 		};
 
-		locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location);
+		var myLocationInit = function (myLocation) {
+		    myLocation.Tags = ko.observableArray();
+		};
+
+		locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location, myLocationInit);
 	}
 
 	function initializeMap(containerId) {
@@ -1292,9 +1296,11 @@ define([
 
 		return locateContext
 			.executeQuery(query)
-			.then(function (d) {
+			/*.then(function (d) {
 				logger.log(d.results.length + " Tags loaded", 'location - getTaxonomy', d.results);
 			})
+            the result is only available in the FIRST .then callback / listener :(
+            */
 			.fail(function (error) {
 				var msg = breeze.saveErrorMessageService.getErrorMessage(error);
 				error.message = msg;
