@@ -106,7 +106,9 @@ define([
 			'09:00-16:00; Su,PH closed'
 		];
 
-		//#endregion opening_hours
+	    //#endregion opening_hours
+
+		self.countries = location.getCountries();
 
 		self.latitude = ko.computed({
 			read: function () {
