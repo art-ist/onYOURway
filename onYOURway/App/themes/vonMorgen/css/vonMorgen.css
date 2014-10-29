@@ -151,32 +151,29 @@ body {
   color: #ffffff !important;
   background-color: #009889;
 }
-#vm-nav-direct {
-  position: absolute;
-  left: -100px;
-  bottom: 0;
-}
 input.searchFor {
-  margin-left: 45px;
-  width: 360px !important;
+  width: 320px !important;
 }
 /*(min-width: 992px) and*/
 @media (max-width: 1199px) {
   /* md */
+  #vm-search-options a.btn {
+    width: 215px;
+  }
   input.searchFor {
-    margin-left: 0;
-    width: 205px !important;
+    width: 140px !important;
   }
 }
 @media (max-width: 991px) {
   /* md */
   #vm-search-options a.btn {
-    width: 130px;
+    width: 120px;
+  }
+  input.searchFor {
+    width: 210px !important;
   }
   #vm-nav-1 a {
     width: 110px;
-    margin-left: 0;
-    margin-right: 0;
   }
 }
 /* md */
