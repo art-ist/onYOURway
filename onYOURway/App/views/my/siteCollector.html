@@ -102,9 +102,9 @@
 
 					<div class="form-group">
 
-						<ul class="iconList" data-bind="foreach: entity.Tags">
-                            <li data-bind="text: $data.name.Name || $data.name[0].Name"></li>
-                        </ul>
+						<ul class="item-tags" data-bind="foreach: entity.Tags">
+							<li data-bind="text: $data.name.Name || $data.name[0].Name"></li>
+						</ul>
 
 						<button class="btn btn-warning btn-block" id="addTags" data-bind="click: toggleTagSelection"><i class="icon-plus"></i> <span class="translate">Select Tags</span></button>
 					</div>
@@ -215,8 +215,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div data-text="Cancel" class="btn btn-default updateIcons translate" data-bind="click: toggleTagSelection">Cancel</div>
-                <div data-text="Done" class="btn btn-success updateIcons translate" data-bind="click: addTags">Done</div>
+                <!--<div data-text="Cancel" class="btn btn-default updateIcons translate" data-bind="click: toggleTagSelection">Cancel</div>-->
+				<div data-text="Done" class="btn btn-success updateIcons translate" data-bind="click: toggleTagSelection">Done</div>
             </div>
         </div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog --><div style="width: 578px; left: 428px; z-index: 9999999; display: none;" class="sticky"><div data-i="0" data-text="Done" class="btn btn-default updateIcons translate">Done</div></div>

@@ -239,9 +239,9 @@ define([
 				.toggleClass('hidden');
 		}
 
-		self.addTags = function () {
-			self.toggleTagSelection();
-		}
+		//self.addTags = function () {
+		//	self.toggleTagSelection();
+		//}
 
 		self.toggleTag = function (tag) {
 		    if (self.entity.Tags.indexOf(tag) >= 0) {

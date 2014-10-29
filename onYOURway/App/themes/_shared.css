@@ -49,6 +49,18 @@
     width: 100%;
   }
 }
+#mySiteCollector ul.item-tags {
+  list-style: none;
+  list-style-type: none;
+  padding: 0 3px;
+}
+#mySiteCollector ul.item-tags > li {
+  display: block;
+  padding: 3px 5px;
+  margin-bottom: 3px;
+  background-color: silver;
+  border-radius: 3px;
+}
 /*#endregion locationDetails*/
 /**#region map */
 #map.siteCollectorOpen {
