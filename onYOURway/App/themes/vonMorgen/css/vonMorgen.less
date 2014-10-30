@@ -249,10 +249,25 @@ input.searchFor {
 
 /*#region theme */
 
-input.form-control, textarea.form-control, select.form-control {
+input.form-control, 
+textarea.form-control, 
+select.form-control, 
+.select2-container
+{
 	border: none;
+	box-shadow: none;
 	border-radius: 0;
 	border-bottom: 3px solid @dunkelgrau;
+	min-height: 30px;
+	background-image: none;
+}
+.select2-container .select2-choice {
+	background-image: none;
+	min-height: 30px;
+	padding: 0 12px 6px 12px;
+}
+.select2-result.select2-result-selectable.select2-highlighted {
+	background-color: @dunkelgrau;
 }
 /*::-webkit-input-placeholder { color: @hellgrau; }
 ::-moz-placeholder { color: @hellgrau; }
