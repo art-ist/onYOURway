@@ -19,7 +19,7 @@ namespace onYOURway.Models
             this.Names = new HashSet<TagName>();
             this.Children = new HashSet<Tag>();
             this.Parents = new HashSet<Tag>();
-            this.Locations = new HashSet<Location>();
+            this.Locations = new HashSet<HasTag>();
         }
     
         public int Id { get; set; }
@@ -32,6 +32,6 @@ namespace onYOURway.Models
         public virtual ICollection<TagName> Names { get; set; }
         public virtual ICollection<Tag> Children { get; set; }
         public virtual ICollection<Tag> Parents { get; set; }
-        public virtual ICollection<Location> Locations { get; set; }
+        public virtual ICollection<HasTag> Locations { get; set; }
     }
 }

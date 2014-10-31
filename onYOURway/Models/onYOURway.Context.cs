@@ -50,6 +50,8 @@ namespace onYOURway.Models
         public virtual DbSet<Street> Streets { get; set; }
         public virtual DbSet<LocationLink> LocationLinks { get; set; }
         public virtual DbSet<LocationAlias> LocationAliases { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<HasTag> HasTags { get; set; }
     
         public virtual ObjectResult<SearchSuggestion> SearchSuggestions(Nullable<int> regionId, string lang)
         {

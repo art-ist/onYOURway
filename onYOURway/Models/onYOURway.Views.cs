@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(onYOURway.Models.onYOURwayEntities),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsabaec308794d8076a8646471b929464a48ee6aa829d34f80f8af3807141df044))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsd33c3e9091898b07ce096b64582e8ca680ab9949486ae7cf1ae54588cd9acc7f))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySetsabaec308794d8076a8646471b929464a48ee6aa829d34f80f8af3807141df044 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySetsd33c3e9091898b07ce096b64582e8ca680ab9949486ae7cf1ae54588cd9acc7f : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "abaec308794d8076a8646471b929464a48ee6aa829d34f80f8af3807141df044"; }
+            get { return "d33c3e9091898b07ce096b64582e8ca680ab9949486ae7cf1ae54588cd9acc7f"; }
         }
 
         /// <summary>
@@ -137,12 +137,12 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView17();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.TagIsA")
+            if (extentName == "onYOURwayModelStoreContainer.HasTag")
             {
                 return GetView18();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.HasTag")
+            if (extentName == "onYOURwayModelStoreContainer.TagIsA")
             {
                 return GetView19();
             }
@@ -187,12 +187,12 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView27();
             }
 
-            if (extentName == "onYOURwayEntities.TagIsA")
+            if (extentName == "onYOURwayEntities.HasTags")
             {
                 return GetView28();
             }
 
-            if (extentName == "onYOURwayEntities.HasTag")
+            if (extentName == "onYOURwayEntities.TagIsA")
             {
                 return GetView29();
             }
@@ -285,6 +285,16 @@ namespace Edm_EntityMappingGeneratedViews
             if (extentName == "onYOURwayEntities.Streets")
             {
                 return GetView47();
+            }
+
+            if (extentName == "onYOURwayModelStoreContainer.Country")
+            {
+                return GetView48();
+            }
+
+            if (extentName == "onYOURwayEntities.Countries")
+            {
+                return GetView49();
             }
 
             return null;
@@ -575,13 +585,14 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TagName
-        [onYOURwayModel.Store.TagName](T1.TagName_TagId, T1.TagName_Lang, T1.TagName_Name, T1.TagName_Show)
+        [onYOURwayModel.Store.TagName](T1.TagName_TagId, T1.TagName_Lang, T1.TagName_Name, T1.TagName_Show, T1.TagName_Description)
     FROM (
         SELECT 
             T.TagId AS TagName_TagId, 
             T.Lang AS TagName_Lang, 
             T.Name AS TagName_Name, 
             T.Show AS TagName_Show, 
+            T.Description AS TagName_Description, 
             True AS _from0
         FROM onYOURwayEntities.TagNames AS T
     ) AS T1");
@@ -616,7 +627,7 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Location1
-        [onYOURwayModel.Store.Location1](T1.Location1_Id, T1.Location1_Name, T1.Location1_Lang, T1.Location1_Country, T1.Location1_Province, T1.Location1_City, T1.Location1_Zip, T1.Location1_Street, T1.Location1_HouseNumber, T1.Location1_Phone, T1.Location1_CreatedBy, T1.Location1_CreatedAt, T1.Location1_ModifiedBy, T1.Location1_ModifiedAt, T1.Location1_Position, T1.Location1_Icon, T1.Location1_OpeningHours, T1.Location1_Description)
+        [onYOURwayModel.Store.Location1](T1.Location1_Id, T1.Location1_Name, T1.Location1_Lang, T1.Location1_Country, T1.Location1_Province, T1.Location1_City, T1.Location1_Zip, T1.Location1_Street, T1.Location1_HouseNumber, T1.Location1_Phone, T1.Location1_CreatedBy, T1.Location1_CreatedAt, T1.Location1_ModifiedBy, T1.Location1_ModifiedAt, T1.Location1_Position, T1.Location1_Icon, T1.Location1_OpeningHours, T1.Location1_Description, T1.Location1_Type)
     FROM (
         SELECT 
             T.Id AS Location1_Id, 
@@ -637,6 +648,7 @@ namespace Edm_EntityMappingGeneratedViews
             T.Icon AS Location1_Icon, 
             T.OpeningHours AS Location1_OpeningHours, 
             T.Description AS Location1_Description, 
+            T.Type AS Location1_Type, 
             True AS _from0
         FROM onYOURwayEntities.Locations AS T
     ) AS T1");
@@ -663,38 +675,39 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for onYOURwayModelStoreContainer.TagIsA.
-        /// </summary>
-        /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView18()
-        {
-            return new DbMappingView(@"
-    SELECT VALUE -- Constructing TagIsA
-        [onYOURwayModel.Store.TagIsA](T1.TagIsA_TagId, T1.TagIsA_ParentId)
-    FROM (
-        SELECT 
-            Key(T.Tag).Id AS TagIsA_TagId, 
-            Key(T.Parent).Id AS TagIsA_ParentId, 
-            True AS _from0
-        FROM onYOURwayEntities.TagIsA AS T
-    ) AS T1");
-        }
-
-        /// <summary>
         /// Gets the view for onYOURwayModelStoreContainer.HasTag.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView19()
+        private static DbMappingView GetView18()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing HasTag
         [onYOURwayModel.Store.HasTag](T1.HasTag_LocationId, T1.HasTag_TagId)
     FROM (
         SELECT 
-            Key(T.Location).Id AS HasTag_LocationId, 
-            Key(T.Tag).Id AS HasTag_TagId, 
+            T.LocationId AS HasTag_LocationId, 
+            T.TagId AS HasTag_TagId, 
             True AS _from0
-        FROM onYOURwayEntities.HasTag AS T
+        FROM onYOURwayEntities.HasTags AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for onYOURwayModelStoreContainer.TagIsA.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView19()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing TagIsA
+        [onYOURwayModel.Store.TagIsA](T1.TagIsA_TagId, T1.TagIsA_ParentId, T1.TagIsA_Position)
+    FROM (
+        SELECT 
+            Key(T.Tag).Id AS TagIsA_TagId, 
+            Key(T.Parent).Id AS TagIsA_ParentId, 
+            CAST(NULL AS [Edm.Int32]) AS TagIsA_Position, 
+            True AS _from0
+        FROM onYOURwayEntities.TagIsA AS T
     ) AS T1");
         }
 
@@ -785,13 +798,14 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TagNames
-        [onYOURwayModel.TagName](T1.TagName_TagId, T1.TagName_Lang, T1.TagName_Name, T1.TagName_Show)
+        [onYOURwayModel.TagName](T1.TagName_TagId, T1.TagName_Lang, T1.TagName_Name, T1.TagName_Show, T1.TagName_Description)
     FROM (
         SELECT 
             T.TagId AS TagName_TagId, 
             T.Lang AS TagName_Lang, 
             T.Name AS TagName_Name, 
             T.Show AS TagName_Show, 
+            T.Description AS TagName_Description, 
             True AS _from0
         FROM onYOURwayModelStoreContainer.TagName AS T
     ) AS T1");
@@ -826,7 +840,7 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Locations
-        [onYOURwayModel.Location](T1.Location_Id, T1.Location_Name, T1.Location_Lang, T1.Location_Country, T1.Location_Province, T1.Location_City, T1.Location_Zip, T1.Location_Street, T1.Location_HouseNumber, T1.Location_Phone, T1.Location_CreatedBy, T1.Location_CreatedAt, T1.Location_ModifiedBy, T1.Location_ModifiedAt, T1.Location_Position, T1.Location_Icon, T1.Location_OpeningHours, T1.Location_Description)
+        [onYOURwayModel.Location](T1.Location_Id, T1.Location_Name, T1.Location_Lang, T1.Location_Country, T1.Location_Province, T1.Location_City, T1.Location_Zip, T1.Location_Street, T1.Location_HouseNumber, T1.Location_Phone, T1.Location_CreatedBy, T1.Location_CreatedAt, T1.Location_ModifiedBy, T1.Location_ModifiedAt, T1.Location_Position, T1.Location_Icon, T1.Location_OpeningHours, T1.Location_Description, T1.Location_Type)
     FROM (
         SELECT 
             T.Id AS Location_Id, 
@@ -847,6 +861,7 @@ namespace Edm_EntityMappingGeneratedViews
             T.Icon AS Location_Icon, 
             T.OpeningHours AS Location_OpeningHours, 
             T.Description AS Location_Description, 
+            T.Type AS Location_Type, 
             True AS _from0
         FROM onYOURwayModelStoreContainer.Location1 AS T
     ) AS T1");
@@ -873,10 +888,28 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for onYOURwayEntities.TagIsA.
+        /// Gets the view for onYOURwayEntities.HasTags.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView28()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing HasTags
+        [onYOURwayModel.HasTag](T1.HasTag_LocationId, T1.HasTag_TagId)
+    FROM (
+        SELECT 
+            T.LocationId AS HasTag_LocationId, 
+            T.TagId AS HasTag_TagId, 
+            True AS _from0
+        FROM onYOURwayModelStoreContainer.HasTag AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for onYOURwayEntities.TagIsA.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView29()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TagIsA
@@ -895,34 +928,6 @@ namespace Edm_EntityMappingGeneratedViews
                     T.ParentId AS TagIsA_Parent_Id, 
                     True AS _from0
                 FROM onYOURwayModelStoreContainer.TagIsA AS T
-            ) AS T1
-        ) AS T2
-    ) AS T3");
-        }
-
-        /// <summary>
-        /// Gets the view for onYOURwayEntities.HasTag.
-        /// </summary>
-        /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView29()
-        {
-            return new DbMappingView(@"
-    SELECT VALUE -- Constructing HasTag
-        [onYOURwayModel.HasTag](T3.HasTag_Location, T3.HasTag_Tag)
-    FROM (
-        SELECT -- Constructing Location
-            CreateRef(onYOURwayEntities.Locations, row(T2.HasTag_Location_Id), [onYOURwayModel.Location]) AS HasTag_Location, 
-            T2.HasTag_Tag
-        FROM (
-            SELECT -- Constructing Tag
-                T1.HasTag_Location_Id, 
-                CreateRef(onYOURwayEntities.Tags, row(T1.HasTag_Tag_Id), [onYOURwayModel.Tag]) AS HasTag_Tag
-            FROM (
-                SELECT 
-                    T.LocationId AS HasTag_Location_Id, 
-                    T.TagId AS HasTag_Tag_Id, 
-                    True AS _from0
-                FROM onYOURwayModelStoreContainer.HasTag AS T
             ) AS T1
         ) AS T2
     ) AS T3");
@@ -1315,6 +1320,78 @@ namespace Edm_EntityMappingGeneratedViews
             T.Way AS Street_Way, 
             True AS _from0
         FROM onYOURwayModelStoreContainer.Street AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for onYOURwayModelStoreContainer.Country.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView48()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Country
+        [onYOURwayModel.Store.Country](T1.Country_ID, T1.Country_OBJECTID, T1.Country_NAME, T1.Country_ISO3, T1.Country_ISO2, T1.Country_FIPS, T1.Country_COUNTRY, T1.Country_ENGLISH, T1.Country_FRENCH, T1.Country_SPANISH, T1.Country_LOCAL, T1.Country_FAO, T1.[Country.WAS_ISO], T1.Country_SOVEREIGN, T1.Country_CONTINENT, T1.Country_UNREG1, T1.Country_UNREG2, T1.Country_EU, T1.Country_SQKM, T1.Country_geom)
+    FROM (
+        SELECT 
+            T.ID AS Country_ID, 
+            T.OBJECTID AS Country_OBJECTID, 
+            T.NAME AS Country_NAME, 
+            T.ISO3 AS Country_ISO3, 
+            T.ISO2 AS Country_ISO2, 
+            T.FIPS AS Country_FIPS, 
+            T.COUNTRY1 AS Country_COUNTRY, 
+            T.ENGLISH AS Country_ENGLISH, 
+            T.FRENCH AS Country_FRENCH, 
+            T.SPANISH AS Country_SPANISH, 
+            T.LOCAL AS Country_LOCAL, 
+            T.FAO AS Country_FAO, 
+            T.WAS_ISO AS [Country.WAS_ISO], 
+            T.SOVEREIGN AS Country_SOVEREIGN, 
+            T.CONTINENT AS Country_CONTINENT, 
+            T.UNREG1 AS Country_UNREG1, 
+            T.UNREG2 AS Country_UNREG2, 
+            T.EU AS Country_EU, 
+            T.SQKM AS Country_SQKM, 
+            T.geom AS Country_geom, 
+            True AS _from0
+        FROM onYOURwayEntities.Countries AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for onYOURwayEntities.Countries.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView49()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Countries
+        [onYOURwayModel.Country](T1.Country_ID, T1.Country_OBJECTID, T1.Country_NAME, T1.Country_ISO3, T1.Country_ISO2, T1.Country_FIPS, T1.Country_COUNTRY1, T1.Country_ENGLISH, T1.Country_FRENCH, T1.Country_SPANISH, T1.Country_LOCAL, T1.Country_FAO, T1.[Country.WAS_ISO], T1.Country_SOVEREIGN, T1.Country_CONTINENT, T1.Country_UNREG1, T1.Country_UNREG2, T1.Country_EU, T1.Country_SQKM, T1.Country_geom)
+    FROM (
+        SELECT 
+            T.ID AS Country_ID, 
+            T.OBJECTID AS Country_OBJECTID, 
+            T.NAME AS Country_NAME, 
+            T.ISO3 AS Country_ISO3, 
+            T.ISO2 AS Country_ISO2, 
+            T.FIPS AS Country_FIPS, 
+            T.COUNTRY AS Country_COUNTRY1, 
+            T.ENGLISH AS Country_ENGLISH, 
+            T.FRENCH AS Country_FRENCH, 
+            T.SPANISH AS Country_SPANISH, 
+            T.LOCAL AS Country_LOCAL, 
+            T.FAO AS Country_FAO, 
+            T.WAS_ISO AS [Country.WAS_ISO], 
+            T.SOVEREIGN AS Country_SOVEREIGN, 
+            T.CONTINENT AS Country_CONTINENT, 
+            T.UNREG1 AS Country_UNREG1, 
+            T.UNREG2 AS Country_UNREG2, 
+            T.EU AS Country_EU, 
+            T.SQKM AS Country_SQKM, 
+            T.geom AS Country_geom, 
+            True AS _from0
+        FROM onYOURwayModelStoreContainer.Country AS T
     ) AS T1");
         }
     }

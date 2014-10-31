@@ -32,7 +32,6 @@
         <EntityTypeShape EntityType="onYOURwayModel.Location" Width="1.5" PointX="7.125" PointY="4.125" />
         <AssociationConnector Association="onYOURwayModel.FK_oyw_ForeignId_Location" />
         <AssociationConnector Association="onYOURwayModel.FK_oyw_ProductSuggestion_Location" />
-        <AssociationConnector Association="onYOURwayModel.HasTag" />
         <EntityTypeShape EntityType="onYOURwayModel.MyLocation" Width="1.5" PointX="9.5" PointY="3.875" />
         <AssociationConnector Association="onYOURwayModel.FK_my_Location_UserProfile1" />
         <EntityTypeShape EntityType="onYOURwayModel.Street" Width="1.5" PointX="2.375" PointY="7.75" />
@@ -40,7 +39,11 @@
         <AssociationConnector Association="onYOURwayModel.FK_oyw_LocationLink_Location" />
         <EntityTypeShape EntityType="onYOURwayModel.LocationAlias" Width="1.5" PointX="4.625" PointY="4.875" />
         <AssociationConnector Association="onYOURwayModel.FK_oyw_LocationAlias_Location" />
-      </Diagram>
+        <EntityTypeShape EntityType="onYOURwayModel.Country" Width="1.5" PointX="6.625" PointY="10" />
+        <EntityTypeShape EntityType="onYOURwayModel.HasTag" Width="1.5" PointX="11.125" PointY="9.375" />
+        <AssociationConnector Association="onYOURwayModel.LocationHasTag" />
+        <AssociationConnector Association="onYOURwayModel.TagHasTag" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

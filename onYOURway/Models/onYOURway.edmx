@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="onYOURwayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="onYOURwayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Card">
           <Key>
             <PropertyRef Name="UserId" />
@@ -50,6 +50,31 @@
           <Property Name="Way" Type="geography" />
           <Property Name="Mode" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OBJECTID" Type="bigint" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="ISO3" Type="nvarchar" MaxLength="255" />
+          <Property Name="ISO2" Type="nvarchar" MaxLength="255" />
+          <Property Name="FIPS" Type="nvarchar" MaxLength="255" />
+          <Property Name="COUNTRY" Type="nvarchar" MaxLength="255" />
+          <Property Name="ENGLISH" Type="nvarchar" MaxLength="255" />
+          <Property Name="FRENCH" Type="nvarchar" MaxLength="255" />
+          <Property Name="SPANISH" Type="nvarchar" MaxLength="255" />
+          <Property Name="LOCAL" Type="nvarchar" MaxLength="255" />
+          <Property Name="FAO" Type="nvarchar" MaxLength="255" />
+          <Property Name="WAS_ISO" Type="nvarchar" MaxLength="255" />
+          <Property Name="SOVEREIGN" Type="nvarchar" MaxLength="255" />
+          <Property Name="CONTINENT" Type="nvarchar" MaxLength="255" />
+          <Property Name="UNREG1" Type="nvarchar" MaxLength="255" />
+          <Property Name="UNREG2" Type="nvarchar" MaxLength="255" />
+          <Property Name="EU" Type="int" />
+          <Property Name="SQKM" Type="real" />
+          <Property Name="geom" Type="geography" />
+        </EntityType>
         <EntityType Name="HasTag">
           <Key>
             <PropertyRef Name="LocationId" />
@@ -80,6 +105,7 @@
           <Property Name="Icon" Type="nvarchar" MaxLength="50" />
           <Property Name="OpeningHours" Type="varchar" MaxLength="1000" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Type" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="LocationAlias">
           <Key>
@@ -119,7 +145,7 @@
           <Property Name="Website" Type="varchar" MaxLength="1000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'onYOURway.oyw.ProductSuggestion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'onYOURway_Work.oyw.ProductSuggestion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductSuggestion">
           <Key>
             <PropertyRef Name="Item" />
@@ -144,7 +170,7 @@ warning 6002: The table/view 'onYOURway.oyw.ProductSuggestion' does not have a p
           <Property Name="Boundary" Type="geography" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'onYOURway.oyw.RegionAlias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'onYOURway_Work.oyw.RegionAlias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RegionAlias">
           <Key>
             <PropertyRef Name="RegionId" />
@@ -168,7 +194,7 @@ warning 6002: The table/view 'onYOURway.oyw.RegionAlias' does not have a primary
           <Property Name="Boundary" Type="geography" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'onYOURway_Work.oyw.Street' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Street">
           <Key>
             <PropertyRef Name="RegionId" />
@@ -183,12 +209,12 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Type" Type="nvarchar" MaxLength="20" />
-			<Property Name="CssClass" Type="nvarchar" MaxLength="200" />
-			<Property Name="Icon" Type="nvarchar" MaxLength="1000" />
-			<Property Name="Values" Type="nvarchar" />
-			<Property Name="ForeignId" Type="varchar"  MaxLength="40"/>
-		</EntityType>
+          <Property Name="Type" Type="varchar" MaxLength="20" />
+          <Property Name="CssClass" Type="nvarchar" MaxLength="200" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Values" Type="nvarchar(max)" />
+          <Property Name="ForeignId" Type="varchar" MaxLength="1000" />
+        </EntityType>
         <EntityType Name="TagIsA">
           <Key>
             <PropertyRef Name="TagId" />
@@ -196,18 +222,22 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           </Key>
           <Property Name="TagId" Type="int" Nullable="false" />
           <Property Name="ParentId" Type="int" Nullable="false" />
-			<!--<Property Name="Position" Type="int" Nullable="false" />-->
+          <Property Name="Position" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'onYOURway_Work.oyw.TagName' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TagName">
           <Key>
             <PropertyRef Name="TagId" />
             <PropertyRef Name="Lang" />
             <PropertyRef Name="Name" />
+            
           </Key>
           <Property Name="TagId" Type="int" Nullable="false" />
           <Property Name="Lang" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="Show" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TransportLine">
           <Key>
@@ -265,6 +295,18 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <Association Name="FK_HasTag_Tag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="HasTag" Type="Self.HasTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HasTag">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_my_Card_UserProfile">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
           <End Role="Card" Type="Self.Card" Multiplicity="0..1" />
@@ -334,18 +376,6 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
             </Principal>
             <Dependent Role="HasTag">
               <PropertyRef Name="LocationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_oyw_HasTag_Tag">
-          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
-          <End Role="HasTag" Type="Self.HasTag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tag">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="HasTag">
-              <PropertyRef Name="TagId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -449,14 +479,14 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           <Parameter Name="wkt" Type="varchar(max)" Mode="In" />
           <Parameter Name="meters" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetPlaces" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw">
+          <Parameter Name="RegionId" Type="int" Mode="In" />
+          <Parameter Name="Lang" Type="char" Mode="In" />
+        </Function>
         <Function Name="GetTaxonomy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw">
           <Parameter Name="idSet" Type="nvarchar" Mode="In" />
-          <Parameter Name="lang" Type="char" Mode="In" />
+          <Parameter Name="lang" Type="varchar" Mode="In" />
         </Function>
-		<Function Name="GetPlaces" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw">
-			<Parameter Name="RegionId" Type="int" Mode="In" />
-			<Parameter Name="Lang" Type="char" Mode="In" />
-		</Function>
         <Function Name="SearchSuggestions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="oyw">
           <Parameter Name="regionId" Type="int" Mode="In" />
           <Parameter Name="Lang" Type="char" Mode="In" />
@@ -467,6 +497,7 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           <EntitySet Name="ShoppingList" EntityType="Self.ShoppingList" Schema="my" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="my" store:Type="Tables" />
           <EntitySet Name="BikeWay" EntityType="Self.BikeWay" Schema="oyw" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="HasTag" EntityType="Self.HasTag" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="Location1" EntityType="Self.Location1" Schema="oyw" Table="Location" store:Type="Tables" />
           <EntitySet Name="LocationAlias" EntityType="Self.LocationAlias" Schema="oyw" store:Type="Tables" />
@@ -477,7 +508,6 @@ warning 6002: The table/view 'onYOURway.oyw.Street' does not have a primary key 
           <EntitySet Name="RegionView" EntityType="Self.RegionView" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="TagIsA" EntityType="Self.TagIsA" Schema="oyw" store:Type="Tables" />
-          <EntitySet Name="TagName" EntityType="Self.TagName" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="TransportLine" EntityType="Self.TransportLine" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="TransportStop" EntityType="Self.TransportStop" Schema="oyw" store:Type="Tables" />
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="web" store:Type="Tables" />
@@ -505,6 +535,19 @@ FROM [oyw].[RegionAlias] AS [RegionAlias]</DefiningQuery>
 [Street].[Way] AS [Way]
 FROM [oyw].[Street] AS [Street]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="TagName" EntityType="Self.TagName" store:Type="Tables" store:Schema="oyw">
+            <DefiningQuery>SELECT 
+[TagName].[TagId] AS [TagId], 
+[TagName].[Lang] AS [Lang], 
+[TagName].[Name] AS [Name], 
+[TagName].[Show] AS [Show], 
+[TagName].[Description] AS [Description]
+FROM [oyw].[TagName] AS [TagName]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_HasTag_Tag" Association="Self.FK_HasTag_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="HasTag" EntitySet="HasTag" />
+          </AssociationSet>
           <AssociationSet Name="FK_my_Card_UserProfile" Association="Self.FK_my_Card_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Card" EntitySet="Card" />
@@ -527,10 +570,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="FK_oyw_HasTag_Location" Association="Self.FK_oyw_HasTag_Location">
             <End Role="Location1" EntitySet="Location1" />
-            <End Role="HasTag" EntitySet="HasTag" />
-          </AssociationSet>
-          <AssociationSet Name="FK_oyw_HasTag_Tag" Association="Self.FK_oyw_HasTag_Tag">
-            <End Role="Tag" EntitySet="Tag" />
             <End Role="HasTag" EntitySet="HasTag" />
           </AssociationSet>
           <AssociationSet Name="FK_oyw_LocationAlias_Location" Association="Self.FK_oyw_LocationAlias_Location">
@@ -625,10 +664,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
             <End Role="Location" EntitySet="Locations" />
             <End Role="ProductSuggestion" EntitySet="ProductSuggestions" />
           </AssociationSet>
-          <AssociationSet Name="HasTag" Association="onYOURwayModel.HasTag">
-            <End Role="Location" EntitySet="Locations" />
-            <End Role="Tag" EntitySet="Tags" />
-          </AssociationSet>
           <EntitySet Name="MyLocations" EntityType="onYOURwayModel.MyLocation" />
           <AssociationSet Name="FK_my_Location_UserProfile1" Association="onYOURwayModel.FK_my_Location_UserProfile1">
             <End Role="UserProfile" EntitySet="UserProfiles" />
@@ -657,6 +692,16 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
             <Parameter Name="idSet" Mode="In" Type="String" />
             <Parameter Name="lang" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Countries" EntityType="onYOURwayModel.Country" />
+          <EntitySet Name="HasTags" EntityType="onYOURwayModel.HasTag" />
+          <AssociationSet Name="LocationHasTag" Association="onYOURwayModel.LocationHasTag">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="HasTag" EntitySet="HasTags" />
+          </AssociationSet>
+          <AssociationSet Name="TagHasTag" Association="onYOURwayModel.TagHasTag">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="HasTag" EntitySet="HasTags" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Card">
           <Key>
@@ -774,15 +819,15 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Type" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Type" MaxLength="20" FixedLength="false" Unicode="false" />
 			<Property Type="String" Name="CssClass" MaxLength="200" FixedLength="false" Unicode="true" />
 			<Property Type="String" Name="Icon" MaxLength="1000" FixedLength="false" Unicode="true" />
-			<Property Type="String" Name="Values" FixedLength="false" Unicode="true" />
-			<Property Type="String" Name="ForeignId" MaxLength="40" FixedLength="false" Unicode="false" />
+			<Property Type="String" Name="Values" FixedLength="false" Unicode="true" MaxLength="Max" />
+			<Property Type="String" Name="ForeignId" MaxLength="1000" FixedLength="false" Unicode="false" />
 			<NavigationProperty Name="Names" Relationship="onYOURwayModel.FK_oyw_TagAlias_Tag" FromRole="Tag" ToRole="TagName" />
           <NavigationProperty Name="Children" Relationship="onYOURwayModel.TagIsA" FromRole="Tag" ToRole="Parent" />
           <NavigationProperty Name="Parents" Relationship="onYOURwayModel.TagIsA" FromRole="Parent" ToRole="Tag" />
-          <NavigationProperty Name="Locations" Relationship="onYOURwayModel.HasTag" FromRole="Tag" ToRole="Location" />
+          <NavigationProperty Name="Locations" Relationship="onYOURwayModel.TagHasTag" FromRole="Tag" ToRole="HasTag" />
         </EntityType>
         <EntityType Name="TagName">
           <Key>
@@ -792,9 +837,10 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           </Key>
           <Property Type="Int32" Name="TagId" Nullable="false" />
           <Property Type="String" Name="Lang" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Tag" Relationship="onYOURwayModel.FK_oyw_TagAlias_Tag" FromRole="TagName" ToRole="Tag" />
           <Property Name="Show" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TransportLine">
           <Key>
@@ -949,12 +995,13 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           <Property Type="Geography" Name="Position" />
           <NavigationProperty Name="ForeignIds" Relationship="onYOURwayModel.FK_oyw_ForeignId_Location" FromRole="Location" ToRole="LocationForeignId" />
           <NavigationProperty Name="ProductSuggestions" Relationship="onYOURwayModel.FK_oyw_ProductSuggestion_Location" FromRole="Location" ToRole="ProductSuggestion" />
-          <NavigationProperty Name="Tags" Relationship="onYOURwayModel.HasTag" FromRole="Location" ToRole="Tag" />
           <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Links" Relationship="onYOURwayModel.FK_oyw_LocationLink_Location" FromRole="Location" ToRole="LocationLink" />
           <Property Name="OpeningHours" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Aliases" Relationship="onYOURwayModel.FK_oyw_LocationAlias_Location" FromRole="Location" ToRole="LocationAlia" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tags" Relationship="onYOURwayModel.LocationHasTag" FromRole="Location" ToRole="HasTag" />
         </EntityType>
         <Association Name="FK_oyw_ForeignId_Location">
           <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="1" />
@@ -979,10 +1026,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
               <PropertyRef Name="LocationId" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="HasTag">
-          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="*" />
-          <End Type="onYOURwayModel.Tag" Role="Tag" Multiplicity="*" />
         </Association>
         <EntityType Name="MyLocation">
           <Key>
@@ -1078,6 +1121,65 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
             </Principal>
             <Dependent Role="LocationAlia">
               <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OBJECTID" Type="Int64" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ISO3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ISO2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FIPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="COUNTRY1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ENGLISH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FRENCH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SPANISH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LOCAL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FAO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="WAS_ISO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SOVEREIGN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CONTINENT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UNREG1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UNREG2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EU" Type="Int32" />
+          <Property Name="SQKM" Type="Single" />
+          <Property Name="geom" Type="Geography" />
+        </EntityType>
+        <EntityType Name="HasTag">
+          <Key>
+            <PropertyRef Name="LocationId" />
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="LocationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TagId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Location" Relationship="onYOURwayModel.LocationHasTag" FromRole="HasTag" ToRole="Location" />
+          <NavigationProperty Name="Tag" Relationship="onYOURwayModel.TagHasTag" FromRole="HasTag" ToRole="Tag" />
+        </EntityType>
+        <Association Name="LocationHasTag">
+          <End Type="onYOURwayModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="onYOURwayModel.HasTag" Role="HasTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HasTag">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TagHasTag">
+          <End Type="onYOURwayModel.Tag" Role="Tag" Multiplicity="1" />
+          <End Type="onYOURwayModel.HasTag" Role="HasTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HasTag">
+              <PropertyRef Name="TagId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1205,6 +1307,7 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           <EntitySetMapping Name="TagNames">
             <EntityTypeMapping TypeName="onYOURwayModel.TagName">
               <MappingFragment StoreEntitySet="TagName">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Show" ColumnName="Show" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Lang" ColumnName="Lang" />
@@ -1280,14 +1383,6 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
               <ScalarProperty Name="Id" ColumnName="TagId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="HasTag" TypeName="onYOURwayModel.HasTag" StoreEntitySet="HasTag">
-            <EndProperty Name="Tag">
-              <ScalarProperty Name="Id" ColumnName="TagId" />
-            </EndProperty>
-            <EndProperty Name="Location">
-              <ScalarProperty Name="Id" ColumnName="LocationId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="MyLocations">
             <EntityTypeMapping TypeName="onYOURwayModel.MyLocation">
               <MappingFragment StoreEntitySet="Location">
@@ -1328,6 +1423,7 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
           <EntitySetMapping Name="Locations">
             <EntityTypeMapping TypeName="IsTypeOf(onYOURwayModel.Location)">
               <MappingFragment StoreEntitySet="Location1">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="OpeningHours" ColumnName="OpeningHours" />
                 <ScalarProperty Name="Icon" ColumnName="Icon" />
@@ -1380,6 +1476,40 @@ FROM [oyw].[Street] AS [Street]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetTaxonomy" FunctionName="onYOURwayModel.Store.GetTaxonomy" />
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="onYOURwayModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="geom" ColumnName="geom" />
+                <ScalarProperty Name="SQKM" ColumnName="SQKM" />
+                <ScalarProperty Name="EU" ColumnName="EU" />
+                <ScalarProperty Name="UNREG2" ColumnName="UNREG2" />
+                <ScalarProperty Name="UNREG1" ColumnName="UNREG1" />
+                <ScalarProperty Name="CONTINENT" ColumnName="CONTINENT" />
+                <ScalarProperty Name="SOVEREIGN" ColumnName="SOVEREIGN" />
+                <ScalarProperty Name="WAS_ISO" ColumnName="WAS_ISO" />
+                <ScalarProperty Name="FAO" ColumnName="FAO" />
+                <ScalarProperty Name="LOCAL" ColumnName="LOCAL" />
+                <ScalarProperty Name="SPANISH" ColumnName="SPANISH" />
+                <ScalarProperty Name="FRENCH" ColumnName="FRENCH" />
+                <ScalarProperty Name="ENGLISH" ColumnName="ENGLISH" />
+                <ScalarProperty Name="COUNTRY1" ColumnName="COUNTRY" />
+                <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+                <ScalarProperty Name="ISO2" ColumnName="ISO2" />
+                <ScalarProperty Name="ISO3" ColumnName="ISO3" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="OBJECTID" ColumnName="OBJECTID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HasTags">
+            <EntityTypeMapping TypeName="onYOURwayModel.HasTag">
+              <MappingFragment StoreEntitySet="HasTag">
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

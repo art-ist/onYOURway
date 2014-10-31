@@ -18,9 +18,9 @@ namespace onYOURway.Models
         {
             this.ForeignIds = new HashSet<LocationForeignId>();
             this.ProductSuggestions = new HashSet<ProductSuggestion>();
-            this.Tags = new HashSet<Tag>();
             this.Links = new HashSet<LocationLink>();
             this.Aliases = new HashSet<LocationAlias>();
+            this.Tags = new HashSet<HasTag>();
         }
     
         public long Id { get; set; }
@@ -41,11 +41,12 @@ namespace onYOURway.Models
         public string Icon { get; set; }
         public string OpeningHours { get; set; }
         public string Description { get; set; }
+        public string Type { get; set; }
     
         public virtual ICollection<LocationForeignId> ForeignIds { get; set; }
         public virtual ICollection<ProductSuggestion> ProductSuggestions { get; set; }
-        public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<LocationLink> Links { get; set; }
         public virtual ICollection<LocationAlias> Aliases { get; set; }
+        public virtual ICollection<HasTag> Tags { get; set; }
     }
 }

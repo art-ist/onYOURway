@@ -12,14 +12,12 @@ namespace onYOURway.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TagName
+    public partial class HasTag
     {
+        public long LocationId { get; set; }
         public int TagId { get; set; }
-        public string Lang { get; set; }
-        public string Name { get; set; }
-        public bool Show { get; set; }
-        public string Description { get; set; }
     
+        public virtual Location Location { get; set; }
         public virtual Tag Tag { get; set; }
     }
 }
