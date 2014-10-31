@@ -222,7 +222,7 @@ define([
 		};
 
 		var myLocationInit = function (myLocation) {
-		    myLocation.Tags = ko.observableArray();
+		    //myLocation.rawTags = ko.observableArray();
 		};
 
 		locateMetadata.registerEntityTypeCtor("Location:#onYOURway.Models", Location, myLocationInit);

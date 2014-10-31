@@ -77,8 +77,11 @@ define([
 				Icon: 'fa-cutlery',
 				OpeningHours: null,
 				Description: '',
-				Type: 'SitCllctr'
+				Type: 'SitCllctr',
+                Tags: []
 			});
+
+			self.tags = ko.observableArray();
 
 			return true;
 		};
@@ -244,10 +247,20 @@ define([
 		//}
 
 		self.toggleTag = function (tag) {
-		    if (self.entity.Tags.indexOf(tag) >= 0) {
-		        self.entity.Tags.remove(tag);
+		    if (self.tags.indexOf(tag) >= 0) {
+		        self.tags.remove(tag);
+		        var hasTag;
+		        $.each(self.entity.Tags(), function (key, val) {
+		            if (val && val.TagId && tag && tag.Id == val.TagId()) {
+		                self.manager.detachEntity(val);
+		            }
+		        });
 		    } else {
-		        self.entity.Tags.push(tag);
+		        self.tags.push(tag);
+		        self.manager.createEntity('HasTag', {
+                    Location: self.entity,
+                    TagId: tag.Id,
+		        });
 		    }
 		}
 

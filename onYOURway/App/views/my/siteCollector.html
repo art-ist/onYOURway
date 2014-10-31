@@ -102,8 +102,8 @@
 
 					<div class="form-group">
 
-						<ul class="item-tags" data-bind="foreach: entity.Tags">
-							<li data-bind="text: $data.name.Name || $data.name[0].Name"></li>
+						<ul class="item-tags" data-bind="foreach: tags">
+                            <li data-bind="text: $data.name.Name || $data.name[0].Name"></li>
 						</ul>
 
 						<button class="btn btn-warning btn-block" id="addTags" data-bind="click: toggleTagSelection"><i class="icon-plus"></i> <span class="translate">Select Tags</span></button>
@@ -202,7 +202,7 @@
                             <div id="group_172" class="panel-collapse collapse" data-bind="attr: { id: Id }">
                                 <div class="panel-body list-group" data-bind="foreach: tag">
 
-                                    <a class="list-group-item" data-bind="attr: { id: Id }, click: function() {$root.toggleTag($data)}, css: $root.entity.Tags.indexOf($data) >= 0 ? 'active' : ''">
+                                    <a class="list-group-item" data-bind="attr: { id: Id }, click: function() {$root.toggleTag($data)}, css: $root.tags.indexOf($data) >= 0 ? 'active' : ''">
                                         <h5 class="m-t-n-xxs m-b-n-xxs translate">
                                             <span data-bind="text: $data.name.Name || $data.name[0].Name"></span><br />
                                             <small data-bind="text: $data.name.Description || $data.name[0].Description"></small>
