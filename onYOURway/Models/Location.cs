@@ -9,6 +9,7 @@
 
 namespace onYOURway.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -37,6 +38,7 @@ namespace onYOURway.Models
         public System.DateTime CreatedAt { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedAt { get; set; }
+        [JsonConverter(typeof(DbGeographyConverter))]
         public System.Data.Entity.Spatial.DbGeography Position { get; set; }
         public string Icon { get; set; }
         public string OpeningHours { get; set; }
