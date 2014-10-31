@@ -35,7 +35,7 @@
 
     showDetails: false,
 
-    showSiteCollector: location.showSiteCollector,
+    showSiteCollector: location.siteCollectorMode,
 
     showInfo: ko.observable(false),
     showEco: ko.observable(false),

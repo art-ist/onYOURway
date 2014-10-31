@@ -254,6 +254,13 @@ define([
 
 		location.siteCollectorCoords.subscribe(_setSiteCollectorMarker);
 
+		location.siteCollectorMode.subscribe(function (val) {
+		    if (val === false && location.siteCollectorMarker) {
+		        location.map.removeLayer(location.siteCollectorMarker);
+		        location.siteCollectorMarker = undefined;
+		    }
+		});
+
 		//register eventhandlers for list
 		var list = $('#locationList');
 		list.scroll(function () {
