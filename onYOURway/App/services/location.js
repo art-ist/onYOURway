@@ -173,6 +173,7 @@ define([
 
 		//methods
 		initializeMap: initializeMap,
+		loadRegionFeatures: loadRegionFeatures,
 
 		setTileLayer: setTileLayer,
 		setMode: setMode,
@@ -275,12 +276,8 @@ define([
 		//get regions
 		_loadRegions(map);
 
-		//TODO: change to "loadRegionFeatures"
-		//_loadLocations(map);
-		_loadPlaces();
-
-		//get SearchSuggestions (maybe reintegrate with loadLocations into loadRegionFeatures)
-		_loadSearchSuggestions();
+        //get locations and search suggestions
+		loadRegionFeatures();
 
 		//  })
 		//  .fail(function (err) {
@@ -295,6 +292,16 @@ define([
 		//  location.showMessage('Map klicked at ' + JSON.stringify(e.latlng), 'Map Event');
 		//});
 	} //initializeMap
+
+	function loadRegionFeatures() {
+	    //TODO: change to "loadRegionFeatures"
+	    //_loadLocations(map);
+	    _loadPlaces();
+
+	    //get SearchSuggestions (maybe reintegrate with loadLocations into loadRegionFeatures)
+	    _loadSearchSuggestions();
+	}
+
 	//#endregion Initializer
 
 	//#region Private Members
@@ -582,7 +589,8 @@ define([
 			return locateContext
 			  .executeQuery(query)
 			  .then(function (d) {
-			  	$.each(d.results, function (i, item) {
+			      location.searchSuggestions.removeAll();
+			      $.each(d.results, function (i, item) {
 			  		location.searchSuggestions.push(item.Name);
 			  		if (item.Class === 'tag') {
 			  			location.tags.push(item.Name);

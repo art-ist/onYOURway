@@ -87,6 +87,25 @@ define([
 		};
 
 		self.deactivate = function (queryString) {
+		    try {
+		        if (self.entity && self.entity.Tags) {
+		            $.each(self.entity.Tags(), function (key, val) {
+		                try {
+		                    if (val) {
+		                        self.manager.detachEntity(val);
+		                    }
+		                } catch (e) {
+		                    logger.log("could not detach tag", "siteCollector - deactivate", e);
+		                }
+		            });
+		        }
+		        if (self.entity) {
+		            self.manager.detachEntity(self.entity);
+		        }
+		    } catch (e2) {
+		        logger.log("could not detach entity", "siteCollector - deactivate", e2);
+		    }
+
 			location.siteCollectorMode(false);
 			window.setTimeout(function () {
 				location.map && location.map.invalidateSize();
@@ -209,7 +228,9 @@ define([
 				self.entity.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
 				self.manager.saveChanges()
                     .then(function () {
-                    	logger.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
+                        logger.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
+                        location.loadRegionFeatures();
+                        document.location.href = "#map";
                     	//toastr.success("Thank You, the new site was successfully saved!", undefined, undefined, true);
                     })
                     .fail(function (err) {
@@ -236,6 +257,15 @@ define([
 				saveChanges();
 			}
 		};
+
+		self.close = function () {
+		    try {
+		        self.entity && self.entityAspect && self.entity.entityAspect.rejectChanges(); 
+		    } catch (e) {
+		        logger.log("error rejecting changes", "siteCollector - close", e);
+		    }
+		    document.location.href = "#map";
+		}
 
 		self.toggleTagSelection = function () {
 			$('#tagSelectionModal, .modal-backdrop')
