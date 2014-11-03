@@ -52,7 +52,7 @@ define([
 		    logger.log('binder', 'siteCollector');
 
 			if (self.taxonomy().length == 0) {
-			    location.getTaxonomy(3 /* self.region() */, app.lang)
+				location.getTaxonomy(265 /* self.region() */, app.lang)
 					.then(function (d) {
 					    logger.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
 					    self.taxonomy(d.results[0].tags.tag);
