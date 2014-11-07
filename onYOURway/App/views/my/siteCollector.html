@@ -1,191 +1,188 @@
-﻿  <!--List-->
+﻿<!--List-->
+<!-- TODO: implement siteList which displays all sites the current user has already made changes to, so the user can select and edit them -->
 <!--<div id="mySiteList" data-bind="css: { listOpen: showList }">
-	<button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleDetails"><i class="fa fa-arrow-right"></i></button>
+    <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleDetails"><i class="fa fa-arrow-right"></i></button>
 
-	<ul data-bind="foreach: location.mapLocations" class="nav nav-list">
-		<li class="locationInfo" data-bind="css: { isOpen: isOpen()
-											   , isFeatured: isFeatured()
-											   , selected: $data === $root.location.selectedItem() }
-											   , click: $root.location.itemClick, attr: { id: Id }
-										  ">
-			<div class="locationInfo-imageArea">
-				<i class=" fa fa-2x" data-bind="css: $data.Icon"></i>
-			</div>
-			<i class="fa fa-chevron-right detailsIndicator"></i>
-			<h5 class="locationInfo-title" data-bind="text: Name" style="max-height: 30px; overflow: hidden; overflow-wrap: break-word; -ms-word-wrap: hyphenate; word-wrap:hyphenate;"></h5>
-			<p class="locationInfo-addr"><span data-bind="  text: $data.Street"></span> <span data-bind="  text: $data.HouseNumber"></span></p>
-		</li>
-	</ul>
+    <ul data-bind="foreach: location.mapLocations" class="nav nav-list">
+        <li class="locationInfo" data-bind="css: { isOpen: isOpen()
+                                               , isFeatured: isFeatured()
+                                               , selected: $data === $root.location.selectedItem() }
+                                               , click: $root.location.itemClick, attr: { id: Id }
+                                          ">
+            <div class="locationInfo-imageArea">
+                <i class=" fa fa-2x" data-bind="css: $data.Icon"></i>
+            </div>
+            <i class="fa fa-chevron-right detailsIndicator"></i>
+            <h5 class="locationInfo-title" data-bind="text: Name" style="max-height: 30px; overflow: hidden; overflow-wrap: break-word; -ms-word-wrap: hyphenate; word-wrap:hyphenate;"></h5>
+            <p class="locationInfo-addr"><span data-bind="  text: $data.Street"></span> <span data-bind="  text: $data.HouseNumber"></span></p>
+        </li>
+    </ul>
 </div>-->
 <!--/List-->
-<!--/Details-->
+<!-- Site Collector -->
 <div id="mySiteCollector" style="padding: 15px;">
 
-	<form class="form">
+    <form class="form">
 
-		<div class="row panel-body">
-			<h1><span class="translate">Add a new site</span></h1>
-		</div>
+        <div class="row panel-body">
+            <h1><span class="translate">Add a new site</span></h1>
+        </div>
 
-		<div class="row">
-			<div class="col-sm-6">
+        <div class="row">
+            <div class="col-sm-6">
 
-				<div class="form-group">
-					<label class="translate">Selected region/map:</label>
+                <div class="form-group">
+                    <label class="translate">Selected region/map:</label>
 
-					<select data-bind="value: region" id="accessibility" class="form-control">
-						<option value="1">Baden</option>
-						<option value="2">Karte von Morgen</option>
-						<option value="3">Transformap</option>
-					</select>
+                    <select data-bind="value: region" id="accessibility" class="form-control">
+                        <option value="1">Baden</option>
+                        <option value="2">Karte von Morgen</option>
+                        <option value="3">Transformap</option>
+                    </select>
 
-					<!--<input type="text" class="form-control" placeholder="region" style="width: 200px; min-height: 34px;"
-						   id="searchFor" name="searchFor" autocomplete="off" spellcheck="false" autofocus="autofocus"
-						   data-bind="value: region, select2: {multiple: false, minimumInputLength: 0, query: getRegions }">-->
+                    <!--<input type="text" class="form-control" placeholder="region" style="width: 200px; min-height: 34px;"
+                           id="searchFor" name="searchFor" autocomplete="off" spellcheck="false" autofocus="autofocus"
+                           data-bind="value: region, select2: {multiple: false, minimumInputLength: 0, query: getRegions }">-->
 
-				</div>
+                </div>
 
-				<div class="form-group">
-					<label for="addSiteName" class="translate">Name:</label>
-					<input id="addSiteName" type="text" data-bind="value: entity.Name" class="form-control siteName translatePlaceholder" placeholder="What is the name of the site?" />
-				</div>
+                <div class="form-group">
+                    <label for="addSiteName" class="translate">Name:</label>
+                    <input id="addSiteName" type="text" data-bind="value: entity.Name" class="form-control siteName translatePlaceholder" placeholder="What is the name of the site?" />
+                </div>
 
-				<div class="form-group">
-					<label for="addSiteDescription" class="translate">Description:</label>
-					<textarea data-bind="value: entity.Description" class="form-control translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"></textarea>
-				</div>
+                <div class="form-group">
+                    <label for="addSiteDescription" class="translate">Description:</label>
+                    <textarea data-bind="value: entity.Description" class="form-control translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"></textarea>
+                </div>
 
-				<!--<section class="panel locationContainer position">
-				<header class="panel-heading">
-					Position
-				</header>-->
-				<!--Address and Position-->
-				<div class="form-group">
-					<div class="btn btn-sm btn-warning pull-right selectPosition"><i class="fa fa-location-arrow"></i> <span class="translate">use current location</span></div>
-					<label for="addSiteLocationStreet">Address:</label>
-				</div>
-				<div class="form-group">
-					<input data-bind="value: entity.Country, select2: { data: countries, placeholder: 'Select Country' }" class="form-control translate" />
-				</div>
-				<div class="form-group">
-					<div class="input-group input-group-c12">
-						<input data-bind="value: entity.Zip" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3" placeholder="PLZ" />
-						<input data-bind="value: entity.City" id="addSiteLocationCity" type="text" class="form-control input-group-c9" placeholder="Stadt" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="input-group input-group-c12">
-						<input data-bind="value: entity.Street" id="addSiteLocationStreet" type="text" class="form-control input-group-c9" placeholder="Straße" />
-						<input data-bind="value: entity.HouseNumber" id="addSiteLocationNr" type="text" class="form-control input-group-c3" placeholder="Nr." />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="btn btn-large btn-warning updatePosition" data-bind="click: setMarker"><i class="fa fa-map-marker" /> <span class="translate">get position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
-					<div class="btn btn-large btn-warning pull-right updateAddress" data-bind="click: setAddress"><i class="fa fa-arrow-up icon-highlight" /> <span class="translate">get address</span> <i class="fa fa-envelope" /></div>
-				</div>
-				<div class="form-group">
-					<div class="input-group input-group-c12">
-						<input data-bind="value: latitude" id="addSiteLocationLat" type="text" class="form-control locationLat input-group-c6" placeholder="Breitengrad" />
-						<input data-bind="value: longitude" id="addSiteLocationLng" type="text" class="form-control locationLng input-group-c6" placeholder="Längengrad" />
-					</div>
-					<div class="line accuracy">
-						<div class="error hilight hidden"><span class="translate">Position accuracy</span>: &plusmn;<span class="value"></span>m</div>
-					</div>
-				</div>
-			</div>
+                <!--<section class="panel locationContainer position">
+                <header class="panel-heading">
+                    Position
+                </header>-->
+                <!--Address and Position-->
+                <div class="form-group">
+                    <div class="btn btn-sm btn-warning pull-right selectPosition"><i class="fa fa-location-arrow"></i> <span class="translate">use current location</span></div>
+                    <label for="addSiteLocationStreet">Address:</label>
+                </div>
+                <div class="form-group">
+                    <input data-bind="value: entity.Country, select2: { data: countries, placeholder: 'Select Country' }" class="form-control translate" />
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group-c12">
+                        <input data-bind="value: entity.Zip" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3" placeholder="PLZ" />
+                        <input data-bind="value: entity.City" id="addSiteLocationCity" type="text" class="form-control input-group-c9" placeholder="Stadt" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group-c12">
+                        <input data-bind="value: entity.Street" id="addSiteLocationStreet" type="text" class="form-control input-group-c9" placeholder="Straße" />
+                        <input data-bind="value: entity.HouseNumber" id="addSiteLocationNr" type="text" class="form-control input-group-c3" placeholder="Nr." />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="btn btn-large btn-warning updatePosition" data-bind="click: setMarker"><i class="fa fa-map-marker" /> <span class="translate">get position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
+                    <div class="btn btn-large btn-warning pull-right updateAddress" data-bind="click: setAddress"><i class="fa fa-arrow-up icon-highlight" /> <span class="translate">get address</span> <i class="fa fa-envelope" /></div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group-c12">
+                        <input data-bind="value: latitude" id="addSiteLocationLat" type="text" class="form-control locationLat input-group-c6" placeholder="Breitengrad" />
+                        <input data-bind="value: longitude" id="addSiteLocationLng" type="text" class="form-control locationLng input-group-c6" placeholder="Längengrad" />
+                    </div>
+                    <div class="line accuracy">
+                        <div class="error hilight hidden"><span class="translate">Position accuracy</span>: &plusmn;<span class="value"></span>m</div>
+                    </div>
+                </div>
+            </div>
 
-			<div class="col-sm-6">
-				<!--tags/icons-->
-				<div class="form-group">
+            <div class="col-sm-6">
+                <!--tags/icons-->
+                <div class="form-group">
 
-					<label class="translate">Tags:</label>
+                    <label class="translate">Tags:</label>
 
-					<div class="form-group">
+                    <div class="form-group">
 
-						<ul class="item-tags" data-bind="foreach: tags">
+                        <ul class="item-tags" data-bind="foreach: tags">
                             <li data-bind="text: $data.name.Name || $data.name[0].Name"></li>
-						</ul>
+                        </ul>
 
-						<button class="btn btn-warning btn-block" id="addTags" data-bind="click: toggleTagSelection"><i class="icon-plus"></i> <span class="translate">Select Tags</span></button>
-					</div>
-				</div>
+                        <button class="btn btn-warning btn-block" id="addTags" data-bind="click: toggleTagSelection"><i class="icon-plus"></i> <span class="translate">Select Tags</span></button>
+                    </div>
+                </div>
 
-				<!--picture-- >
-				<div class="form-group photo empty">
-					<label>
-						<span class="translate">Photo:</span>
-					</label>
-					<div class="controls">
-						<div id="dropzone">
-							<!--<form action="test.html" class="dropzone dz-clickable">-- >
-								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
-							<!--</form>-- >
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="addSitePhotoCaption" class="translate">Photo caption:</label>
-					<input id="addSitePhotoCaption" type="text" class="form-control photoCaption translatePlaceholder" placeholder="What is in the photo?" />
-				</div>
-				<!--opening_hours-->
-				<div class="form-group">
-					<label>
-						<span class="translate">Opening Hours: (<a href="http://openingh.openstreetmap.de/evaluation_tool" target="_blank">how to set this</a>)</span>
-					</label>
-					<input data-bind="" id="openingHours" type="text" class="form-control" placeholder="Opening Hours (editor comming soon)" />
-					<select data-bind="options: opening_hour_samples" id="openingHours_Select" class="form-control"></select>
-				</div>
+                <!--picture-- >
+                <div class="form-group photo empty">
+                    <label>
+                        <span class="translate">Photo:</span>
+                    </label>
+                    <div class="controls">
+                        <div id="dropzone">
+                            <!--<form action="test.html" class="dropzone dz-clickable">-- >
+                                <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+                            <!--</form>-- >
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="addSitePhotoCaption" class="translate">Photo caption:</label>
+                    <input id="addSitePhotoCaption" type="text" class="form-control photoCaption translatePlaceholder" placeholder="What is in the photo?" />
+                </div>
+                <!--opening_hours-->
+                <div class="form-group">
+                    <label>
+                        <span class="translate">Opening Hours: (<a href="http://openingh.openstreetmap.de/evaluation_tool" target="_blank">how to set this</a>)</span>
+                    </label>
+                    <input data-bind="" id="openingHours" type="text" class="form-control" placeholder="Opening Hours (editor comming soon)" />
+                    <select data-bind="options: opening_hour_samples" id="openingHours_Select" class="form-control"></select>
+                </div>
 
-				<!--accessibility-->
-				<div class="form-group">
-					<label>
-						<span class="translate">Accessibility:</span>
-					</label>
-					<select data-bind="" id="accessibility" class="form-control">
-						<option value="">unknown</option>
-						<option value="yes">voll rollstuhlgerecht</option>
-						<option value="limited">teilweise rollstuhlgerecht</option>
-						<option value="no">nicht rollstuhlgerecht</option>
-					</select>
-				</div>
+                <!--accessibility-->
+                <div class="form-group">
+                    <label>
+                        <span class="translate">Accessibility:</span>
+                    </label>
+                    <select data-bind="" id="accessibility" class="form-control">
+                        <option value="">unknown</option>
+                        <option value="yes">voll rollstuhlgerecht</option>
+                        <option value="limited">teilweise rollstuhlgerecht</option>
+                        <option value="no">nicht rollstuhlgerecht</option>
+                    </select>
+                </div>
 
-				<!--<div class="line photo">
-					<label for="addSitePhoto">
-						<span id="addSitePhotoContainer">
-							<div class="label"><i class="icon-picture"></i><br /><span class="translate">Select a picture</span></div>
-							<img />
+                <!--<div class="line photo">
+                    <label for="addSitePhoto">
+                        <span id="addSitePhotoContainer">
+                            <div class="label"><i class="icon-picture"></i><br /><span class="translate">Select a picture</span></div>
+                            <img />
 
-							<div class="remove"><i class="icon-remove-sign"></i></div>
-						</span>
-					</label>
+                            <div class="remove"><i class="icon-remove-sign"></i></div>
+                        </span>
+                    </label>
 
-					<input type="file" id="addSitePhoto" accept="image/*;capture=camera">
-				</div>-->
+                    <input type="file" id="addSitePhoto" accept="image/*;capture=camera">
+                </div>-->
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div class="row panel-body">
-			<button class="ok btn btn-success btn-large pull-right" data-bind="click: submit"><i class="fa fa-check"></i> <span class="translate">submit</span> </button>
-			<button class="ok btn btn-default btn-large pull-right" data-bind="click: close"><i class="fa fa-remove"></i> <span class="translate">cancel</span> </button>
-		</div>
-	</form>
+        <div class="row panel-body">
+            <button class="ok btn btn-success btn-large pull-right" data-bind="click: submit"><i class="fa fa-check"></i> <span class="translate">submit</span> </button>
+            <button class="ok btn btn-default btn-large pull-right" data-bind="click: close"><i class="fa fa-remove"></i> <span class="translate">cancel</span> </button>
+        </div>
+    </form>
 
 </div>
+<!-- /Site Collector -->
 
-<!-- Modal -->
-
+<!-- Modal for tag selection -->
 <div class="modal fade in hidden" style="display: block; z-index: 1000000;" id="tagSelectionModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click: toggleTagSelection">×</button><h4 data-text="Select icons" class="modal-title translate">Select icons</h4>
-			</div>
-			<div class="modal-body">
-                <!--<h3>
-                    <i class="icon-plus"></i><i class="icon-minus"></i>
-                    <span data-text="Sustainable Living" class="translate">Transformap</span>
-                </h3>-->
+            </div>
+            <div class="modal-body">
                 <div class="open" data-bind="foreach: taxonomy">
                     <div class="panel-group" id="accordion" data-bind="attr: { id: 'accordion' + Id }">
                         <div class="panel panel-default">
@@ -215,26 +212,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <!--<div data-text="Cancel" class="btn btn-default updateIcons translate" data-bind="click: toggleTagSelection">Cancel</div>-->
-				<div data-text="Done" class="btn btn-success updateIcons translate" data-bind="click: toggleTagSelection">Done</div>
+                <div data-text="Done" class="btn btn-success updateIcons translate" data-bind="click: toggleTagSelection">Done</div>
             </div>
         </div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog --><div style="width: 578px; left: 428px; z-index: 9999999; display: none;" class="sticky"><div data-i="0" data-text="Done" class="btn btn-default updateIcons translate">Done</div></div>
+    </div><!-- /.modal-dialog -->
 </div>
-
-<!--<button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: $root.location.toggleList"><i class="fa fa-arrow-right"></i></button>---->
-<!--<div class="ventureDetails-imageArea">
-	<img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
-	<h2 class="ventureDetails-header" data-bind="text: Name"></h2>
-	<ul class="ventureDetails-taglist" data-bind="foreach: Tag"></ul>
-</div>
-
-<div class="oyw-action-list btn-group-vertical pull-right">
-</div>
-
-<div class="ventureDetails-details">
-</div>-->
-<!--/Details-->
-
+<!-- /tagSelectionModal -->
 
 <div class="modal-backdrop fade in hidden"></div>

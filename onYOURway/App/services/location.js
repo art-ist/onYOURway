@@ -112,8 +112,8 @@ define([
 		selectedItem: ko.observable(), //current location
 		selectedItems: ko.observableArray(), //last selected locations (max: settings.maxSelectedItems)
 
-		siteCollectorMode: ko.observable(),
-		siteCollectorCoords: ko.observable(),
+		siteCollectorMode: ko.observable(), // boolean - if true, smaller map and possible to select a new location in the map by clicking or moving the siteCollectorMarker
+		siteCollectorCoords: ko.observable(), // if siteCollectorMode is true: coordinates of the siteCollectorMarker
 
 		searchFor: ko.observable(),
 		featuredIf: ko.observableArray([
@@ -253,8 +253,10 @@ define([
 			}
 		});
 
+	    // update siteCollectorMarker when changing the siteCollectorCoords
 		location.siteCollectorCoords.subscribe(_setSiteCollectorMarker);
 
+        // disable siteCollectorMarker when closing the siteCollector
 		location.siteCollectorMode.subscribe(function (val) {
 		    if (val === false && location.siteCollectorMarker) {
 		        location.map.removeLayer(location.siteCollectorMarker);
@@ -338,12 +340,17 @@ define([
 	//function _itemMouseOver() { }
 	//function _itemMouseOut() { }
 
-	/** this function is registered as click-handler for the map during map initialization,
-     *   but this click handler it is only executed if location.siteCollectorMode is active! 
-     *  this function is also called when the siteCollectorCoords observable gets updated!
+    /** 
+     *  function _setSiteCollectorMarker is subscribed
+     *   - as click-handler for the map during map initialization (only if location.siteCollectorMode is active)
+     *   - to the siteCollectorCoords observable
+     * @method  _setSiteCollectorMarker
+     * @param {object} geo The geolocation
+     * @param {boolean} [updateCoords=false] if true, update the siteCollectoreCoords observable
      */
 	function _setSiteCollectorMarker(geo, updateCoords) {
-		if (!location.siteCollectorMarker) {
+	    if (!location.siteCollectorMarker) {
+            // create new marker, if none exists
 			location.siteCollectorMarker = L.marker(geo.coords ? [geo.coords[1], geo.coords[0]] : geo, {
 				dragable: true,
 				prefix: "fa",
