@@ -738,6 +738,7 @@
     <Content Include="App\_libraries\leaflet\leaflet-0.7.1.min.js.map">
       <DependentUpon>leaflet-0.7.1.min.js</DependentUpon>
     </Content>
+    <Content Include="license.md" />
     <None Include="Web.vonMorgen.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
