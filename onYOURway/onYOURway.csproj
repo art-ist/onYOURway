@@ -646,6 +646,9 @@
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Regular.ttf.woff" />
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Semibold.ttf.woff" />
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-SemiboldIt.ttf.woff" />
+    <Content Include="App\themes\vonMorgen-beta\_vonMorgen.css.map">
+      <DependentUpon>_vonMorgen.css</DependentUpon>
+    </Content>
     <None Include="App\_libraries\breeze.intellisense.js" />
     <Content Include="App\_libraries\bootstrap-datepicker.js" />
     <Content Include="App\_libraries\bootstrap-tour.js" />
