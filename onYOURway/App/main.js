@@ -46,6 +46,8 @@ define([
       //  }
     });
 
+    ko.components.register('searchTermInput', { require: 'components/searchTermInput-component' });
+
     window.onerror = function globalErrorHandler(msg, file, line) {
       logger.error(msg, file + ': ' + line);
     }
