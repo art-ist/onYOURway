@@ -15,7 +15,7 @@ define([
 		self.manager = location.context;
 
         // list of regions - these regions can be selected in the region drop down
-		self.region = ko.observable(1);
+		self.region = ko.observable(3);
 
 	    // all tags that can be selected in the tagSelectionModal
 		self.taxonomy = ko.observableArray([]);
@@ -150,6 +150,11 @@ define([
 		    // hide all search results that may still be displayed on the map
 		    location.mapLocations([]);
 
+			//subscribe region changes to load the corresponding tyxonomy
+		    self.region.subscribe(function (value) {
+		    	getTaxonomy(value);
+		    });
+
 		    // enabling the site collector mode - makes map smaller and enables the site selection marker
 		    location.siteCollectorMode(true);
 		    return true;
@@ -160,16 +165,6 @@ define([
          */
 		self.binding = function () {
 		    logger.log('binder', 'siteCollector');
-
-		    // initialize the tags, that can be selected in the tagSelectionModal
-		    if (self.taxonomy().length == 0) {
-		        // TODO: map region id to root tag id
-		        location.getTaxonomy(265 /* self.region() */, app.lang)
-					.then(function (d) {
-					    logger.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
-					    self.taxonomy(d.results[0].tags.tag);
-					})
-		    }
 
 		    // prepare a new breeze entity to be edited by this form
 		    self.entity = self.manager.createEntity('Location', {
@@ -227,15 +222,13 @@ define([
 		    // disabling siteCollectorMode enlarges the map again and hides the tag selection marker
 		    location.siteCollectorMode(false);
 
-		    // tell leaflet.js to recalculate the map size, as soon as all css animations have been finished
+		    // tell leaflet.js to recalculate the map size, as soon as all css animations have finished
 		    window.setTimeout(function () {
 		        location.map && location.map.invalidateSize();
-		    }, 300
-            );
+		    }, 300 );
 		    window.setTimeout(function () {
 		        location.map && location.map.invalidateSize();
-		    }, 750
-            );
+		    }, 750 );
 		};
 
 	    //#endregion lifecycle callbacks
@@ -243,7 +236,7 @@ define([
 	    /**
          * initialize the list of regions (self.region)
          */
-		getRegions = function (query) {
+		var getRegions = function (query) {
 		    if (query && query.term) {
 		        var s = location.regions();
 		        var data = [];
@@ -266,6 +259,16 @@ define([
 		    }
 		};
 
+		/**
+         * get the hierarchy of assignable tags (self.taxonomy)
+         */
+		var getTaxonomy = function (rootId) {
+			location.getTaxonomy(rootId, app.lang)
+				.then(function (d) {
+					logger.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
+					self.taxonomy(d.results[0].tags.tag);
+				})
+		}
 
         /** 
          * set the marker in the map based on the current address of the entity
