@@ -4,7 +4,7 @@
     'durandal'    : './_libraries/durandal',
     'plugins'     : './_libraries/durandal/plugins',
     'transitions' : './_libraries/durandal/transitions',
-    'knockout'    : './_libraries/knockout-3.0.0',
+    'knockout'    : './_libraries/knockout-3.2.0',
     'jquery'      : './_libraries/jquery-2.0.1',
     'bootstrap'   : './_libraries/bootstrap',
     'services'    : './services',
@@ -45,6 +45,8 @@ define([
       //    kinds: ['expander']
       //  }
     });
+
+    ko.components.register('searchTermInput', { require: 'components/searchTermInput-component' });
 
     window.onerror = function globalErrorHandler(msg, file, line) {
       logger.error(msg, file + ': ' + line);

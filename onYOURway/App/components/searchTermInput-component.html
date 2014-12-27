@@ -1,0 +1,23 @@
+    <input type="text"
+           class="form-control"
+           placeholder="Was"
+           style="width: 200px; min-height: 34px;"
+           name="searchFor"
+           autocomplete="off"
+           spellcheck="false"
+           autofocus="autofocus"
+           data-bind="
+                value: location.searchFor,
+                select2: {
+                    multiple: true,
+                    minimumInputLength: 1,
+                    query: getSearchSuggestions,
+                    formatResult: formatSearchSuggestion,
+                    createSearchChoice: createSearchChoice,
+                    createSearchChoicePosition: 'bottom',
+                    placeholder: 'Was',
+                },
+                event:{ 'change': selectionChangedEvent }
+            "
+    >
+    <a title="Suchen" class="" tabindex="-1" data-bind="click: triggerSearch"> <i class="fa fa-fw fa-search"></i></a>

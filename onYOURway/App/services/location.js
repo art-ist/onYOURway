@@ -201,6 +201,8 @@ define([
 
 	//#region Constructor 
 
+	location.sortBy(location.sortOptions[0]);
+
 	location.sortBy.subscribe(function (newValue) {
 		location.mapLocations(location.mapLocations().sort(newValue.Sorter));
 	});
