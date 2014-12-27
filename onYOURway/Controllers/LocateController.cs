@@ -41,6 +41,52 @@ namespace onYOURway.Controllers {
 			return langs[0].Substring(0, 2);
 		}
 
+		/// <summary>
+		/// Gets all localizable messages for the app in the given language
+		/// </summary>
+		/// <param name="lang">language or locale to return the messages in if this parameter is omitted, the first browser language is used</param>
+		/// <returns></returns>
+		[HttpGet]
+		public dynamic Messages(string lang = null) {
+			string locale = lang ?? GetLang();
+
+			var local = db.Context
+				.Messages
+				.Where(m => m.Locale == locale)
+				;
+			var neutral = db.Context
+				.Messages
+				.Where(m => m.Locale == "")
+				;
+
+			IDictionary<string, object> result = new Dictionary<string, object>();
+			foreach (Message m in neutral) {
+				IDictionary<string, object> tmp = result;
+				string[] keys = m.Key.Split('.');
+				for (int i = 0; i < keys.Length - 1; i++) {
+					if (!tmp.ContainsKey(keys[i])) {
+						tmp[keys[i]] = new Dictionary<string, object>();
+					}
+					tmp = (IDictionary<string, object>)tmp[keys[i]];
+				}
+				tmp[keys[keys.Length - 1]] = m.Text;
+			}
+			foreach (Message m in local) {
+				IDictionary<string, object> tmp = result;
+				string[] keys = m.Key.Split('.');
+				for (int i = 0; i < keys.Length - 1; i++) {
+					if (!tmp.ContainsKey(keys[i])) {
+						tmp[keys[i]] = new Dictionary<string, object>();
+					}
+					tmp = (IDictionary<string, object>)tmp[keys[i]];
+				}
+				tmp[keys[keys.Length - 1]] = m.Text;
+			}
+
+			return result;
+		}
+
+
 		//[HttpGet]   // api/locate/Regions
 		/// <summary>
 		/// Get all regions that are onYOURway.

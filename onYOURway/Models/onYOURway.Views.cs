@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(onYOURway.Models.onYOURwayEntities),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsd33c3e9091898b07ce096b64582e8ca680ab9949486ae7cf1ae54588cd9acc7f))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets9981a1a74d40bda210f5da492782bc9743f35371e8954582455b87ceb18f11dc))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySetsd33c3e9091898b07ce096b64582e8ca680ab9949486ae7cf1ae54588cd9acc7f : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySets9981a1a74d40bda210f5da492782bc9743f35371e8954582455b87ceb18f11dc : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "d33c3e9091898b07ce096b64582e8ca680ab9949486ae7cf1ae54588cd9acc7f"; }
+            get { return "9981a1a74d40bda210f5da492782bc9743f35371e8954582455b87ceb18f11dc"; }
         }
 
         /// <summary>
@@ -87,214 +87,224 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView7();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.BikeWay")
+            if (extentName == "onYOURwayModelStoreContainer.Message")
             {
                 return GetView8();
             }
 
-            if (extentName == "onYOURwayEntities.BikeWays")
+            if (extentName == "onYOURwayEntities.Messages")
             {
                 return GetView9();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.LocationForeignId")
+            if (extentName == "onYOURwayModelStoreContainer.BikeWay")
             {
                 return GetView10();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.Partner")
+            if (extentName == "onYOURwayEntities.BikeWays")
             {
                 return GetView11();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.ProductSuggestion")
+            if (extentName == "onYOURwayModelStoreContainer.LocationForeignId")
             {
                 return GetView12();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.Tag")
+            if (extentName == "onYOURwayModelStoreContainer.Partner")
             {
                 return GetView13();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.TagName")
+            if (extentName == "onYOURwayModelStoreContainer.ProductSuggestion")
             {
                 return GetView14();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.LocationLink")
+            if (extentName == "onYOURwayModelStoreContainer.Tag")
             {
                 return GetView15();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.Location1")
+            if (extentName == "onYOURwayModelStoreContainer.TagName")
             {
                 return GetView16();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.LocationAlias")
+            if (extentName == "onYOURwayModelStoreContainer.LocationLink")
             {
                 return GetView17();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.HasTag")
+            if (extentName == "onYOURwayModelStoreContainer.Location1")
             {
                 return GetView18();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.TagIsA")
+            if (extentName == "onYOURwayModelStoreContainer.LocationAlias")
             {
                 return GetView19();
             }
 
-            if (extentName == "onYOURwayEntities.LocationForeignIds")
+            if (extentName == "onYOURwayModelStoreContainer.HasTag")
             {
                 return GetView20();
             }
 
-            if (extentName == "onYOURwayEntities.Partners")
+            if (extentName == "onYOURwayModelStoreContainer.TagIsA")
             {
                 return GetView21();
             }
 
-            if (extentName == "onYOURwayEntities.ProductSuggestions")
+            if (extentName == "onYOURwayEntities.LocationForeignIds")
             {
                 return GetView22();
             }
 
-            if (extentName == "onYOURwayEntities.Tags")
+            if (extentName == "onYOURwayEntities.Partners")
             {
                 return GetView23();
             }
 
-            if (extentName == "onYOURwayEntities.TagNames")
+            if (extentName == "onYOURwayEntities.ProductSuggestions")
             {
                 return GetView24();
             }
 
-            if (extentName == "onYOURwayEntities.LocationLinks")
+            if (extentName == "onYOURwayEntities.Tags")
             {
                 return GetView25();
             }
 
-            if (extentName == "onYOURwayEntities.Locations")
+            if (extentName == "onYOURwayEntities.TagNames")
             {
                 return GetView26();
             }
 
-            if (extentName == "onYOURwayEntities.LocationAliases")
+            if (extentName == "onYOURwayEntities.LocationLinks")
             {
                 return GetView27();
             }
 
-            if (extentName == "onYOURwayEntities.HasTags")
+            if (extentName == "onYOURwayEntities.Locations")
             {
                 return GetView28();
             }
 
-            if (extentName == "onYOURwayEntities.TagIsA")
+            if (extentName == "onYOURwayEntities.LocationAliases")
             {
                 return GetView29();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.Region")
+            if (extentName == "onYOURwayEntities.HasTags")
             {
                 return GetView30();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.RegionAlias")
+            if (extentName == "onYOURwayEntities.TagIsA")
             {
                 return GetView31();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.RegionView")
+            if (extentName == "onYOURwayModelStoreContainer.Region")
             {
                 return GetView32();
             }
 
-            if (extentName == "onYOURwayEntities.Regions")
+            if (extentName == "onYOURwayModelStoreContainer.RegionAlias")
             {
                 return GetView33();
             }
 
-            if (extentName == "onYOURwayEntities.RegionAlias1")
+            if (extentName == "onYOURwayModelStoreContainer.RegionView")
             {
                 return GetView34();
             }
 
-            if (extentName == "onYOURwayEntities.RegionViews")
+            if (extentName == "onYOURwayEntities.Regions")
             {
                 return GetView35();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.TransportLine")
+            if (extentName == "onYOURwayEntities.RegionAlias1")
             {
                 return GetView36();
             }
 
-            if (extentName == "onYOURwayEntities.TransportLines")
+            if (extentName == "onYOURwayEntities.RegionViews")
             {
                 return GetView37();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.TransportStop")
+            if (extentName == "onYOURwayModelStoreContainer.TransportLine")
             {
                 return GetView38();
             }
 
-            if (extentName == "onYOURwayEntities.TransportStops")
+            if (extentName == "onYOURwayEntities.TransportLines")
             {
                 return GetView39();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.Membership")
+            if (extentName == "onYOURwayModelStoreContainer.TransportStop")
             {
                 return GetView40();
             }
 
-            if (extentName == "onYOURwayEntities.Memberships")
+            if (extentName == "onYOURwayEntities.TransportStops")
             {
                 return GetView41();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.OAuthMembership")
+            if (extentName == "onYOURwayModelStoreContainer.Membership")
             {
                 return GetView42();
             }
 
-            if (extentName == "onYOURwayEntities.OAuthMemberships")
+            if (extentName == "onYOURwayEntities.Memberships")
             {
                 return GetView43();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.Role")
+            if (extentName == "onYOURwayModelStoreContainer.OAuthMembership")
             {
                 return GetView44();
             }
 
-            if (extentName == "onYOURwayEntities.Roles")
+            if (extentName == "onYOURwayEntities.OAuthMemberships")
             {
                 return GetView45();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.Street")
+            if (extentName == "onYOURwayModelStoreContainer.Role")
             {
                 return GetView46();
             }
 
-            if (extentName == "onYOURwayEntities.Streets")
+            if (extentName == "onYOURwayEntities.Roles")
             {
                 return GetView47();
             }
 
-            if (extentName == "onYOURwayModelStoreContainer.Country")
+            if (extentName == "onYOURwayModelStoreContainer.Street")
             {
                 return GetView48();
             }
 
-            if (extentName == "onYOURwayEntities.Countries")
+            if (extentName == "onYOURwayEntities.Streets")
             {
                 return GetView49();
+            }
+
+            if (extentName == "onYOURwayModelStoreContainer.Country")
+            {
+                return GetView50();
+            }
+
+            if (extentName == "onYOURwayEntities.Countries")
+            {
+                return GetView51();
             }
 
             return null;
@@ -459,10 +469,48 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for onYOURwayModelStoreContainer.BikeWay.
+        /// Gets the view for onYOURwayModelStoreContainer.Message.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView8()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Message
+        [onYOURwayModel.Store.Message](T1.Message_Locale, T1.Message_Key, T1.Message_Text)
+    FROM (
+        SELECT 
+            T.Locale AS Message_Locale, 
+            T.[Key] AS Message_Key, 
+            T.Text AS Message_Text, 
+            True AS _from0
+        FROM onYOURwayEntities.Messages AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for onYOURwayEntities.Messages.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView9()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Messages
+        [onYOURwayModel.Message](T1.Message_Locale, T1.Message_Key, T1.Message_Text)
+    FROM (
+        SELECT 
+            T.Locale AS Message_Locale, 
+            T.[Key] AS Message_Key, 
+            T.Text AS Message_Text, 
+            True AS _from0
+        FROM onYOURwayModelStoreContainer.Message AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for onYOURwayModelStoreContainer.BikeWay.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView10()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing BikeWay
@@ -482,7 +530,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.BikeWays.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView9()
+        private static DbMappingView GetView11()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing BikeWays
@@ -502,7 +550,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.LocationForeignId.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView10()
+        private static DbMappingView GetView12()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing LocationForeignId
@@ -521,7 +569,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.Partner.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView11()
+        private static DbMappingView GetView13()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Partner
@@ -540,7 +588,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.ProductSuggestion.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView12()
+        private static DbMappingView GetView14()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing ProductSuggestion
@@ -559,7 +607,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.Tag.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView13()
+        private static DbMappingView GetView15()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Tag
@@ -581,7 +629,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.TagName.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView14()
+        private static DbMappingView GetView16()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TagName
@@ -602,7 +650,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.LocationLink.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView15()
+        private static DbMappingView GetView17()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing LocationLink
@@ -623,7 +671,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.Location1.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView16()
+        private static DbMappingView GetView18()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Location1
@@ -658,7 +706,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.LocationAlias.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView17()
+        private static DbMappingView GetView19()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing LocationAlias
@@ -678,7 +726,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.HasTag.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView18()
+        private static DbMappingView GetView20()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing HasTag
@@ -696,7 +744,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.TagIsA.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView19()
+        private static DbMappingView GetView21()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TagIsA
@@ -715,7 +763,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.LocationForeignIds.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView20()
+        private static DbMappingView GetView22()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing LocationForeignIds
@@ -734,7 +782,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.Partners.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView21()
+        private static DbMappingView GetView23()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Partners
@@ -753,7 +801,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.ProductSuggestions.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView22()
+        private static DbMappingView GetView24()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing ProductSuggestions
@@ -772,7 +820,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.Tags.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView23()
+        private static DbMappingView GetView25()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Tags
@@ -794,7 +842,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.TagNames.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView24()
+        private static DbMappingView GetView26()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TagNames
@@ -815,7 +863,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.LocationLinks.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView25()
+        private static DbMappingView GetView27()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing LocationLinks
@@ -836,7 +884,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.Locations.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView26()
+        private static DbMappingView GetView28()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Locations
@@ -871,7 +919,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.LocationAliases.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView27()
+        private static DbMappingView GetView29()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing LocationAliases
@@ -891,7 +939,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.HasTags.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView28()
+        private static DbMappingView GetView30()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing HasTags
@@ -909,7 +957,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.TagIsA.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView29()
+        private static DbMappingView GetView31()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TagIsA
@@ -937,7 +985,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.Region.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView30()
+        private static DbMappingView GetView32()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Region
@@ -962,7 +1010,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.RegionAlias.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView31()
+        private static DbMappingView GetView33()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing RegionAlias
@@ -982,7 +1030,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.RegionView.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView32()
+        private static DbMappingView GetView34()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing RegionView
@@ -1003,7 +1051,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.Regions.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView33()
+        private static DbMappingView GetView35()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Regions
@@ -1028,7 +1076,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.RegionAlias1.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView34()
+        private static DbMappingView GetView36()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing RegionAlias1
@@ -1048,7 +1096,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.RegionViews.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView35()
+        private static DbMappingView GetView37()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing RegionViews
@@ -1069,7 +1117,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.TransportLine.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView36()
+        private static DbMappingView GetView38()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TransportLine
@@ -1095,7 +1143,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.TransportLines.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView37()
+        private static DbMappingView GetView39()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TransportLines
@@ -1121,7 +1169,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.TransportStop.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView38()
+        private static DbMappingView GetView40()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TransportStop
@@ -1141,7 +1189,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.TransportStops.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView39()
+        private static DbMappingView GetView41()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing TransportStops
@@ -1161,7 +1209,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.Membership.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView40()
+        private static DbMappingView GetView42()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Membership
@@ -1188,7 +1236,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.Memberships.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView41()
+        private static DbMappingView GetView43()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Memberships
@@ -1215,7 +1263,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.OAuthMembership.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView42()
+        private static DbMappingView GetView44()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing OAuthMembership
@@ -1234,7 +1282,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.OAuthMemberships.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView43()
+        private static DbMappingView GetView45()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing OAuthMemberships
@@ -1253,7 +1301,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.Role.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView44()
+        private static DbMappingView GetView46()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Role
@@ -1271,7 +1319,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.Roles.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView45()
+        private static DbMappingView GetView47()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Roles
@@ -1289,7 +1337,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.Street.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView46()
+        private static DbMappingView GetView48()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Street
@@ -1308,7 +1356,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.Streets.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView47()
+        private static DbMappingView GetView49()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Streets
@@ -1327,7 +1375,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayModelStoreContainer.Country.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView48()
+        private static DbMappingView GetView50()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Country
@@ -1363,7 +1411,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for onYOURwayEntities.Countries.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView49()
+        private static DbMappingView GetView51()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Countries

@@ -25,14 +25,14 @@
     <form class="form">
 
         <div class="row panel-body">
-            <h1><span class="translate">Add a new site</span></h1>
+            <h1><span data-bind="localText: 'siteCollector.title.add'">Add a new site</span></h1>
         </div>
 
         <div class="row">
             <div class="col-sm-6">
 
                 <div class="form-group">
-                    <label class="translate">Selected region/map:</label>
+					<label data-bind="localText: 'siteCollector.selectRegion'">Selected region/map</label>:
 
                     <select data-bind="value: region" id="accessibility" class="form-control">
                         <option value="1">Baden</option>

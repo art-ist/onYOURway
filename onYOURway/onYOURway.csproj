@@ -265,6 +265,8 @@
     <Content Include="App\bindingHandlers\timeslider-bindingHandler.js" />
     <Content Include="App\bindingHandlers\typeahead-bindingHandler.js" />
     <Content Include="App\bindingHandlers\_instance-bindingProvider.js" />
+    <Content Include="App\components\searchTermInput-component.html" />
+    <Content Include="App\components\searchTermInput-component.js" />
     <Content Include="App\extensions\global-extensions.js" />
     <Content Include="App\images\vonMorgen\photo-1.PNG" />
     <Content Include="App\images\vonMorgen\photo-2.PNG" />
@@ -340,6 +342,9 @@
       <DependentUpon>onYOURway.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Membership.cs">
+      <DependentUpon>onYOURway.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Message.cs">
       <DependentUpon>onYOURway.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MyLocation.cs">
