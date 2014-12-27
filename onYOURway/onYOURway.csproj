@@ -591,6 +591,8 @@
     <Content Include="App\_libraries\lawnchair-0.6.1.js" />
     <Content Include="App\_libraries\opening_hours.js" />
     <Content Include="App\_libraries\owl.carousel.js" />
+    <Content Include="App\components\searchBox-component.html" />
+    <Content Include="App\components\searchBox-component.js" />
     <Content Include="App\_styles\owl.theme.css" />
     <Content Include="App\_styles\typeahead.js-bootstrap.css" />
     <Content Include="App\themes\onYOURway\css\onYOURway.css">

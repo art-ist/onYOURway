@@ -249,6 +249,10 @@ input.searchFor {
 
 /*#region theme */
 
+a.searchBoxButton {
+    position: relative;
+}
+
 input.form-control, 
 textarea.form-control, 
 select.form-control, 
@@ -257,9 +261,17 @@ select.form-control,
 	border: none;
 	box-shadow: none;
 	border-radius: 0;
-	border-bottom: 3px solid @dunkelgrau;
 	min-height: 30px;
 	background-image: none;
+    background-color: transparent;
+    margin-right: -35px !important;
+    padding: 0 35px !important;
+    width: 270px !important;
+}
+div.form-control.select2-container ul.select2-choices
+{
+    border-radius: 0 !important;
+	border-bottom: 3px solid @dunkelgrau !important;
 }
 .select2-container .select2-choice {
 	background-image: none;
