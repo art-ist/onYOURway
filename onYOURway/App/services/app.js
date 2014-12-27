@@ -7,166 +7,259 @@ define([
   'services/location',
   'services/logger',
   'services/platform',
-  'services/auth' ,
-  'services/storage' ,
+  'services/auth',
+  'services/storage',
   'plugins/router'
 ], function (location, logger, platform, auth, storage, router) {
 
-  //create global viewModel
-  var app = {
+	//create global viewModel
+	var app = {
 
-    initialize: initialize,
+		initialize: initialize,
 
-    //simple properties
-    title: 'onYOURway',
-    lang: 'de',
+		//simple properties
+		title: 'onYOURway',
+		lang: ko.observable('de'),
 
-    location: location,
-    auth: auth,
-    storage: storage,
+		msg: null /* messages (translations texts) - will be initialized on load */,
+		getMsg: getMessage,
+		tryMsg: getMessage, //tryGetMessage,
 
-    when: location.when,
-    canLocate: navigator.geolocation.getCurrentPosition, //Function available?
+		location: location,
+		auth: auth,
+		storage: storage,
 
-    //observable properties
-    tools: {
-      search: ko.observable(false),
-      locationList: ko.observable(false),
-      shoppingList: ko.observable(false),
-      locationDetails: ko.observable(false),
+		when: location.when,
+		canLocate: navigator.geolocation.getCurrentPosition, //Function available?
 
-      toggleSearch: function () {
-        var search = app.tools.search;
-        search(!search());
-      }
-    },
+		//observable properties
+		tools: {
+			search: ko.observable(false),
+			locationList: ko.observable(false),
+			shoppingList: ko.observable(false),
+			locationDetails: ko.observable(false),
 
-    user: {
-      Name: ko.observable(null),
-      isAuthenticated: ko.observable(false),
-      //accessToken: null,
-      //rememberMe: ko.observable(null),
-      navigateToLoggedIn: navigateToLoggedIn,
-      ventures: ko.observableArray() //TODO: get 'owned' ventures
-    },
+			toggleSearch: function () {
+				var search = app.tools.search;
+				search(!search());
+			}
+		},
 
-    settings: {
-      mapBackground: true,
-      animationDuration: 500,
-      location: location.settings //aggregate location settings in app settings
-    },
+		user: {
+			Name: ko.observable(null),
+			isAuthenticated: ko.observable(false),
+			//accessToken: null,
+			//rememberMe: ko.observable(null),
+			navigateToLoggedIn: navigateToLoggedIn,
+			ventures: ko.observableArray() //TODO: get 'owned' ventures
+		},
 
-    shoppingList: {
-      items: ko.observableArray([]),
-      itemsTodo: function () { return ko.computed(getShoppingListTodoCount, app.shoppingList.items(), { deferEvaluation: true }); },
+		settings: {
+			mapBackground: true,
+			animationDuration: 500,
+			location: location.settings //aggregate location settings in app settings
+		},
 
-      addItem: addShoppingListItem,
-      findItem: function () { location.search(this.Title()); },
-      removeItem: removeShoppingListItem,
-      clean: cleanShoppingList
-    },
+		shoppingList: {
+			items: ko.observableArray([]),
+			itemsTodo: function () { return ko.computed(getShoppingListTodoCount, app.shoppingList.items(), { deferEvaluation: true }); },
 
-    navigateInPage: navigateInPage
+			addItem: addShoppingListItem,
+			findItem: function () { location.search(this.Title()); },
+			removeItem: removeShoppingListItem,
+			clean: cleanShoppingList
+		},
 
-  };
-  return app;
+		navigateInPage: navigateInPage
 
-  function initialize(){
-    logger.log('app initializing', '_app');
+	};
+	return app;
 
-    //load shopping list
-    loadShoppingList();
+	//#region localization
 
-  }
+	function loadMessages() {
+		var readManager = new breeze.EntityManager({
+			dataService: new breeze.DataService({
+				serviceName: config.host + '/api/locate'
+			, hasServerMetadata: false  // never ask the server for metadata (we don not want this manager to mengle json data into any metadata based object types)
+			}),
+		});
+		var q = new breeze.EntityQuery().from('Messages');
+		if (app.lang()) {
+			q = q.withParameters({ Locale: app.lang() });
+		}
+		//tell.start('App - Loading Messages');
+		return readManager.executeQuery(q)
+			.then(function (data) {
+				app.msg = data.results[0];
+				//tell.done('App - Loading Messages');
+				$(app).trigger('me2B.messagesLoaded');
+				// configure breeze client side validation messages (used as fallback by the breezeValidation-bindingHandler, if no error.validation[key] message is found)
+				if (app.msg && app.msg.error && app.msg.error.breeze && breeze && breeze.Validator && breeze.Validator.messageTemplates) {
+					$.each(app.msg.error.breeze, function (key, val) {
+						if (key && val && key.indexOf('$') !== 0) {
+							breeze.Validator.messageTemplates[key] = val;
+						}
+					});
+				}
+			})
+			.fail(function (e) {
+				//tell.error('Loading messages failed', 'App', e, 'App - Loading Messages');
+			});
+		;
+	}
 
-  function navigateToLoggedIn(userName, access_token, rememberMe) {
-    var user = app.user;
-    user.isAuthenticated(true);
-    user.Name(userName);
-    //user.accessToken(access_token);
-    //user.rememberMe(rememberMe);
-    router.navigate('#/')
-  }
+	//helper function to drill down into an object hierarchy, returning null if any property doesnt exist
+	function drill(obj, key) {
+		if (!obj) {
+			return null;
+		} else {
+			var val = obj[key];
+			if (val) {
+				return val;
+			} else {
+				var idx = key.indexOf('.');
+				return idx < 0 ? null : drill(obj[key.substr(0, idx)], key.substr(idx + 1));
+			}
+		}
+	}
 
-  function navigateInPage(afterNavigate) {
-    //set event handler
-    $('.oyw-content-nav a').click(onNavClick);
+	//helper function to format a message "{0} + {1} = {2}" by inserting the provided variables (1,2,3): "1 + 2 = 3"
+	function formatMessage(message, replacements) {
+		return message && message.replace(/\{(\d+)\}/g, function () {
+			return replacements[arguments[1]];
+		});
+	}
 
-    function onNavClick(data, event) {
-      var href = $(this).attr('href');
-      if (href.startsWith('#/') || href.startsWith('.') || href.startsWith('/') || href.startsWith('http:')) return true; //leave these to default action
-      var target = $(href);
-      if(target) $('.oyw-content-main').scrollTo(target, { offset: 0, duration: app.settings.animationDuration });
+	////return a translated message by key
+	////the parameter keys can eiter be a string or and array of two strings
+	////if no message for this key found, returns ???keys???
+	//function getMessage(keys, variableValues, obj) {
+	//    return tryGetMessage(keys, variableValues, obj) || ('???' + keys + '???');
+	//}
 
-      //TODO: replace with scrollspy
-      $('.oyw-content-nav .active').removeClass('active')
-      $(this).parent('li').addClass('active');
+	//return a translated message by key
+	//the parameter keys can eiter be a string or an array of two strings or an array of two strings and another array of variableValues
+	//the parameter variableValues is an array of all required variable values for this messages placeholders ({0} ... {9})
+	//if no message for this key found, returns null
+	function getMessage(keys, variableValues, obj) {
+		var result = null;
+		if (typeof keys === 'string') {
+			result = variableValues
+				? formatMessage(drill(obj || app.msg, keys), variableValues)
+				: drill(obj || app.msg, keys);
+		} else {
+			result = (variableValues || keys[2])
+				? formatMessage(drill(drillobj || (app.msg, keys[0]), keys[1]), variableValues || keys[2])
+				: drill(drill(obj || app.msg, keys[0]), keys[1]);
+		}
+		//log message if key not found
+		if (!result) {
+			tell.log("app.getMessage could not find message for key '" + keys + "'", 'app localization');
+		}
+		return result;
+	}
 
-      if (afterNavigate) {
-        afterNavigate(href, target);
-      }
-      return false; //prevent default action
-    } //onNavClick
+	//#endregion localization
 
-  } //navigateInPage
+	function initialize() {
+		logger.log('app initializing', '_app');
 
-  //#region ShoppingList
+		loadMessages();
 
-  function addShoppingListItem(item, saveList) {
-    logger.log('adding Item ' + item.Title(), 'app.shoppingList');
-    app.shoppingList.items.push(item);
-    if (saveList !== false) { //only when explicitly set to false (default = save)
-      saveShoppingList();
-    }
-    item.Done.subscribe(saveShoppingList); //AutoSave List
-    item.Done.subscribe(saveShoppingList); //AutoSave List
-  }
+		//load shopping list
+		loadShoppingList();
 
-  function removeShoppingListItem(item) {
-    logger.log('removing Item ' + item.Title(), 'app.shoppingList');
-    app.shoppingList.items.remove(item);
-    saveShoppingList();
-  }
+	}
 
-  function cleanShoppingList() {
-    logger.log('cleaning List', 'app.shoppingList');
-    app.shoppingList.items.remove(function (item) { return item.Done(); }); //removes all done items
-    saveShoppingList();
-  }
+	function navigateToLoggedIn(userName, access_token, rememberMe) {
+		var user = app.user;
+		user.isAuthenticated(true);
+		user.Name(userName);
+		//user.accessToken(access_token);
+		//user.rememberMe(rememberMe);
+		router.navigate('#/')
+	}
 
-  function getShoppingListTodoCount() {
-    var result = 0;
-    var items = this;
-    for (var i = 0; i < items.length; i++) {
-      if (!items[i].Done()) result++;
-    }
-    return result;
-  }
+	function navigateInPage(afterNavigate) {
+		//set event handler
+		$('.oyw-content-nav a').click(onNavClick);
 
-  function loadShoppingList() {
-    //app.storage.clear();
+		function onNavClick(data, event) {
+			var href = $(this).attr('href');
+			if (href.startsWith('#/') || href.startsWith('.') || href.startsWith('/') || href.startsWith('http:')) return true; //leave these to default action
+			var target = $(href);
+			if (target) $('.oyw-content-main').scrollTo(target, { offset: 0, duration: app.settings.animationDuration });
 
-    //load locally stored data
-    app.storage.load('shoppingList', function (value) {
-      //if nothing found use empty array
-      if (!value) value = [];
-      var _item = null;
-      for (var i = 0; i < value.length; i++) {
-        _item = ko.mapping.fromJS(value[i]);
-        app.shoppingList.addItem(_item, false);
-      }
-      //if (value) ko.mapping.fromJSON(value, app.shoppingList);
-      //logger.log('list loaded', 'shoppingList', app.shoppingList.items());
-    });
-  }
+			//TODO: replace with scrollspy
+			$('.oyw-content-nav .active').removeClass('active')
+			$(this).parent('li').addClass('active');
 
-  function saveShoppingList() {
-    app.storage.save('shoppingList', ko.toJS(app.shoppingList.items()));
-    //app.storage.save('shoppingList', ko.mapping.toJSON(app.shoppingList));
-    logger.log('shoppingList saved', 'shoppingList', app.shoppingList.items().length);
-  }
+			if (afterNavigate) {
+				afterNavigate(href, target);
+			}
+			return false; //prevent default action
+		} //onNavClick
 
-  //#endregion ShoppingList
+	} //navigateInPage
+
+	//#region ShoppingList
+
+	function addShoppingListItem(item, saveList) {
+		logger.log('adding Item ' + item.Title(), 'app.shoppingList');
+		app.shoppingList.items.push(item);
+		if (saveList !== false) { //only when explicitly set to false (default = save)
+			saveShoppingList();
+		}
+		item.Done.subscribe(saveShoppingList); //AutoSave List
+		item.Done.subscribe(saveShoppingList); //AutoSave List
+	}
+
+	function removeShoppingListItem(item) {
+		logger.log('removing Item ' + item.Title(), 'app.shoppingList');
+		app.shoppingList.items.remove(item);
+		saveShoppingList();
+	}
+
+	function cleanShoppingList() {
+		logger.log('cleaning List', 'app.shoppingList');
+		app.shoppingList.items.remove(function (item) { return item.Done(); }); //removes all done items
+		saveShoppingList();
+	}
+
+	function getShoppingListTodoCount() {
+		var result = 0;
+		var items = this;
+		for (var i = 0; i < items.length; i++) {
+			if (!items[i].Done()) result++;
+		}
+		return result;
+	}
+
+	function loadShoppingList() {
+		//app.storage.clear();
+
+		//load locally stored data
+		app.storage.load('shoppingList', function (value) {
+			//if nothing found use empty array
+			if (!value) value = [];
+			var _item = null;
+			for (var i = 0; i < value.length; i++) {
+				_item = ko.mapping.fromJS(value[i]);
+				app.shoppingList.addItem(_item, false);
+			}
+			//if (value) ko.mapping.fromJSON(value, app.shoppingList);
+			//logger.log('list loaded', 'shoppingList', app.shoppingList.items());
+		});
+	}
+
+	function saveShoppingList() {
+		app.storage.save('shoppingList', ko.toJS(app.shoppingList.items()));
+		//app.storage.save('shoppingList', ko.mapping.toJSON(app.shoppingList));
+		logger.log('shoppingList saved', 'shoppingList', app.shoppingList.items().length);
+	}
+
+	//#endregion ShoppingList
 
 });
 

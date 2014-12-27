@@ -22,7 +22,7 @@
       .replace(/{end.lat}/g, end[1])
       .replace(/{end.lon}/g, end[0])
       .replace(/{mode}/g, mode)
-      //.replace(/{lang}/g, app.lang)
+      //.replace(/{lang}/g, app.lang())
     ;
 
     return $.ajax({

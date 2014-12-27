@@ -15,13 +15,13 @@ define([
 ], function (app, logger, platform, geoUtils, router, routingProvider, geocodingProvider) {
 
 	// serviceUri is route to the Web API controller
-	var locareDataService = new breeze.DataService({
+	var locateDataService = new breeze.DataService({
 		serviceName: config.host + '/api/locate',
 		hasServerMetadata: false  // don't ask the server for metadata (as we'll load it from location.metadata)
 	});
 	var locateMetadata = new breeze.MetadataStore(); //see: http://www.breezejs.com/documentation/naming-convention
 	var locateContext = new breeze.EntityManager({
-		dataService: locareDataService,
+		dataService: locateDataService,
 		metadataStore: locateMetadata
 	});
 
@@ -468,7 +468,7 @@ define([
 			var query = breeze.EntityQuery.from("Places");
 			query.parameters = {
 				RegionId: location.Region ? location.Region().Id() : 1,
-				Lang: app.lang
+				Lang: app.lang()
 			};
 
 			return locateContext
@@ -595,7 +595,7 @@ define([
 			var query = breeze.EntityQuery.from("SearchSuggestions");
 			query.parameters = {
 				RegionId: location.Region ? location.Region().Id() : 1,
-				Lang: app.lang
+				Lang: app.lang()
 			};
 
 			return locateContext
@@ -819,7 +819,6 @@ define([
 	} //_panMap
 
 	//#endregion Private Members
-
 
 	//#region Public Methods
 

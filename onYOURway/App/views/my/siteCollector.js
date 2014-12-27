@@ -263,7 +263,7 @@ define([
          * get the hierarchy of assignable tags (self.taxonomy)
          */
 		var getTaxonomy = function (rootId) {
-			location.getTaxonomy(rootId, app.lang)
+			location.getTaxonomy(rootId, app.lang())
 				.then(function (d) {
 					logger.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
 					self.taxonomy(d.results[0].tags.tag);

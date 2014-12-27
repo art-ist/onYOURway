@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="318f1801ece54434ab56fcd4abebe5c3" Name="All" ZoomLevel="100">
+      <Diagram DiagramId="318f1801ece54434ab56fcd4abebe5c3" Name="All" ZoomLevel="128">
         <EntityTypeShape EntityType="onYOURwayModel.Card" Width="1.5" PointX="11.875" PointY="3.875" />
         <EntityTypeShape EntityType="onYOURwayModel.ShoppingList" Width="1.5" PointX="13.875" PointY="3.875" />
         <EntityTypeShape EntityType="onYOURwayModel.UserProfile" Width="1.5" PointX="10.875" PointY="0.5" />
@@ -43,6 +43,7 @@
         <EntityTypeShape EntityType="onYOURwayModel.HasTag" Width="1.5" PointX="11.125" PointY="9.375" />
         <AssociationConnector Association="onYOURwayModel.LocationHasTag" />
         <AssociationConnector Association="onYOURwayModel.TagHasTag" />
+        <EntityTypeShape EntityType="onYOURwayModel.Message" Width="1.5" PointX="7.25" PointY="0.625" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

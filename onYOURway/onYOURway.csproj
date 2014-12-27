@@ -256,6 +256,18 @@
   <ItemGroup>
     <Content Include="App\app.config.js" />
     <Content Include="App\appConfig.base.js" />
+    <Content Include="App\bindingHandlers\ventures-bindingHandler.js" />
+    <Content Include="App\bindingHandlers\map-bindingHandler.js" />
+    <Content Include="App\bindingHandlers\class-bindingHandler.js" />
+    <Content Include="App\bindingHandlers\datepicker-bindingHandler.js" />
+    <Content Include="App\bindingHandlers\localize-bindingHandler.js" />
+    <Content Include="App\bindingHandlers\textDate-bindingHandler.js" />
+    <Content Include="App\bindingHandlers\timeslider-bindingHandler.js" />
+    <Content Include="App\bindingHandlers\typeahead-bindingHandler.js" />
+    <Content Include="App\bindingHandlers\_instance-bindingProvider.js" />
+    <Content Include="App\components\searchTermInput-component.html" />
+    <Content Include="App\components\searchTermInput-component.js" />
+    <Content Include="App\extensions\global-extensions.js" />
     <Content Include="App\images\vonMorgen\photo-1.PNG" />
     <Content Include="App\images\vonMorgen\photo-2.PNG" />
     <Content Include="App\images\vonMorgen\photo-3.PNG" />
@@ -266,7 +278,7 @@
     <Content Include="App\services\providers\geocode-google.js" />
     <Content Include="App\services\providers\routing-yours.js" />
     <Content Include="App\services\storage.js" />
-    <Content Include="App\services\_ko.bindingHandlers.js" />
+    <Content Include="App\bindingHandlers\select2-bindingHandler.js" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -330,6 +342,9 @@
       <DependentUpon>onYOURway.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Membership.cs">
+      <DependentUpon>onYOURway.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Message.cs">
       <DependentUpon>onYOURway.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MyLocation.cs">
