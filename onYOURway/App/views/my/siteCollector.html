@@ -192,7 +192,7 @@
                                         <i class="icon-plus"></i><i class="icon-minus"></i>
                                         <span data-bind="text: $data.name.Name || $data.name[0].Name"></span>
                                         <br />
-                                        <small data-bind="text: $data.name.Description || $data.name[0].Description"></small>
+                                        <small data-bind="text: $data.name.Description"></small>
                                     </a>
                                 </h4>
                             </div>
@@ -202,7 +202,7 @@
                                     <a class="list-group-item" data-bind="attr: { id: Id }, click: function() {$root.toggleTag($data)}, css: $root.tags.indexOf($data) >= 0 ? 'active' : ''">
                                         <h5 class="m-t-n-xxs m-b-n-xxs translate">
                                             <span data-bind="text: $data.name.Name || $data.name[0].Name"></span><br />
-                                            <small data-bind="text: $data.name.Description || $data.name[0].Description"></small>
+                                            <small data-bind="text: $data.name.Description"></small>
                                         </h5>
                                     </a>
                                 </div>

@@ -19,7 +19,7 @@ ko.bindingHandlers['localText'] = {
 
 			updateText();
 
-			$(app).on('me2B.messagesLoaded', updateText);
+			$(app).on('messagesLoaded', updateText);
 
 		}); //require
 	} //init

@@ -418,6 +418,7 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Content Include="App\services\tell.js" />
     <Content Include="App\themes\vonMorgen-beta\bootstrap.css" />
     <Content Include="App\themes\vonMorgen\fonts\source-sans-pro.css" />
     <Content Include="App\views\my\siteCollector.js" />
@@ -432,6 +433,7 @@
     <Content Include="App\views\vonMorgen\_nav.js" />
     <Content Include="App\themes\vonMorgen-beta\shell.html" />
     <Content Include="App\themes\vonMorgen-beta\shell.js" />
+    <Content Include="App\_libraries\knockout-3.2.0.js" />
     <Content Include="App\_libraries\leaflet\images\spritesheet-2x.png" />
     <Content Include="App\_libraries\leaflet\images\spritesheet.png" />
     <Content Include="App\_libraries\leaflet\leaflet.draw-src.js" />
@@ -661,9 +663,6 @@
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Regular.ttf.woff" />
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Semibold.ttf.woff" />
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-SemiboldIt.ttf.woff" />
-    <Content Include="App\themes\vonMorgen-beta\_vonMorgen.css.map">
-      <DependentUpon>_vonMorgen.css</DependentUpon>
-    </Content>
     <None Include="App\_libraries\breeze.intellisense.js" />
     <Content Include="App\_libraries\bootstrap-datepicker.js" />
     <Content Include="App\_libraries\bootstrap-tour.js" />
@@ -676,8 +675,6 @@
     <Content Include="App\_libraries\jquery-2.0.1.min.js" />
     <Content Include="App\_libraries\jquery.scrollIntoView.js" />
     <Content Include="App\_libraries\jquery.scrollIntoView.min.js" />
-    <Content Include="App\_libraries\knockout-3.0.0.js" />
-    <Content Include="App\_libraries\knockout-3.0.0.min.js" />
     <Content Include="App\_libraries\knockout-bootstrap.js" />
     <Content Include="App\_libraries\leaflet\leaflet-0.7.1.js" />
     <Content Include="App\_libraries\leaflet\leaflet.awesome-markers.js" />

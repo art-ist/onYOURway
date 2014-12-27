@@ -164,7 +164,7 @@ define([
 
 		//--Layergroups:
 		layers: {
-			tileLayer: null,
+			tileLayer: ko.observable(null),
 			routeLayer: null,
 			fiveMinutesInidcatorLayer: null,
 			transportLayer: null,
@@ -843,13 +843,13 @@ define([
 	} //setView
 
 	function setTileLayer(index) {
-		var layer = location.layers.tileLayer;
+		var layer = location.layers.tileLayer();
 		var map = location.map;
 		if (layer) {
 			map.removeLayer(layer.Layer);
 		}
 		layer = location.settings.tileLayers[index];
-		location.layers.tileLayer = layer;
+		location.layers.tileLayer(layer);
 		map.addLayer(layer.Layer);
 	} //setTileLayer
 

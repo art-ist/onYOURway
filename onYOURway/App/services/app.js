@@ -20,6 +20,14 @@ define([
 		//simple properties
 		title: 'onYOURway',
 		lang: ko.observable('de'),
+		langs: [
+			{ id: 'de', name: 'Deutsch' },
+			{ id: 'en', name: 'English' },
+			{ id: 'fr', name: 'Français' },
+			{ id: 'it', name: 'Italiano' },
+			{ id: 'es', name: 'Español' },
+		],
+		setLang: setLang,
 
 		msg: null /* messages (translations texts) - will be initialized on load */,
 		getMsg: getMessage,
@@ -86,14 +94,14 @@ define([
 		});
 		var q = new breeze.EntityQuery().from('Messages');
 		if (app.lang()) {
-			q = q.withParameters({ Locale: app.lang() });
+			q = q.withParameters({ lang: app.lang() });
 		}
 		//tell.start('App - Loading Messages');
 		return readManager.executeQuery(q)
 			.then(function (data) {
 				app.msg = data.results[0];
 				//tell.done('App - Loading Messages');
-				$(app).trigger('me2B.messagesLoaded');
+				$(app).trigger('messagesLoaded');
 				// configure breeze client side validation messages (used as fallback by the breezeValidation-bindingHandler, if no error.validation[key] message is found)
 				if (app.msg && app.msg.error && app.msg.error.breeze && breeze && breeze.Validator && breeze.Validator.messageTemplates) {
 					$.each(app.msg.error.breeze, function (key, val) {
@@ -158,6 +166,12 @@ define([
 			tell.log("app.getMessage could not find message for key '" + keys + "'", 'app localization');
 		}
 		return result;
+	}
+
+	//set app language (causing message reload)
+	function setLang (langId) {
+		app.lang(langId);
+		return true;
 	}
 
 	//#endregion localization

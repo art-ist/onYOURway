@@ -34,6 +34,7 @@
 					   data-bind="value: location.searchFor
                         , typeahead: location.searchSuggestions
                         , autoSelect: false
+						, localAttr: { placeholder: 'nav.search.placeholder' }
                          "
 					   type="text" />
 				<!--
@@ -52,8 +53,8 @@
 				  data-items="10"
 				-->
 				<div class="input-group-btn" data-bind="css: {open: app.tools.search }">
-					<button id="startSearchBtn" title="Suchen" class="btn btn-default tour-e-step-search" tabindex="-1" data-bind="click: search"><i class="fa fa-search fa-fw"></i></button>
-					<button id="toggleAdvancedSearchBtn" title="Erweiterte Suche" class="btn btn-default" type="button" data-bind="click: app.tools.toggleSearch, css: { active: app.tools.search }">Wann &amp; Wo<i class="caret"></i></button>
+					<button id="startSearchBtn" title="Suchen" class="btn btn-default tour-e-step-search" tabindex="-1" data-bind="click: search, localAttr: { title: 'nav.search.title' }"><i class="fa fa-search fa-fw"></i></button>
+					<button id="toggleAdvancedSearchBtn" title="Erweiterte Suche" class="btn btn-default" type="button" data-bind="click: app.tools.toggleSearch, css: { active: app.tools.search }, localAttr: { title: 'nav.search.advanced.title' }"><span data-bind="localText: 'nav.search.advanced.text'">Wann &amp; Wo</span> <i class="caret"></i></button>
 					<!--<div id="search-adv" class="dropdown-menu">
 					  <i class="btn oyw-btn-close fa fa-times" data-bind="click: app.tools.toggleSearch" />
 					</div>-->
@@ -93,7 +94,7 @@
 						<li class="dropdown-header">Demo (Baden)</li>
 						<li class="dropdown-header" data-bind="text: location.region.Name">Zoom</li>
 						<!-- ko foreach: location.views -->
-						<li><a href="#" data-bind="text: Name, click: function () { $parent.location.setView($index()); }">Name</a></li>
+						<li><a href="#" data-bind="text: Name, click: function () { $root.location.setView($index()); }">Name</a></li>
 						<!-- /ko -->
 
 						<li class="divider"></li>
@@ -110,7 +111,7 @@
 						<li class="divider"></li>
 						<li class="dropdown-header">Kartenstil</li>
 						<!-- ko foreach: location.settings.tileLayers -->
-						<li><a href="#" data-bind="text: Name, click: function () { $parent.location.setTileLayer($index()); }"> <!--<i class="icon-ok" data-bind="visible: location.settings.tileLayers[$index()] === location.layers.tileLayer"></i>--></a></li>
+						<li><a href="#" data-bind="click: function () { $root.location.setTileLayer($index()); }"><span data-bind="text: Name"></span> <i class="fa fa-check" data-bind="visible: $data === $root.location.layers.tileLayer()"></i></a></li>
 						<!-- /ko -->
 
 					</ul>
@@ -149,6 +150,10 @@
 						<li><a href="#/my/profile/einstellungen">Einstellungen</a></li>
 						<li class="divider"></li>
 						<li><a href="#" data-bind="click: app.auth.logout">Abmelden</a></li>
+						<!-- /ko -->
+						<li class="divider"></li>
+						<!-- ko foreach: app.langs -->
+						<li><a href="#" data-bind="click: $root.app.setLang($data.id)"><span data-bind="text: $data.name">English</span> <i class="fa fa-check" data-bind="visible: $root.app.lang() === $data.id"></i></a></li>
 						<!-- /ko -->
 					</ul>
 				</li>
