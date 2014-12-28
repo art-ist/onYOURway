@@ -6,13 +6,13 @@
 /// <reference path="providers/routing-yours.js" />
 define([
   'services/app',
-  'services/logger',
+  'services/tell',
   'services/platform',
   'services/geoUtils',
   'plugins/router',
   'providers/routing-yours',
   'providers/geocode-nominatim'
-], function (app, logger, platform, geoUtils, router, routingProvider, geocodingProvider) {
+], function (app, tell, platform, geoUtils, router, routingProvider, geocodingProvider) {
 
 	// serviceUri is route to the Web API controller
 	var locateDataService = new breeze.DataService({
@@ -218,7 +218,7 @@ define([
 		//locateContext.fetchMetadata()
 		//  .then(function () {
 		locateMetadata.importMetadata(location.metadata);
-		logger.log('metadata loaded', 'location');
+		tell.log('metadata loaded', 'location');
 
 		//Extensions for computed Properties (see: http://stackoverflow.com/questions/17323290/accessing-notmapped-computed-properties-using-breezejs-and-angularjs)
 		var Location = function () {
@@ -235,7 +235,7 @@ define([
 	}
 
 	function initializeMap(containerId) {
-		logger.log('[location] Initializing Map', 'location', containerId);
+		tell.log('[location] Initializing Map', 'location', containerId);
 
 		//create map
 		var map = L.map(containerId, { attributionControl: false });
@@ -288,7 +288,7 @@ define([
 
 		//  })
 		//  .fail(function (err) {
-		//  	logger.log('matadata could not be requested:' + err.message, 'location');
+		//  	tell.log('matadata could not be requested:' + err.message, 'location');
 		//  })
 		//;
 
@@ -453,7 +453,7 @@ define([
 		  .executeQuery(query)
 		  .then(function (d) {
 		  	var regions = d.results;
-		  	logger.log(regions.length + " Regions found", 'location');
+		  	tell.log(regions.length + " Regions found", 'location');
 		  	location.regions(regions);
 		  	//TODO: Set first region as default -> select default region based on  settings / current location
 		  	setRegion(0);
@@ -476,7 +476,7 @@ define([
 			  .then(function (d) {
 			  	if (d.results) {
 			  		var places = ko.mapping.fromJS(d.results[0].Places.Place)();
-			  		//logger.log('places found', 'location - _loadPlaces', places);
+			  		//tell.log('places found', 'location - _loadPlaces', places);
 
 			  		//extend places
 			  		//$.each(places, function (i, item) {
@@ -504,7 +504,7 @@ define([
 			  						}
 			  					});
 			  				} catch (e) {
-			  					logger.log('OpeningHours Error: ' + e, 'locate', item);
+			  					tell.log('OpeningHours Error: ' + e, 'locate', item);
 			  				}
 			  			}
 
@@ -579,7 +579,7 @@ define([
 			  	//update locations
 			  	location.locations(places);
 
-			  	logger.log(places.length + ' places loaded', 'location');
+			  	tell.log(places.length + ' places loaded', 'location');
 			  })
 			  .fail(function (error) {
 			  	var msg = breeze.saveErrorMessageService.getErrorMessage(error);
@@ -608,19 +608,19 @@ define([
 			  			location.tags.push(item.Name);
 			  		} //if
 			  	}); //$.each
-			  	//logger.log(location.searchSuggestions().length + " SearchSuggestions loaded", 'location', location.searchSuggestions());
+			  	//tell.log(location.searchSuggestions().length + " SearchSuggestions loaded", 'location', location.searchSuggestions());
 			  })
 			  .fail(function (error) {
 			  	var msg = breeze.saveErrorMessageService.getErrorMessage(error);
 			  	error.message = msg;
-			  	logger.logError("Suchvorschläge konnten nicht geladen werden.", 'location - _loadSearchSuggestions', error);
+			  	tell.logError("Suchvorschläge konnten nicht geladen werden.", 'location - _loadSearchSuggestions', error);
 			  	throw error;
 			  });
 		});
 	} //_loadSearchSuggestions
 
 	function _setFiveMinutesInidcator(aroundWhat) {
-		logger.log('starting', 'location - _setFiveMinutesIndicator', aroundWhat);
+		tell.log('starting', 'location - _setFiveMinutesIndicator', aroundWhat);
 		var map = location.map;
 		if (location.layers.fiveMinutesInidcatorLayer) {
 			map.removeLayer(location.layers.fiveMinutesInidcatorLayer);
@@ -644,21 +644,21 @@ define([
 			var writer = new jsts.io.WKTWriter();
 
 			var wkt = geoUtils.latLngToWkt(aroundWhat, 'LINESTRING', true);
-			//logger.log('wkt after geoUtils.latLngToWkt(.,.) = ', 'location - _setFiveMinutesIndicator', wkt);
+			//tell.log('wkt after geoUtils.latLngToWkt(.,.) = ', 'location - _setFiveMinutesIndicator', wkt);
 			var input = reader.read(wkt); //including transform
-			//logger.log('calculating Buffer for ' + JSON.stringify(input), 'location - _setFiveMinutesIndicator');
+			//tell.log('calculating Buffer for ' + JSON.stringify(input), 'location - _setFiveMinutesIndicator');
 			var buffer = input.buffer(location.settings.walkIn5);
-			//logger.log('jsts buffer = ', 'location - _setFiveMinutesIndicator', buffer);
+			//tell.log('jsts buffer = ', 'location - _setFiveMinutesIndicator', buffer);
 
 			wkt = writer.write(buffer);
-			//logger.log('calculated buffer', 'location - _setFiveMinutesIndicator', wkt);
+			//tell.log('calculated buffer', 'location - _setFiveMinutesIndicator', wkt);
 			var points = geoUtils.wktToCoords(wkt); //convert 2 point array
-			//logger.log('points after wktToCoords(wkt) = ', 'location - _setFiveMinutesIndicator', points);
+			//tell.log('points after wktToCoords(wkt) = ', 'location - _setFiveMinutesIndicator', points);
 			var latLngs = [];
 			for (var i = 0; i < points.length; i++) {  //transform to spherical
 				latLngs.push(geoUtils.transformXyMeterToLatLong(points[i]));
 			}
-			//logger.log('latLngs after point-wise transform', 'location - _setFiveMinutesIndicator', latLngs);
+			//tell.log('latLngs after point-wise transform', 'location - _setFiveMinutesIndicator', latLngs);
 
 			indicator = L.polygon(latLngs, indicatorOptions);
 			location.layers.fiveMinutesIndicatorLayer = indicator;
@@ -675,7 +675,7 @@ define([
 	} //_setFiveMinutesInidcator
 
 	function _setRouteMarker(coord, usage) {
-		logger.log('setting ' + usage + ' to ' + JSON.stringify(coord), 'location - setMarker', location.route.start);
+		tell.log('setting ' + usage + ' to ' + JSON.stringify(coord), 'location - setMarker', location.route.start);
 
 		var map = location.map;
 		var marker, latLng, icon;
@@ -724,14 +724,14 @@ define([
 	} //_setRouteMarker
 
 	function _geoCode(searchString, writeResultTo) {
-		logger.log('geocoding: ' + searchString, 'location - geoCode');
+		tell.log('geocoding: ' + searchString, 'location - geoCode');
 
 		return geocodingProvider
 			.getCoords(searchString, location.region)
 			.done(function (result) {
 				if (result.success) {
 					writeResultTo(result.coords);  //observable variable to write the result to (e.g. start.coords or end.coords)
-					logger.log('found: ' + JSON.stringify(result.coords), 'location - geoCode', writeResultTo);
+					tell.log('found: ' + JSON.stringify(result.coords), 'location - geoCode', writeResultTo);
 				}
 				else {
 					logger.error('Die Koordinaten zu diesem Standort konnten nicht gefunden werden.', 'location - geoCode', result);
@@ -797,7 +797,7 @@ define([
 
 		var ll = marker.getLatLng();
 		var pos = map.latLngToContainerPoint(ll);
-		logger.log('size: ' + size.x + ', ' + size.y + '   pos: ' + pos.x + ', ' + pos.y, 'location - _panMap', { size: map.getSize(), container: size });
+		tell.log('size: ' + size.x + ', ' + size.y + '   pos: ' + pos.x + ', ' + pos.y, 'location - _panMap', { size: map.getSize(), container: size });
 
 		var dx = 0;
 		var dy = 0;
@@ -824,7 +824,7 @@ define([
 
 	function setRegion(index) {
 		var regions = location.regions();
-		logger.log('setRegion', 'location - setRegion', regions);
+		tell.log('setRegion', 'location - setRegion', regions);
 		location.region(regions[index]);
 		if (regions.length) {
 			location.views(regions[index].Views());
@@ -854,7 +854,7 @@ define([
 	} //setTileLayer
 
 	function setMode(mode) {
-		logger.log("changing mode to " + mode, 'location');
+		tell.log("changing mode to " + mode, 'location');
 		//if no change do nothing
 		if (location.settings.mode() === mode) return;
 
@@ -879,7 +879,7 @@ define([
 					  .then(function (d) {
 					  	var group = new L.LayerGroup();
 					  	var ways = d.results;
-					  	logger.log(ways.length + " ways found", 'location');
+					  	tell.log(ways.length + " ways found", 'location');
 					  	for (var i = 0; i < ways.length; i++) {
 					  		var way = ways[i];
 					  		var color;
@@ -918,7 +918,7 @@ define([
 					  .then(function (d) {
 					  	var group = new L.LayerGroup();
 					  	var lines = d.results[0].Lines;
-					  	logger.log(lines.length + " lines found", 'location');
+					  	tell.log(lines.length + " lines found", 'location');
 					  	for (var i = 0; i < lines.length; i++) {
 					  		var line = lines[i];
 					  		var color;
@@ -1037,7 +1037,7 @@ define([
 
 	//like search but only by full TagNames
 	function showByTagName(what) {
-		//logger.log('showByTagName: ' + what, 'location');
+		//tell.log('showByTagName: ' + what, 'location');
 		location.searchFor(what);
 		try {
 			var toShow;
@@ -1120,7 +1120,7 @@ define([
 					}
 					//check tags
 					if (loc.Tag) {
-						//logger.log('searching', 'location', loc.Tag)
+						//tell.log('searching', 'location', loc.Tag)
 						var _tags = ko.isObservable(loc.Tag)
 								  ? loc.Tag()
 								  : [loc.Tag]
@@ -1265,7 +1265,7 @@ define([
 			if (mode === 'hide' || $('#ventureDetails').hasClass('detailsOpen')) {
 				location.drawPointer('hide');
 				$('#ventureDetails, #locationList, #map').removeClass('detailsOpen');
-				logger.log('details hidden', 'location - toggleDetails');
+				tell.log('details hidden', 'location - toggleDetails');
 				setTimeout(function () { //500ms later
 					location.panIntoView();
 					location.drawPointer();
@@ -1276,7 +1276,7 @@ define([
 				location.drawPointer('hide');
 				$('#ventureDetails, #locationList, #map')
 				  .addClass('detailsOpen');
-				logger.log('details opened', 'location - toggleDetails');
+				tell.log('details opened', 'location - toggleDetails');
 				setTimeout(function () { //500ms later
 					location.panIntoView();
 					location.drawPointer();
@@ -1309,7 +1309,7 @@ define([
 		location
 		 .getLocation(Id)
 		 .then(function () {
-		 	logger.log('location loaded', 'location - editLocation', location.loactionToEdit());
+		 	tell.log('location loaded', 'location - editLocation', location.loactionToEdit());
 		 	router.navigate('my/wizardNew');
 		 });
 	} //editLocation
@@ -1324,14 +1324,14 @@ define([
 		return locateContext
 			.executeQuery(query)
 			/*.then(function (d) {
-				logger.log(d.results.length + " Tags loaded", 'location - getTaxonomy', d.results);
+				tell.log(d.results.length + " Tags loaded", 'location - getTaxonomy', d.results);
 			})
             the result is only available in the FIRST .then callback / listener :(
             */
 			.fail(function (error) {
 				var msg = breeze.saveErrorMessageService.getErrorMessage(error);
 				error.message = msg;
-				logger.logError("Loading Tags failed.", 'location - getTaxonomy', error);
+				tell.logError("Loading Tags failed.", 'location - getTaxonomy', error);
 				throw error;
 			});
 	} //getTaxonomy
@@ -1605,19 +1605,19 @@ define([
 	function baseMapOpenOsm() {
 		var center = location.map.getCenter();
 		var z = location.map.getZoom();
-		logger.log('called', 'baseMap Open Osm', { center: center, zoom: z });
+		tell.log('called', 'baseMap Open Osm', { center: center, zoom: z });
 		window.open('http://www.openstreetmap.org/?' + 'editor=id' + '#map=' + z + '/' + center.lat + '/' + center.lng);
 	}
 
 	function baseMapEditOsm() {
 		var center = location.map.getCenter();
 		var z = location.map.getZoom();
-		logger.log('called', 'baseMap Edit Osm', { center: center, zoom: z });
+		tell.log('called', 'baseMap Edit Osm', { center: center, zoom: z });
 		window.open('http://www.openstreetmap.org/edit?' + 'editor=id' + '#map=' + z + '/' + center.lat + '/' + center.lng);
 	}
 
 	function baseMapAboutOsm() {
-		logger.log('called', 'baseMap About Osm');
+		tell.log('called', 'baseMap About Osm');
 		window.open('http://www.openstreetmap.org/about');
 	}
 

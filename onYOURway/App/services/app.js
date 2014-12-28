@@ -6,11 +6,12 @@
 define([
   'services/location',
   'services/logger',
+  'services/tell',
   'services/platform',
   'services/auth',
   'services/storage',
   'plugins/router'
-], function (location, logger, platform, auth, storage, router) {
+], function (location, logger, tell, platform, auth, storage, router) {
 
 	//create global viewModel
 	var app = {
@@ -169,21 +170,25 @@ define([
 	}
 
 	//set app language (causing message reload)
-	function setLang (langId) {
+	function setLang(langId) {
+		tell.log('setting lang to ' + langId);
 		app.lang(langId);
-		return true;
+
+		loadMessages();
+		location.loadRegionFeatures();
+
+		return false;
 	}
 
 	//#endregion localization
 
 	function initialize() {
-		logger.log('app initializing', '_app');
+		tell.log('app initializing', 'app');
 
 		loadMessages();
 
 		//load shopping list
 		loadShoppingList();
-
 	}
 
 	function navigateToLoggedIn(userName, access_token, rememberMe) {
@@ -220,7 +225,7 @@ define([
 	//#region ShoppingList
 
 	function addShoppingListItem(item, saveList) {
-		logger.log('adding Item ' + item.Title(), 'app.shoppingList');
+		tell.log('adding Item ' + item.Title(), 'app.shoppingList');
 		app.shoppingList.items.push(item);
 		if (saveList !== false) { //only when explicitly set to false (default = save)
 			saveShoppingList();
@@ -230,13 +235,13 @@ define([
 	}
 
 	function removeShoppingListItem(item) {
-		logger.log('removing Item ' + item.Title(), 'app.shoppingList');
+		tell.log('removing Item ' + item.Title(), 'app.shoppingList');
 		app.shoppingList.items.remove(item);
 		saveShoppingList();
 	}
 
 	function cleanShoppingList() {
-		logger.log('cleaning List', 'app.shoppingList');
+		tell.log('cleaning List', 'app.shoppingList');
 		app.shoppingList.items.remove(function (item) { return item.Done(); }); //removes all done items
 		saveShoppingList();
 	}
@@ -263,14 +268,14 @@ define([
 				app.shoppingList.addItem(_item, false);
 			}
 			//if (value) ko.mapping.fromJSON(value, app.shoppingList);
-			//logger.log('list loaded', 'shoppingList', app.shoppingList.items());
+			//tell.log('list loaded', 'shoppingList', app.shoppingList.items());
 		});
 	}
 
 	function saveShoppingList() {
 		app.storage.save('shoppingList', ko.toJS(app.shoppingList.items()));
 		//app.storage.save('shoppingList', ko.mapping.toJSON(app.shoppingList));
-		logger.log('shoppingList saved', 'shoppingList', app.shoppingList.items().length);
+		tell.log('shoppingList saved', 'shoppingList', app.shoppingList.items().length);
 	}
 
 	//#endregion ShoppingList

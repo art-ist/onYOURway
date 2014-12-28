@@ -31,9 +31,10 @@ define([
 
   'services/app',
   'services/platform',
-  'services/logger'
+  'services/logger',
+  'services/tell'
 ],
-  function (system, durandal, viewLocator, router, app, platform, logger) {
+  function (system, durandal, viewLocator, router, app, platform, logger, tell) {
 
     //specify which plugins to install and their configuration
     durandal.configurePlugins({
@@ -54,6 +55,7 @@ define([
 
     //>>excludeStart("build", true);
     logger.traceLevel = 2;                 // Enable logging to output to console
+    tell.traceLevel = 7;                 // Enable logging to output to console
     system.debug(logger.traceLevel > 1);   // Enable durandal debug messages to show in the console 
     //>>excludeEnd("build");
 

@@ -11,7 +11,7 @@ ko.bindingHandlers['localText'] = {
 			var $element = $(element);
 
 			var updateText = function () {
-				var text = app.getMsg(value)
+				var text = app.getMsg(value);
 				if (text) {
 					$element.text(text);
 				}

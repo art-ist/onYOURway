@@ -153,7 +153,7 @@
 						<!-- /ko -->
 						<li class="divider"></li>
 						<!-- ko foreach: app.langs -->
-						<li><a href="#" data-bind="click: $root.app.setLang($data.id)"><span data-bind="text: $data.name">English</span> <i class="fa fa-check" data-bind="visible: $root.app.lang() === $data.id"></i></a></li>
+						<li><a href="#" data-bind="click: function () { $root.app.setLang($data.id) }"><span data-bind="text: $data.name">English</span> <i class="fa fa-check" data-bind="visible: $root.app.lang() === $data.id"></i></a></li>
 						<!-- /ko -->
 					</ul>
 				</li>

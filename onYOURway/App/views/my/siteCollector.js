@@ -2,9 +2,9 @@
 define([
   'services/app',
   'services/location',
-  'services/logger',
+  'services/tell',
   'providers/geocode-nominatim',
-], function (app, location, logger, geocodingProvider) {
+], function (app, location, tell, geocodingProvider) {
 
 	var vm = function () {
 		var self = this;
@@ -80,9 +80,9 @@ define([
 		self.submit = function () {
 		    var noCoords = (!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0;
 		    if (!self.entity.Name()) {
-		        logger.error("Please enter a name before saving", 'siteCollector - submit');
+		        tell.error("Please enter a name before saving", 'siteCollector - submit');
 		    } else if (noCoords && (!self.entity.City())) {
-		        logger.error("Please enter the city or select a location in the map before saving!", 'siteCollector - submit');
+		        tell.error("Please enter the city or select a location in the map before saving!", 'siteCollector - submit');
 		    } else if (!self.entity.City()) {
 		        addressSetter(saveChanges);
 		    } else if (noCoords) {
@@ -99,7 +99,7 @@ define([
 		    try {
 		        self.entity && self.entityAspect && self.entity.entityAspect.rejectChanges();
 		    } catch (e) {
-		        logger.log("error rejecting changes", "siteCollector - close", e);
+		        tell.log("error rejecting changes", "siteCollector - close", e);
 		    }
 		    document.location.href = "#map";
 		}
@@ -142,7 +142,7 @@ define([
          * called by knockout.js when activating the view was requested / started
          */
 		self.activate = function (queryString) {
-		    logger.log('activate', 'siteCollector', queryString);
+		    tell.log('activate', 'siteCollector', queryString);
 		    if (queryString && queryString.tag) {
 		        location.showByTagName(queryString.tag);
 		    }
@@ -152,7 +152,10 @@ define([
 
 			//subscribe region changes to load the corresponding tyxonomy
 		    self.region.subscribe(function (value) {
-		    	getTaxonomy(value);
+		    	getTaxonomy();
+		    });
+		    app.lang.subscribe(function (value) {
+		    	getTaxonomy();
 		    });
 
 		    // enabling the site collector mode - makes map smaller and enables the site selection marker
@@ -164,7 +167,7 @@ define([
          * called by knockout.js just before the view-model binding takes place
          */
 		self.binding = function () {
-		    logger.log('binder', 'siteCollector');
+		    tell.log('binder', 'siteCollector');
 
 		    // prepare a new breeze entity to be edited by this form
 		    self.entity = self.manager.createEntity('Location', {
@@ -208,7 +211,7 @@ define([
 		                        self.manager.detachEntity(val);
 		                    }
 		                } catch (e) {
-		                    logger.log("could not detach tag", "siteCollector - deactivate", e);
+		                    tell.log("could not detach tag", "siteCollector - deactivate", e);
 		                }
 		            });
 		        }
@@ -216,7 +219,7 @@ define([
 		            self.manager.detachEntity(self.entity);
 		        }
 		    } catch (e2) {
-		        logger.log("could not detach entity", "siteCollector - deactivate", e2);
+		        tell.log("could not detach entity", "siteCollector - deactivate", e2);
 		    }
 
 		    // disabling siteCollectorMode enlarges the map again and hides the tag selection marker
@@ -262,10 +265,10 @@ define([
 		/**
          * get the hierarchy of assignable tags (self.taxonomy)
          */
-		var getTaxonomy = function (rootId) {
-			location.getTaxonomy(rootId, app.lang())
+		var getTaxonomy = function () {
+			location.getTaxonomy(self.region(), app.lang())
 				.then(function (d) {
-					logger.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
+					tell.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
 					self.taxonomy(d.results[0].tags.tag);
 				})
 		}
@@ -288,10 +291,10 @@ define([
 						callback();
 					}
 				} else {
-					logger.warn("Empty Coordinates received for address", 'siteCollector - setMarker', addr_str)
+					tell.warn("Empty Coordinates received for address", 'siteCollector - setMarker', addr_str)
 				}
 			}).fail(function () {
-				logger.warn('Coordinates not found for this address. Please select location manually!', 'siteCollector - setMarker', addr_str);
+				tell.warn('Coordinates not found for this address. Please select location manually!', 'siteCollector - setMarker', addr_str);
 				return null;
 			});
 		};
@@ -314,10 +317,10 @@ define([
 						callback();
 					}
 				} else {
-					logger.warn('Address not found for these coordinates. Please enter address manually!', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
+					tell.warn('Address not found for these coordinates. Please enter address manually!', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
 				}
 			}).fail(function () {
-				logger.warn('No address found for these coordinates. Please enter address manually!', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
+				tell.warn('No address found for these coordinates. Please enter address manually!', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
 			});
 		};
 
@@ -327,22 +330,22 @@ define([
          */
 		var saveChanges = function () {
 			if (!self.entity.City()) {
-				logger.error("Please enter the city before saving!", 'siteCollector - saveChanges');
+				tell.error("Please enter the city before saving!", 'siteCollector - saveChanges');
 			} else if ((!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0) {
-				logger.error("Please select a location in the map before saving!", 'siteCollector - saveChanges');
+				tell.error("Please select a location in the map before saving!", 'siteCollector - saveChanges');
 			} else if (self.manager.hasChanges()) {
 				self.entity.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
 				self.manager.saveChanges()
                     .then(function () {
-                        logger.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
+                        tell.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
                         location.loadRegionFeatures();
                         document.location.href = "#map";
                     })
                     .fail(function (err) {
-                    	logger.error("There was an error saving your new site. Please try again.", 'siteCollector - saveChanges', err);
+                    	tell.error("There was an error saving your new site. Please try again.", 'siteCollector - saveChanges', err);
                     });
 			} else {
-				logger.warn("Nothing to save - you didn't edit anything since last save", 'siteCollector - saveChanges');
+				tell.warn("Nothing to save - you didn't edit anything since last save", 'siteCollector - saveChanges');
 			};
 		}
 
