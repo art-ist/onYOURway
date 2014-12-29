@@ -417,6 +417,9 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Content Include="App\services\tell.js" />
+    <Content Include="App\tests\index.html" />
+    <Content Include="App\tests\components\searchBox-componentTest.js" />
+    <Content Include="App\tests\main.js" />
     <Content Include="App\themes\vonMorgen-beta\bootstrap.css" />
     <Content Include="App\themes\vonMorgen\fonts\source-sans-pro.css" />
     <Content Include="App\views\my\siteCollector.js" />
@@ -435,6 +438,8 @@
     <Content Include="App\_libraries\leaflet\images\spritesheet-2x.png" />
     <Content Include="App\_libraries\leaflet\images\spritesheet.png" />
     <Content Include="App\_libraries\leaflet\leaflet.draw-src.js" />
+    <Content Include="App\_libraries\qunit-1.16.0.js" />
+    <Content Include="App\_libraries\squire.js" />
     <Content Include="App\_styles\leaflet\leaflet.draw.css" />
     <Content Include="App\_libraries\leaflet\leaflet.draw.js" />
     <Content Include="App\_libraries\jQuery.scrollTo-1.4.8.js" />
@@ -486,6 +491,7 @@
     <Content Include="App\_styles\images\select2-spinner.gif" />
     <Content Include="App\_styles\images\select2.png" />
     <Content Include="App\_styles\images\select2x2.png" />
+    <Content Include="App\_styles\qunit-1.16.0.css" />
     <Content Include="App\_styles\select2-bootstrap.css" />
     <Content Include="App\_styles\select2.css" />
     <Content Include="App\themes\vonMorgen\css\bootstrap.css" />
@@ -664,6 +670,9 @@
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Regular.ttf.woff" />
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Semibold.ttf.woff" />
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-SemiboldIt.ttf.woff" />
+    <Content Include="App\themes\vonMorgen-beta\_vonMorgen.css.map">
+      <DependentUpon>_vonMorgen.css</DependentUpon>
+    </Content>
     <None Include="App\_libraries\breeze.intellisense.js" />
     <Content Include="App\_libraries\bootstrap-datepicker.js" />
     <Content Include="App\_libraries\bootstrap-tour.js" />
@@ -933,6 +942,7 @@
   <ItemGroup>
     <Folder Include="App\images\about\project\" />
     <Folder Include="App\models\" />
+    <Folder Include="App\services\api\" />
     <Folder Include="App\themes\onYOURway\images\" />
     <Folder Include="App\views\onYOURway\" />
     <Folder Include="App_Code\" />

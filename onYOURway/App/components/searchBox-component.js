@@ -6,7 +6,7 @@ define([
 ],
 function (logger, app, location, template) {
 
-    function SearchTermInputViewModel(params) {
+    function SearchBoxViewModel(params) {
         // private members
         var self = this;
 
@@ -20,26 +20,26 @@ function (logger, app, location, template) {
         this.triggerSearch = triggerSearch;
 
         // private functions
+
         function getSearchSuggestions(query) {
             if (query && query.term) {
-                var s = location.searchSuggestions();
-                var data = [];
-                var data2 = [];
-                var i;
-                for (i = 0; i < s.length; i++) {
-                    if (s[i]) {
-                        var idx = s[i].toLowerCase().indexOf(query.term.toLowerCase());
+                var allSuggestions = location.searchSuggestions();
+                var matchingSuggestions = [];
+                var bottomSuggestions = [];
+                for (var i = 0; i < allSuggestions.length; i++) {
+                    if (allSuggestions[i]) {
+                        var idx = allSuggestions[i].toLowerCase().indexOf(query.term.toLowerCase());
                         if (idx == 0) {
-                            data.push({ id: s[i], text: s[i] });
+                            matchingSuggestions.push({ id: allSuggestions[i], text: allSuggestions[i] });
                         } else if (idx > 0) {
-                            data2.push({ id: s[i], text: s[i] });
+                            bottomSuggestions.push({ id: allSuggestions[i], text: allSuggestions[i] });
                         }
                     }
                 }
-                for (i = 0; i < data2.length; i++) {
-                    data.push(data2[i]);
+                for (var i = 0; i < bottomSuggestions.length; i++) {
+                    matchingSuggestions.push(bottomSuggestions[i]);
                 }
-                query.callback({ results: data });
+                query.callback({ results: matchingSuggestions });
             }
         }
 
@@ -61,6 +61,6 @@ function (logger, app, location, template) {
 
     };
 
-	return { viewModel: SearchTermInputViewModel, template: template };
+    return { viewModel: SearchBoxViewModel, template: template };
 
 });
