@@ -598,6 +598,7 @@
     </Content>
     <Content Include="App\_styles\toastr.css" />
     <Content Include="App\_styles\toastr.min.css" />
+    <Content Include="App_Data\oyw.Messages.sql" />
     <Content Include="index.alternativestartup.html" />
     <Content Include="JP.aspx" />
     <Content Include="App\_libraries\app\app.datamodel.js" />
