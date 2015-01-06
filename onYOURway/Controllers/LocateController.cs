@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 
 using Breeze.WebApi2;
@@ -9,9 +10,12 @@ using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using onYOURway.Models;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
+using System.Runtime.InteropServices;
 using Newtonsoft.Json.Linq;
 using Breeze.ContextProvider;
 using System.Web;
+using Microsoft.Data.OData;
 
 namespace onYOURway.Controllers {
 
@@ -303,16 +307,55 @@ namespace onYOURway.Controllers {
 		/// <summary>
 		/// Gets all features of the selected region as search suggestions (typeahead) for the main search box
 		/// </summary>
-		/// <param name="RegionId">Id of the current region</param>
+		/// <param name="regionId">Id of the current region</param>
 		/// <param name="lang">Language id e.g. "de"</param>
 		/// <returns></returns>
 		[HttpGet]
-		public dynamic SearchSuggestions(int RegionId, string lang = null) {
-			if (string.IsNullOrEmpty(lang)) lang = GetLang();
-			return
-			db.Context
-			  .SearchSuggestions(RegionId, lang)
-			  .ToArray();
+		public dynamic SearchSuggestions(int regionId, string lang = null) {
+            if (string.IsNullOrEmpty(lang)) lang = GetLang();
+
+            var ctx = db.Context;
+            var query =
+                (from l in ctx.Locations 
+                 select new {
+                    Class = "location",
+                    Name = l.Name,
+                    Id = l.Id,
+                    Subtitle = l.Street + " " + l.HouseNumber + " " + l.City,
+                    ThumbnailUrl = "http://onyourway.at/Content/images/ventures/v-" + SqlFunctions.StringConvert((double)l.Id).Trim() + "-300.jpg"
+                })
+            .Union
+                (from a in ctx.LocationAliases 
+                 where a.Lang == null || a.Lang == lang 
+                 select new {
+                     Class = "location",
+                     Name = a.Name,
+                     Id = a.LocationId,
+                     Subtitle = a.Location.Street + " " + a.Location.HouseNumber + " " + a.Location.City,
+                     ThumbnailUrl = "http://onyourway.at/Content/images/ventures/v-" + SqlFunctions.StringConvert((double)a.LocationId).Trim() + "-300.jpg"
+                 })
+            .Union
+                (from s in ctx.Streets
+                 where s.RegionId == regionId
+                 select new {
+                     Class = "street",
+                     Name = s.Name,
+                     Id = -1L,
+                     Subtitle = "",
+                     ThumbnailUrl = ""
+                 })
+            .Union
+                (from t in ctx.TagNames
+                 where t.Name != null && (t.Lang == null || t.Lang == lang)
+                 select new {
+                     Class = "tag",
+                     Name = t.Name,
+                     Id = -1L,
+                     Subtitle = "",
+                     ThumbnailUrl = ""
+                 })
+            ;
+			return query.ToArray();
 		} //SearchSuggestions
 
 		/// <summary>
