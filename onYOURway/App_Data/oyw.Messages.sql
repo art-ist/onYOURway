@@ -1,3 +1,14 @@
+/*
+
+CREATE TABLE [oyw].[Message] (
+    [Locale] NVARCHAR (5)   NOT NULL,
+    [Key]    VARCHAR (300)  NOT NULL,
+    [Text]   NVARCHAR (MAX) NULL
+);
+
+*/
+
+
 Truncate Table oyw.[Message];
 
 INSERT INTO oyw.[Message] (Locale, [Key], [Text]) VALUES
