@@ -13,11 +13,11 @@
                     minimumInputLength: 1,
                     data: {results: location.searchSuggestionObjects(), text: 'Name'},
                     formatResult: formatSearchSuggestion,
-                    formatSelection: formatSearchSuggestion,
+                    formatSelection: formatSelection,
                     createSearchChoice: createSearchChoice,
                     createSearchChoicePosition: 'bottom',
                     placeholder: 'Suchen',
-                    id: 'Id'
+                    id: 'Name'
                 },
                 event:{ 'change': selectionChangedEvent }
             ">
