@@ -11,11 +11,13 @@
                 select2: {
                     multiple: true,
                     minimumInputLength: 1,
-                    query: getSearchSuggestions,
+                    data: {results: location.searchSuggestionObjects(), text: 'Name'},
                     formatResult: formatSearchSuggestion,
+                    formatSelection: formatSearchSuggestion,
                     createSearchChoice: createSearchChoice,
                     createSearchChoicePosition: 'bottom',
                     placeholder: 'Suchen',
+                    id: 'Id'
                 },
                 event:{ 'change': selectionChangedEvent }
             ">

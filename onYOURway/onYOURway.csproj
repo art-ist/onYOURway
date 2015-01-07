@@ -421,6 +421,9 @@
     <Content Include="App\tests\components\searchBox-componentTest.js" />
     <Content Include="App\tests\main.js" />
     <Content Include="App\themes\vonMorgen-beta\bootstrap.css" />
+    <Content Include="App\themes\vonMorgen\css\searchBox.css">
+      <DependentUpon>searchBox.less</DependentUpon>
+    </Content>
     <Content Include="App\themes\vonMorgen\fonts\source-sans-pro.css" />
     <Content Include="App\views\my\siteCollector.js" />
     <Content Include="App\views\my\siteCollector.html" />
@@ -672,6 +675,10 @@
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-SemiboldIt.ttf.woff" />
     <Content Include="App\themes\vonMorgen-beta\_vonMorgen.css.map">
       <DependentUpon>_vonMorgen.css</DependentUpon>
+    </Content>
+    <Content Include="App\themes\vonMorgen\css\searchBox.less" />
+    <Content Include="App\themes\vonMorgen\css\searchBox.css.map">
+      <DependentUpon>searchBox.css</DependentUpon>
     </Content>
     <None Include="App\_libraries\breeze.intellisense.js" />
     <Content Include="App\_libraries\bootstrap-datepicker.js" />

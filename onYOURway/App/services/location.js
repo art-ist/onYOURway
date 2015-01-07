@@ -108,6 +108,7 @@ define([
 		locations: ko.observableArray(),
 		mapLocations: ko.observableArray(),
 		searchSuggestions: ko.observableArray(),
+		searchSuggestionObjects: ko.observableArray(),
 		tags: ko.observableArray(),
 		getTaxonomy: getTaxonomy,
 		getCountries: getCountries,
@@ -601,9 +602,11 @@ define([
 			return locateContext
 			  .executeQuery(query)
 			  .then(function (d) {
-			  	location.searchSuggestions.removeAll();
+			    location.searchSuggestions.removeAll();
+			    location.searchSuggestionObjects.removeAll();
 			  	$.each(d.results, function (i, item) {
-			  		location.searchSuggestions.push(item.Name);
+			  	    location.searchSuggestions.push(item.Name);
+			  	    location.searchSuggestionObjects.push(item);
 			  		if (item.Class === 'tag') {
 			  			location.tags.push(item.Name);
 			  		} //if

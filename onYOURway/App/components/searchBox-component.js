@@ -29,7 +29,7 @@ function (logger, app, location, template) {
                 for (var i = 0; i < allSuggestions.length; i++) {
                     if (allSuggestions[i]) {
                         var idx = allSuggestions[i].toLowerCase().indexOf(query.term.toLowerCase());
-                        if (idx == 0) {
+                        if (idx === 0) {
                             matchingSuggestions.push({ id: allSuggestions[i], text: allSuggestions[i] });
                         } else if (idx > 0) {
                             bottomSuggestions.push({ id: allSuggestions[i], text: allSuggestions[i] });
@@ -44,11 +44,35 @@ function (logger, app, location, template) {
         }
 
         function formatSearchSuggestion(suggestion) {
-                return suggestion.text;
+            return '<div class="searchBoxSuggestion">'
+                   + formatSearchSuggestionImage(suggestion)
+                   + formatSearchSuggestionTitle(suggestion)
+                   + formatSearchSuggestionSubtitle(suggestion)
+                   + '<div class="clearFloat"></div></div>'
+        }
+
+        function formatSearchSuggestionImage(suggestion) {
+            if (suggestion.ThumbnailUrl)
+                return '<img src="'
+                        + suggestion.ThumbnailUrl
+                        + '" onerror="this.style.visibility=\'hidden\'"/>';
+            else
+                return '';
+        }
+
+        function formatSearchSuggestionTitle(suggestion) {
+            return '<span>' + suggestion.Name + '</span>';
+        }
+
+        function formatSearchSuggestionSubtitle(suggestion) {
+            if (suggestion.Subtitle)
+                return '<span class="subtitle">' + suggestion.Subtitle + '</span>';
+            else
+                return '';
         }
 
         function createSearchChoice(query) {
-            return { id: '_new_', text: query };
+            return { Id: '_new_', Name: query };
         }
 
         function selectionChangedEvent(viewModelInstance, event) {
