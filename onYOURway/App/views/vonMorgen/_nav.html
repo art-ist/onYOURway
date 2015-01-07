@@ -12,8 +12,6 @@
 			<!--nav-->
 			<nav class="collapse navbar-collapse bs-navbar-collapse">
 				<div id="vm-nav-2">
-					<a class="" href="#map">Spenden</a>
-					<a class="" href="#">Kontakt</a>
 					<a class="" href="#">Anmelden</a>
 				</div>
 				<div id="vm-nav-1">
@@ -32,11 +30,14 @@
 		<!--search-->
 		<div id="vm-search-row" class="row">
 			<form id="search-bar" class="navbar-form hidden-xs" role="search">
-				<a href="#" class="btn m-l-n bd-r disabled" title="aktuelle Position bestimmen"><i id="vm-nav-add" class="fa fa-fw fa-crosshairs"></i></a>
+                <a href="#add" class="btn m-l-n bd-l bd-r" title="Neuen Eintrag hinzufügen">
+                    <i id="vm-nav-add" class="fa fa-fw fa-plus"></i>
+			    </a><a href="#" class="btn bd-r disabled" title="aktuelle Position bestimmen">
+			        <i id="vm-nav-add" class="fa fa-fw fa-crosshairs"></i>
+			    </a>
 
 				<span data-bind="component: 'searchBox'"><!-- searchBox --></span>
 
-				<a href="#add" class="btn bd-l pull-right" title="Neuen Eintrag hinzufügen"><i id="vm-nav-add" class="fa fa-fw fa-plus"></i></a>
 				<div id="vm-search-options" class="pull-right">
 					<a class="btn bd-l bd-r initiative active" href="#">
 						<span class="hidden-sm">Initiativen &amp; Inspirationen</span>
@@ -45,10 +46,10 @@
 						<span class="hidden-sm">Events &amp; Begegnungen</span>
 						<span class="visible-sm">Events</span>
 					</a><a class="btn bd-l bd-r shop" href="#">
-						<span class="hidden-sm">Unterehmen &amp; Einkaufen</span>
-						<span class="visible-sm">Unterehmen</span>
+						<span class="hidden-sm">Unternehmen &amp; Einkaufen</span>
+						<span class="visible-sm">Unternehmen</span>
 					</a>
-					<a id="searchOptionsBtn" class="" tabindex="-1" data-bind=""> <i class="fa fa-fw fa-bars"></i></a>
+					<a id="searchOptionsBtn" class="m-r-n" tabindex="-1" data-bind=""> <i class="fa fa-fw fa-bars"></i></a>
 				</div>
 			</form>
 		</div>

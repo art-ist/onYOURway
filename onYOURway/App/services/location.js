@@ -1084,7 +1084,7 @@ define([
 	} //showByTagName
 
 	function search(what) {
-		//logger.info('search: ' + what, 'location');
+	    //logger.info('search: ' + what, 'location');
 		location.searchFor(what);
 		try {
 			var toShow;
