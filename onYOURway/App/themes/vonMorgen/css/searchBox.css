@@ -1,12 +1,15 @@
-﻿div.searchBoxSuggestion img {
+﻿input.searchBox {
+  min-height: 34px;
+}
+div.searchBoxSuggestion img {
   float: left;
   width: 44px;
   height: 44px;
 }
 div.searchBoxSuggestion span {
   padding-left: 4px;
-  display: inline-block;
-  width: 80%;
+  display: block;
+  margin-left: 48px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -218,29 +218,47 @@ body {
 	background-color: @shops;
 }
 
-input.searchFor {
-	width: 320px !important;
+div.searchBox, input.searchBox {
+    width: 360px !important;
+    margin-right: -35px !important;
+    padding: 0 35px !important;
 }
-/*(min-width: 992px) and*/
-@media (max-width: 1199px) { /* md */
-	#vm-search-options a.btn {
-		width: 215px;
-	}
-	input.searchFor {
-		width: 140px !important;
-	}
-
+@media (min-width: 1092px) and (max-width: 1199px) {
+  /* md */
+  #vm-search-options a.btn {
+    width: 215px;
+  }
+  div.searchBox,
+  input.searchBox {
+    width: 29% !important;
+    display: inline-block;
+  }
 }
-@media (max-width: 991px) { /* md */
-	#vm-search-options a.btn {
-		width: 120px;
-	}
-	input.searchFor {
-		width: 210px !important;
-	}
-	#vm-nav-1 a {
-		width: 110px;
-	}
+@media (min-width: 992px) and (max-width: 1091px) {
+  /* md */
+  #vm-search-options a.btn {
+    width: 215px;
+  }
+  div.searchBox,
+  input.searchBox {
+    width: 22% !important;
+    display: inline-block;
+    padding: 0 35px 0 0!important;
+  }
+}
+@media (max-width: 991px) {
+  /* sm */
+  #vm-search-options a.btn {
+    width: 120px;
+  }
+  div.searchBox,
+  input.searchBox {
+    width: 36% !important;
+    display: inline-block;
+  }
+  #vm-nav-1 a {
+    width: 110px;
+  }
 }
 /* md */
 
@@ -266,9 +284,6 @@ select.form-control,
 	min-height: 30px;
 	background-image: none;
     background-color: transparent;
-    margin-right: -35px !important;
-    padding: 0 35px !important;
-    width: 270px !important;
 }
 div.form-control.select2-container ul.select2-choices
 {
@@ -572,7 +587,7 @@ form > .row {
 	position: relative;
 }*/
 
-@media (max-width: 991px) { /* xs & sm */
+@media (max-width: 1200px) { /* xs & sm & md*/
 	.page-background {
 		background-color: #f8f8f8;
 	}

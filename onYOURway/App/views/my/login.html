@@ -1,81 +1,83 @@
 ﻿<div class="page-background">
-  <div class="container page">
-    <a class="oyw-btn-close hidden-xs fa fa-times" href="#/karte" />
+<div class="container page">
+    <a class="oyw-btn-close hidden-xs fa fa-times" href="#/karte"/>
 
     <div class="oyw-content-nav col-sm-3">
-      <ul class="nav nav-pills nav-stacked">
-        <!-- ko if: !app.user.isAuthenticated() -->
-        <!--<li><a href="#/my/login">Anmelden</a></li>-->
-        <li><a href="#/my/registration">Registrieren</a></li>
-        <!-- /ko -->
-        <!-- ko if: app.user.isAuthenticated -->
-        <li><a href="#/my/profile">Profil</a></li>
-        <li><a href="#/my/profile">Einstellungen</a></li>
-        <li><a href="#" data-bind="click: app.auth.logout">Abmelden</a></li>
-        <!-- /ko -->
-      </ul>
+        <ul class="nav nav-pills nav-stacked">
+            <!-- ko if: !app.user.isAuthenticated() -->
+            <!--<li><a href="#/my/login">Anmelden</a></li>-->
+            <li><a href="#/my/registration">Registrieren</a></li>
+            <!-- /ko -->
+            <!-- ko if: app.user.isAuthenticated -->
+            <li><a href="#/my/profile">Profil</a></li>
+            <li><a href="#/my/profile">Einstellungen</a></li>
+            <li><a href="#" data-bind="click: app.auth.logout">Abmelden</a></li>
+            <!-- /ko -->
+        </ul>
     </div>
 
     <section class="oyw-content-main col-sm-9">
 
-      <header class="page-header">
-        <h1>Anmelden</h1>
-      </header>
+        <header class="page-header">
+            <h1>Anmelden</h1>
+        </header>
 
-      <div class="row">
-        <section class="col-md-8">
-          <form class="form-horizontal" role="form">
-            <h4>Mit lokalem Konto</h4>
-            <hr />
-            <ul class="text-danger" data-bind="foreach: errors">
-              <li data-bind="text: $data"></li>
-            </ul>
-            <div class="form-group">
-              <label for="LoginUserName" class="col-md-2 control-label">Name</label>
-              <div class="col-md-10">
-                <input type="text" id="LoginUserName" class="form-control" data-bind="value: userName, hasFocus: true" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="LoginPassword" class="col-md-2 control-label">Passwort</label>
-              <div class="col-md-10">
-                <input type="password" id="LoginPassword" class="form-control" data-bind="value: password" />
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox">
-                  <input type="checkbox" id="LoginRememberMe" data-bind="checked: rememberMe" />
-                  <label for="LoginRememberMe">Angemeldet bleiben?</label>
+        <div class="row">
+            <section class="col-md-8">
+                <form class="form-horizontal" role="form">
+                    <h4>Mit lokalem Konto</h4>
+                    <hr/>
+                    <ul class="text-danger" data-bind="foreach: errors">
+                        <li data-bind="text: $data"></li>
+                    </ul>
+                    <div class="form-group">
+                        <label for="LoginUserName" class="col-md-2 control-label">Name</label>
+                        <div class="col-md-10">
+                            <input type="text" id="LoginUserName" class="form-control" data-bind="value: userName, hasFocus: true"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="LoginPassword" class="col-md-2 control-label">Passwort</label>
+                        <div class="col-md-10">
+                            <input type="password" id="LoginPassword" class="form-control" data-bind="value: password"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                <input type="checkbox" id="LoginRememberMe" data-bind="checked: rememberMe"/>
+                                <label for="LoginRememberMe">Angemeldet bleiben?</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="btn btn-default" data-bind="click: login, disable: loggingIn">Anmelden</button>
+                        </div>
+                    </div>
+                    <p>Wenn Sie noch kein Konto haben, können Sie sich hier <a href="#/my/registration">registrieren</a>
+                    </p>
+                </form>
+            </section>
+            <section class="col-md-4">
+                <h4>Mit externem Konto</h4>
+                <hr/>
+                <div data-bind="visible: loadingExternalLogin">Lade Anbieter...</div>
+                <div data-bind="visible: !loadingExternalLogin()">
+                    <div data-bind="visible: !hasExternalLogin()">
+                        <p>
+                            Zurzeit sind keine anderen Anbieter zur Anmeldung bei onYOURway konfiguriert.
+                        </p>
+                    </div>
+                    <form class="form-horizontal" role="form" data-bind="visible: hasExternalLogin">
+                        <p data-bind="foreach: externalLoginProviders">
+                            <button type="submit" class="btn btn-default" data-bind="text: name, attr: { title: 'Über ' + name() + ' anmelden' }, click: login"></button>
+                        </p>
+                    </form>
                 </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-default" data-bind="click: login, disable: loggingIn">Anmelden</button>
-              </div>
-            </div>
-            <p>Wenn Sie noch kein Konto haben, können Sie sich hier <a href="#/my/registration">registrieren</a></p>
-          </form>
-        </section>
-        <section class="col-md-4">
-          <h4>Mit externem Konto</h4>
-          <hr />
-          <div data-bind="visible: loadingExternalLogin">Lade Anbieter...</div>
-          <div data-bind="visible: !loadingExternalLogin()">
-            <div data-bind="visible: !hasExternalLogin()">
-              <p>
-                Zurzeit sind keine anderen Anbieter zur Anmeldung bei onYOURway konfiguriert.
-              </p>
-            </div>
-            <form class="form-horizontal" role="form" data-bind="visible: hasExternalLogin">
-              <p data-bind="foreach: externalLoginProviders">
-                <button type="submit" class="btn btn-default" data-bind="text: name, attr: { title: 'Über ' + name() + ' anmelden' }, click: login"></button>
-              </p>
-            </form>
-          </div>
-        </section>
-      </div>
+            </section>
+        </div>
 
     </section>
-  </div>
+</div>
+</div>
