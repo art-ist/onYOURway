@@ -1,0 +1,56 @@
+﻿<!--
+	Karte von Morgen
+-->
+
+<header id="navbar" class="navbar navbar-default bs-docs-nav" role="navigation">
+	<div class="container">
+		<!--header-->
+		<div id="vm-header-row" class="row">
+			<div id="vm-header-logo" class="hidden-xs pull-left">
+				<img src="/App/themes/vonMorgen/images/logoanimation.gif" style="width: 139px; height: 69px;" />
+			</div>
+			<!--nav-->
+			<nav class="collapse navbar-collapse bs-navbar-collapse">
+				<div id="vm-nav-2">
+					<a class="" href="#map">Spenden</a>
+					<a class="" href="#">Kontakt</a>
+					<a class="" href="#">Anmelden</a>
+				</div>
+				<div id="vm-nav-1">
+					<div>
+						<a class="" href="#map">Karte</a>
+						<a class="" href="#">Blog</a>
+						<a class="" href="#">Workshops</a>
+						<a class="" href="#">Mitmachen</a>
+						<a class="" href="#">Info</a>
+					</div>
+				</div>
+			</nav>
+			<!--/nav-->
+		</div>
+
+		<!--search-->
+		<div id="vm-search-row" class="row">
+			<form id="search-bar" class="navbar-form hidden-xs" role="search">
+				<a href="#" class="btn m-l-n bd-r disabled" title="aktuelle Position bestimmen"><i id="vm-nav-add" class="fa fa-fw fa-crosshairs"></i></a>
+
+				<span data-bind="component: 'searchBox'"><!-- searchBox --></span>
+
+				<a href="#add" class="btn bd-l pull-right" title="Neuen Eintrag hinzufügen"><i id="vm-nav-add" class="fa fa-fw fa-plus"></i></a>
+				<div id="vm-search-options" class="pull-right">
+					<a class="btn bd-l bd-r initiative active" href="#">
+						<span class="hidden-sm">Initiativen &amp; Inspirationen</span>
+						<span class="visible-sm">Initiativen</span>
+					</a><a class="btn bd-l bd-r event" href="#">
+						<span class="hidden-sm">Events &amp; Begegnungen</span>
+						<span class="visible-sm">Events</span>
+					</a><a class="btn bd-l bd-r shop" href="#">
+						<span class="hidden-sm">Unterehmen &amp; Einkaufen</span>
+						<span class="visible-sm">Unterehmen</span>
+					</a>
+					<a id="searchOptionsBtn" class="" tabindex="-1" data-bind=""> <i class="fa fa-fw fa-bars"></i></a>
+				</div>
+			</form>
+		</div>
+	</div>
+</header>
