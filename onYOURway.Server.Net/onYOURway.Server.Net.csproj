@@ -402,7 +402,7 @@
       <LastGenOutput>onYOURway.cs</LastGenOutput>
       <DependentUpon>onYOURway.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\onYOURway.at.pubxml" />
+    <None Include="Properties\PublishProfiles\w3.pubxml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

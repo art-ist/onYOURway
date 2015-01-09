@@ -42,6 +42,7 @@
   <ItemGroup>
     <Content Include="App\themes\vonMorgen\css\searchBox.css.map" />
     <Content Include="App\themes\vonMorgen\css\searchBox.less" />
+    <None Include="Properties\PublishProfiles\w3.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -541,7 +542,6 @@
     <Folder Include="App\views\onYOURway\" />
     <Folder Include="Content\onYOURway\images\" />
     <Folder Include="Content\vonMorgen\" />
-    <Folder Include="Properties\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
