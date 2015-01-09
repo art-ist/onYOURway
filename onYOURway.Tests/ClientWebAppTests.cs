@@ -13,15 +13,18 @@ namespace onYOURway.Tests {
 	[TestClass]
 	public class ClientWebAppTests {
 
-		private string host = "http://localhost:42101";
+		private string host = ConfigurationManager.AppSettings["host"];
 
 		/// <summary>
-		/// 
+		/// Runs the client-side QUnit tests
 		/// </summary>
+		/// <remarks>The main idea is to use these to test the server-API</remarks>
 		[TestMethod]
 		public void ClientWebAppQUnitTests() {
 
-			throw new NotImplementedException("This test needs to be implemented using an automated browser aproach (that doesen't just request the raw html-file but execute it).");
+			throw new NotImplementedException(
+				"This test needs to be implemented using an automated browser aproach " +
+					"(that doesen't just request the raw html-file but execute it).");
 			//see: get https://visualstudiogallery.msdn.microsoft.com/f8741f04-bae4-4900-81c7-7c9bfb9ed1fe for a solution that could work
 			//and: check http://stackoverflow.com/questions/24071655/visual-studios-test-runner-with-chutzpah-wont-recognize-qunit-tests-when-using to get it working with durandal
 

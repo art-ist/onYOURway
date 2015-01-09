@@ -83,9 +83,6 @@
     <Content Include="App\images\logo.targetsize-96.png" />
     <Content Include="App\images\my\shoppingList.jpg" />
     <Content Include="App\images\qr-vCard.png" />
-    <Content Include="App\images\vonMorgen\photo-1.PNG" />
-    <Content Include="App\images\vonMorgen\photo-2.PNG" />
-    <Content Include="App\images\vonMorgen\photo-3.PNG" />
     <Content Include="App\main.js" />
     <Content Include="App\mainVonMorgen.js" />
     <Content Include="App\services\app.js" />
@@ -114,21 +111,6 @@
     </Content>
     <Content Include="App\themes\onYOURway\shell.html" />
     <Content Include="App\themes\onYOURway\shell.js" />
-    <Content Include="App\themes\vonMorgen-beta\bootstrap.css" />
-    <Content Include="App\themes\vonMorgen-beta\shell.html" />
-    <Content Include="App\themes\vonMorgen-beta\shell.js" />
-    <Content Include="App\themes\vonMorgen-beta\_onYOURway.css">
-      <DependentUpon>_onYOURway.less</DependentUpon>
-    </Content>
-    <Content Include="App\themes\vonMorgen-beta\_onYOURway.min.css">
-      <DependentUpon>_onYOURway.css</DependentUpon>
-    </Content>
-    <Content Include="App\themes\vonMorgen-beta\_vonMorgen.css">
-      <DependentUpon>_vonMorgen.less</DependentUpon>
-    </Content>
-    <Content Include="App\themes\vonMorgen-beta\_vonMorgen.min.css">
-      <DependentUpon>_vonMorgen.css</DependentUpon>
-    </Content>
     <Content Include="App\themes\vonMorgen\css\bootstrap.css" />
     <Content Include="App\themes\vonMorgen\css\vonMorgen.css">
       <DependentUpon>vonMorgen.less</DependentUpon>
@@ -282,11 +264,6 @@
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Regular.ttf.woff" />
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Semibold.ttf.woff" />
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-SemiboldIt.ttf.woff" />
-    <Content Include="App\themes\vonMorgen-beta\_onYOURway.less" />
-    <Content Include="App\themes\vonMorgen-beta\_onYOURway.css.map">
-      <DependentUpon>_onYOURway.css</DependentUpon>
-    </Content>
-    <Content Include="App\themes\vonMorgen-beta\_vonMorgen.less" />
     <Content Include="weyland-config.js" />
     <None Include="App\_libraries\breeze.intellisense.js" />
     <Content Include="App\_libraries\breeze.min.js" />
