@@ -15,6 +15,7 @@ function (logger, app, location, template) {
         this.selectedValue = ko.observable('');
         this.getSearchSuggestions = getSearchSuggestions;
         this.formatSearchSuggestion = formatSearchSuggestion;
+        this.formatSelection = formatSelection;
         this.createSearchChoice = createSearchChoice;
         this.selectionChangedEvent = selectionChangedEvent;
         this.triggerSearch = triggerSearch;
@@ -69,6 +70,10 @@ function (logger, app, location, template) {
                 return '<span class="subtitle">' + suggestion.Subtitle + '</span>';
             else
                 return '';
+        }
+
+        function formatSelection(suggestion) {
+            return suggestion.Name;
         }
 
         function createSearchChoice(query) {
