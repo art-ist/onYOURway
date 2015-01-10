@@ -6,22 +6,19 @@ namespace onYOURway.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-	/// <summary>
-	/// Localization Messages
-	/// </summary>
-    [Table("oyw.Message")]
-    public partial class Message
+    [Table("oyw.HasTag")]
+    public partial class HasTag
     {
         [Key]
         [Column(Order = 0)]
-        [StringLength(5)]
-        public string Locale { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public long LocationId { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [StringLength(300)]
-        public string Key { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int TagId { get; set; }
 
-        public string Text { get; set; }
+        public virtual Location Location { get; set; }
     }
 }

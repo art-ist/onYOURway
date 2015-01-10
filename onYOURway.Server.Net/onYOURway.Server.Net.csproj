@@ -271,109 +271,32 @@
     <Compile Include="JP.aspx.designer.cs">
       <DependentUpon>JP.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountBindingModels.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\BikeWay.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Card.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Country.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Account\AccountBindingModels.cs" />
+    <Compile Include="Models\Account\AccountViewModels.cs" />
+    <Compile Include="Models\Location\Country.cs" />
     <Compile Include="Models\DbGeographyConverter.cs" />
-    <Compile Include="Models\HasTag.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Location.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LocationAlias.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LocationForeignId.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LocationLink.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Membership.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Message.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MyLocation.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\OAuthMembership.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\onYOURway.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>onYOURway.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\onYOURway.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\onYOURway.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>onYOURway.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\onYOURway.Views.cs" />
-    <Compile Include="Models\Partner.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Place.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductSuggestion.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Region.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RegionAlias.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RegionView.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Role.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SearchSuggestion.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ShoppingList.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Street.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Tag.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TagName.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TransportLine.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TransportStop.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserProfile.cs">
-      <DependentUpon>onYOURway.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Location\HasTag.cs" />
+    <Compile Include="Models\Location\Location.cs" />
+    <Compile Include="Models\Location\LocationAlia.cs" />
+    <Compile Include="Models\Location\LocationForeignId.cs" />
+    <Compile Include="Models\Location\LocationLink.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Results\Place.cs" />
+    <Compile Include="Models\Results\SearchSuggestion.cs" />
+    <Compile Include="Models\_onYOURwayDbContext.cs" />
+    <Compile Include="Models\Location\Partner.cs" />
+    <Compile Include="Models\Location\ProductSuggestion.cs" />
+    <Compile Include="Models\Location\Region.cs" />
+    <Compile Include="Models\Location\RegionAlia.cs" />
+    <Compile Include="Models\Location\RegionView.cs" />
+    <Compile Include="Models\My\ShoppingList.cs" />
+    <Compile Include="Models\Location\Street.cs" />
+    <Compile Include="Models\Location\TagIsA.cs" />
+    <Compile Include="Models\Location\UserProfile.cs" />
+    <Compile Include="Models\_CustomConventions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
-    <Compile Include="Models\ChallengeResult.cs" />
+    <Compile Include="Models\Account\ChallengeResult.cs" />
     <Compile Include="App_Start\_Startup.cs" />
     <Content Include="App_Data\onYOURway.XML" />
     <Content Include="App_Data\oyw.Messages.sql" />
@@ -385,23 +308,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
-    <EntityDeploy Include="Models\onYOURway.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>onYOURway.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\onYOURway.edmx.diagram">
-      <DependentUpon>onYOURway.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\onYOURway.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>onYOURway.Context.cs</LastGenOutput>
-      <DependentUpon>onYOURway.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\onYOURway.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>onYOURway.cs</LastGenOutput>
-      <DependentUpon>onYOURway.edmx</DependentUpon>
-    </Content>
     <None Include="Properties\PublishProfiles\w3.pubxml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

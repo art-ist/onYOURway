@@ -26,7 +26,7 @@ namespace onYOURway.Controllers {
 	[BreezeController]
 	public class LocateController : ApiController {
 
-		readonly EFContextProvider<onYOURwayEntities> db = new EFContextProvider<onYOURwayEntities>();
+		readonly EFContextProvider<onYOURwayDbContext> db = new EFContextProvider<onYOURwayDbContext>();
 
 		/// <summary>
 		/// Returns object metadata based on the DB schema required by the Breeze client
@@ -99,11 +99,12 @@ namespace onYOURway.Controllers {
 		[HttpOptions]
 		[AcceptVerbs("GET", "OPTIONS")]
 		public IQueryable<Region> Regions() {
-			return db.Context.Regions
+			var result =db.Context.Regions
 			  .Include("Views")
 			  .Include("Aliases")
 			  .OrderBy(r => r.Id)
 			  ;
+			return result;
 		}
 
 		///// <summary>
@@ -463,8 +464,8 @@ namespace onYOURway.Controllers {
 					t.Type,
 					Names = t.Names.Where(n => t.Names.Any(_n => _n.Lang == lang) ? n.Lang == lang : string.IsNullOrEmpty(n.Lang)).Select(n => new { n.Name, n.Lang, n.Show }),
 					//TODO: fix query instead of just exchanging property names
-					Children = t.Parents.Select(p => p.Id),
-					Parents = t.Children.Select(c => c.Id)
+					//Children = t.Parents.Select(p => p.Id),
+					//Parents = t.Children.Select(c => c.Id)
 				})
 				//get all having either a neutral name or one of the current lang
 				.Where(t => t.Names.Any(n => n.Lang == lang || string.IsNullOrEmpty(n.Lang)))

@@ -20,7 +20,7 @@ namespace onYOURway.Controllers {
   [BreezeController]
   public class MyController : ApiController {
 
-    readonly EFContextProvider<onYOURwayEntities> db = new EFContextProvider<onYOURwayEntities>();
+    readonly EFContextProvider<onYOURwayDbContext> db = new EFContextProvider<onYOURwayDbContext>();
 
     [HttpGet]
     public string Metadata() {
