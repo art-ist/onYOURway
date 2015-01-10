@@ -172,3 +172,8 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 
+/.idea
+/onYOURway
+/Contributors Toolkit.zip
+/_Scripts to update the database/Add ProceduresAndFunctions.sql
+/_Scripts to update the database/Add oyw.Messages.sql
