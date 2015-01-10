@@ -58,7 +58,7 @@ namespace onYOURway.Models {
 		public virtual DbSet<Region> Regions { get; set; }
 		public virtual DbSet<RegionView> RegionViews { get; set; }
 		public virtual DbSet<ProductSuggestion> ProductSuggestions { get; set; }
-		public virtual DbSet<RegionAlia> RegionAlias { get; set; }
+		public virtual DbSet<RegionAlias> RegionAlias { get; set; }
 		public virtual DbSet<Street> Streets { get; set; }
 		public virtual DbSet<Tag> Tags { get; set; }
 		public virtual DbSet<TagName> TagNames { get; set; }
@@ -66,39 +66,16 @@ namespace onYOURway.Models {
 
 		#endregion EntitySets
 
+		/// <summary>
+		/// Add additional Db schema definitions, that can't be done through code annotations, using Fliud Api
+		/// </summary>
+		/// <param name="modelBuilder"></param>
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
-			//TODO: rewrite these unsing annotations
+			//TODO: rewrite these unsing annotations where possible
 
 			modelBuilder.Entity<UserProfile>()
 				.HasOptional(e => e.ShoppingList)
 				.WithRequired(e => e.UserProfile);
-
-			modelBuilder.Entity<Location>()
-				.Property(e => e.Lang)
-				.IsFixedLength()
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Location>()
-				.Property(e => e.Country)
-				.IsFixedLength()
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Location>()
-				.Property(e => e.Province)
-				.IsFixedLength()
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Location>()
-				.Property(e => e.City)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Location>()
-				.Property(e => e.Zip)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Location>()
-				.Property(e => e.Phone)
-				.IsUnicode(false);
 
 			modelBuilder.Entity<Location>()
 				.Property(e => e.CreatedAt)
@@ -107,14 +84,6 @@ namespace onYOURway.Models {
 			modelBuilder.Entity<Location>()
 				.Property(e => e.ModifiedAt)
 				.HasPrecision(2);
-
-			modelBuilder.Entity<Location>()
-				.Property(e => e.OpeningHours)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Location>()
-				.Property(e => e.Type)
-				.IsUnicode(false);
 
 			modelBuilder.Entity<Location>()
 				.HasMany(e => e.HasTags)
@@ -197,12 +166,12 @@ namespace onYOURway.Models {
 				.WithRequired(e => e.Region)
 				.WillCascadeOnDelete(false);
 
-			modelBuilder.Entity<RegionAlia>()
+			modelBuilder.Entity<RegionAlias>()
 				.Property(e => e.Lang)
 				.IsFixedLength()
 				.IsUnicode(false);
 
-			modelBuilder.Entity<RegionAlia>()
+			modelBuilder.Entity<RegionAlias>()
 				.Property(e => e.Website)
 				.IsUnicode(false);
 		}

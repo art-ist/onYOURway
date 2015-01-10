@@ -7,11 +7,10 @@ namespace onYOURway.Models
     using System.Data.Entity.Spatial;
 
     [Table("oyw.Region")]
-    public partial class Region
-    {
+    public partial class Region {
         public Region()
         {
-            Aliases = new HashSet<RegionAlia>();
+            Aliases = new HashSet<RegionAlias>();
             Views = new HashSet<RegionView>();
         }
 
@@ -38,7 +37,7 @@ namespace onYOURway.Models
 
         public DbGeography Boundary { get; set; }
 
-        public virtual ICollection<RegionAlia> Aliases { get; set; }
+        public virtual ICollection<RegionAlias> Aliases { get; set; }
 
         public virtual ICollection<RegionView> Views { get; set; }
     }

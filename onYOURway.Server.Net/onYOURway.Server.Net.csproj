@@ -280,6 +280,8 @@
     <Compile Include="Models\Location\LocationAlia.cs" />
     <Compile Include="Models\Location\LocationForeignId.cs" />
     <Compile Include="Models\Location\LocationLink.cs" />
+    <Compile Include="Models\Location\Tag.cs" />
+    <Compile Include="Models\Location\TagName.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Results\Place.cs" />
     <Compile Include="Models\Results\SearchSuggestion.cs" />
@@ -287,7 +289,7 @@
     <Compile Include="Models\Location\Partner.cs" />
     <Compile Include="Models\Location\ProductSuggestion.cs" />
     <Compile Include="Models\Location\Region.cs" />
-    <Compile Include="Models\Location\RegionAlia.cs" />
+    <Compile Include="Models\Location\RegionAlias.cs" />
     <Compile Include="Models\Location\RegionView.cs" />
     <Compile Include="Models\My\ShoppingList.cs" />
     <Compile Include="Models\Location\Street.cs" />

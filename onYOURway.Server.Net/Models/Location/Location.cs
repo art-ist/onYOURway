@@ -20,33 +20,33 @@ namespace onYOURway.Models
 
         public long Id { get; set; }
 
-        [Required]
-        [StringLength(200)]
+        [Required, StringLength(200)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(2)]
+        [StringLength(2), NonUnicode]
         public string Lang { get; set; }
 
-        [StringLength(2)]
+        [StringLength(2), NonUnicode]
         public string Country { get; set; }
 
-        [StringLength(3)]
+        [StringLength(3), NonUnicode]
         public string Province { get; set; }
 
-        [StringLength(50)]
+		//TODO: change to unicode (nvarchar)
+        [StringLength(50), NonUnicode]
         public string City { get; set; }
 
-        [StringLength(10)]
+        [StringLength(10), NonUnicode]
         public string Zip { get; set; }
 
-        [StringLength(200)]
+        [StringLength(200), ]
         public string Street { get; set; }
 
         [StringLength(20)]
         public string HouseNumber { get; set; }
 
-        [StringLength(100)]
+		[StringLength(100), NonUnicode]
         public string Phone { get; set; }
 
         public int CreatedBy { get; set; }
@@ -64,13 +64,12 @@ namespace onYOURway.Models
         [StringLength(50)]
         public string Icon { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(1000), NonUnicode]
         public string OpeningHours { get; set; }
 
         public string Description { get; set; }
 
-        [Required]
-        [StringLength(10)]
+        [Required, StringLength(10), NonUnicode]
         public string Type { get; set; }
 
         public virtual ICollection<HasTag> HasTags { get; set; }

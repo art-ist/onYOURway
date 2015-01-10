@@ -7,7 +7,7 @@ namespace onYOURway.Models
     using System.Data.Entity.Spatial;
 
     [Table("oyw.RegionAlias")]
-    public partial class RegionAlia
+    public partial class RegionAlias
     {
         [Key]
         [Column(Order = 0)]
