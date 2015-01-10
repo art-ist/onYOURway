@@ -67,6 +67,8 @@ namespace onYOURway.Models {
 		#endregion EntitySets
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+			//TODO: rewrite these unsing annotations
+
 			modelBuilder.Entity<UserProfile>()
 				.HasOptional(e => e.ShoppingList)
 				.WithRequired(e => e.UserProfile);
