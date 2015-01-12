@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "onYOURway.Server.Net", "onYOURway.Server.Net\onYOURway.Server.Net.csproj", "{2BC5A796-0DFB-431A-B3AA-390BACB91F22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "onYOURway.Server.Net.Tests", "onYOURway.Tests\onYOURway.Server.Net.Tests.csproj", "{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "onYOURway.Client.WebApp", "onYOURway.Client.WebApp\onYOURway.Client.WebApp.csproj", "{49101E0D-4994-47B1-811D-14D47C1CB944}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2BC5A796-0DFB-431A-B3AA-390BACB91F22} = {2BC5A796-0DFB-431A-B3AA-390BACB91F22}
@@ -50,18 +48,6 @@ Global
 		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.vonMorgen|Any CPU.Build.0 = vonMorgen|Any CPU
 		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.vonMorgen|ARM.ActiveCfg = vonMorgen|Any CPU
 		{2BC5A796-0DFB-431A-B3AA-390BACB91F22}.vonMorgen|x86.ActiveCfg = vonMorgen|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Release|Any CPU.Build.0 = Release|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Release|ARM.ActiveCfg = Release|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.Release|x86.ActiveCfg = Release|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.vonMorgen|Any CPU.ActiveCfg = vonMorgen|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.vonMorgen|Any CPU.Build.0 = vonMorgen|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.vonMorgen|ARM.ActiveCfg = vonMorgen|Any CPU
-		{750226A4-AEA9-49E8-8F3A-DA96DBBCA897}.vonMorgen|x86.ActiveCfg = vonMorgen|Any CPU
 		{49101E0D-4994-47B1-811D-14D47C1CB944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49101E0D-4994-47B1-811D-14D47C1CB944}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49101E0D-4994-47B1-811D-14D47C1CB944}.Debug|ARM.ActiveCfg = Debug|Any CPU
