@@ -111,10 +111,12 @@ define([
     }
 
     function loadRegionFeatures() {
-        //TODO: change to "loadRegionFeatures"
+        var location = self.location;
         placesLayer.loadPlaces();
 
-        searchSuggestions.loadSearchSuggestions();
+        require(['services/app', 'services/location'], function (app, location) {
+            searchSuggestions.loadSearchSuggestions(app.lang, location.Region);
+        });
     }
 
     function panMap(marker) { //pan the selected marker into view

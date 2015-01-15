@@ -1,15 +1,11 @@
 ﻿define([
-	'services/app',
 	'services/tell',
-	'services/platform',
-	'services/geoUtils',
 	'plugins/router',
-	'providers/routing-yours',
-	'providers/geocode-nominatim',
 
 	'services/api/apiClient',
+	'services/api/searchSuggestions',
+
 	'services/map/map',
-    'services/api/searchSuggestions',
     'services/map/fiveMinuteDistanceLayer',
     'services/map/placesLayer',
     'services/map/pointerLayer',
@@ -17,7 +13,8 @@
     'services/map/routingLayer',
     'services/map/siteCollectorLayer',
     'services/map/tileLayer'
-], function (app, tell, platform, geoUtils, router, routingProvider, geocodingProvider, apiClient, map, searchSuggestions, fiveMinuteDistanceLayer, placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
+], function (tell, router, apiClient, searchSuggestions,
+			 map, fiveMinuteDistanceLayer, placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
 
 	var location = {
 		map: null,
@@ -52,9 +49,10 @@
 		views: ko.observableArray(),
 		locations: ko.observableArray(),
 		mapLocations: ko.observableArray(),
-		searchSuggestions: ko.observableArray(),
-		searchSuggestionObjects: ko.observableArray(),
-		tags: ko.observableArray(),
+		searchSuggestions: searchSuggestions.cachedNames,
+		searchSuggestionObjects: searchSuggestions.cachedObjects,
+		//TODO: verify if cachedTags / location.tags is used anywhere, otherwise delete
+		tags: searchSuggestions.cachedTags,
 		getTaxonomy: apiClient.getTaxonomy,
 		getCountries: apiClient.getCountries,
 

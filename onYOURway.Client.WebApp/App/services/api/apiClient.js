@@ -1,7 +1,6 @@
 ﻿define([
-    'services/app',
     'services/tell'
-], function (app, tell) {
+], function (tell) {
 
     var locateMetadata = new breeze.MetadataStore();
     var locateContext = createBreezeContext();
@@ -9,12 +8,12 @@
     initializeMetadata();
 
     var self = {
-        //TODO: make locateContext private, all access to this has to be moved inside apiClient.js
+        //TODO: make locateContext private, all access to this has to be moved inside apiClient and its subclasses
         locateContext: locateContext,
         getTaxonomy: getTaxonomy,
         getCountries: getCountries,
 
-        //TODO: remove my/wizardNew and all its dependencies  (laactionToEdit)
+        //TODO: remove my/wizardNew and all its dependencies  (locationToEdit)
         locationToEdit: ko.observable(null),
         getLocation: getLocation
     };

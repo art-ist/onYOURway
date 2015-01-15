@@ -1,7 +1,6 @@
 ﻿define([
-    'services/app',
     'services/tell'
-], function (app, tell) {
+], function (tell) {
 
     var self = {
 
