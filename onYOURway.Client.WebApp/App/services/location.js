@@ -6,7 +6,6 @@
 	'services/api/searchSuggestions',
 
 	'services/map/map',
-    'services/map/fiveMinuteDistanceLayer',
     'services/map/placesLayer',
     'services/map/pointerLayer',
     'services/map/regionLayer',
@@ -14,7 +13,7 @@
     'services/map/siteCollectorLayer',
     'services/map/tileLayer'
 ], function (tell, router, apiClient, searchSuggestions,
-			 map, fiveMinuteDistanceLayer, placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
+			 map, placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
 
 	var location = {
 		map: null,
@@ -138,7 +137,6 @@
 
 	map.location = location;
 	searchSuggestions.location = location;
-	fiveMinuteDistanceLayer.location = location;
 	placesLayer.location = location;
 	pointerLayer.location = location;
 	regionLayer.location = location;

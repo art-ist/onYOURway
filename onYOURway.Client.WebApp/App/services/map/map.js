@@ -1,16 +1,14 @@
 define([
-    'services/app',
     'services/tell',
     'services/geoUtils',
     'services/api/searchSuggestions',
-    'services/map/fiveMinuteDistanceLayer',
     'services/map/placesLayer',
     'services/map/pointerLayer',
     'services/map/regionLayer',
     'services/map/routingLayer',
     'services/map/siteCollectorLayer',
     'services/map/tileLayer'
-], function (app, tell, geoUtils, searchSuggestions, fiveMinuteDistanceLayer, placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
+], function (tell, geoUtils, searchSuggestions, placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
 
     //TODO: refactor the itemClick method correctly
     placesLayer.itemClick = itemClick;
@@ -19,7 +17,7 @@ define([
         initializeMap: initializeMap,
         loadRegionFeatures: loadRegionFeatures,
         getLocationIcon: placesLayer.getLocationIcon,
-        panIntoView: panMap,
+        panIntoView: panIntoView,
         setView: setView,
         itemClick: itemClick,
 
@@ -34,8 +32,7 @@ define([
 
         setMode: routingLayer.setMode,
         locate: routingLayer.locate,
-
-        getCurrentPosition: fiveMinuteDistanceLayer.getCurrentPosition,
+        getCurrentPosition: routingLayer.getCurrentPosition,
 
         drawPointer: pointerLayer.drawPointer
     };
@@ -46,13 +43,7 @@ define([
 
         tell.log('[location] Initializing Map', 'location', containerId);
 
-        //create map
         var map = L.map(containerId, { attributionControl: false });
-        //L.control.attribution({
-        //	position: 'bottomleft',
-        //	prefix: false
-        //}).addTo(map);
-
         location.map = map;
 
         //register eventhandlers for map
@@ -119,22 +110,17 @@ define([
         });
     }
 
-    function panMap(marker) { //pan the selected marker into view
+    function panIntoView(marker) {
         var location = self.location;
 
         if (!location.settings.autoPan) return;
-        if (!marker) { //try to find marker of selected item
-            if (!location.selectedItem()) {
-                return;
-            }
-            else {
-                marker = location.selectedItem().marker;
-                if (!marker) return;
-            }
-        } //if (!marker)
+        if (!marker) {
+            marker = location.selectedItem() && location.selectedItem().marker;
+            if (!marker) return;
+        }
 
         var map = location.map;
-        var size = L.point(map.getContainer().offsetWidth, map.getContainer().offsetHeight); //map.getSize();
+        var size = L.point(map.getContainer().offsetWidth, map.getContainer().offsetHeight);
         var padding = location.settings.mapPadding;
 
         var ll = marker.getLatLng();

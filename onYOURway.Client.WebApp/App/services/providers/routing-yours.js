@@ -2,7 +2,7 @@
 ], function () {
 
   // JSON proxy for NOT-CORS-enabled cross domain calls
-  var proxy = 'JP.aspx?u=';
+  var proxy = '/JP.aspx?u=';
 
   //see: http://wiki.openstreetmap.org/wiki/YOURS
   var url = config.host + proxy + 'http://www.yournavigation.org/api/1.0/gosmore.php?format=geojson&flat={start.lat}&flon={start.lon}&tlat={end.lat}&tlon={end.lon}&v={mode}&fast=1&layer=mapnik&instructions=0&lang=en';

@@ -21,6 +21,7 @@ namespace ClientPrototypeLeafletJS {
         Response.Clear();
         Response.Cache.SetCacheability(HttpCacheability.NoCache);
         Response.ContentType = remoteResponse.ContentType; //"application/json";
+        Response.AddHeader("Access-Control-Allow-Origin", "http://localhost:42101");
         //Response.ContentEncoding = Encoding.UTF8;
         Response.Write(remoteContent);
         Response.Flush();
