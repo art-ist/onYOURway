@@ -75,6 +75,7 @@
 		sortOptions: placesLayer.sortOptions,
 
 		context: apiClient.locateContext,
+	    //TODO: remove my/wizardNew and all its dependencies  (loactionToEdit)
 		loactionToEdit: apiClient.locationToEdit,
 		getLocation:apiClient.getLocation,
 		editLocation: editLocation,
@@ -152,8 +153,6 @@
 	location.sortBy.subscribe(function (newValue) {
 		location.mapLocations(location.mapLocations().sort(newValue.Sorter));
 	});
-
-	apiClient.initializeMetadata();
 
 	return location;
 
@@ -310,6 +309,7 @@
 		}
 	}
 
+    //TODO: remove my/wizardNew and all its dependencies  (loactionToEdit)
 	function editLocation(Id) {
 		location
 		 .getLocation(Id)
