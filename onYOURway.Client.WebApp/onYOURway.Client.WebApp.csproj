@@ -40,6 +40,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="App\services\api\apiClient.js" />
+    <Content Include="App\services\api\searchSuggestions.js" />
+    <Content Include="App\services\api\tags.js" />
+    <Content Include="App\services\map\fiveMinuteDistanceLayer.js" />
+    <Content Include="App\services\map\map.js" />
+    <Content Include="App\services\map\placesLayer.js" />
+    <Content Include="App\services\map\pointerLayer.js" />
+    <Content Include="App\services\map\regionLayer.js" />
+    <Content Include="App\services\map\routingLayer.js" />
+    <Content Include="App\services\map\siteCollectorLayer.js" />
+    <Content Include="App\services\map\tileLayer.js" />
     <Content Include="App\themes\vonMorgen\css\searchBox.css.map">
       <DependentUpon>searchBox.css</DependentUpon>
     </Content>
@@ -541,7 +552,6 @@
   <ItemGroup>
     <Folder Include="App\images\about\project\" />
     <Folder Include="App\models\" />
-    <Folder Include="App\services\api\" />
     <Folder Include="App\themes\onYOURway\images\" />
     <Folder Include="App\views\onYOURway\" />
     <Folder Include="Content\onYOURway\images\" />
