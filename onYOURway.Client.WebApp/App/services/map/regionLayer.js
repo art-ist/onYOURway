@@ -7,7 +7,7 @@ define([
 ], function (tell, geoUtils, apiClient, settings, map) {
     var self = {
         regions: ko.observableArray(),
-        views: ko.observable,
+        views: ko.observable(),
         selectedRegion: ko.observable(),
 
         loadRegions: loadRegions,
@@ -36,22 +36,21 @@ define([
         tell.log('setRegion', 'regionLayer - setRegion', regions);
         self.selectedRegion(regions[index]);
         if (regions.length) {
-            var rviews = regions[index].Views();
-            self.views(rviews);
+            self.views(regions[index].Views());
             //ToDo: in Select Region auslagern?
-            self.setView(rviews, 0);
+            self.setView(0);
         }
-        _drawVeilOfSilence([regions[index]]); //highlight the selected region only
+        drawVeilOfSilence([regions[index]]); //highlight the selected region only
     }
 
-    function setView(rviews, i) {
-        var view = rviews[i];
+    function setView(i) {
+        var view = self.views()[i];
         var box = geoUtils.wktToCoords(view.Boundary().Geography.WellKnownText);
         map.fitBounds([[box[3][1], box[3][0]], [box[1][1], box[1][0]]]);
         return;
     }
 
-    function _drawVeilOfSilence(regions) {
+    function drawVeilOfSilence(regions) {
         if (!settings.showVeilOfSilence) return;
         var bounds = [
             L.GeoJSON.coordsToLatLngs([[90, -180], [90, 180], [-90, 180], [-90, -180], [90, -180]])
