@@ -1,24 +1,32 @@
 ﻿define([
     'services/tell',
+    'plugins/router',
     'services/api/apiClient',
     'services/map/settings',
     'services/map/mapAdapter',
     'services/geoUtils'
-], function (tell, apiClient, settings, map, geoUtils) {
+], function (tell, router, apiClient, settings, map, geoUtils) {
     var location;
+    var placesMapLayer = null;
 
     var self = {
-        loadPlaces: loadPlaces,
-        drawMarkers: drawMarkers,
-        setMarker: setMarker,
-        itemClick: itemClick,
-
+        allPlaces: ko.observableArray(),
+        mapPlaces: ko.observableArray(),
+        selectedItem: ko.observable(),
+        selectedItems: ko.observableArray(),
         sortOptions: [
             { Name: 'nach Entfernung, offene zuerst', Sorter: compareByOpenThenByDistance },
             { Name: 'nach Entfernung, hervorgehobene zuerst', Sorter: compareByFeaturedThenByDistance },
             { Name: 'nach Entfernung', Sorter: compareByDistance },
             { Name: 'nach Name', Sorter: compareByName },
-        ]
+        ],
+
+        loadPlaces: loadPlaces,
+        drawMarkers: drawMarkers,
+        setMarker: setMarker,
+        itemClick: itemClick,
+        showByTagName: showByTagName,
+        search: search
     };
     return self;
 
@@ -136,32 +144,32 @@
                         }); //places.forEach
                     } //if (d.results)
 
-                    //update locations
-                    location.locations(places);
+                    //update places
+                    self.allPlaces(places);
 
                     tell.log(places.length + ' places loaded', 'location');
                 })
                 .fail(function (error) {
                     var msg = breeze.saveErrorMessageService.getErrorMessage(error);
                     error.message = msg;
-                    logger.error("Die Angebote der Region konnten nicht geladen werden. Sie können versuchen Sie die Seite neu aufzurufen.", 'location - _loadPlaces', error);
+                    tell.error("Die Angebote der Region konnten nicht geladen werden. Sie können versuchen Sie die Seite neu aufzurufen.", 'location - _loadPlaces', error);
                     throw error;
                 });
         });
     }
 
-    function drawMarkers(map, locationsToDraw) {
-        if (location.layers.locationLayer) map.removeLayer(location.layers.locationLayer);
-        if (location.layers.pointerLayer) map.removeLayer(location.layers.pointerLayer);
+    function drawMarkers() {
+        var placesToDraw = self.mapPlaces();
+        if (placesMapLayer) map.removeLayer(placesMapLayer);
         var group = location.settings.clusterLocations()
             ? new L.MarkerClusterGroup()
             : new L.LayerGroup();
         map.addLayer(group);
-        location.layers.locationLayer = group;
+        placesMapLayer = group;
 
-        for (var i = 0; i < locationsToDraw.length; i++) {
-            //console.log("[location] drawMarkers drawing marker ", locationsToDraw[i])
-            setMarker(group, null, locationsToDraw[i]);
+        for (var i = 0; i < placesToDraw.length; i++) {
+            //console.log("[location] drawMarkers drawing marker ", placesToDraw[i])
+            setMarker(group, null, placesToDraw[i]);
         }
 
         //if(location.settings.zoomToSearchResults()) {
@@ -200,7 +208,7 @@
     }
 
     function itemClick(e) {
-        var oldLoc = location.selectedItem();
+        var oldLoc = self.selectedItem();
 
         //get new marker and loc(ation)
         var marker, loc;
@@ -227,7 +235,7 @@
                 ;
             }
             //select new item
-            location.selectedItem(loc);
+            self.selectedItem(loc);
             //highlight new marker
             marker
                 .setIcon(getLocationIcon(loc, true))
@@ -236,13 +244,13 @@
             ;
         }
 
-        var selItmsIdx = location.selectedItems.indexOf(loc);
+        var selItmsIdx = self.selectedItems.indexOf(loc);
         if (selItmsIdx >= 0) {
-            location.selectedItems.splice(selItmsIdx, 1);
+            self.selectedItems.splice(selItmsIdx, 1);
         }
-        location.selectedItems.unshift(loc);
-        if (location.selectedItems().length > location.settings.maxSelectedItems) {
-            location.selectedItems.pop();
+        self.selectedItems.unshift(loc);
+        if (self.selectedItems().length > location.settings.maxSelectedItems) {
+            self.selectedItems.pop();
         }
 
         map.panIntoView(marker);
@@ -257,6 +265,113 @@
                 : loc.isFeatured() ? "green"
                 : "orange"
         });
+    }
+
+    function showByTagName(what) {
+        //tell.log('showByTagName: ' + what, 'location');
+        location.searchFor(what);
+        try {
+            var toShow;
+            if (!what) {//empty search criteria -> return everything
+                toShow = self.allPlaces();
+            }
+            else {
+                what = what.toLowerCase();
+                var tagList = what.split(',');
+                toShow = ko.utils.arrayFilter(self.allPlaces(), function (loc) {
+                    //check tags
+                    if (!loc.Tag) {
+                        //no Tags
+                        return false;
+                    }
+                    else {
+                        var _tags = ko.isObservable(loc.Tag)
+                                ? loc.Tag()
+                                : [loc.Tag]
+                            ;
+                        for (var it = 0; it < _tags.length; it++) {
+                            if (tagList.indexOf(_tags[it].Name().toLowerCase()) !== -1) {
+                                //match
+                                return true;
+                            }
+                        }
+                        //no match
+                        return false;
+                    }
+                }); //arrayFilter
+            } //else
+            location.mapLocations(toShow.sort(location.sortBy().Sorter)); //drawMarkers called by databinding
+            if (location.mapLocations().length === 0) {
+                tell.warn("Keine Treffer für '" + what + "' gefunden.", 'location - showByTagName');
+            }
+        } catch (e) {
+            tell.error(e.message, 'location - showByTagName', e);
+        }
+
+        router.navigate('map');
+    }
+
+    function search(what) {
+        //logger.info('search: ' + what, 'location');
+        location.searchFor(what);
+        try {
+            var toShow;
+            if (!what) { //empty search criteria -> return all ventures
+                toShow = ko.utils.arrayFilter(self.allPlaces(), function (loc) {
+                    if (loc.T && loc.T() === 'Venture') { //return only ventures (exclude stops, transports and streets)
+                        return true;
+                    }
+                    return false;
+                }); //arrayFilter
+            } //if (!what)
+            else {
+                what = what.toLowerCase();
+                toShow = ko.utils.arrayFilter(self.allPlaces(), function (loc) {
+                    //arrayFilter
+                    if (!loc.T || loc.T() !== 'Venture') { //return only ventures (exclude stops, transports and streets)
+                        return false;
+                    }
+                    //check name, strasse
+                    if ((loc.Name && loc.Name() && loc.Name().toLowerCase().indexOf(what) !== -1)
+                        ||
+                        (loc.Street && loc.Street() && loc.Street().toLowerCase().indexOf(what) !== -1)
+                    ) { //substring search in name
+                        return true;
+                    }
+                    //check aliases
+                    if (loc.Alias) {
+                        var _aliases = ko.isObservable(loc.Alias)
+                            ? loc.Alias()
+                            : [loc.Alias];
+                        for (var ia = 0; ia < _aliases.length; ia++) {
+                            if (_aliases[ia].Name().toLowerCase().indexOf(what) !== -1) {
+                                return true;
+                            }
+                        }
+                    }
+                    //check tags
+                    if (loc.Tag) {
+                        //tell.log('searching', 'location', loc.Tag)
+                        var _tags = ko.isObservable(loc.Tag)
+                                ? loc.Tag()
+                                : [loc.Tag]
+                            ;
+                        for (var it = 0; it < _tags.length; it++) {
+                            if (_tags[it].Name().toLowerCase().indexOf(what) !== -1) {
+                                return true;
+                            }
+                        }
+                    }
+                    //no match
+                    return false;
+                }); //arrayFilter
+            } //else
+            location.mapLocations(toShow.sort(location.sortBy().Sorter)); //drawMarkers called by databinding
+        } catch (e) {
+            tell.error(e.message, 'location - search', e);
+        }
+
+        router.navigate('map');
     }
 
     function compareByOpenThenByDistance(l1, l2) {
@@ -298,6 +413,5 @@
     function compareByName(l1, l2) {
         return l1.Name() > l2.Name();
     }
-
 
 });

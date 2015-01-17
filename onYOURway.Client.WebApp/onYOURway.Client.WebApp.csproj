@@ -43,12 +43,12 @@
     <Content Include="App\services\api\apiClient.js" />
     <Content Include="App\services\api\searchSuggestions.js" />
     <Content Include="App\services\api\tags.js" />
-    <Content Include="App\services\map\fiveMinuteDistanceLayer.js" />
     <Content Include="App\services\map\mapAdapter.js" />
     <Content Include="App\services\map\placesLayer.js" />
     <Content Include="App\services\map\pointerLayer.js" />
     <Content Include="App\services\map\regionLayer.js" />
     <Content Include="App\services\map\routingLayer.js" />
+    <Content Include="App\services\map\settings.js" />
     <Content Include="App\services\map\siteCollectorLayer.js" />
     <Content Include="App\services\map\tileLayer.js" />
     <Content Include="App\themes\vonMorgen\css\searchBox.css.map">

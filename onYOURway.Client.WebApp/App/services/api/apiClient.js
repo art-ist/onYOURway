@@ -339,7 +339,7 @@
                 self.locationToEdit(item);
             })
             .fail(function (error) {
-                logger.error("Location data could not be loaded: " + error.message, 'location - getLocation', error);
+                tell.error("Location data could not be loaded: " + error.message, 'location - getLocation', error);
             });
     }
 

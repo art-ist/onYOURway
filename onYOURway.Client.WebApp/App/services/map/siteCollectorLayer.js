@@ -1,11 +1,11 @@
 define([
     'services/tell',
-    'services/map/mapAdapter'
-], function (tell, map) {
+    'services/map/mapAdapter',
+    'services/map/settings'
+], function (tell, map, settings) {
     var leafletMarker = undefined;
 
     var self = {
-        isEnabled: ko.observable(false),
         markerGeoLocation: ko.observable(),
 
         initialize: initialize
@@ -15,7 +15,7 @@ define([
     function initialize() {
         map.on({
             'click': function (event) {
-                if (self.isEnabled()) {
+                if (settings.showSiteCollector()) {
                     setMarkerLocation(event.latlng);
                     self.markerGeoLocation(leafletMarker.getLatLng());
                 }
@@ -24,7 +24,7 @@ define([
 
         self.markerGeoLocation.subscribe(setMarkerLocation);
 
-        self.isEnabled.subscribe(function (val) {
+        settings.showSiteCollector.subscribe(function (val) {
             if (val === false && leafletMarker) {
                 map.removeLayer(leafletMarker);
                 leafletMarker = undefined;

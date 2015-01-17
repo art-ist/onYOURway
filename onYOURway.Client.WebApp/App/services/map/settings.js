@@ -15,6 +15,7 @@ define([
         showMap: ko.observable('auto'),
         showList: ko.observable('auto'),
         showDetails: ko.observable('auto'),
+        showSiteCollector: ko.observable(false),
         showVeilOfSilence: true,
         showPointer: true,
         showIndicator: true,

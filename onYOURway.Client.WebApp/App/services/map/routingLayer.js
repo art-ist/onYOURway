@@ -1,12 +1,34 @@
 define([
     'services/tell',
-    'services/providers/routing-yours',
-    'services/providers/geocode-nominatim',
-    'services/geoUtils'
-], function (tell, routingProvider, geocodingProvider, geoUtils) {
+    'providers/routing-yours',
+    'providers/geocode-nominatim',
+    'services/geoUtils',
+    'services/map/mapAdapter'
+], function (tell, routingProvider, geocodingProvider, geoUtils, map) {
     var location;
+    var routeLayer = null;
+    var fiveMinutesIndicatorLayer = null;
+    var transportLayer = null;
+    var bikeLayer = null;
 
     var self = {
+        route: {
+            start: {
+                text: ko.observable(),
+                coords: ko.observable(),
+                marker: null
+            },
+            end: {
+                text: ko.observable(),
+                coords: ko.observable(),
+                marker: null
+            },
+            geometry: [],
+            instructions: [],
+            distance: null,
+            duration: null
+        },
+
         initialize: initialize,
         getCurrentPosition: getCurrentPosition,
         setMode: setMode,
@@ -21,7 +43,6 @@ define([
     function _setRouteMarker(coord, usage) {
         tell.log('setting ' + usage + ' to ' + JSON.stringify(coord), 'location - setMarker', location.route.start);
 
-        var map = location.map;
         var marker, latLng, icon;
         switch (usage) {
             case 'start':
@@ -73,17 +94,16 @@ define([
         return routingProvider
             .getRoute(location.route, location.route.start.coords(), location.route.end.coords(), location.when(), location.settings.mode())
             .done(function (route) {
-                var map = location.map;
-                if (location.routeLayer) {
-                    map.removeLayer(location.routeLayer);
+                if (routeLayer) {
+                    map.removeLayer(routeLayer);
                 }
-                location.routeLayer = L.polyline(location.route.geometry, { color: location.settings.routeColor });
-                map.addLayer(location.routeLayer);
+                routeLayer = L.polyline(location.route.geometry, { color: location.settings.routeColor });
+                map.addLayer(routeLayer);
                 _setFiveMinutesInidcator(location.route.geometry);
                 return route;
             })
             .fail(function (err) {
-                logger.error('Die Route konnte nicht berechnet werden.', 'location - locate', err);
+                tell.error('Die Route konnte nicht berechnet werden.', 'location - locate', err);
             });
     }
 
@@ -98,7 +118,7 @@ define([
                 }
             },
             function (error) {
-                logger.error(error.message, 'location-getCurrentPosition');
+                tell.error(error.message, 'location-getCurrentPosition');
             },
             {
                 maximumAge: 300000
@@ -108,9 +128,8 @@ define([
 
     function _setFiveMinutesInidcator(aroundWhat) {
         tell.log('starting', 'location - _setFiveMinutesIndicator', aroundWhat);
-        var map = location.map;
-        if (location.layers.fiveMinutesIndicatorLayer) {
-            map.removeLayer(location.layers.fiveMinutesIndicatorLayer);
+        if (fiveMinutesIndicatorLayer) {
+            map.removeLayer(fiveMinutesIndicatorLayer);
         }
         if (!location.settings.showIndicator) { return; } //don't show indicator
 
@@ -148,13 +167,13 @@ define([
             //tell.log('latLngs after point-wise transform', 'location - _setFiveMinutesIndicator', latLngs);
 
             indicator = L.polygon(latLngs, indicatorOptions);
-            location.layers.fiveMinutesIndicatorLayer = indicator;
+            fiveMinutesIndicatorLayer = indicator;
             map.addLayer(indicator);
         }
         if (typeOf(aroundWhat[0]) === 'number' && aroundWhat.length > 1) { //ok, but it's a coordinate Pair -> position?
             var latLng = [aroundWhat[1], aroundWhat[0]];
             indicator = L.circle(latLng, location.settings.walkIn5, indicatorOptions);
-            location.layers.fiveMinutesIndicatorLayer = indicator;
+            fiveMinutesIndicatorLayer = indicator;
             map.addLayer(indicator);
         }
 
@@ -167,8 +186,8 @@ define([
         if (location.settings.mode() === mode) return;
 
         //remove old mode overlay
-        if (location.layers.bikeLayer) location.map.removeLayer(location.layers.bikeLayer);
-        if (location.layers.transportLayer) location.map.removeLayer(location.layers.transportLayer);
+        if (bikeLayer) map.removeLayer(bikeLayer);
+        if (transportLayer) map.removeLayer(transportLayer);
 
         //set new mode
         location.settings.mode(mode);
@@ -177,8 +196,8 @@ define([
         var query = null;
         switch (location.settings.mode()) {
             case "bike":
-                if (location.layers.bikeLayer) {
-                    location.map.addLayer(location.layers.bikeLayer);
+                if (bikeLayer) {
+                    map.addLayer(bikeLayer);
                 }
                 else {
                     query = breeze.EntityQuery.from("BikeFeatures/?RegionId=1");
@@ -207,17 +226,17 @@ define([
                                 }
                                 group.addLayer(poly);
                             }
-                            location.map.addLayer(group);
-                            location.layers.bikeLayer = group;
+                            map.addLayer(group);
+                            bikeLayer = group;
                         }) //then
                         .fail(function (error) {
-                            logger.error("Query for Regions failed: " + error.message, 'location', error);
+                            tell.error("Query for Regions failed: " + error.message, 'location', error);
                         });
                 }
                 break;
             case "walk":
-                if (location.layers.transportLayer) {
-                    location.map.addLayer(location.layers.transportLayer);
+                if (transportLayer) {
+                    map.addLayer(transportLayer);
                 }
                 else {
                     query = breeze.EntityQuery.from("TransportFeatures/?RegionId=1");
@@ -244,11 +263,11 @@ define([
                                 poly.bindPopup('<b>' + line.Name() + '</b>');
                                 group.addLayer(poly);
                             }
-                            location.map.addLayer(group);
-                            location.layers.transportLayer = group;
+                            map.addLayer(group);
+                            transportLayer = group;
                         }) //then
                         .fail(function (error) {
-                            logger.error("Query for Regions failed: " + error.message, 'location', error);
+                            tell.error("Query for Regions failed: " + error.message, 'location', error);
                         });
                 }
                 break;
@@ -272,22 +291,21 @@ define([
                     tell.log('found: ' + JSON.stringify(result.coords), 'location - geoCode', writeResultTo);
                 }
                 else {
-                    logger.error('Die Koordinaten zu diesem Standort konnten nicht gefunden werden.', 'location - geoCode', result);
+                    tell.error('Die Koordinaten zu diesem Standort konnten nicht gefunden werden.', 'location - geoCode', result);
                 }
             })
             .fail(function (err) {
-                logger.error('Die Koordinaten zu diesem Standort konnten nicht gefunden werden.', 'location - geoCode', err);
+                tell.error('Die Koordinaten zu diesem Standort konnten nicht gefunden werden.', 'location - geoCode', err);
             });
 
     }
 
     function locate(what) {
-        var map = location.map;
         var start = location.route.start;
         var end = location.route.end;
 
-        if (location.layers.fiveMinutesIndicatorLayer) {
-            map.removeLayer(location.layers.fiveMinutesIndicatorLayer);
+        if (fiveMinutesIndicatorLayer) {
+            map.removeLayer(fiveMinutesIndicatorLayer);
         }
 
         if (what === 'start' && start.text() === 'aktueller Standort') {
@@ -295,17 +313,17 @@ define([
             return;
         }
         if (what === 'start' && !start.text()) {
-            logger.error('Geben Sie eine Position oder einen Startpunkt an.', 'location - locate');
+            tell.error('Geben Sie eine Position oder einen Startpunkt an.', 'location - locate');
             return;
         }
         if (what === 'end' && !end.text()) {
-            logger.error('Geben Sie eine Zieladresse an.', 'location - locate');
+            tell.error('Geben Sie eine Zieladresse an.', 'location - locate');
             return;
         }
         if (what === 'nothing') { //start or endpoint removed
             location.route.end.text(null);
             if (location.route.end.marker) map.removeLayer(location.route.end.marker);
-            if (location.routeLayer) map.removeLayer(location.routeLayer);
+            if (routeLayer) map.removeLayer(routeLayer);
             if (location.route.start.coords()) { _setFiveMinutesInidcator(location.route.start.coords()) };
         }
         else if (what === 'start') { //get position of start

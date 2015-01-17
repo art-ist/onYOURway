@@ -4,13 +4,14 @@ define([
     'services/map/mapAdapter'
 ], function (tell, settings, map) {
 
-    var activeLayer = null;
+    var pointerMapLayer = null;
     var selectedItemObservable;
 
     var self = {
         initialize: initialize,
         scrollList: scrollList,
-        drawPointer: drawPointer
+        drawPointer: drawPointer,
+        removePointer: removePointer
     };
     return self;
 
@@ -45,11 +46,8 @@ define([
     }
 
     function drawPointer(mode) { //draws a pointer to connect the listitem of the selected venture with its marker
-        if (activeLayer) { //remove a previously drawn pointer
-            map.removeLayer(activeLayer);
-        }
+        removePointer();
         if (!settings.showPointer  //disabled in settings
-            || (mode && mode === 'hide')       //drawing-mode hide
             || !selectedItemObservable()        //no item selected
             || !selectedItemObservable().marker //selected item has no marker
             || !settings.showList()   //list not visible
@@ -74,12 +72,18 @@ define([
         };
         var top = $listItem.offset().top + offset - $map.offset().top;
         var left = $list.position().left + $listItem.position().left;
-        activeLayer = new L.polygon([
+        pointerMapLayer = new L.polygon([
             map.containerPointToLatLng([left, top]),
             map.containerPointToLatLng([left, top + height]),
             selectedItemObservable().marker.getLatLng(),
         ], pointerOptions);
-        map.addLayer(activeLayer);
+        map.addLayer(pointerMapLayer);
+    }
+
+    function removePointer() {
+        if (pointerMapLayer) {
+            map.removeLayer(pointerMapLayer);
+        }
     }
 
 });

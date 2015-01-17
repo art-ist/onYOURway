@@ -6,6 +6,6 @@
 	update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 		var options = valueAccessor();
 		//console.log('[bindingHandlers] ventures binding update', viewModel, options.data);
-		viewModel.location.drawMarkers(options.map, options.data());
+		viewModel.location.removePointerAndDrawMarkers();
 	} //update
 }; //ventures

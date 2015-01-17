@@ -63,7 +63,7 @@
       } 
     });
 
-    self.showSiteCollector = location.siteCollectorMode;
+    self.showSiteCollector = location.settings.showSiteCollector;
 
     //#endregion Properties
 

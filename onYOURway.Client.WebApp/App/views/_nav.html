@@ -110,8 +110,8 @@
 
 						<li class="divider"></li>
 						<li class="dropdown-header">Kartenstil</li>
-						<!-- ko foreach: location.settings.tileLayers -->
-						<li><a href="#" data-bind="click: function () { $root.location.setTileLayer($index()); }"><span data-bind="text: Name"></span> <i class="fa fa-check" data-bind="visible: $data === $root.location.layers.tileLayer()"></i></a></li>
+						<!-- ko foreach: location.tileLayers -->
+						<li><a href="#" data-bind="click: function () { $root.location.setTileLayer($index()); }"><span data-bind="text: Name"></span> <i class="fa fa-check" data-bind="visible: $data === $root.location.activeTileLayer()"></i></a></li>
 						<!-- /ko -->
 
 					</ul>

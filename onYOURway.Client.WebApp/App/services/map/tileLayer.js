@@ -1,6 +1,7 @@
 ﻿define([
-  'services/tell'
-], function (tell) {
+  'services/tell',
+  'services/map/mapAdapter'
+], function (tell, map) {
 
     var cmk = config.apiKey.cloudmade;
     var lrk = config.apiKey.lyrk;
@@ -20,6 +21,7 @@
     };
 
     var self = {
+        activeLayer: ko.observable(),
         tileLayers: [
 				//lyrk
 				{ Name: 'Standard', Layer: new L.TileLayer('http://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey=' + lrk, { attribution: attrib('<a href="https://geodienste.lyrk.de/">Lyrk</a>', licence.lyrk), maxZoom: 18 }) },
@@ -39,9 +41,17 @@
 				//'http://{s}.tiles.mapbox.com/v3/' + 'examples.map-zr0njcqy' + '/{z}/{x}/{y}.png'; //MapBox
 				{ Name: 'OpenCycleMap', Layer: new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', { attribution: attrib('<a href="http://www.opencyclemap.org/docs">OpenCycleMap</a>', licence.cc_by_sa_2), maxZoom: 18, subdomains: 'abc' }) },
 				{ Name: 'Transport', Layer: new L.TileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', { attribution: attrib('<a href="http://www.opencyclemap.org/docs">OpenCycleMap</a>', licence.cc_by_sa_2), maxZoom: 18, subdomains: 'abc' }) }
-        ]
+        ],
+
+        setTileLayer: setTileLayer
     };
     return self;
 
+    function setTileLayer(index) {
+        var oldLayer = self.activeLayer();
+        var newLayer = self.tileLayers[index];
+        map.replaceLayer(oldLayer && oldLayer.Layer, newLayer.Layer);
+        self.activeLayer(newLayer);
+    }
 
 });

@@ -3,8 +3,10 @@ define([
   'services/app',
   'services/location',
   'services/tell',
-  'providers/geocode-nominatim',
-], function (app, location, tell, geocodingProvider) {
+  'services/api/apiClient',
+  'services/map/siteCollectorLayer',
+  'providers/geocode-nominatim'
+], function (app, location, tell, apiClient, siteCollectorLayer, geocodingProvider) {
 
 	var vm = function () {
 		var self = this;
@@ -12,7 +14,7 @@ define([
 		self.location = location;
 
         // breeze database context
-		self.manager = location.context;
+		self.manager = apiClient.locateContext;
 
         // list of regions - these regions can be selected in the region drop down
 		self.region = ko.observable(3);
@@ -21,7 +23,7 @@ define([
 		self.taxonomy = ko.observableArray([]);
 
         // countries that can be selected in the country dropdown
-		self.countries = location.getCountries();
+		self.countries = apiClient.getCountries();
 
         // opening hours that can be selected in the opening hours dropdown
 		self.opening_hour_samples = [
@@ -32,31 +34,31 @@ define([
 			'09:00-16:00; Su,PH closed'
 		];
 
-	    // computed observable connects the latitude input field with location.siteCollectorCoords (which is connected to the map marker)
+	    // computed observable connects the latitude input field with siteCollectorLayer.markerGeoLocation (which is connected to the map marker)
 		self.latitude = ko.computed({
 			read: function () {
-				return location.siteCollectorCoords() && location.siteCollectorCoords().lat;
+				return siteCollectorLayer.markerGeoLocation() && siteCollectorLayer.markerGeoLocation().lat;
 			},
 			write: function (lat) {
 				if (!lat) {
 					lat = 0.0;
 				}
-				var lng = location.siteCollectorCoords() && location.siteCollectorCoords().lng || 0.0;
-				location.siteCollectorCoords({ lat: lat, lng: lng });
+				var lng = siteCollectorLayer.markerGeoLocation() && siteCollectorLayer.markerGeoLocation().lng || 0.0;
+				siteCollectorLayer.markerGeoLocation({ lat: lat, lng: lng });
 			}
 		});
 
-	    // computed observable connects the longitude input field with location.siteCollectorCoords (which is connected to the map marker)
+	    // computed observable connects the longitude input field with siteCollectorLayer.markerGeoLocation (which is connected to the map marker)
 		self.longitude = ko.computed({
 			read: function () {
-				return location.siteCollectorCoords() && location.siteCollectorCoords().lng;
+				return siteCollectorLayer.markerGeoLocation() && siteCollectorLayer.markerGeoLocation().lng;
 			},
 			write: function (lng) {
 				if (!lng) {
 					lat = 0.0;
 				}
-				var lat = location.siteCollectorCoords() && location.siteCollectorCoords().lat || 0.0;
-				location.siteCollectorCoords({ lat: lat, lng: lng });
+				var lat = siteCollectorLayer.markerGeoLocation() && siteCollectorLayer.markerGeoLocation().lat || 0.0;
+				siteCollectorLayer.markerGeoLocation({ lat: lat, lng: lng });
 			}
 		});
 
@@ -130,7 +132,7 @@ define([
 		        self.tags.push(tag);
 		        self.manager.createEntity('HasTag', {
 		            Location: self.entity,
-		            TagId: tag.Id,
+		            TagId: tag.Id
 		        });
 		    }
 		}
@@ -150,7 +152,7 @@ define([
 		    // hide all search results that may still be displayed on the map
 		    location.mapLocations([]);
 
-			//subscribe region changes to load the corresponding tyxonomy
+			//subscribe region changes to load the corresponding taxonomy
 		    self.region.subscribe(function (value) {
 		    	getTaxonomy();
 		    });
@@ -159,7 +161,7 @@ define([
 		    });
 
 		    // enabling the site collector mode - makes map smaller and enables the site selection marker
-		    location.siteCollectorMode(true);
+		    location.settings.showSiteCollector(true);
 		    return true;
 		};
 
@@ -222,8 +224,8 @@ define([
 		        tell.log("could not detach entity", "siteCollector - deactivate", e2);
 		    }
 
-		    // disabling siteCollectorMode enlarges the map again and hides the tag selection marker
-		    location.siteCollectorMode(false);
+		    // setting showSiteCollector to false enlarges the map again and hides the tag selection marker
+		    location.settings.showSiteCollector(false);
 
 		    // tell leaflet.js to recalculate the map size, as soon as all css animations have finished
 		    window.setTimeout(function () {
@@ -266,7 +268,7 @@ define([
          * get the hierarchy of assignable tags (self.taxonomy)
          */
 		var getTaxonomy = function () {
-			location.getTaxonomy(self.region(), app.lang())
+			apiClient.getTaxonomy(self.region(), app.lang())
 				.then(function (d) {
 					tell.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
 					self.taxonomy(d.results[0].tags.tag);
