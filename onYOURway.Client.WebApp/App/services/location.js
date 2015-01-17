@@ -2,7 +2,7 @@
  * purpose of location.js:
  * 1. facade for services in the map and api subfolder, to be used by views
  * 2. mediator / director pattern, reduces direct dependencies between views and services / between services.
- *    services can be exchanged without modifying views or other services.
+ *    services can be replaced by other implementations without modifying views or other services.
  */
 define([
 	'services/tell',
@@ -10,6 +10,9 @@ define([
 
 	'services/api/apiClient',
 	'services/api/searchSuggestions',
+	'services/api/places',
+	'services/api/placeComparators',
+	'services/api/placeSearch',
 
 	'services/map/mapAdapter',
 	'services/map/settings',
@@ -19,7 +22,7 @@ define([
     'services/map/routingLayer',
     'services/map/siteCollectorLayer',
     'services/map/tileLayer'
-], function (tell, router, apiClient, searchSuggestions, map, settings,
+], function (tell, router, apiClient, searchSuggestions, places, placeComparators, placeSearch, map, settings,
 			 placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
 
 	var location = {
@@ -34,9 +37,9 @@ define([
 			{ Name: ko.observable('aus der Region'), Selected: new ko.observable(false) },
 			{ Name: ko.observable('Eigenproduktion'), Selected: new ko.observable(false) }
 		]), //used in view _searchoptions.html
-		sortOptions: placesLayer.sortOptions, //used in view _searchoptions.html, svc placesLayer
+		sortOptions: placeComparators, //used in view _searchoptions.html, svc placesLayer
 
-		mapLocations: placesLayer.mapPlaces, //used in views _map.html, siteCollector
+		mapLocations: placeSearch.searchResults, //used in views _map.html, siteCollector
 		selectedItem: placesLayer.selectedItem, //used by view _map.html and pointerLayer
 
 		route: routingLayer.route, //used in view _searchoptions.html, svc placesLayer, routingLayer
@@ -56,8 +59,8 @@ define([
 		loadRegionFeatures: loadRegionFeatures, // used by svc mapAdapter and view siteCollector
 		removePointerAndDrawMarkers: removePointerAndDrawMarkers, // used in bindingHandler ventures
 
-		search: placesLayer.search, //used by component searchBox, svc app, views _nav.js, vonMorgen/nav.js, about/explorer.js
-		showByTagName: placesLayer.showByTagName, //used by svc discover, views siteCollector, home
+		search: placeSearch.search, //used by component searchBox, svc app, views _nav.js, vonMorgen/nav.js, about/explorer.js
+		showByTagName: placeSearch.showByTagName, //used by svc discover, views siteCollector, home
 		itemClick: placesLayer.itemClick, // used in svc placesLayer, views _map.html, vonMorgen/_map.js, vonMorgen/_map.html
 
 		locate: routingLayer.locate, //used in view _searchoptions.html
@@ -104,19 +107,21 @@ define([
 		routingLayer.initialize(location);
 		regionLayer.loadRegions();
 		loadRegionFeatures();
+		placesLayer.initialize(location);
+		placeSearch.initialize(location);
 	}
 
 	function loadRegionFeatures() {
-		placesLayer.loadPlaces(location);
+		places.loadPlaces(location);
 
 		require(['services/app'], function (app) {
 			searchSuggestions.loadSearchSuggestions(app.lang, location.region);
 		});
 	}
 
-	function removePointerAndDrawMarkers() {
+	function removePointerAndDrawMarkers(placesToDraw) {
 		pointerLayer.removePointer();
-		placesLayer.drawMarkers();
+		placesLayer.drawMarkers(placesToDraw);
 	}
 
 	function toggleMap(mode) {
