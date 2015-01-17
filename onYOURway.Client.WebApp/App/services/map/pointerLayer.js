@@ -1,16 +1,37 @@
 define([
-    'services/app',
-    'services/tell'
-], function (app, tell) {
+    'services/tell',
+    'services/map/settings',
+    'services/map/mapAdapter'
+], function (tell, settings, map) {
+
+    var activeLayer = null;
+    var selectedItemObservable;
 
     var self = {
+        initialize: initialize,
         scrollList: scrollList,
         drawPointer: drawPointer
     };
     return self;
 
+    function initialize(pSelectedItemObservable) {
+        selectedItemObservable = pSelectedItemObservable;
+        map.on({
+            'move': function () {
+                drawPointer(map);
+            }
+        });
+
+        pSelectedItemObservable.subscribe(scrollList);
+
+        $('#locationList').scroll(function () {
+            drawPointer(map);
+        });
+
+    }
+
     function scrollList(selector) {
-        var $listItem = $(selector);
+        var $listItem = $((selector && selector.Id) ? ('#' + selector.Id()) : selector);
         if ($listItem.length > 0) {
             $listItem.scrollIntoView({
                 duration: 500,
@@ -24,20 +45,18 @@ define([
     }
 
     function drawPointer(mode) { //draws a pointer to connect the listitem of the selected venture with its marker
-        var location = self.location;
-        var map = location.map;
-        if (location.layers.pointerLayer) { //remove a previously drawn pointer
-            map.removeLayer(location.layers.pointerLayer);
+        if (activeLayer) { //remove a previously drawn pointer
+            map.removeLayer(activeLayer);
         }
-        if (!location.settings.showPointer  //disabled in settings
+        if (!settings.showPointer  //disabled in settings
             || (mode && mode === 'hide')       //drawing-mode hide
-            || !location.selectedItem()        //no item selected
-            || !location.selectedItem().marker //selected item has no marker
-            || !location.settings.showList()   //list not visible
-            || !location.settings.showMap()    //map not visible
+            || !selectedItemObservable()        //no item selected
+            || !selectedItemObservable().marker //selected item has no marker
+            || !settings.showList()   //list not visible
+            || !settings.showMap()    //map not visible
         ) { return; } // don't display marker -> done after hiding
 
-        var $listItem = $('#' + location.selectedItem().Id());
+        var $listItem = $('#' + selectedItemObservable().Id());
         if ($listItem.length === 0) return; //dom element for selectesd item not found -> run away (after hiding ;)
         var $list = $('#locationList');
         var $map = $('#map');
@@ -55,13 +74,12 @@ define([
         };
         var top = $listItem.offset().top + offset - $map.offset().top;
         var left = $list.position().left + $listItem.position().left;
-        var pointer = new L.polygon([
+        activeLayer = new L.polygon([
             map.containerPointToLatLng([left, top]),
             map.containerPointToLatLng([left, top + height]),
-            location.selectedItem().marker.getLatLng(),
+            selectedItemObservable().marker.getLatLng(),
         ], pointerOptions);
-        location.layers.pointerLayer = pointer;
-        map.addLayer(pointer);
+        map.addLayer(activeLayer);
     }
 
 });

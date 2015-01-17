@@ -16,7 +16,7 @@
     function loadSearchSuggestions(lang, region) {
         var query = breeze.EntityQuery.from("SearchSuggestions");
         query.parameters = {
-            RegionId: region ? region().Id() : 1,
+            RegionId: region && region() ? region().Id() : 1,
             Lang: lang()
         };
 

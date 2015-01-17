@@ -44,7 +44,7 @@
     <Content Include="App\services\api\searchSuggestions.js" />
     <Content Include="App\services\api\tags.js" />
     <Content Include="App\services\map\fiveMinuteDistanceLayer.js" />
-    <Content Include="App\services\map\map.js" />
+    <Content Include="App\services\map\mapAdapter.js" />
     <Content Include="App\services\map\placesLayer.js" />
     <Content Include="App\services\map\pointerLayer.js" />
     <Content Include="App\services\map\regionLayer.js" />

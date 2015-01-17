@@ -4,17 +4,21 @@ define([
     'services/providers/geocode-nominatim',
     'services/geoUtils'
 ], function (tell, routingProvider, geocodingProvider, geoUtils) {
+    var location;
 
     var self = {
+        initialize: initialize,
         getCurrentPosition: getCurrentPosition,
         setMode: setMode,
         locate: locate
     };
     return self;
 
+    function initialize(pLocation) {
+        location = pLocation;
+    }
 
     function _setRouteMarker(coord, usage) {
-        var location = self.location;
         tell.log('setting ' + usage + ' to ' + JSON.stringify(coord), 'location - setMarker', location.route.start);
 
         var map = location.map;
@@ -64,7 +68,6 @@ define([
     }
 
     function _getRoute() {
-        var location = self.location;
         //TODO: add routing via stores at shopping list
         //var via = [];
         return routingProvider
@@ -85,7 +88,6 @@ define([
     }
 
     function getCurrentPosition() {
-        var location = self.location;
         navigator.geolocation.getCurrentPosition( //requests current position from geolocation api (HTML5 or PhoneGap)
             function (result) {
                 if (result.coords) {
@@ -105,11 +107,10 @@ define([
     } //getCurrentPosition
 
     function _setFiveMinutesInidcator(aroundWhat) {
-        var location = self.location;
         tell.log('starting', 'location - _setFiveMinutesIndicator', aroundWhat);
         var map = location.map;
-        if (location.layers.fiveMinutesInidcatorLayer) {
-            map.removeLayer(location.layers.fiveMinutesInidcatorLayer);
+        if (location.layers.fiveMinutesIndicatorLayer) {
+            map.removeLayer(location.layers.fiveMinutesIndicatorLayer);
         }
         if (!location.settings.showIndicator) { return; } //don't show indicator
 
@@ -153,7 +154,7 @@ define([
         if (typeOf(aroundWhat[0]) === 'number' && aroundWhat.length > 1) { //ok, but it's a coordinate Pair -> position?
             var latLng = [aroundWhat[1], aroundWhat[0]];
             indicator = L.circle(latLng, location.settings.walkIn5, indicatorOptions);
-            location.layers.fiveMinutesInidcatorLayer = indicator;
+            location.layers.fiveMinutesIndicatorLayer = indicator;
             map.addLayer(indicator);
         }
 
@@ -161,7 +162,6 @@ define([
     } //_setFiveMinutesInidcator
 
     function setMode(mode) {
-        var location = self.location;
         tell.log("changing mode to " + mode, 'location');
         //if no change do nothing
         if (location.settings.mode() === mode) return;
@@ -262,7 +262,6 @@ define([
     }
 
     function _geoCode(searchString, writeResultTo) {
-        var location = self.location;
         tell.log('geocoding: ' + searchString, 'location - geoCode');
 
         return geocodingProvider
@@ -283,13 +282,12 @@ define([
     }
 
     function locate(what) {
-        var location = self.location;
         var map = location.map;
         var start = location.route.start;
         var end = location.route.end;
 
-        if (location.layers.fiveMinutesInidcatorLayer) {
-            map.removeLayer(location.layers.fiveMinutesInidcatorLayer);
+        if (location.layers.fiveMinutesIndicatorLayer) {
+            map.removeLayer(location.layers.fiveMinutesIndicatorLayer);
         }
 
         if (what === 'start' && start.text() === 'aktueller Standort') {

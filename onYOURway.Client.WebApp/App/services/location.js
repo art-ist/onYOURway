@@ -1,55 +1,40 @@
-﻿define([
+﻿/**
+ * purpose of location.js:
+ * 1. facade for services in the map and api subfolder, to be used by views
+ * 2. mediator / director pattern, reduces direct dependencies between views and services / between services.
+ *    services can be exchanged without modifying views or other services.
+ */
+define([
 	'services/tell',
 	'plugins/router',
 
 	'services/api/apiClient',
 	'services/api/searchSuggestions',
 
-	'services/map/map',
+	'services/map/mapAdapter',
+	'services/map/settings',
     'services/map/placesLayer',
     'services/map/pointerLayer',
     'services/map/regionLayer',
     'services/map/routingLayer',
     'services/map/siteCollectorLayer',
     'services/map/tileLayer'
-], function (tell, router, apiClient, searchSuggestions,
-			 map, placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
+], function (tell, router, apiClient, searchSuggestions, map, settings,
+			 placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
 
 	var location = {
-		map: null,
+		map: null, //used by routingLayer, view siteCollector.js. was used by: view _map.html, svc placesLayer, regionLayer
 
-		settings: {
-			mode: ko.observable("bicycle"), //supported: bicycle, foot, car  //TODO: add multi, public
-			//Map Styling
-			tileLayers: tileLayer.tileLayers,
-			walkIn5: 330,   //meters in 5 minutes at 4 km/h
-			bikeIn5: 1800,  //meters in 5 minutes at 21,6 km/h
-			clusterLocations: ko.observable(false),
-			zoomToSearchResults: ko.observable(true),
-			mapPadding: { top: 50, right: 30, bottom: 20, left: 30 }, //px
-			autoPan: ko.observable(true),
+		settings: settings,
 
-			showMap: ko.observable('auto'),
-			showList: ko.observable('auto'),
-			showDetails: ko.observable('auto'),
-			showVeilOfSilence: true,
-			showPointer: true,
-			showIndicator: true,
-
-			routeColor: '#0067a3',
-
-			forceMap: false,
-			disableDetails: false,
-			maxSelectedItems: 5
-		},
-
-		regions: ko.observableArray(),
-		region: ko.observable(),        //selected region
-		views: ko.observableArray(),
+		regions: regionLayer.regions,
+		region: regionLayer.selectedRegion,
+		views: map.views,
 		locations: ko.observableArray(),
 		mapLocations: ko.observableArray(),
 		searchSuggestions: searchSuggestions.cachedNames,
 		searchSuggestionObjects: searchSuggestions.cachedObjects,
+
 		//TODO: verify if cachedTags / location.tags is used anywhere, otherwise delete
 		tags: searchSuggestions.cachedTags,
 		getTaxonomy: apiClient.getTaxonomy,
@@ -58,8 +43,8 @@
 		selectedItem: ko.observable(), //current location
 		selectedItems: ko.observableArray(), //last selected locations (max: settings.maxSelectedItems)
 
-		siteCollectorMode: ko.observable(), // boolean - if true, smaller map and possible to select a new location in the map by clicking or moving the siteCollectorMarker
-		siteCollectorCoords: ko.observable(), // if siteCollectorMode is true: coordinates of the siteCollectorMarker
+		siteCollectorMode: siteCollectorLayer.isEnabled,
+		siteCollectorCoords: siteCollectorLayer.markerGeoLocation,
 
 		searchFor: ko.observable(),
 		featuredIf: ko.observableArray([
@@ -72,11 +57,13 @@
 		sortOptions: placesLayer.sortOptions,
 
 		context: apiClient.locateContext,
+
 	    //TODO: remove my/wizardNew and all its dependencies  (loactionToEdit)
 		loactionToEdit: apiClient.locationToEdit,
-		getLocation:apiClient.getLocation,
+		getLocation: apiClient.getLocation,
 		editLocation: editLocation,
-		//TODO: baseMap seems to be unused, verify and delete (also the functions baseMapOpenOsm, ...)
+
+		//TODO: baseMap used in _nav.html for menu links. move into _nav.js!
 		baseMap: map.baseMap,
 
 		//position: new ko.observable(),
@@ -100,57 +87,76 @@
 
 		//--Layergroups:
 		layers: {
-			tileLayer: ko.observable(null),
+			tileLayer: ko.observable(),
 			routeLayer: null,
-			fiveMinutesInidcatorLayer: null,
+			fiveMinutesIndicatorLayer: null,
 			transportLayer: null,
 			bikeLayer: null,
 			locationLayer: null,
-			pointerLayer: null,
+			pointerLayer: null, //used by placesLayer (drawMarkers)
 			editLayer: null
 		},
 
 		//methods
-		initializeMap: map.initializeMap,
-		loadRegionFeatures: map.loadRegionFeatures,
+		initializeMap: initializeMap, // used by view _map.html
+		loadRegionFeatures: loadRegionFeatures, // used by svc leafletMap and view siteCollector
 
-		setTileLayer: map.setTileLayer,
-		setMode: map.setMode,
+		setTileLayer: setTileLayer, //used by svc leafletMap and view _nav.html
+		setMode: routingLayer.setMode, //used by view _searchoptions.html
 
-		search: search,
-		showByTagName: showByTagName,
-		locate: map.locate,
+		search: search, //used by component searchBox, svc app, views _nav.js, vonMorgen/nav.js, about/explorer.js
+		showByTagName: showByTagName, //used by svc discover, views siteCollector, home
+		locate: routingLayer.locate, //used in view _searchoptions.html
 
-		getCurrentPosition: map.getCurrentPosition,
-		itemClick: map.itemClick,
-		drawMarkers:placesLayer.drawMarkers,
+		getCurrentPosition: routingLayer.getCurrentPosition, //used in view _searchoptions.html
+		itemClick: placesLayer.itemClick, // used in svc placesLayer, views _map.html, vonMorgen/_map.js, vonMorgen/_map.html
+		drawMarkers:placesLayer.drawMarkers, // used in bindingHandler ventures
 
-		setView: map.setView,
-		drawPointer: map.drawPointer,
-		panIntoView: map.panIntoView,
+		setView: regionLayer.setView, // used in svc regionLayer, view _nav.html
+		drawPointer: pointerLayer.drawPointer, //used in svc location (toggle...), svc leafletMap (itemClick)
+		panIntoView: map.panIntoView, //used in svc location (toggle,), leafletMap (itemClick), siteCollectorLayer
 
-		toggleMap: toggleMap,
-		toggleList: toggleList,
-		toggleDetails: toggleDetails
+		toggleMap: toggleMap, //unused
+		toggleList: toggleList, //used in views _map.html, vonMorgen/_map.html
+		toggleDetails: toggleDetails //used in views _map.html, vonMorgen/_map.html, lefaletMap (itemClick)
 
 	};
-
-	map.location = location;
-	searchSuggestions.location = location;
-	placesLayer.location = location;
-	pointerLayer.location = location;
-	regionLayer.location = location;
-	routingLayer.location = location;
-	siteCollectorLayer.location = location;
-	tileLayer.location = location;
-
-	location.sortBy(location.sortOptions[0]);
-
-	location.sortBy.subscribe(function (newValue) {
-		location.mapLocations(location.mapLocations().sort(newValue.Sorter));
-	});
-
+	initialize();
 	return location;
+
+	function initialize() {
+		location.sortBy(location.sortOptions[0]);
+
+		location.sortBy.subscribe(function (newValue) {
+			location.mapLocations(location.mapLocations().sort(newValue.Sorter));
+		});
+	}
+
+	function initializeMap(containerId) {
+		location.map = map.initializeMap(containerId)
+
+		setTileLayer(0);
+		pointerLayer.initialize(location.selectedItem);
+		siteCollectorLayer.initialize();
+		routingLayer.initialize(location);
+		regionLayer.loadRegions();
+		loadRegionFeatures();
+	}
+
+	function loadRegionFeatures() {
+		placesLayer.loadPlaces(location);
+
+		require(['services/app'], function (app) {
+			searchSuggestions.loadSearchSuggestions(app.lang, location.region);
+		});
+	}
+
+	function setTileLayer(index) {
+		var oldLayer = location.layers.tileLayer();
+		var newLayer = tileLayer.tileLayers[index].Layer;
+		map.replaceLayer(oldLayer, newLayer);
+		location.layers.tileLayer(newLayer);
+	}
 
 	//like search but only by full TagNames
 	function showByTagName(what) {
@@ -286,7 +292,7 @@
 				$('#ventureDetails, #locationList, #map').removeClass('detailsOpen');
 				tell.log('details hidden', 'location - toggleDetails');
 				setTimeout(function () { //500ms later
-					location.panIntoView();
+					location.panIntoView(location.selectedItem() && location.selectedItem().marker);
 					location.drawPointer();
 					//map.panBy([0, 0]);
 				}, 500);
@@ -297,7 +303,7 @@
 				  .addClass('detailsOpen');
 				tell.log('details opened', 'location - toggleDetails');
 				setTimeout(function () { //500ms later
-					location.panIntoView();
+					location.panIntoView(location.selectedItem() && location.selectedItem().marker);
 					location.drawPointer();
 					//location.map.panBy([0, 0]);
 				}, 500);

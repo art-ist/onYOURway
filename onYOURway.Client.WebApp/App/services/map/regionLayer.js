@@ -1,46 +1,58 @@
 define([
-    'services/app',
     'services/tell',
     'services/geoUtils',
     'services/api/apiClient',
-], function (app, tell, geoUtils, apiClient) {
-
+    'services/map/settings',
+    'services/map/mapAdapter'
+], function (tell, geoUtils, apiClient, settings, map) {
     var self = {
-        loadRegions: loadRegions
+        regions: ko.observableArray(),
+        views: ko.observable,
+        selectedRegion: ko.observable(),
+
+        loadRegions: loadRegions,
+        setView: setView
     };
     return self;
 
-    function loadRegions(map) {
+    function loadRegions() {
         var query = breeze.EntityQuery.from("Regions");
         return apiClient.locateContext
             .executeQuery(query)
             .then(function (d) {
                 var regions = d.results;
-                tell.log(regions.length + " Regions found", 'location');
-                self.location.regions(regions);
+                tell.log(regions.length + " Regions found", 'regionLayer');
+                self.regions(regions);
                 //TODO: Set first region as default -> select default region based on  settings / current location
                 setRegion(0);
             })
             .fail(function (error) {
-                logger.error("Query for Regions failed: " + error.message, 'location', error);
+                tell.error("Query for Regions failed: " + error.message, 'regionLayer', error);
             });
     }
 
     function setRegion(index) {
-        var location = self.location;
-        var regions = location.regions();
-        tell.log('setRegion', 'location - setRegion', regions);
-        location.region(regions[index]);
+        var regions = self.regions();
+        tell.log('setRegion', 'regionLayer - setRegion', regions);
+        self.selectedRegion(regions[index]);
         if (regions.length) {
-            location.views(regions[index].Views());
+            var rviews = regions[index].Views();
+            self.views(rviews);
             //ToDo: in Select Region auslagern?
-            location.setView(0);
+            self.setView(rviews, 0);
         }
-        _drawVeilOfSilence(location.map, [regions[index]]); //highlight the selected region only
+        _drawVeilOfSilence([regions[index]]); //highlight the selected region only
     }
 
-    function _drawVeilOfSilence(map, regions) {
-        if (!self.location.settings.showVeilOfSilence) return;
+    function setView(rviews, i) {
+        var view = rviews[i];
+        var box = geoUtils.wktToCoords(view.Boundary().Geography.WellKnownText);
+        map.fitBounds([[box[3][1], box[3][0]], [box[1][1], box[1][0]]]);
+        return;
+    }
+
+    function _drawVeilOfSilence(regions) {
+        if (!settings.showVeilOfSilence) return;
         var bounds = [
             L.GeoJSON.coordsToLatLngs([[90, -180], [90, 180], [-90, 180], [-90, -180], [90, -180]])
         ];
@@ -55,7 +67,7 @@ define([
             color: "#ff7800", weight: 2, smoothFactor: 2.0, fillColor: "#000000", fillOpacity: 0.15, clickable: false
             //color: "#ff7800", weight: 2, smoothFactor: 2.0, fillColor: "#ffffff", fillOpacity: 1, clickable: false
         });
-        mPoly.addTo(map);
+        map.addLayer(mPoly);
     }
 
 

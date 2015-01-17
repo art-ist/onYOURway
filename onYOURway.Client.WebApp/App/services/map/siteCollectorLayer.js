@@ -1,47 +1,67 @@
 define([
-    'services/app',
     'services/tell',
-    'services/map/placesLayer'
-], function (app, tell, placesLayer) {
+    'services/map/mapAdapter'
+], function (tell, map) {
+    var leafletMarker = undefined;
 
     var self = {
-        setSiteCollectorMarker: setSiteCollectorMarker
+        isEnabled: ko.observable(false),
+        markerGeoLocation: ko.observable(),
+
+        initialize: initialize
     };
     return self;
 
+    function initialize() {
+        map.on({
+            'click': function (event) {
+                if (self.isEnabled()) {
+                    setMarkerLocation(event.latlng);
+                    self.markerGeoLocation(leafletMarker.getLatLng());
+                }
+            }
+        });
 
-    /**
-     *  function _setSiteCollectorMarker is subscribed
-     *   - as click-handler for the map during map initialization (only if location.siteCollectorMode is active)
-     *   - to the siteCollectorCoords observable
-     * @method  _setSiteCollectorMarker
-     * @param {object} geo The geolocation
-     * @param {boolean} [updateCoords=false] if true, update the siteCollectoreCoords observable
-     */
-    function setSiteCollectorMarker(geo, updateCoords) {
-        var location = self.location;
-        if (!location.siteCollectorMarker) {
+        self.markerGeoLocation.subscribe(setMarkerLocation);
+
+        self.isEnabled.subscribe(function (val) {
+            if (val === false && leafletMarker) {
+                map.removeLayer(leafletMarker);
+                leafletMarker = undefined;
+            }
+        });
+    }
+
+    function setMarkerLocation(geolocation) {
+        if (!leafletMarker) {
             // create new marker, if none exists
-            location.siteCollectorMarker = L.marker(geo.coords ? [geo.coords[1], geo.coords[0]] : geo, {
+            leafletMarker = L.marker(toLatLngArray(geolocation), {
                 dragable: true,
                 prefix: "fa",
                 title: "New Entry",
-                icon: placesLayer.getLocationIcon(false, true)
+                icon: getLocationIcon()
             });
-            location.siteCollectorMarker.addTo(location.map);
-            location.siteCollectorMarker.dragging.enable();
-            location.siteCollectorMarker.on("dragend", function () {
-                location.siteCollectorCoords(location.siteCollectorMarker.getLatLng());
+            map.addLayer(leafletMarker);
+            leafletMarker.dragging.enable();
+            leafletMarker.on("dragend", function () {
+                self.markerGeoLocation(leafletMarker.getLatLng());
             });
         } else {
-            location.siteCollectorMarker.setLatLng(geo.coords ? [geo.coords[1], geo.coords[0]] : geo);
+            leafletMarker.setLatLng(toLatLngArray(geolocation));
         }
-        if (updateCoords) {
-            location.siteCollectorCoords(location.siteCollectorMarker.getLatLng());
-        }
-        location.panIntoView(location.siteCollectorMarker);
-        return location.siteCollectorMarker;
+        map.panIntoView(leafletMarker);
+        return leafletMarker;
     }
 
+    function getLocationIcon() {
+        return L.AwesomeMarkers.icon({
+            prefix: 'fa',
+            markerColor: "cadetblue"
+        });
+    }
+
+    function toLatLngArray(geolocation) {
+        return geolocation.coords ? [geolocation.coords[1], geolocation.coords[0]] : geolocation;
+    }
 
 });

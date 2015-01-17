@@ -1,7 +1,7 @@
 ﻿define([
-  'services/app',
   'services/tell'
-], function (app, tell) {
+], function (tell) {
+
     var cmk = config.apiKey.cloudmade;
     var lrk = config.apiKey.lyrk;
     var licence = {
@@ -20,7 +20,6 @@
     };
 
     var self = {
-        setTileLayer: setTileLayer,
         tileLayers: [
 				//lyrk
 				{ Name: 'Standard', Layer: new L.TileLayer('http://tiles.lyrk.org/ls/{z}/{x}/{y}?apikey=' + lrk, { attribution: attrib('<a href="https://geodienste.lyrk.de/">Lyrk</a>', licence.lyrk), maxZoom: 18 }) },
@@ -43,19 +42,6 @@
         ]
     };
     return self;
-
-    function setTileLayer(index) {
-        var location = self.location;
-        var layer = location.layers.tileLayer();
-        var map = location.map;
-        if (layer) {
-            map.removeLayer(layer.Layer);
-        }
-        layer = location.settings.tileLayers[index];
-        location.layers.tileLayer(layer);
-        map.addLayer(layer.Layer);
-    }
-
 
 
 });

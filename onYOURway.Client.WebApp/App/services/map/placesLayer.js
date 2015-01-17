@@ -1,14 +1,17 @@
 ﻿define([
-    'services/app',
     'services/tell',
-    'services/api/apiClient'
-], function (app, tell, apiClient) {
+    'services/api/apiClient',
+    'services/map/settings',
+    'services/map/mapAdapter',
+    'services/geoUtils'
+], function (tell, apiClient, settings, map, geoUtils) {
+    var location;
 
     var self = {
         loadPlaces: loadPlaces,
         drawMarkers: drawMarkers,
         setMarker: setMarker,
-        getLocationIcon: getLocationIcon,
+        itemClick: itemClick,
 
         sortOptions: [
             { Name: 'nach Entfernung, offene zuerst', Sorter: compareByOpenThenByDistance },
@@ -19,11 +22,12 @@
     };
     return self;
 
-    function loadPlaces() {
+    function loadPlaces(pLocation) {
+        location = pLocation;
         require(['services/app'], function (app) {
             var query = breeze.EntityQuery.from("Places");
             query.parameters = {
-                RegionId: self.location.Region ? self.location.Region().Id() : 1,
+                RegionId: location.region && location.region() ? location.region().Id() : 1,
                 Lang: app.lang()
             };
 
@@ -69,7 +73,7 @@
                                 item.isOpen = function () {
 
                                     if (!item.oh) return null;
-                                    var when = !self.location.when() || self.location.when() === 'jetzt' ? new Date() : self.location.when();
+                                    var when = !location.when() || location.when() === 'jetzt' ? new Date() : location.when();
                                     return item.oh.getState(when);
 
                                 }; // isOpen()
@@ -93,11 +97,11 @@
                                     ///----------
                                     var reader = new jsts.io.WKTReader();
                                     var wkt;
-                                    if (self.location.route.geometry && self.location.route.geometry.length > 0) {
-                                        wkt = geoUtils.latLngToWkt(self.location.route.geometry, 'LINESTRING', false);
+                                    if (location.route.geometry && location.route.geometry.length > 0) {
+                                        wkt = geoUtils.latLngToWkt(location.route.geometry, 'LINESTRING', false);
                                     }
-                                    else if (self.location.route.start.coords())
-                                        wkt = geoUtils.latLngToWkt(new L.LatLng(self.location.route.start.coords()[1], self.location.route.start.coords()[0]), 'POINT', false);
+                                    else if (location.route.start.coords())
+                                        wkt = geoUtils.latLngToWkt(new L.LatLng(location.route.start.coords()[1], location.route.start.coords()[0]), 'POINT', false);
                                     else {
                                         return -1;
                                     }
@@ -119,8 +123,8 @@
                                             : [item.Tag]
                                         ;
                                     for (var i = 0; i < _tags.length; i++) {
-                                        for (var f = 0; f < self.location.featuredIf().length; f++) {
-                                            if (_tags[i].Name().toLowerCase() === self.location.featuredIf()[f].Name().toLowerCase() && self.location.featuredIf()[f].Selected() === true) {
+                                        for (var f = 0; f < location.featuredIf().length; f++) {
+                                            if (_tags[i].Name().toLowerCase() === location.featuredIf()[f].Name().toLowerCase() && location.featuredIf()[f].Selected() === true) {
                                                 return true;
                                             }
                                         }
@@ -133,7 +137,7 @@
                     } //if (d.results)
 
                     //update locations
-                    self.location.locations(places);
+                    location.locations(places);
 
                     tell.log(places.length + ' places loaded', 'location');
                 })
@@ -147,13 +151,13 @@
     }
 
     function drawMarkers(map, locationsToDraw) {
-        if (self.location.layers.locationLayer) map.removeLayer(self.location.layers.locationLayer);
-        if (self.location.layers.pointerLayer) map.removeLayer(self.location.layers.pointerLayer);
-        var group = self.location.settings.clusterLocations()
+        if (location.layers.locationLayer) map.removeLayer(location.layers.locationLayer);
+        if (location.layers.pointerLayer) map.removeLayer(location.layers.pointerLayer);
+        var group = location.settings.clusterLocations()
             ? new L.MarkerClusterGroup()
             : new L.LayerGroup();
         map.addLayer(group);
-        self.location.layers.locationLayer = group;
+        location.layers.locationLayer = group;
 
         for (var i = 0; i < locationsToDraw.length; i++) {
             //console.log("[location] drawMarkers drawing marker ", locationsToDraw[i])
@@ -189,10 +193,60 @@
                 .on({
                     //mouseover: _itemMouseOver,
                     //mouseout: _itemMouseOut,
-                    click: self.itemClick
+                    click: itemClick
                 });
             //.bindPopup('<b>' + loc.Name() + '</b><br/>' + loc.Street);
         }
+    }
+
+    function itemClick(e) {
+        var oldLoc = location.selectedItem();
+
+        //get new marker and loc(ation)
+        var marker, loc;
+        if (e.target) { //marker ... loc in e.target.data
+            marker = e.target;
+            loc = e.target.data;
+        }
+        else if (e.marker) { //bound item (e.g. locationList) ... marker in e.marker
+            marker = e.marker;
+            loc = e;
+        }
+
+        //if already selected toggle details and return
+        if (oldLoc === loc) {
+            location.toggleDetails();
+        }
+        else {
+            //restore marker of formerly selected item
+            if (oldLoc) {
+                oldLoc.marker
+                    .setIcon(getLocationIcon(oldLoc))
+                    .setZIndexOffset(0)
+                    .setOpacity(oldLoc.isOpen() ? 1 : 0.3)
+                ;
+            }
+            //select new item
+            location.selectedItem(loc);
+            //highlight new marker
+            marker
+                .setIcon(getLocationIcon(loc, true))
+                .setZIndexOffset(10000)
+                .setOpacity(loc.isOpen() ? 1 : 0.8)
+            ;
+        }
+
+        var selItmsIdx = location.selectedItems.indexOf(loc);
+        if (selItmsIdx >= 0) {
+            location.selectedItems.splice(selItmsIdx, 1);
+        }
+        location.selectedItems.unshift(loc);
+        if (location.selectedItems().length > location.settings.maxSelectedItems) {
+            location.selectedItems.pop();
+        }
+
+        map.panIntoView(marker);
+
     }
 
     function getLocationIcon(loc, selected) {
