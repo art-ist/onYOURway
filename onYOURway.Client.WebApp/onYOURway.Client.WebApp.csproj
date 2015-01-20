@@ -72,6 +72,7 @@
       <DependentUpon>vonMorgen.css</DependentUpon>
     </Content>
     <Content Include="App\themes\vonMorgenMin\css\vonMorgen.less" />
+    <Content Include="App\themes\vonMorgenMin\css\siteCollector.less" />
     <None Include="Properties\PublishProfiles\w3.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -132,10 +133,13 @@
     </Content>
     <Content Include="App\views\vonMorgenMin\home.html" />
     <Content Include="App\views\vonMorgenMin\home.js" />
+    <Content Include="App\views\vonMorgenMin\onlyMap.html" />
+    <Content Include="App\views\vonMorgenMin\onlyMap.js" />
     <Content Include="App\views\vonMorgenMin\_map.html" />
     <Content Include="App\views\vonMorgenMin\_map.js" />
     <Content Include="App\views\vonMorgenMin\_nav.html" />
     <Content Include="App\views\vonMorgenMin\_nav.js" />
+    <Content Include="App\_libraries\less.min.js" />
     <Content Include="index.vonMorgen.html" />
     <Content Include="Tests\Api\location\regionTest.js" />
     <Content Include="Tests\App\components\searchBox-componentTest.js" />
