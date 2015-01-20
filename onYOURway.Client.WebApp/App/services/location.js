@@ -9,10 +9,9 @@ define([
 	'plugins/router',
 
 	'services/api/apiClient',
-	'services/api/searchSuggestions',
-	'services/api/places',
-	'services/api/placeComparators',
 	'services/api/placeSearch',
+	'services/api/searchSuggestions',
+	'services/api/placeComparators',
 
 	'services/map/mapAdapter',
 	'services/map/settings',
@@ -22,13 +21,13 @@ define([
     'services/map/routingLayer',
     'services/map/siteCollectorLayer',
     'services/map/tileLayer'
-], function (tell, router, apiClient, searchSuggestions, places, placeComparators, placeSearch, map, settings,
+], function (tell, router, apiClient, placeSearch, searchSuggestions, placeComparators, map, settings,
 			 placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
 
 	var location = {
 		settings: settings,
 
-		searchFor: ko.observable(), //used in view _searchoptions.html, svc placesLayer
+		searchFor: placeSearch.searchTerm, //used in view _searchoptions.html, svc placesLayer
 		when: ko.observable(new Date()), //used in view _searchoptions.html, svc placesLayer
 		sortBy: ko.observable(), //used in view _searchoptions.html, svc placesLayer
 		featuredIf: ko.observableArray([
@@ -59,8 +58,8 @@ define([
 		loadRegionFeatures: loadRegionFeatures, // used by svc mapAdapter and view siteCollector
 		removePointerAndDrawMarkers: removePointerAndDrawMarkers, // used in bindingHandler ventures
 
-		search: placeSearch.search, //used by component searchBox, svc app, views _nav.js, vonMorgen/nav.js, about/explorer.js
-		showByTagName: placeSearch.showByTagName, //used by svc discover, views siteCollector, home
+		search: placesLayer.search, //used by component searchBox, svc app, views _nav.js, vonMorgen/nav.js, about/explorer.js
+		showByTagName: placesLayer.showByTagName, //used by svc discover, views siteCollector, home
 		itemClick: placesLayer.itemClick, // used in svc placesLayer, views _map.html, vonMorgen/_map.js, vonMorgen/_map.html
 
 		locate: routingLayer.locate, //used in view _searchoptions.html
@@ -107,21 +106,20 @@ define([
 		routingLayer.initialize(location);
 		regionLayer.loadRegions();
 		loadRegionFeatures();
-		placesLayer.initialize(location);
-		placeSearch.initialize(location);
+		placeSearch.initialize(location)
 	}
 
 	function loadRegionFeatures() {
-		places.loadPlaces(location);
+		placesLayer.loadPlaces(location);
 
 		require(['services/app'], function (app) {
 			searchSuggestions.loadSearchSuggestions(app.lang, location.region);
 		});
 	}
 
-	function removePointerAndDrawMarkers(placesToDraw) {
+	function removePointerAndDrawMarkers() {
 		pointerLayer.removePointer();
-		placesLayer.drawMarkers(placesToDraw);
+		placesLayer.drawMarkers();
 	}
 
 	function toggleMap(mode) {

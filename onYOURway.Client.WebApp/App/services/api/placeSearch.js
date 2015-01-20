@@ -6,8 +6,10 @@ define([
     var location;
 
     var self = {
-        initialize: initialize,
+        searchTerm: ko.observable(),
         searchResults: ko.observableArray(),
+
+        initialize: initialize,
         showByTagName: showByTagName,
         search: search
     };
@@ -19,7 +21,7 @@ define([
 
     function showByTagName(what) {
         //tell.log('showByTagName: ' + what, 'location');
-        location.searchFor(what);
+        self.searchTerm(what);
         try {
             var toShow;
             if (!what) {//empty search criteria -> return everything
@@ -63,7 +65,7 @@ define([
 
     function search(what) {
         //logger.info('search: ' + what, 'location');
-        location.searchFor(what);
+        self.searchTerm(what);
         try {
             var toShow;
             if (!what) { //empty search criteria -> return all ventures

@@ -1,0 +1,120 @@
+﻿@import url('../../vonMorgen/fonts/source-sans-pro.css');
+body,
+header,
+div,
+span {
+  margin: 0;
+}
+input.searchBox {
+  min-height: 34px;
+}
+div.searchBoxSuggestion img {
+  float: left;
+  width: 44px;
+  height: 44px;
+}
+div.searchBoxSuggestion span {
+  padding-left: 4px;
+  display: block;
+  margin-left: 48px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div.searchBoxSuggestion span.subtitle {
+  font-weight: normal !important;
+}
+div.searchBoxSuggestion div.clearFloat {
+  clear: both;
+  height: 4px;
+}
+div.searchBox {
+  width: 20%;
+}
+#map,
+.aboveMap {
+  position: absolute;
+  top: 113px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+#map {
+  z-index: 2;
+  background-color: #ebebeb;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.aboveMap {
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.belowMap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 1;
+}
+.middle200px {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -200px;
+  height: 200px;
+  width: 400px;
+  background-color: #dedddd;
+  border: 1px solid #647a85;
+}
+header {
+  text-align: center;
+}
+header .header .login {
+  text-align: right;
+}
+header .header .logo {
+  float: left;
+}
+header .searchbar {
+  clear: both;
+}
+@media (min-width: 992px) {
+  .visible-sm,
+  .visible-m {
+    display: none;
+  }
+}
+@media (max-width: 991px) {
+  .hidden-sm {
+    display: none;
+  }
+  div.searchBox {
+    width: 40%;
+  }
+}
+@media (min-width: 480px) {
+  .visible-s {
+    display: none;
+  }
+}
+@media (min-width: 480px) and (max-width: 991px) {
+  .hidden-m {
+    display: none;
+  }
+  div.searchBox {
+    width: 40%;
+  }
+}
+@media (max-width: 479px) {
+  .visible-m,
+  .hidden-s {
+    display: none;
+  }
+  div.searchBox {
+    width: 70%;
+  }
+}
+/*# sourceMappingURL=vonMorgen.css.map */

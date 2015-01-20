@@ -13,7 +13,9 @@ define([
         addLayer: addLayer,
         on: addEventHandler,
         fitBounds: fitBounds,
+        setView: setView,
         containerPointToLatLng: containerPointToLatLng,
+        invalidateSize: invalidateSize,
 
         //TODO: baseMap used in _nav.html for menu links. move into _nav.js!
         baseMap: {
@@ -82,8 +84,16 @@ define([
         return map.fitBounds(bbox);
     }
 
+    function setView(center, zoom) {
+        return map.setView(center, zoom);
+    }
+
     function containerPointToLatLng(point) {
         return map.containerPointToLatLng(point);
+    }
+
+    function invalidateSize() {
+        return map.invalidateSize();
     }
 
     //TODO: baseMap used in _nav.html for menu links. move into _nav.js!
