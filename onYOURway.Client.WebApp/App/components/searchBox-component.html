@@ -7,11 +7,11 @@
        spellcheck="false"
        autofocus="autofocus"
        data-bind="
-            value: location.searchFor,
+            value: searchTerm,
             select2: {
                 multiple: true,
                 minimumInputLength: 1,
-                data: {results: location.searchSuggestionObjects(), text: 'Name'},
+                data: {results: searchSuggestionObjects(), text: 'Name'},
                 formatResult: formatSearchSuggestion,
                 formatSelection: formatSelection,
                 createSearchChoice: createSearchChoice,

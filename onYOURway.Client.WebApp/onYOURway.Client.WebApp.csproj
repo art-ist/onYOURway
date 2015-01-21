@@ -40,6 +40,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="App\mainMin.js" />
     <Content Include="App\services\api\apiClient.js" />
     <Content Include="App\services\api\searchSuggestions.js" />
     <Content Include="App\services\api\tags.js" />
@@ -51,10 +52,27 @@
     <Content Include="App\services\map\settings.js" />
     <Content Include="App\services\map\siteCollectorLayer.js" />
     <Content Include="App\services\map\tileLayer.js" />
+    <Content Include="App\themes\vonMorgenMin\css\searchBox.css">
+      <DependentUpon>searchBox.less</DependentUpon>
+    </Content>
+    <Content Include="App\themes\vonMorgenMin\css\vonMorgen.css">
+      <DependentUpon>vonMorgen.less</DependentUpon>
+    </Content>
+    <Content Include="App\themes\vonMorgenMin\shell.html" />
+    <Content Include="App\themes\vonMorgenMin\shell.js" />
     <Content Include="App\themes\vonMorgen\css\searchBox.css.map">
       <DependentUpon>searchBox.css</DependentUpon>
     </Content>
     <Content Include="App\themes\vonMorgen\css\searchBox.less" />
+    <Content Include="App\themes\vonMorgenMin\css\searchBox.css.map">
+      <DependentUpon>searchBox.css</DependentUpon>
+    </Content>
+    <Content Include="App\themes\vonMorgenMin\css\searchBox.less" />
+    <Content Include="App\themes\vonMorgenMin\css\vonMorgen.css.map">
+      <DependentUpon>vonMorgen.css</DependentUpon>
+    </Content>
+    <Content Include="App\themes\vonMorgenMin\css\vonMorgen.less" />
+    <Content Include="App\themes\vonMorgenMin\css\siteCollector.less" />
     <None Include="Properties\PublishProfiles\w3.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -113,6 +131,15 @@
     <Content Include="App\themes\vonMorgen\css\searchBox.css">
       <DependentUpon>searchBox.less</DependentUpon>
     </Content>
+    <Content Include="App\views\vonMorgenMin\home.html" />
+    <Content Include="App\views\vonMorgenMin\home.js" />
+    <Content Include="App\views\vonMorgenMin\onlyMap.html" />
+    <Content Include="App\views\vonMorgenMin\onlyMap.js" />
+    <Content Include="App\views\vonMorgenMin\_map.html" />
+    <Content Include="App\views\vonMorgenMin\_map.js" />
+    <Content Include="App\views\vonMorgenMin\_nav.html" />
+    <Content Include="App\views\vonMorgenMin\_nav.js" />
+    <Content Include="App\_libraries\less.min.js" />
     <Content Include="index.vonMorgen.html" />
     <Content Include="Tests\Api\location\regionTest.js" />
     <Content Include="Tests\App\components\searchBox-componentTest.js" />
@@ -280,6 +307,7 @@
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Regular.ttf.woff" />
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Semibold.ttf.woff" />
     <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-SemiboldIt.ttf.woff" />
+    <Content Include="vonMorgen.html" />
     <Content Include="weyland-config.js" />
     <None Include="App\_libraries\breeze.intellisense.js" />
     <Content Include="App\_libraries\breeze.min.js" />

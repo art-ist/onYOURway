@@ -60,7 +60,7 @@ define([
                                 item.isOpen = function () {
 
                                     if (!item.oh) return null;
-                                    var when = !location.when() || location.when() === 'jetzt' ? new Date() : location.when();
+                                    var when = ! (location.when && location.when()) || location.when() === 'jetzt' ? new Date() : location.when();
                                     return item.oh.getState(when);
 
                                 }; // isOpen()
@@ -84,10 +84,10 @@ define([
                                     ///----------
                                     var reader = new jsts.io.WKTReader();
                                     var wkt;
-                                    if (location.route.geometry && location.route.geometry.length > 0) {
+                                    if (location.route && location.route.geometry && location.route.geometry.length > 0) {
                                         wkt = geoUtils.latLngToWkt(location.route.geometry, 'LINESTRING', false);
                                     }
-                                    else if (location.route.start.coords())
+                                    else if (location.route && location.route.start.coords())
                                         wkt = geoUtils.latLngToWkt(new L.LatLng(location.route.start.coords()[1], location.route.start.coords()[0]), 'POINT', false);
                                     else {
                                         return -1;
@@ -104,7 +104,7 @@ define([
                             //** isFeatured **
                             if (item.isFeatured === undefined) {
                                 item.isFeatured = function () {
-                                    if (!item.Tag) return false;
+                                    if ((!item.Tag) || (!location.featuredIf)) return false;
                                     var _tags = ko.isObservable(item.Tag)
                                             ? item.Tag()
                                             : [item.Tag]

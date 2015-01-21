@@ -1,16 +1,18 @@
 ﻿/// <reference path="../../Scripts/r.js" />
 define([
-  'services/app',
-  'services/location',
+  'services/map/settings',
   'services/tell',
   'services/api/apiClient',
+  'services/api/placeSearch',
+  'services/map/mapAdapter',
   'services/map/siteCollectorLayer',
+  'services/map/regionLayer',
   'providers/geocode-nominatim'
-], function (app, location, tell, apiClient, siteCollectorLayer, geocodingProvider) {
+], function (settings,  tell, apiClient, placeSearch, map, siteCollectorLayer, regionLayer, geocodingProvider) {
+	var location = undefined;
 
 	var vm = function () {
 		var self = this;
-		self.app = app;
 		self.location = location;
 
         // breeze database context
@@ -146,22 +148,22 @@ define([
 		self.activate = function (queryString) {
 		    tell.log('activate', 'siteCollector', queryString);
 		    if (queryString && queryString.tag) {
-		        location.showByTagName(queryString.tag);
+		        placeSearch.showByTagName(queryString.tag);
 		    }
 
 		    // hide all search results that may still be displayed on the map
-		    location.mapLocations([]);
+		    placeSearch.searchResults([]);
 
 			//subscribe region changes to load the corresponding taxonomy
 		    self.region.subscribe(function (value) {
 		    	getTaxonomy();
 		    });
-		    app.lang.subscribe(function (value) {
+		    /*app.lang.subscribe(function (value) {
 		    	getTaxonomy();
-		    });
+		    });*/
 
 		    // enabling the site collector mode - makes map smaller and enables the site selection marker
-		    location.settings.showSiteCollector(true);
+		    settings.showSiteCollector(true);
 		    return true;
 		};
 
@@ -225,14 +227,14 @@ define([
 		    }
 
 		    // setting showSiteCollector to false enlarges the map again and hides the tag selection marker
-		    location.settings.showSiteCollector(false);
+		    settings.showSiteCollector(false);
 
 		    // tell leaflet.js to recalculate the map size, as soon as all css animations have finished
 		    window.setTimeout(function () {
-		        location.map && location.map.invalidateSize();
+		        map.invalidateSize();
 		    }, 300 );
 		    window.setTimeout(function () {
-		        location.map && location.map.invalidateSize();
+		        map.invalidateSize();
 		    }, 750 );
 		};
 
@@ -243,24 +245,26 @@ define([
          */
 		var getRegions = function (query) {
 		    if (query && query.term) {
-		        var s = location.regions();
-		        var data = [];
-		        var data2 = [];
-		        var i;
-		        for (i = 0; i < s.length; i++) {
-		            if (s[i]) {
-		                var idx = s[i].toLowerCase().indexOf(query.term.toLowerCase());
-		                if (idx == 0) {
-		                    data.push({ id: s[i], text: s[i] });
-		                } else if (idx > 0) {
-		                    data2.push({ id: s[i], text: s[i] });
-		                }
-		            }
-		        }
-		        for (i = 0; i < data2.length; i++) {
-		            data.push(data2[i]);
-		        }
-		        query.callback({ results: data });
+		        var s = regionLayer.regions();
+				if (s && s.length) {
+					var data = [];
+					var data2 = [];
+					var i;
+					for (i = 0; i < s.length; i++) {
+						if (s[i]) {
+							var idx = s[i].toLowerCase().indexOf(query.term.toLowerCase());
+							if (idx == 0) {
+								data.push({id: s[i], text: s[i]});
+							} else if (idx > 0) {
+								data2.push({id: s[i], text: s[i]});
+							}
+						}
+					}
+					for (i = 0; i < data2.length; i++) {
+						data.push(data2[i]);
+					}
+					query.callback({results: data});
+				}
 		    }
 		};
 
@@ -268,7 +272,7 @@ define([
          * get the hierarchy of assignable tags (self.taxonomy)
          */
 		var getTaxonomy = function () {
-			apiClient.getTaxonomy(self.region(), app.lang())
+			apiClient.getTaxonomy(self.region() /*, app.lang()*/)
 				.then(function (d) {
 					tell.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
 					self.taxonomy(d.results[0].tags.tag);
@@ -340,7 +344,7 @@ define([
 				self.manager.saveChanges()
                     .then(function () {
                         tell.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
-                        location.loadRegionFeatures();
+                        location && location.loadRegionFeatures();
                         document.location.href = "#map";
                     })
                     .fail(function (err) {

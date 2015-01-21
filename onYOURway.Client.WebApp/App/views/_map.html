@@ -3,7 +3,7 @@
 
     <!--Map-->
     <div id="map" data-bind=" map: { initialize: location.initializeMap }
-                          , ventures : { data: location.mapLocations }
+                          , places : { data: location.mapLocations, onDataChange: location.removePointerAndDrawMarkers }
                           , css: { listOpen: showList, siteCollectorOpen: showSiteCollector }
                           ">
 
