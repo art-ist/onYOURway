@@ -13,7 +13,7 @@ namespace onYOURway.Models
         {
             HasTags = new HashSet<HasTag>();
             LocationForeignIds = new HashSet<LocationForeignId>();
-            LocationAlias = new HashSet<LocationAlia>();
+            LocationAlias = new HashSet<LocationAlias>();
             LocationLinks = new HashSet<LocationLink>();
             ProductSuggestions = new HashSet<ProductSuggestion>();
         }
@@ -76,7 +76,7 @@ namespace onYOURway.Models
 
         public virtual ICollection<LocationForeignId> LocationForeignIds { get; set; }
 
-        public virtual ICollection<LocationAlia> LocationAlias { get; set; }
+        public virtual ICollection<LocationAlias> LocationAlias { get; set; }
 
         public virtual ICollection<LocationLink> LocationLinks { get; set; }
 

@@ -45,12 +45,11 @@ namespace onYOURway.Models {
 
 		#region EntitySets
 
-		public virtual DbSet<ShoppingList> ShoppingLists { get; set; }
 		public virtual DbSet<UserProfile> UserProfiles { get; set; }
 		public virtual DbSet<Country> Countries { get; set; }
 		public virtual DbSet<HasTag> HasTags { get; set; }
 		public virtual DbSet<Location> Locations { get; set; }
-		public virtual DbSet<LocationAlia> LocationAliases { get; set; }
+		public virtual DbSet<LocationAlias> LocationAliases { get; set; }
 		public virtual DbSet<LocationForeignId> LocationForeignIds { get; set; }
 		public virtual DbSet<LocationLink> LocationLinks { get; set; }
 		public virtual DbSet<Message> Messages { get; set; }
@@ -105,7 +104,7 @@ namespace onYOURway.Models {
 				.WithRequired(e => e.Location)
 				.WillCascadeOnDelete(false);
 
-			modelBuilder.Entity<LocationAlia>()
+			modelBuilder.Entity<LocationAlias>()
 				.Property(e => e.Lang)
 				.IsFixedLength()
 				.IsUnicode(false);

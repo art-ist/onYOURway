@@ -371,7 +371,7 @@ namespace onYOURway.Controllers {
 			////string xml = db.Context.GetPlaces(RegionId, lang).First().ToString();
 			string xml = null;
 			using (SqlCommand cd = new SqlCommand()) {
-				cd.Connection = (SqlConnection)((Glimpse.Ado.AlternateType.GlimpseDbConnection)db.Context.Database.Connection).InnerConnection;
+				cd.Connection = (SqlConnection)db.Context.Database.Connection;
 				cd.CommandType = System.Data.CommandType.StoredProcedure;
 				cd.CommandText = "oyw.GetPlaces";
 				cd.Parameters.AddWithValue("@RegionId", RegionId);
@@ -405,7 +405,7 @@ namespace onYOURway.Controllers {
 			////string xml = db.Context.GetPlaces(RegionId, lang).First().ToString();
 			string xml = null;
 			using (SqlCommand cd = new SqlCommand()) {
-				cd.Connection = (SqlConnection)((Glimpse.Ado.AlternateType.GlimpseDbConnection)db.Context.Database.Connection).InnerConnection;
+				cd.Connection = (SqlConnection)db.Context.Database.Connection;
 				cd.CommandType = System.Data.CommandType.StoredProcedure;
 				cd.CommandText = "oyw.GetTaxonomy";
 				cd.Parameters.AddWithValue("@idSet", RegionId.ToString());
