@@ -1,10 +1,11 @@
 define([
-], function () {
+    'services/api/placeSearch',
+], function (search) {
 
     var vm = function () {
         var self = this;
 
-        self.activate = function (queryString) {
+        self.activate = function (searchTerm) {
             return true;
         };
 

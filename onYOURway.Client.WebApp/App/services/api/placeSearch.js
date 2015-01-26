@@ -17,12 +17,15 @@ define([
 
     function initialize(pLocation) {
         location = pLocation;
+        if (self.searchTerm()) {
+            search(self.searchTerm());
+        }
     }
 
     function showByTagName(what) {
         //tell.log('showByTagName: ' + what, 'location');
         self.searchTerm(what);
-        try {
+        if (location) try {
             var toShow;
             if (!what) {//empty search criteria -> return everything
                 toShow = places.allPlaces();
@@ -60,13 +63,13 @@ define([
             tell.error(e.message, 'location - showByTagName', e);
         }
 
-        router.navigate('map');
+        //router.navigate('map');
     }
 
     function search(what) {
         //logger.info('search: ' + what, 'location');
         self.searchTerm(what);
-        try {
+        if (location) try {
             var toShow;
             if (!what) { //empty search criteria -> return all ventures
                 toShow = ko.utils.arrayFilter(places.allPlaces(), function (loc) {
@@ -123,7 +126,7 @@ define([
             tell.error(e.message, 'location - search', e);
         }
 
-        router.navigate('map');
+        //router.navigate('map');
     }
 
 

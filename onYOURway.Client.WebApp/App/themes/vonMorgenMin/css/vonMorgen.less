@@ -41,10 +41,14 @@ div.searchBox {
 
 #map, .aboveMap {
   position: absolute;
-  top: 113px;
+  top: 0;
+  margin-top: 113px;
   bottom: 0;
   left: 0;
   right: 0;
+}
+#map.listOpen {
+  top: 20% !important;
 }
 #map {
     z-index: 2;
@@ -98,7 +102,7 @@ header {
 
         .navi, .login {
             a {
-                padding: 3px 2% 7px 2%;
+                padding: 2px 2% 5px 2%;
                 border-bottom: 1px solid #ffffff;
                 display: inline-block;
                 color: #1a1a1a;
@@ -109,10 +113,18 @@ header {
             }
         }
 
+        .navi a {
+          height: 24px;
+        }
+
         .login {
             text-align: right;
             font-size: smaller;
-            padding-top: 15px;
+            padding-top: 10px;
+
+            a {
+              height: 19px;
+            }
 
         }
 
@@ -125,8 +137,9 @@ header {
 
             img {
                 left: 0;
-                top: 0;
-                height: 90px;
+                top: 3px;
+                height: 66px;
+                width: 181px;
                 position: absolute;
             }
         }
@@ -134,9 +147,9 @@ header {
 
     .searchbar {
         clear: both;
-        height: 48px;
-        padding-top: 10px;
         font-size: smaller;
+        vertical-align: bottom;
+        padding-top: 8px;
 
         a.btn, .categories a {
             border-left: 1px solid #dedddd;
@@ -151,7 +164,7 @@ header {
             text-decoration: none;
             width: 34px;
             text-align: center;
-            vertical-align: middle;
+            vertical-align: bottom;
             cursor: pointer;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -160,10 +173,16 @@ header {
             user-select: none;
         }
 
+        a.btn i, .searchBoxButton i, .categories a {
+            line-height: 32px;
+            border-bottom: 2px solid transparent;
+            height: 32px;
+            vertical-align: bottom;
+        }
+
         a.btn i, .searchBoxButton i {
-            font-size: 18px;
-            line-height: 1.7em;
-            border-bottom: 3px solid black !important;
+          font-size: 18px;
+          border-bottom-color: #000000 !important;
         }
 
         .categories {
@@ -171,8 +190,6 @@ header {
             a {
                 text-align: center;
                 display: inline-block;
-                border-bottom: 3px solid transparent;
-                padding: 8px 0 7px 0;
             }
             a.visible-m {
                 width: 13%;
@@ -182,21 +199,21 @@ header {
             }
 
             .initiatives {
-                border-bottom-color: #97bf0d;
+                border-bottom-color: #97bf0d !important;
             }
             .initiatives.active {
                 background-color: #97bf0d;
                 color: #ffffff !important;
             }
             .events {
-                border-bottom-color: #e56292;
+                border-bottom-color: #e56292 !important;
             }
             .events.active {
                 background-color: #e56292;
                 color: #ffffff !important;
             }
             .companies {
-                border-bottom-color: #009889;
+                border-bottom-color: #009889 !important;
             }
             .companies.active {
                 background-color: #009889;
@@ -247,4 +264,90 @@ header {
     div.searchBox {
         width: 52%;
     }
+}
+
+div#placesList ul {
+  position: absolute;
+  top: 113px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 20%;
+  z-index: 3;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 3px 3px -3px inset;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  @media (min-width: 770px) {
+    column-width: 246px;
+    -moz-column-width: 246px;
+    -webkit-column-width: 246px;
+  }
+  @media (max-width: 769px) {
+    column-width: 146px;
+    -moz-column-width: 146px;
+    -webkit-column-width: 146px;
+  }
+  column-gap: 1px;
+  -moz-column-gap: 1px;
+  -webkit-column-gap: 1px;
+  column-rule: 1px solid transparent;
+  -moz-column-rule: 1px solid transparent;
+  -webkit-column-rule: 1px solid transparent;
+  padding: 6px 12px 0 12px;
+
+  li {
+    list-style: outside none none;
+    display: inline-block;
+    margin: 4px 0 0 0;
+    padding: 4px 0 4px 0 ;
+    border-bottom: 1px solid #a1a1a1;
+    @media (min-width: 770px) {
+      width: 235px;
+    }
+    @media (max-width: 769px) {
+      width: 135px;
+    }
+    height: 34px;
+    overflow: hidden;
+
+    i:first-child {
+      float: left;
+      line-height: 34px;
+      padding: 0;
+      margin: 0;
+      height: 34px;
+    }
+
+    h5, p {
+      margin: 0;
+      @media (min-width: 770px) {
+        width: 200px;
+      }
+      @media (max-width: 769px) {
+        width: 100px;
+      }
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 0 0 12px;
+      white-space: nowrap;
+    }
+
+    h5 {
+      text-transform: uppercase;
+      font-size: medium;
+      font-weight: normal;
+      margin-bottom: -3px !important;
+    }
+
+    p {
+      font-size: x-small;
+      color: #a1a1a1;
+    }
+
+  }
+  li.selected {
+    background-color: #CCCCCC;
+  }
+
 }

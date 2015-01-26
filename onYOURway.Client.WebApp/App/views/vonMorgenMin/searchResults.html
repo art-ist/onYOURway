@@ -1,0 +1,59 @@
+<div>
+    <div id="placesList" >
+        <ul data-bind="foreach: searchResults" class="">
+            <li class="locationInfo" data-bind="css: { isOpen: isOpen()
+                                                 , isFeatured: isFeatured()
+                                                 , selected: $data === $root.selectedItem() }
+                                                 , click: $root.itemClick
+                                                 , attr: { id: Id }
+                                            ">
+                <i class=" fa" data-bind="css: $data.Icon"></i>
+                <h5 class="locationInfo-title" data-bind="text: Name"></h5>
+                <p class="locationInfo-addr"><span data-bind="text: $data.Street"></span> <span data-bind="text: $data.HouseNumber">, <span data-bind="text: $data.City"></span></p>
+            </li>
+        </ul>
+    </div>
+
+    <div id="ventureDetails" data-bind="with: location.selectedItem">
+
+        <div class="ventureDetails-imageArea">
+            <img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
+            <h2 class="ventureDetails-header" data-bind="text: Name"></h2>
+            <ul class="ventureDetails-taglist" data-bind="foreach: Tag">
+                <li><a class="btn btn-success btn-xs" data-bind="text: Name, attr: { href: '#/karte?tag=' + Name() }"></a></li>
+            </ul>
+        </div>
+
+        <div class="oyw-action-list btn-group-vertical pull-right">
+            <!-- ko if: $data.Phone -- >
+            <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: 'tel:' + $data.Phone() }"><span class="fa fa-fw fa-phone" /> <span data-bind="text: $data.Phone" /></a>
+            <!-- /ko -- >
+            <!-- ko with: $data.Link -- >
+            <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: Url}"><span class="fa fa-fw fa-globe" /> <span data-bind="text: Tag" /></a>
+            <!-- /ko -- >
+            <!-- ko foreach: $data.Link -- >
+            <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: Url}"><span class="fa fa-fw fa-globe" /> <span data-bind="text: Tag" /></a>
+            <!-- /ko -- >
+        </div>
+
+        <div class="ventureDetails-details">
+            <!-- ko if: $data.Street -- >
+            <h4>Adresse</h4>
+            <p class="detail-address">
+                <span data-bind="text: $data.Street"></span> <span data-bind="  text: $data.HouseNumber"></span><br />
+                <span data-bind="text: $data.Zip"></span> <span data-bind="  text: $data.City"></span>
+            </p>
+            <!-- /ko -- >
+            <!-- ko if: $data.OpenDisplay -- >
+            <h4>Öffnungszeiten</h4>
+            <p data-bind="html: $data.OpenDisplay"></p>
+            <!-- /ko -- >
+            <!-- ko if: $data.Description -- >
+            <h4>Beschreibung</h4>
+            <div class="detail-content" data-bind="html: $data.Description"></div>
+            <!-- /ko -- >
+        </div>
+
+    </div>
+
+</div>

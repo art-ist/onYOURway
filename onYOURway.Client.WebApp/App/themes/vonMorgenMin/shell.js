@@ -11,16 +11,17 @@ define([
 ], function (router, durandal) {
   return {
     router: router,
-    activate: onActivate
+    activate: onActivate,
   };
 
   function onActivate() {
   	durandal.title = "Karte von Morgen";
 
     router.map([
-      { moduleId: 'vonMorgenMin/home',         route: ['', 'home', 'start'],                           title: ''               },
-      { moduleId: 'vonMorgenMin/onlyMap',      route: ['map', 'karte'],                                title: ''               },
-      { moduleId: 'my/siteCollector',          route: ['add', 'neu'],                                  title: ''               }
+      { moduleId: 'vonMorgenMin/home',               route: ['', 'home', 'start'],                         title: ''  },
+      { moduleId: 'vonMorgenMin/onlyMap',            route: ['map', 'karte'],          hash: 'map',        title: 'Karte'  },
+      { moduleId: 'vonMorgenMin/searchResults',      route: 'search(/:searchTerm)',                        title: 'Suche'  },
+      { moduleId: 'my/siteCollector',                route: ['add', 'neu'],                                title: 'Neu'  }
     ]);
 
     return router.mapUnknownRoutes('vonMorgenMin/home', 'UNBEKANNT').activate('vonMorgenMin/home');

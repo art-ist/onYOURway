@@ -13,7 +13,11 @@
   var vm = {
     searchFor: search.searchTerm,
     sortBy: ko.observable(sorters[0]),
-    settings: settings,
+    mapCss: {
+        listOpen: ko.computed(function() {return settings.showList() === true}),
+        detailsOpen: ko.computed(function() {return settings.showDetails() === true}),
+        siteCollectorOpen: settings.showSiteCollector
+    },
 
     initializeMap: initializeMap,
     searchResults: search.searchResults,

@@ -1,10 +1,11 @@
 define([
+  'plugins/router',
   'services/logger',
   'services/api/placeSearch',
   'services/api/searchSuggestions',
   'text!components/searchBox-component.html'
 ],
-function (logger, placeSearch, searchSuggestions, template) {
+function (router, logger, placeSearch, searchSuggestions, template) {
 
     function SearchBoxViewModel(params) {
         // private members
@@ -65,7 +66,8 @@ function (logger, placeSearch, searchSuggestions, template) {
         function triggerSearch() {
             var searchTerm = placeSearch.searchTerm();
             if (searchTerm) {
-                placeSearch.search(searchTerm);
+                placeSearch.search(decodeURI(searchTerm));
+                router.navigate('#search/' +  encodeURI(searchTerm));
             }
         }
 
