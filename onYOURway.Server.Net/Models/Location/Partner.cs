@@ -6,12 +6,13 @@ namespace onYOURway.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+	//external API
     [Table("oyw.Partner")]
     public partial class Partner
     {
         public Partner()
         {
-            LocationForeignIds = new HashSet<LocationForeignId>();
+            LocationForeignIds = new HashSet<ExternalId>();
         }
 
         [StringLength(20)]
@@ -24,6 +25,6 @@ namespace onYOURway.Models
         [StringLength(1000)]
         public string Website { get; set; }
 
-        public virtual ICollection<LocationForeignId> LocationForeignIds { get; set; }
+        public virtual ICollection<ExternalId> LocationForeignIds { get; set; }
     }
 }

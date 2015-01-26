@@ -6,13 +6,13 @@ namespace onYOURway.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("oyw.LocationForeignId")]
-    public partial class LocationForeignId
+	[Table("oyw.ExternalIDs")]
+    public partial class ExternalId
     {
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long LocationId { get; set; }
+        public long Id { get; set; }
 
         [Key]
         [Column(Order = 1)]
@@ -22,8 +22,10 @@ namespace onYOURway.Models
         [StringLength(100)]
         public string ForeignId { get; set; }
 
-        public virtual Location Location { get; set; }
+		[ForeignKey("Id")]
+        public virtual Entry Entry { get; set; }
 
+		[ForeignKey("PartnerId")]
         public virtual Partner Partner { get; set; }
     }
 }

@@ -50,15 +50,15 @@ namespace onYOURway.Models {
 		public virtual DbSet<HasTag> HasTags { get; set; }
 		public virtual DbSet<Location> Locations { get; set; }
 		public virtual DbSet<LocationAlias> LocationAliases { get; set; }
-		public virtual DbSet<LocationForeignId> LocationForeignIds { get; set; }
+		public virtual DbSet<ExternalId> LocationForeignIds { get; set; }
 		public virtual DbSet<LocationLink> LocationLinks { get; set; }
 		public virtual DbSet<Message> Messages { get; set; }
 		public virtual DbSet<Partner> Partners { get; set; }
 		public virtual DbSet<Region> Regions { get; set; }
 		public virtual DbSet<RegionView> RegionViews { get; set; }
-		public virtual DbSet<ProductSuggestion> ProductSuggestions { get; set; }
+		//public virtual DbSet<ProductSuggestion> ProductSuggestions { get; set; }
 		public virtual DbSet<RegionAlias> RegionAlias { get; set; }
-		public virtual DbSet<Street> Streets { get; set; }
+		//public virtual DbSet<Street> Streets { get; set; }
 		public virtual DbSet<Tag> Tags { get; set; }
 		public virtual DbSet<TagName> TagNames { get; set; }
 		public virtual DbSet<TagIsA> TagIsAs { get; set; }
@@ -70,109 +70,7 @@ namespace onYOURway.Models {
 		/// </summary>
 		/// <param name="modelBuilder"></param>
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
-			//TODO: rewrite these unsing annotations where possible
-
-			modelBuilder.Entity<UserProfile>()
-				.HasOptional(e => e.ShoppingList)
-				.WithRequired(e => e.UserProfile);
-
-			modelBuilder.Entity<Location>()
-				.Property(e => e.CreatedAt)
-				.HasPrecision(2);
-
-			modelBuilder.Entity<Location>()
-				.Property(e => e.ModifiedAt)
-				.HasPrecision(2);
-
-			modelBuilder.Entity<Location>()
-				.HasMany(e => e.HasTags)
-				.WithRequired(e => e.Location)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Location>()
-				.HasMany(e => e.LocationForeignIds)
-				.WithRequired(e => e.Location)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Location>()
-				.HasMany(e => e.LocationAlias)
-				.WithRequired(e => e.Location)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Location>()
-				.HasMany(e => e.LocationLinks)
-				.WithRequired(e => e.Location)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<LocationAlias>()
-				.Property(e => e.Lang)
-				.IsFixedLength()
-				.IsUnicode(false);
-
-			modelBuilder.Entity<LocationForeignId>()
-				.Property(e => e.PartnerId)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<LocationForeignId>()
-				.Property(e => e.ForeignId)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<LocationLink>()
-				.Property(e => e.Lang)
-				.IsFixedLength()
-				.IsUnicode(false);
-
-			modelBuilder.Entity<LocationLink>()
-				.Property(e => e.URL)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Message>()
-				.Property(e => e.Key)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Partner>()
-				.Property(e => e.Id)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Partner>()
-				.Property(e => e.Website)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Partner>()
-				.HasMany(e => e.LocationForeignIds)
-				.WithRequired(e => e.Partner)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Region>()
-				.Property(e => e.Website)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<Region>()
-				.Property(e => e.CreatedAt)
-				.HasPrecision(2);
-
-			modelBuilder.Entity<Region>()
-				.Property(e => e.ModifiedAt)
-				.HasPrecision(2);
-
-			modelBuilder.Entity<Region>()
-				.HasMany(e => e.Aliases)
-				.WithRequired(e => e.Region)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Region>()
-				.HasMany(e => e.Views)
-				.WithRequired(e => e.Region)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<RegionAlias>()
-				.Property(e => e.Lang)
-				.IsFixedLength()
-				.IsUnicode(false);
-
-			modelBuilder.Entity<RegionAlias>()
-				.Property(e => e.Website)
-				.IsUnicode(false);
+			
 		}
 	}
 }

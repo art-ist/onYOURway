@@ -6,6 +6,8 @@ namespace onYOURway.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+
+	//depricated
     [Table("oyw.Street")]
     public partial class Street
     {

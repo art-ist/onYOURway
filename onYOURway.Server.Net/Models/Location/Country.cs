@@ -6,6 +6,7 @@ namespace onYOURway.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+	//depricated
     [Table("oyw.Country")]
     public partial class Country
     {

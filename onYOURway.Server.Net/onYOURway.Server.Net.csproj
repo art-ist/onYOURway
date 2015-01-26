@@ -213,6 +213,8 @@
     </Compile>
     <Compile Include="Models\Account\AccountBindingModels.cs" />
     <Compile Include="Models\Account\AccountViewModels.cs" />
+    <Compile Include="Models\Location\Entry.cs" />
+    <Compile Include="Models\Location\Event.cs" />
     <Compile Include="Models\Location\Realm.cs" />
     <Compile Include="Models\Location\Country.cs" />
     <Compile Include="Models\DbGeographyConverter.cs" />
