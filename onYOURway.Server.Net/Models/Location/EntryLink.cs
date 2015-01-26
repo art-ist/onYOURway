@@ -6,8 +6,8 @@ namespace onYOURway.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("oyw.LocationLink")]
-    public partial class LocationLink
+	[Table("oyw.EntryLinks")]
+	public partial class EntryLink
     {
         [Key]
         [Column(Order = 0)]
@@ -16,7 +16,7 @@ namespace onYOURway.Models
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long LocationId { get; set; }
+        public long EntryId { get; set; }
 
         [StringLength(2)]
         public string Lang { get; set; }
@@ -29,6 +29,6 @@ namespace onYOURway.Models
         [StringLength(1000)]
         public string URL { get; set; }
 
-        public virtual Location Location { get; set; }
+        public virtual Entry Location { get; set; }
     }
 }

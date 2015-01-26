@@ -99,7 +99,7 @@ namespace onYOURway.Controllers {
 		[HttpOptions]
 		[AcceptVerbs("GET", "OPTIONS")]
 		public IQueryable<Region> Regions() {
-			var result =db.Context.Regions
+			var result = db.Context.Regions
 			  .Include("Views")
 			  .Include("Aliases")
 			  .OrderBy(r => r.Id)
@@ -315,9 +315,8 @@ namespace onYOURway.Controllers {
 		public dynamic SearchSuggestions(int regionId, string lang = null) {
             if (string.IsNullOrEmpty(lang)) lang = GetLang();
 
-            var ctx = db.Context;
             var query =
-                (from l in ctx.Locations 
+                (from l in db.Context.Locations 
                  select new {
                     Class = "location",
                     Name = l.Name,
@@ -325,28 +324,28 @@ namespace onYOURway.Controllers {
                     Subtitle = l.Street + " " + l.HouseNumber + " " + l.City,
                     ThumbnailUrl = "http://onyourway.at/Content/images/ventures/v-" + SqlFunctions.StringConvert((double)l.Id).Trim() + "-300.jpg"
                 })
+			//.Union
+			//	(from a in db.Context.Locations
+			//	 where a.Locale == null || a.Locale == lang 
+			//	 select new {
+			//		 Class = "location",
+			//		 Name = a.Name,
+			//		 Id = a.EntryId,
+			//		 Subtitle = a.Location.Street + " " + a.Location.HouseNumber + " " + a.Location.City,
+			//		 ThumbnailUrl = "http://onyourway.at/Content/images/ventures/v-" + SqlFunctions.StringConvert((double)a.LocationId).Trim() + "-300.jpg"
+			//	 })
+			//.Union
+			//	(from s in db.Context.Features
+			//	 where s.RegionId == regionId
+			//	 select new {
+			//		 Class = "street",
+			//		 Name = s.Name,
+			//		 Id = -1L,
+			//		 Subtitle = "",
+			//		 ThumbnailUrl = ""
+			//	 })
             .Union
-                (from a in ctx.LocationAliases 
-                 where a.Lang == null || a.Lang == lang 
-                 select new {
-                     Class = "location",
-                     Name = a.Name,
-                     Id = a.LocationId,
-                     Subtitle = a.Location.Street + " " + a.Location.HouseNumber + " " + a.Location.City,
-                     ThumbnailUrl = "http://onyourway.at/Content/images/ventures/v-" + SqlFunctions.StringConvert((double)a.LocationId).Trim() + "-300.jpg"
-                 })
-            .Union
-                (from s in ctx.Streets
-                 where s.RegionId == regionId
-                 select new {
-                     Class = "street",
-                     Name = s.Name,
-                     Id = -1L,
-                     Subtitle = "",
-                     ThumbnailUrl = ""
-                 })
-            .Union
-                (from t in ctx.TagNames
+                (from t in db.Context.TagNames
                  where t.Name != null && (t.Lang == null || t.Lang == lang)
                  select new {
                      Class = "tag",

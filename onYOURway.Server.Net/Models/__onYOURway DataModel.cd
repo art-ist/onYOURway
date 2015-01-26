@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="onYOURway.Models.Partner" Collapsed="true">
-    <Position X="0.75" Y="3" Width="1.5" />
+  <Class Name="onYOURway.Models.ExternalSystem">
+    <Position X="17" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAgAAAAAAAAAQACAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Location\Partner.cs</FileName>
+      <HashCode>AAACAAAAAAAAgAAAAAAEgAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Location\ExternalSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="onYOURway.Models.Realm">
-    <Position X="0.5" Y="3.75" Width="1.5" />
+    <Position X="1.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAEgAEQAAAAAAAQAAAAAAAEAAAAAAAAABAA=</HashCode>
+      <HashCode>AAQCAAAAAAEgAAAAAAAAAAQAAAAAAAEAAAAAAAAABAA=</HashCode>
       <FileName>Models\Location\Realm.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Localizations" />
-      <Property Name="Uris" />
+      <Property Name="URIs" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="onYOURway.Models.RealmUri">
-    <Position X="3" Y="6" Width="1.5" />
+  <Class Name="onYOURway.Models.RealmURI">
+    <Position X="4" Y="5.5" Width="1.5" />
     <Members>
       <Property Name="Realm" Hidden="true" />
     </Members>
@@ -29,92 +29,108 @@
     </TypeIdentifier>
   </Class>
   <Class Name="onYOURway.Models.RealmLocalized">
-    <Position X="3" Y="4" Width="1.5" />
+    <Position X="4" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAABAAAAAAAAAAAAAAEA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAABAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Models\Location\Realm.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="onYOURway.Models.Location">
-    <Position X="6.75" Y="2.25" Width="1.5" />
+    <Position X="6.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACCAgBAAAgAAAoACAQCAQACEIAAAgABQIAJgEIAAE=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAIAAAACAAAAEIAAAAAAAIAIgAAAAA=</HashCode>
       <FileName>Models\Location\Location.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="onYOURway.Models.LocationAlias" Collapsed="true">
-    <Position X="9.25" Y="2.25" Width="1.5" />
+  <Class Name="onYOURway.Models.EntryLink">
+    <Position X="10" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAKAAAAAAAAAAAAAAIAAAQAAAAAAAAABAAAAAAAAAA=</HashCode>
-      <FileName>Models\Location\LocationAlias.cs</FileName>
+      <HashCode>AAACAAAAAAAgAAAAAAIAAAAAACAAAAAABAAAAAAAAQA=</HashCode>
+      <FileName>Models\Location\EntryLink.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="onYOURway.Models.LocationForeignId" Collapsed="true">
-    <Position X="9.25" Y="3" Width="1.5" />
+  <Class Name="onYOURway.Models.EntryTag">
+    <Position X="10" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAIAAAAAAAEAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
-      <FileName>Models\Location\LocationForeignId.cs</FileName>
+      <HashCode>AAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAgAAAAAQE=</HashCode>
+      <FileName>Models\Location\EntryTag.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Tag" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="onYOURway.Models.LocationLink" Collapsed="true">
-    <Position X="9.25" Y="3.75" Width="1.5" />
+  <Class Name="onYOURway.Models.Tag">
+    <Position X="12.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAKAAAAAAAgAAAAAAIAAAAAACAAAAAABAAAAAAAAAA=</HashCode>
-      <FileName>Models\Location\LocationLink.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="onYOURway.Models.HasTag" Collapsed="true">
-    <Position X="9.25" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
-      <FileName>Models\Location\HasTag.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="onYOURway.Models.Tag" Collapsed="true">
-    <Position X="11.5" Y="5.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAACgAAAAAAAAAAAAAAAAAAAAAAAAAAACQAgAAEAAAA=</HashCode>
+      <HashCode>wAACgAAAAAAAAAAAAAAAAAAAAAAAAAAICQAgAAAAAAA=</HashCode>
       <FileName>Models\Location\Tag.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Names" />
+    </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="onYOURway.Models.TagIsA" Collapsed="true">
-    <Position X="11.5" Y="6.75" Width="1.5" />
+  <Class Name="onYOURway.Models.TagRelation">
+    <Position X="15" Y="5.5" Width="1.5" />
+    <AssociationLine Name="FromTag" Type="onYOURway.Models.Tag" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15" Y="6.252" />
+        <Point X="14.729" Y="6.252" />
+        <Point X="14.729" Y="5.153" />
+        <Point X="14" Y="5.153" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ToTag" Type="onYOURway.Models.Tag" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15" Y="6.651" />
+        <Point X="14.542" Y="6.651" />
+        <Point X="14.542" Y="5.198" />
+        <Point X="14" Y="5.198" />
+        <Point X="14" Y="5.287" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.513" Y="0.183" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAE=</HashCode>
-      <FileName>Models\Location\TagIsA.cs</FileName>
+      <HashCode>AAAAAQAAAAAAAAAgAAAACACAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Models\Location\TagRelation.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FromTag" />
+      <Property Name="ToTag" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="onYOURway.Models.TagName" Collapsed="true">
-    <Position X="11.5" Y="7.75" Width="1.5" />
+  <Class Name="onYOURway.Models.TagName">
+    <Position X="15" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAEAAAABAAAAAAAAAE=</HashCode>
       <FileName>Models\Location\TagName.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="onYOURway.Models.Region">
-    <Position X="2.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AgACCAABAAAAgAAAACEAAAQAAAAAAAAAAAAAgAAABAE=</HashCode>
-      <FileName>Models\Location\Region.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Aliases" />
-      <Property Name="Views" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="onYOURway.Models.RegionAlias" Collapsed="true">
-    <Position X="4.5" Y="1.5" Width="1.5" />
+  <Class Name="onYOURway.Models.RegionLocalized">
+    <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAgAAAgAAAAAAAAAQAAAAAAAAABAAAAAAAAAA=</HashCode>
-      <FileName>Models\Location\RegionAlias.cs</FileName>
+      <FileName>Models\Location\Region.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="onYOURway.Models.RegionView" Collapsed="true">
-    <Position X="4.5" Y="2.75" Width="1.5" />
+  <Class Name="onYOURway.Models.Event" Collapsed="true">
+    <Position X="8.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAAgAAAAAAAAAAAAAQAAAAAAAAAAACAAAgABAA=</HashCode>
-      <FileName>Models\Location\RegionView.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Location\Event.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="onYOURway.Models.Entry">
+    <Position X="7.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCAABAAAgAAAgACAQAAQAAABAAEEACQACAAAAAAE=</HashCode>
+      <FileName>Models\Location\Entry.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Links" />
+      <Property Name="Tags" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

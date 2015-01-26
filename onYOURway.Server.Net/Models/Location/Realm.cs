@@ -10,10 +10,10 @@ namespace onYOURway.Models {
 	public partial class Realm {
 
 		/// <summary>
-		/// Unique key (used to associate entries to realms and e.g. as part of the URL)
+		/// Unique id (used to associate entries to realms and e.g. as part of the URL)
 		/// </summary>
 		[Key, MaxLength(40)]
-		public String Key { get; set; }
+		public String Id { get; set; }
 
 		/// <summary>
 		/// International name e.g. used as title in realm description
@@ -45,20 +45,24 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// URIs, URLs this realm is responsible for
 		/// </summary>
-		public virtual ICollection<RealmUri> Uris { get; set; }
+		public virtual ICollection<RealmURI> URIs { get; set; }
 	
 	}///Realm
 
-	public partial class RealmUri {
+	[Table("oyw.RealmURIs")]
+	public partial class RealmURI {
 
+		/// <summary>
+		/// URI or URL of the realm.
+		/// </summary>
+		[Key, Column(Order = 0), Index(IsUnique = true), MaxLength(200)]
+		public Uri Uri { get; set; }		
+		
 		/// <summary>
 		/// Key of realm
 		/// </summary>
-		[Key, Column(Order = 0), MaxLength(40)]
+		[Key, Column(Order = 1), MaxLength(40)]
 		public String RealmKey { get; set; }
-
-		[Key, Column(Order = 1), Index(IsUnique = true), MaxLength(200)]
-		public Uri Uri { get; set; }
 
 		/// <summary>
 		/// Navigation property
@@ -68,13 +72,14 @@ namespace onYOURway.Models {
 
 	}
 
+	[Table("oyw.RealmsLocalized")]
 	public partial class RealmLocalized {
 
 		/// <summary>
 		/// Key of realm to be localized
 		/// </summary>
 		[Key, Column(Order = 0), MaxLength(40)]
-		public String RealmKey { get; set; }
+		public String RealmId { get; set; }
 
 		/// <summary>
 		/// Locale e.g. "de-DE" or language e.g. "de" of localization

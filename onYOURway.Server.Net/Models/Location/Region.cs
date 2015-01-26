@@ -10,8 +10,8 @@ namespace onYOURway.Models
     public partial class Region {
         public Region()
         {
-            Aliases = new HashSet<RegionAlias>();
-            Views = new HashSet<RegionView>();
+            Aliases = new HashSet<RegionLocalized>();
+            Views = new HashSet<Map>();
         }
 
         public long Id { get; set; }
@@ -37,8 +37,32 @@ namespace onYOURway.Models
 
         public DbGeography Boundary { get; set; }
 
-        public virtual ICollection<RegionAlias> Aliases { get; set; }
+        public virtual ICollection<RegionLocalized> Aliases { get; set; }
 
-        public virtual ICollection<RegionView> Views { get; set; }
+        public virtual ICollection<Map> Views { get; set; }
     }
+
+	[Table("oyw.RegionsLocalized")]
+	public partial class RegionLocalized {
+		[Key]
+		[Column(Order = 0)]
+		[DatabaseGenerated(DatabaseGeneratedOption.None)]
+		public long RegionId { get; set; }
+
+		[Key]
+		[Column(Order = 1)]
+		[StringLength(2)]
+		public string Lang { get; set; }
+
+		[Key]
+		[Column(Order = 2)]
+		[StringLength(200)]
+		public string Name { get; set; }
+
+		[StringLength(1000)]
+		public string Website { get; set; }
+
+		public virtual Region Region { get; set; }
+	}
+
 }

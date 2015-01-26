@@ -7,7 +7,7 @@ namespace onYOURway.Models
     using System.Data.Entity.Spatial;
 
 	//depricated
-    [Table("oyw.Country")]
+    [Table("oyw.Countries")]
     public partial class Country
     {
         public int ID { get; set; }

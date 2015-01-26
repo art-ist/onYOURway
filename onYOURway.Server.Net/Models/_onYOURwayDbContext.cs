@@ -43,25 +43,49 @@ namespace onYOURway.Models {
 
 		#endregion Functions
 
-		#region EntitySets
+		#region EntitiySets
 
-		public virtual DbSet<UserProfile> UserProfiles { get; set; }
-		public virtual DbSet<Country> Countries { get; set; }
-		public virtual DbSet<HasTag> HasTags { get; set; }
-		public virtual DbSet<Location> Locations { get; set; }
-		public virtual DbSet<LocationAlias> LocationAliases { get; set; }
-		public virtual DbSet<ExternalId> LocationForeignIds { get; set; }
-		public virtual DbSet<LocationLink> LocationLinks { get; set; }
+		#region App EntitiySets
+
 		public virtual DbSet<Message> Messages { get; set; }
-		public virtual DbSet<Partner> Partners { get; set; }
-		public virtual DbSet<Region> Regions { get; set; }
-		public virtual DbSet<RegionView> RegionViews { get; set; }
-		//public virtual DbSet<ProductSuggestion> ProductSuggestions { get; set; }
-		public virtual DbSet<RegionAlias> RegionAlias { get; set; }
-		//public virtual DbSet<Street> Streets { get; set; }
+		public virtual DbSet<ExternalSystem> Partners { get; set; }
+
+		#endregion App EntitiySets
+
+		#region Taxonomy EntitySets
+
 		public virtual DbSet<Tag> Tags { get; set; }
 		public virtual DbSet<TagName> TagNames { get; set; }
-		public virtual DbSet<TagIsA> TagIsAs { get; set; }
+		public virtual DbSet<TagRelation> TagRelations { get; set; }		
+		public virtual DbSet<EntryTag> HasTags { get; set; }
+		
+		#endregion Taxonomy EntitySets
+
+		#region Location EntitiySets
+
+		public virtual DbSet<Country> Countries { get; set; }
+		//public virtual DbSet<Street> Streets { get; set; }
+
+		public virtual DbSet<Feature> Features { get; set; }
+		
+		public virtual DbSet<Region> Regions { get; set; }
+		public virtual DbSet<Map> RegionViews { get; set; }
+		//public virtual DbSet<ProductSuggestion> ProductSuggestions { get; set; }
+		public virtual DbSet<RegionLocalized> RegionAliases { get; set; }
+
+		public virtual DbSet<Location> Locations { get; set; }
+		public virtual DbSet<EntryLocalization> EntryLocalizations { get; set; }
+		public virtual DbSet<EntryLink> EntryLinks { get; set; }
+		public virtual DbSet<EntryReference> EntryReferences { get; set; }		
+		
+
+		#endregion Location EntitiySets
+
+		#region Profile & Security EntitiySets
+
+		public virtual DbSet<UserProfile> UserProfiles { get; set; }
+
+		#endregion Profile & Security EntitiySets
 
 		#endregion EntitySets
 
