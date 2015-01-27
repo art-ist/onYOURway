@@ -7,10 +7,10 @@ define([
     var vm = function () {
         var self = this;
         var $placesList;
-        var selectedItemSubscription;
-        this.searchResults = placeSearch.searchResults;
-        this.selectedItem = placesLayer.selectedItem;
-        this.itemClick = placesLayer.itemClick;
+        var selectedPlaceSubscription;
+        self.searchResults = placeSearch.searchResults;
+        self.selectedPlace = placesLayer.selectedItem;
+        self.placeClick = placesLayer.itemClick;
 
         self.activate = function (searchTerm) {
             if (searchTerm) {
@@ -20,8 +20,8 @@ define([
                 }
             }
             settings.showList(true);
-            if (! selectedItemSubscription) {
-                selectedItemSubscription = placesLayer.selectedItem.subscribe(selectedItemChanged);
+            if (! selectedPlaceSubscription) {
+                selectedPlaceSubscription = self.selectedPlace.subscribe(selectedPlaceChanged);
             }
 
             return true;
@@ -29,9 +29,9 @@ define([
 
         self.deactivate = function() {
             settings.showList(false);
-            if (selectedItemSubscription) {
-                selectedItemSubscription.dispose();
-                selectedItemSubscription = undefined;
+            if (selectedPlaceSubscription) {
+                selectedPlaceSubscription.dispose();
+                selectedPlaceSubscription = undefined;
             }
         }
 
@@ -47,12 +47,12 @@ define([
             $placesList.scrollLeft(newLeft);
         }
 
-        function selectedItemChanged() {
+        function selectedPlaceChanged() {
             scrollIntoView();
         }
 
         function scrollIntoView() {
-            var id = placesLayer.selectedItem() && placesLayer.selectedItem().Id();
+            var id = self.selectedPlace() && self.selectedPlace().Id();
             if (id) {
                 var $itm = $placesList.find('#'+id);
                 var offsetChange = Math.round($itm.offset().left);
