@@ -21,7 +21,7 @@ define([
             }
             settings.showList(true);
             if (! selectedItemSubscription) {
-                selectedItemSubscription = placesLayer.selectedItem.subscribe(scrollIntoView);
+                selectedItemSubscription = placesLayer.selectedItem.subscribe(selectedItemChanged);
             }
 
             return true;
@@ -47,17 +47,25 @@ define([
             $placesList.scrollLeft(newLeft);
         }
 
+        function selectedItemChanged() {
+            scrollIntoView();
+        }
+
         function scrollIntoView() {
             var id = placesLayer.selectedItem() && placesLayer.selectedItem().Id();
             if (id) {
-                var itm = $placesList.find('#'+id);
-                var offset = Math.round(itm.offset().left);
-                var width = $placesList.width();
-                var itmWidth = itm.width();
-                if (offset > width - itmWidth + 20) {
-                    $placesList.scrollLeft($placesList.scrollLeft() + offset - width + itmWidth);
-                } else if (offset < -20) {
-                    $placesList.scrollLeft($placesList.scrollLeft() + offset);
+                var $itm = $placesList.find('#'+id);
+                var offsetChange = Math.round($itm.offset().left);
+                if (offsetChange > 0) {
+                    /* only scroll as far as necessary to get it into visible area */
+                    offsetChange -=  Math.min(offsetChange, $placesList.width() - $itm.width());
+                }
+                if (offsetChange < -20 || offsetChange > 20) {
+                    $placesList.animate({scrollLeft: $placesList.scrollLeft() + offsetChange}, 300);
+                } else if (window.chrome) {
+                    /* workaround chrome bug - chrome does not repaint correctly until scroll */
+                    $placesList.scrollLeft($placesList.scrollLeft() + 1);
+                    window.setTimeout(function() {$placesList.scrollLeft($placesList.scrollLeft() - 1)}, 1);
                 }
             }
         }

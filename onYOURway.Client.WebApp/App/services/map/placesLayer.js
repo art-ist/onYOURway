@@ -24,20 +24,27 @@
 
     function drawMarkers(placesToDraw) {
         if (placesMapLayer) map.removeLayer(placesMapLayer);
-        var group = settings.clusterLocations()
-            ? new L.MarkerClusterGroup()
-            : new L.LayerGroup();
-        map.addLayer(group);
-        placesMapLayer = group;
+        if (placesToDraw.length) {
+            var group = settings.clusterLocations()
+                ? new L.MarkerClusterGroup()
+                : new L.LayerGroup();
+            map.addLayer(group);
+            placesMapLayer = group;
 
-        for (var i = 0; i < placesToDraw.length; i++) {
-            //console.log("[location] drawMarkers drawing marker ", placesToDraw[i])
-            setMarker(group, null, placesToDraw[i]);
+            var zoomCoords = settings.zoomToSearchResults() ? [] : false;
+
+            for (var i = 0; i < placesToDraw.length; i++) {
+                //console.log("[location] drawMarkers drawing marker ", placesToDraw[i])
+                var latLong = setMarker(group, null, placesToDraw[i]);
+                if (zoomCoords) {
+                    zoomCoords.push(latLong);
+                }
+            }
+
+            if (zoomCoords) {
+                map.fitBounds(L.latLngBounds(zoomCoords).pad(0.5));
+            }
         }
-
-        //if(location.settings.zoomToSearchResults()) {
-        //  map.fitBounds(group.getBounds());
-        //}
     }
 
     function setMarker(group, marker, loc) {
@@ -68,6 +75,7 @@
                 });
             //.bindPopup('<b>' + loc.Name() + '</b><br/>' + loc.Street);
         }
+        return latLong;
     }
 
     function getLocationIcon(loc, selected) {
