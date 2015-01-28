@@ -1,0 +1,37 @@
+@media (min-width: 892px) {
+  .visible-sm, .visible-m {
+    display: none !important;
+  }
+}
+
+@media (max-width: 891px) {
+  .hidden-sm {
+    display: none !important;
+  }
+  div.searchBox {
+    width: 40%;
+  }
+}
+
+@media (min-width: 620px) {
+  .visible-s {
+    display: none !important;
+  }
+  @media (max-width: 891px) {
+    .hidden-m {
+      display: none !important;
+    }
+    div.searchBox {
+      width: 40%;
+    }
+  }
+}
+
+@media (max-width: 629px) {
+  .visible-m, .hidden-s {
+    display: none !important;
+  }
+  div.searchBox {
+    width: 52%;
+  }
+}
