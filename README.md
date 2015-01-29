@@ -7,11 +7,11 @@ To **get started** with the code have a look at the [wiki](https://github.com/ar
 If you'd like to contribute or use the bits, please drop me a message.
 Current development coordination we use a KanBan Board at [trello](https://trello.com/b/XPo8ruB8/kanban).
 
-####Contributoributing Projects:
+####Contributing Projects:
 - [onYOURway](http://onYOURway.at) Project
 - [Karte von Morgen](http://kartevonmorgen.org)
 - The [TransforMap](http://transformap.co) Project
-- [Regional-Genial](http://regional-genial.de/) 
+- [Regional-Genial](http://regional-genial.de/)
 
 ####Supported by:
 - [netidee - Internet Foundation Austria (IPA)](https://www.netidee.at)
