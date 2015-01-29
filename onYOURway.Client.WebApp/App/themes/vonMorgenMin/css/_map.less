@@ -1,0 +1,32 @@
+#map, .aboveMap {
+  position: absolute;
+  top: 0;
+  margin-top: 113px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+#map.listOpen {
+  top: 20% !important;
+}
+#map {
+  z-index: 2;
+  background-color: #ebebeb;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.aboveMap {
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.50);
+}
+
+
+.belowMap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 1;
+}

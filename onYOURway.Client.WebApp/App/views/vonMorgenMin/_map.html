@@ -1,11 +1,12 @@
 ﻿<div>
 
-    <div id="map" data-bind="map: { initialize: initializeMap }, places : { data: searchResults, onDataChange: drawMarkers } "></div>
+    <div id="map" data-bind="map: { initialize: initializeMap }, places : { data: searchResults, onDataChange: drawMarkers }, css: mapCss"></div>
 
 
-    <div id="details">
-
-    </div>
+    <!--koif: searchResults().length -->
+    <!--kocompose: 'views/vonMorgenMin/searchResults' -->
+    <!--/ko-->
+    <!--/ko-->
 
 
 </div>

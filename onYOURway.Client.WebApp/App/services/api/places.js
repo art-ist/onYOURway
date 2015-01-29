@@ -22,6 +22,8 @@ define([
                 .executeQuery(query)
                 .then(function (d) {
                     if (d.results) {
+                        //TODO: create model class in separate file and use it as a breeze constructor in apiClient - instead of this mess here!
+                        //TODO the breeze constructor is currently not effective because of the uncessary? call to ko.mapping.fromJS
                         var places = ko.mapping.fromJS(d.results[0].Places.Place)();
                         //tell.log('places found', 'location - _loadPlaces', places);
 
@@ -119,6 +121,28 @@ define([
                                     return false;
                                 }; // isFeatured()
                             } // if (item.isFeatured === undefined)
+
+                            //** address **
+                            if (item.address === undefined) {
+                                item.address = ko.computed(function() {
+                                    var address = '';
+                                    if (item.Street && item.Street()) {
+                                        address += item.Street();
+                                        if (item.HouseNumber && item.HouseNumber()) {
+                                            address += ' ';
+                                            address += item.HouseNumber();
+                                        }
+                                        if (item.City && item.City()) {
+                                            address += ', ';
+                                            address += item.City();
+                                        }
+                                        return address;
+                                    }
+                                    if (item.City && item.City()) {
+                                        return item.City();
+                                    }
+                                });
+                            } // address
 
                         }); //places.forEach
                     } //if (d.results)
