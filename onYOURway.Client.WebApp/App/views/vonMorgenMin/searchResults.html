@@ -17,42 +17,63 @@
 <!--ko if: $root.selectedPlace() -->
     <div id="placePreview" data-bind="with: selectedPlace">
 
-        <div class="ventureDetails-imageArea">
-            <img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
-            <h2 class="ventureDetails-header" data-bind="text: Name"></h2>
-            <ul class="ventureDetails-taglist" data-bind="foreach: Tag">
-                <li><a class="btn btn-success btn-xs" data-bind="text: Name, attr: { href: '#/karte?tag=' + Name() }"></a></li>
-            </ul>
+
+        <div class="picture">
+
+            <div class="image" style="background-image:url('/Content/vonMorgen/vegetables.jpg')"> </div>
+
+            <div class="flower" data-bind="foreach: $root.getRatings($data)">
+                <div data-bind="{css: $data.css, style: {transform: 'rotate(' + (60 * $index() - 18) + 'deg) scale(' + $data.value + ') translate(0, -113%) perspective(35px) rotateX(25deg) rotate(45deg)'}}"></div>
+                <span data-bind="text: $data.name, css: $data.css"></span>
+            </div>
+
         </div>
 
-        <div class="oyw-action-list btn-group-vertical pull-right">
-            <!-- ko if: $data.Phone -->
-            <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: 'tel:' + $data.Phone() }"><span class="fa fa-fw fa-phone" /> <span data-bind="text: $data.Phone" /></a>
-            <!-- /ko -->
+        <div class="contactInfo">
+
+            <div class="actions">
+                <a class="btn share" href="#share" title="Teilen">
+                    <i class="fa fa-fw fa-share-alt"></i>
+                </a><a class="btn comment" href="#comment" title="Kommentare">
+                    <i class="fa fa-fw fa-comment"></i>
+                </a><a class="btn favor" href="#bookmark" title="Favorit">
+                    <i class="fa fa-fw fa-star"></i>
+                </a><a class="btn edit" href="#edit" title="Editieren">
+                    <i class="fa fa-fw fa-edit"></i>
+                </a>
+
+            </div>
+
             <!-- ko with: $data.Link -->
-            <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: Url}"><span class="fa fa-fw fa-globe" /> <span data-bind="text: Tag" /></a>
+            <div>
+                <a target="_blank" data-bind="attr: {href: Url}"><span class="fa fa-fw fa-globe" /> <span data-bind="text: Tag" /></a>
+            </div>
             <!-- /ko -->
             <!-- ko foreach: $data.Link -->
-            <a class="btn btn-warning btn-sm" target="_blank" data-bind="attr: {href: Url}"><span class="fa fa-fw fa-globe" /> <span data-bind="text: Tag" /></a>
+            <div>
+                <a target="_blank" data-bind="attr: {href: Url}"><span class="fa fa-fw fa-globe" /> <span data-bind="text: Tag" /></a>
+            </div>
             <!-- /ko -->
+
+            <!-- ko if: $data.Phone -->
+            <div>
+                <a target="_blank" data-bind="attr: {href: 'tel:' + $data.Phone().replace(/[^0-9+]/g, '') }"><span class="fa fa-fw fa-phone" /> <span data-bind="text: $data.Phone" /></a>
+            </div>
+            <!-- /ko -->
+
+            <p class="detail-address">
+                <span data-bind="text: $data.Street"></span> <span data-bind="text: $data.HouseNumber"></span><br />
+                <span data-bind="text: $data.Zip"></span> <span data-bind="text: $data.City"></span>
+            </p>
+
+            <p data-bind="html: $data.OpenDisplay"></p>
+
         </div>
 
-        <div class="ventureDetails-details">
-            <!-- ko if: $data.Street -->
-            <h4>Adresse</h4>
-            <p class="detail-address">
-                <span data-bind="text: $data.Street"></span> <span data-bind="  text: $data.HouseNumber"></span><br />
-                <span data-bind="text: $data.Zip"></span> <span data-bind="  text: $data.City"></span>
-            </p>
-            <!-- /ko -->
-            <!-- ko if: $data.OpenDisplay -->
-            <h4>Öffnungszeiten</h4>
-            <p data-bind="html: $data.OpenDisplay"></p>
-            <!-- /ko -->
-            <!-- ko if: $data.Description -->
-            <h4>Beschreibung</h4>
-            <div class="detail-content" data-bind="html: $data.Description"></div>
-            <!-- /ko -->
+        <div class="description">
+            <h2 data-bind="text: Name"></h2>
+            <h4 data-bind="text: $root.getSubtitle($data) || 'Unternehmen'"></h4>
+            <p data-bind="text: $data.Description || 'Es gibt noch keine Beschreibung zu diesem Eintrag. Wenn Du möchtest, kannst Du eine Beschreibung erstellen. Melde dich dazu an, und klicke auf das Stift-Symbol. Vielen Dank!'"> </p>
         </div>
 
     </div>

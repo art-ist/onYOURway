@@ -6,9 +6,6 @@
   left: 0;
   right: 0;
 }
-#map.listOpen {
-  top: 20% !important;
-}
 #map {
   z-index: 2;
   background-color: #ebebeb;
@@ -16,6 +13,20 @@
   -moz-transition: 0.3s ease-in-out;
   -o-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
+}
+#map.listOpen {
+  top: 70px !important;
+  @media (max-height: 639px) {
+    @media (min-height: 480px) {
+      top: 120px !important;
+    }
+  }
+  @media (min-height: 640px) {
+    top: 180px !important;
+  }
+}
+#map.detailsOpen {
+  margin-bottom: 20% !important;
 }
 .aboveMap {
   z-index: 10;

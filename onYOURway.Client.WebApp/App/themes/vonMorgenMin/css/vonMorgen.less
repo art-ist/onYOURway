@@ -1,27 +1,33 @@
 ﻿@import url('../../vonMorgen/fonts/source-sans-pro.css');
 
-@graublau: rgb(100,122,133);
-@blau: rgb(0,152,137);
-@gruen: rgb(151, 191, 13);
-@gelb: rgb(225, 221,0);
-@rosa: rgb(229, 98, 146);
-@beere: rgb(170, 56, 108);
-@schwarz: #000;
-@kohle: rgb(26,26,26);
-@anthrazit: rgb(45,45,45);
-@dunkelgrau: rgb(102,102,102);
-@hellgrau: #dedddd;
-@weiss: #fff;
+@green:  #81c828;
+@yellow: #f8db18;
+@pink: #e74595;
+@purple: #a22970;
+@blue: #3b9cac;
+@navy: #58717c;
 
-@initiatives: @gruen;
-@events: @rosa;
-@shops: @blau;
+@black: #000;
+@coal: rgb(26,26,26);
+@dark: rgb(45,45,45);
+@grey: rgb(102,102,102);
+@light: #bbb;
+@pale: #dedddd;
+@white: #fff;
 
-@accent1: @dunkelgrau;
-@accent2: @rosa;
-@accent3: @blau;
-@accent4: @gruen;
-@selectedItem: @graublau;
+@initiatives: @green;
+@events: @pink;
+@shops: @blue;
+
+@selectedPlace: @navy;
+
+@divers: @green;
+@eco: @yellow;
+@fair: @pink;
+@human: @purple;
+@open: @blue;
+@social: @navy;
+
 
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -29,6 +35,30 @@ body {
 
 body, header, div, span, ul, ol {
     margin: 0;
+}
+
+.divers {
+  background-color: @divers;
+}
+
+.eco {
+  background-color: @eco;
+}
+
+.fair {
+  background-color: @fair;
+}
+
+.human {
+  background-color: @human;
+}
+
+.open {
+  background-color: @open;
+}
+
+.social {
+  background-color: @social;
 }
 
 @import url('_responsive.less');
