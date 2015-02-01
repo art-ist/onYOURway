@@ -447,7 +447,7 @@ disabled look for disabled choices in the results dropdown
     cursor: text;
     overflow: hidden;
 
-    background-color: #fff;
+    /* background-color: #fff; */
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eee), color-stop(15%, #fff));
     background-image: -webkit-linear-gradient(top, #eee 1%, #fff 15%);
     background-image: -moz-linear-gradient(top, #eee 1%, #fff 15%);
