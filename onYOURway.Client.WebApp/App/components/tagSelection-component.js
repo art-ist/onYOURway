@@ -83,6 +83,10 @@ define([
                 tag.active(!tag.active())
             };
 
+            this.toggleCategory = function(cat) {
+                settings.showTagSelection(!settings.showTagSelection());
+            };
+
         };
 
         return { viewModel: SearchBoxViewModel, template: template };

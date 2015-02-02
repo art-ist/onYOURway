@@ -1,5 +1,5 @@
 <div class="categories" data-bind="foreach: categories"><!--
-     --><a class="hidden-sm" data-bind="css: $parent.getCategoryCss($data), text: $data.name">
+     --><a class="hidden-sm" data-bind="css: $parent.getCategoryCss($data), text: $data.name, click: function(){$parent.toggleCategory($data)}">
     </a><a class="visible-sm" data-bind="css: $parent.getCategoryCss($data), text: $data.shortName">
 </a></div>
 
