@@ -9,6 +9,9 @@
   margin-top: 20px;
   background-color: @white;
   border: 1px solid rgb(100,122,133);
+  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   .popupHeader {
     background: @black;
@@ -20,6 +23,11 @@
     h2 {
       font-weight: normal;
       margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      @media (max-width: 479px) {
+        font-size: large;
+      }
     }
     a.close {
       float: right;

@@ -92,13 +92,33 @@ header {
       height: 32px;
       vertical-align: bottom;
       font-size: 18px;
-      border-bottom-color: #000000 !important;
+      border-bottom: 2px solid @black;
     }
 
     span.tagSelection {
-      display: inline-block;
+      @media (min-width: 620px) {
+        display: inline-block;
+      }
       vertical-align: bottom;
       height: 34px;
+      margin-right: -4px;
+      position: relative;
+
+      .tags {
+        position: absolute;
+        z-index: 7;
+        width: 100%;
+        padding-right: 35px;
+        box-sizing: content-box;
+        background-color: @white;
+        border-left: 1px solid @grey;
+        border-right: 1px solid @grey;
+        border-bottom: 1px solid @grey;
+        display: none;
+      }
+      .tags.tagSelectionOpen {
+        display: block !important;
+      }
     }
 
   }

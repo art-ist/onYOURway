@@ -1,8 +1,9 @@
-<span class="categories">
-    <a class="initiatives hidden-sm active">Initiativen &amp; Inspirationen
-    </a><a class="initiatives visible-sm active">Initiativen
-    </a><a class="events hidden-sm">Events &amp; Begegnungen
-    </a><a class="events visible-sm">Events
-    </a><a class="companies hidden-sm">Unternehmen &amp; Einkaufen
-    </a><a class="companies visible-sm">Unternehmen</a>
-</span>
+<div class="categories" data-bind="foreach: categories"><!--
+     --><a class="hidden-sm" data-bind="css: $parent.getCategoryCss($data), text: $data.name">
+    </a><a class="visible-sm" data-bind="css: $parent.getCategoryCss($data), text: $data.shortName">
+</a></div>
+
+<div class="tags" data-bind="foreach: categories, css: {tagSelectionOpen: showTagSelection}"><!--
+--><div data-bind="css: $data.key"><ul data-bind="foreach: $data.tags">
+        <li data-bind="click:function(){$parents[1].toggleTag($data)}, css: {active: $data.active}"><span data-bind="text: $data.Name"></span></li>
+</ul></div></div>
