@@ -2,14 +2,24 @@
   .visible-sm, .visible-m {
     display: none !important;
   }
+  .searchbar {
+    div.searchBox {
+      width: 30%;
+    }
+    span.tagSelection {
+      width: 54%;
+    }
+  }
 }
 
 @media (max-width: 891px) {
   .hidden-sm {
     display: none !important;
   }
-  div.searchBox {
-    width: 40%;
+  .searchbar {
+    span.tagSelection {
+      width: 39%;
+    }
   }
 }
 
@@ -21,8 +31,10 @@
     .hidden-m {
       display: none !important;
     }
-    div.searchBox {
-      width: 40%;
+    .searchbar {
+      div.searchBox {
+        width: 40%;
+      }
     }
   }
 }
@@ -31,7 +43,13 @@
   .visible-m, .hidden-s {
     display: none !important;
   }
-  div.searchBox {
-    width: 52%;
+  .searchbar {
+    div.searchBox {
+      width: 52%;
+    }
+    span.tagSelection {
+      display: none;
+    }
   }
+
 }

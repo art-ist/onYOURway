@@ -46,6 +46,7 @@ define([
     });
 
     ko.components.register('searchBox', { require: 'components/searchBox-component' });
+    ko.components.register('tagSelection', { require: 'components/tagSelection-component' });
 
     durandal.start().then(function () {
       viewLocator.useConvention('views', 'views', 'views');

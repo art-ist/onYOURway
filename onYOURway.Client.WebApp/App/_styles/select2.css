@@ -8,7 +8,7 @@ Version: 3.4.8 Timestamp: Thu May  1 09:50:32 EDT 2014
     /* inline-block for ie7 */
     zoom: 1;
     *display: inline;
-    vertical-align: middle;
+    vertical-align: bottom;
 }
 
 .select2-container,

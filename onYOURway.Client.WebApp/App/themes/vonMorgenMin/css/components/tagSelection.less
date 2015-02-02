@@ -1,0 +1,44 @@
+.tagSelection {
+  .categories {
+    margin-right: -4px;
+
+    a {
+      text-align: center;
+      display: inline-block;
+      box-sizing: border-box;
+      line-height: 34px;
+      border-bottom: 2px solid transparent;
+      height: 34px;
+      vertical-align: bottom;
+      border-left: 1px solid #dedddd;
+    }
+
+    .initiatives {
+      border-bottom-color: #97bf0d !important;
+      width: 33%;
+    }
+    .initiatives.active {
+      background-color: #97bf0d;
+      color: #ffffff !important;
+    }
+    .events {
+      border-bottom-color: #e56292 !important;
+      width: 33%;
+    }
+    .events.active {
+      background-color: #e56292;
+      color: #ffffff !important;
+    }
+    .companies {
+      border-bottom-color: #009889 !important;
+      width: 34%;
+    }
+    .companies.active {
+      background-color: #009889;
+      color: #ffffff !important;
+    }
+    a.initiatives.active:hover, a.events.active:hover, a.companies.active:hover {
+      text-shadow: 0 -1px 0 #fff !important;
+    }
+  }
+}
