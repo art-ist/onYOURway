@@ -1,11 +1,39 @@
-.middle200px {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -100px;
-  margin-left: -200px;
-  height: 200px;
-  width: 400px;
-  background-color: #dedddd;
+.searchPopup {
+  height: 400px;
+  width: 700px;
+  max-width: 96%;
+  max-height: 90%;
+  max-height: ~"calc(96% - 20px)";
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  background-color: @white;
   border: 1px solid rgb(100,122,133);
+
+  .popupHeader {
+    background: @black;
+    color: @white;
+    padding: 10px;
+    text-align: center;
+    line-height: 2em;
+
+    h2 {
+      font-weight: normal;
+      margin: 0;
+    }
+    a.close {
+      float: right;
+      color: @white;
+    }
+  }
+
+  div.searchBox {
+    width: 90%;
+    width: ~"calc(100% - 35px)";
+
+    input {
+      text-align: center;
+    }
+  }
+
 }

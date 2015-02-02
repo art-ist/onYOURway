@@ -1,9 +1,23 @@
 ﻿<div id="home">
     <div class="aboveMap">
-        <div class="middle200px" data-bind="click: enableMap">
-            Click here to enable the map
+        <div class="searchPopup" data-bind="click: enableMap">
+            <div class="popupHeader">
+                <a href="#map" class="close"><i class="fa fa-fwd fa-close"></i></a>
+                <h2>Alles Gute auf einer Karte</h2>
+            </div>
+            <div data-bind="component: 'searchBox'"><!-- searchBox --></div>
+            <span class="categories">
+                <a class="initiatives hidden-sm active">Initiativen &amp; Inspirationen
+                </a><a class="initiatives visible-m active">Initiativen
+            </a><a class="events hidden-sm">Events &amp; Begegnungen
+            </a><a class="events visible-m">Events
+            </a><a class="companies hidden-sm">Unternehmen &amp; Einkaufen
+            </a><a class="companies visible-m">Unternehmen</a>
+            </span>
+
         </div>
     </div>
+
     <div class="belowMap">
         blablablalaber blubb
     </div>
