@@ -145,6 +145,9 @@ header .header .navi a:hover,
 header .header .login a:hover {
   border-bottom: 1px solid #a1a1a1;
 }
+header .header .navi {
+  margin-left: 185px;
+}
 header .header .navi a {
   height: 24px;
 }
