@@ -107,7 +107,7 @@ ol {
   }
 }
 #map.detailsOpen {
-  margin-bottom: 20% !important;
+  bottom: 30% !important;
 }
 .aboveMap {
   z-index: 10;
