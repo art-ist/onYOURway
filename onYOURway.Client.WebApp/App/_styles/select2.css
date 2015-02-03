@@ -8,7 +8,7 @@ Version: 3.4.8 Timestamp: Thu May  1 09:50:32 EDT 2014
     /* inline-block for ie7 */
     zoom: 1;
     *display: inline;
-    vertical-align: middle;
+    vertical-align: bottom;
 }
 
 .select2-container,
@@ -495,6 +495,7 @@ html[dir="rtl"] .select2-container-multi .select2-choices li
     -webkit-box-shadow: none;
             box-shadow: none;
     background: transparent !important;
+    text-align: center;
 }
 
 .select2-container-multi .select2-choices .select2-search-field input.select2-active {

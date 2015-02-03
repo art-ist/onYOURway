@@ -48,6 +48,7 @@ define([
     });
 
     ko.components.register('searchBox', { require: 'components/searchBox-component' });
+    ko.components.register('tagSelection', { require: 'components/tagSelection-component' });
 
     window.onerror = function globalErrorHandler(msg, file, line) {
       logger.error(msg, file + ': ' + line);

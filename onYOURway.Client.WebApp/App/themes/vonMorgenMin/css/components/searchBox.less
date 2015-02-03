@@ -2,11 +2,31 @@
     min-height: 34px;
 }
 
-div.searchBox {
-  width: 30%;
-  height: 33px;
+div.searchBox, .searchBoxButton i {
+  line-height: 32px;
+  height: 32px;
   border-bottom: 2px solid black !important;
   overflow: hidden;
+  vertical-align: bottom;
+}
+
+.searchBoxButton i {
+  font-size: 18px;
+}
+
+.searchBoxButton {
+    display: inline-block;
+    color: #1a1a1a !important;
+    text-decoration: none;
+    width: 34px;
+    text-align: center;
+    vertical-align: bottom;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 div.searchBoxSuggestion {

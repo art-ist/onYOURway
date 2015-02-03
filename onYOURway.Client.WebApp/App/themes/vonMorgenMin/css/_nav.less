@@ -65,14 +65,14 @@ header {
     vertical-align: bottom;
     padding-top: 8px;
 
-    a.btn, .categories a {
+    a.btn {
       border-left: 1px solid #dedddd;
     }
     a.btn.pos {
       border-right: 1px solid #dedddd;
     }
 
-    a.btn, .searchBoxButton {
+    a.btn {
       display: inline-block;
       color: #1a1a1a !important;
       text-decoration: none;
@@ -87,57 +87,39 @@ header {
       user-select: none;
     }
 
-    a.btn i, .searchBoxButton i, .categories a {
+    a.btn i {
       line-height: 32px;
-      border-bottom: 2px solid transparent;
       height: 32px;
       vertical-align: bottom;
-    }
-
-    a.btn i, .searchBoxButton i {
       font-size: 18px;
-      border-bottom-color: #000000 !important;
+      border-bottom: 2px solid @black;
     }
 
-    .categories {
-      margin-right: -4px;
-      a {
-        text-align: center;
+    span.tagSelection {
+      @media (min-width: 620px) {
         display: inline-block;
       }
-      a.visible-m {
-        width: 13%;
-      }
-      a.hidden-sm {
-        width: 18%;
-      }
+      vertical-align: bottom;
+      height: 34px;
+      margin-right: -4px;
+      position: relative;
 
-      .initiatives {
-        border-bottom-color: #97bf0d !important;
+      .tags {
+        position: absolute;
+        z-index: 7;
+        width: 100%;
+        padding-right: 35px;
+        box-sizing: content-box;
+        background-color: @white;
+        border-left: 1px solid @grey;
+        border-right: 1px solid @grey;
+        border-bottom: 1px solid @grey;
+        display: none;
       }
-      .initiatives.active {
-        background-color: #97bf0d;
-        color: #ffffff !important;
-      }
-      .events {
-        border-bottom-color: #e56292 !important;
-      }
-      .events.active {
-        background-color: #e56292;
-        color: #ffffff !important;
-      }
-      .companies {
-        border-bottom-color: #009889 !important;
-      }
-      .companies.active {
-        background-color: #009889;
-        color: #ffffff !important;
-      }
-      a.initiatives.active:hover, a.events.active:hover,a.companies.active:hover {
-        text-shadow:0 -1px 0 #fff !important;
+      .tags.tagSelectionOpen {
+        display: block !important;
       }
     }
-
 
   }
 }

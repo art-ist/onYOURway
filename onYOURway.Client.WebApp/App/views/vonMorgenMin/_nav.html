@@ -34,15 +34,10 @@
 
             <span data-bind="component: 'searchBox'"><!-- searchBox --></span>
 
-            <span class="categories">
-                <a class="initiatives hidden-sm active">Initiativen &amp; Inspirationen
-                </a><a class="initiatives visible-m active">Initiativen
-                </a><a class="events hidden-sm">Events &amp; Begegnungen
-                </a><a class="events visible-m">Events
-                </a><a class="companies hidden-sm">Unternehmen &amp; Einkaufen
-                </a><a class="companies visible-m">Unternehmen</a>
-            </span>
-            <a class="btn" tabindex="-1" data-bind=""> <i class="fa fa-fw fa-bars"></i></a>
+            <span class="tagSelection" data-bind="component: 'tagSelection'"><!-- tagSelection --></span>
+
+            <a class="btn" tabindex="-1" data-bind="click: toggleTagSelection"> <i class="fa fa-fw fa-bars"></i></a>
+
         </form>
     </div>
 
