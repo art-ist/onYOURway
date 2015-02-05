@@ -5,6 +5,7 @@ namespace onYOURway.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Newtonsoft.Json;
 
     [Table("oyw.Location")]
     public partial class Location
@@ -59,6 +60,7 @@ namespace onYOURway.Models
         [Column(TypeName = "datetime2")]
         public DateTime? ModifiedAt { get; set; }
 
+        [JsonConverter(typeof(DbGeographyConverter))]
         public DbGeography Position { get; set; }
 
         [StringLength(50)]

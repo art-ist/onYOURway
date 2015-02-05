@@ -72,9 +72,9 @@ namespace onYOURway.Models {
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
 			//TODO: rewrite these unsing annotations where possible
 
-			modelBuilder.Entity<UserProfile>()
-				.HasOptional(e => e.ShoppingList)
-				.WithRequired(e => e.UserProfile);
+		    modelBuilder.Entity<UserProfile>();
+                //.HasOptional(e => e.ShoppingList)
+                //.WithRequired(e => e.UserProfile);
 
 			modelBuilder.Entity<Location>()
 				.Property(e => e.CreatedAt)
