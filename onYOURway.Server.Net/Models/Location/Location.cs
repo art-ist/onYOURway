@@ -47,5 +47,12 @@ namespace onYOURway.Models {
 
 		#endregion Geography
 
-	}
-}
+		#region navigation properties
+
+		public virtual IEnumerable<Event> Events { get; set; }
+
+		#endregion navigation properties
+
+
+	} //class Location
+} //ns

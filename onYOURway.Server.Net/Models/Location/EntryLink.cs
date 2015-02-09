@@ -6,8 +6,9 @@ namespace onYOURway.Models {
 	using System.Data.Entity.Spatial;
 
 	/// <summary>
-	/// 
+	/// Links to websites, phone numbers email addresses, ...
 	/// </summary>
+	/// <remarks>Do not replicate with systems enforcing this table to be published e.g. ODbL</remarks>
 	[Table("EntryLinks", Schema = "oyw")]
 	public partial class EntryLink {
 		public EntryLink() {
@@ -35,6 +36,14 @@ namespace onYOURway.Models {
 
 		[Required, MaxLength(1000)]
 		public String Url { get; set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <value>0 ... do not publish, ues for administrative purpose only</value>
+		/// <value>1 ... humans only, try to protect against grabbers, publish in details and via throttled API</value>
+		/// <value>2 ... include in bulk results in API, exports and publish to external systems</value>
+		public Int16 AccessLevel { get; set; }
 
 		#region navigation properties
 

@@ -15,14 +15,18 @@ namespace onYOURway.Models {
 			this.Children = new HashSet<BaseMapFeature>();
 		}
 
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.None), Index("IX_Type_Id", 1)]
 		public Int64 Id { get; set; }
 
 		public Int64 ParentId { get; set; }
 
+		/// <summary>
+		/// Feature type e.g.: Country, City, Province, Street
+		/// </summary>
+		[MinLength(10), Index("IX_Type_Id", 0), Index("IX_Type_IsoCode", 0)]
 		public String Type { get; set; }
 
-		[Index, NonUnicode, MinLength(2), MaxLength(4)]
+		[Index, NonUnicode, MinLength(2), MaxLength(4), Index("IX_Type_IsoCode", 1)]
 		public string IsoCode { get; set; }
 
 		/// <summary>
@@ -35,16 +39,16 @@ namespace onYOURway.Models {
 		/// 
 		/// </summary>
 		[JsonConverter(typeof(DbGeographyConverter))]
-		public DbGeography Point { get; set; }
+		public DbGeography Position { get; set; }
+
+		[JsonConverter(typeof(DbGeographyConverter))]
+		public DbGeography Boundary { get; set; }
 
 		/// <summary>
 		/// Bounding box of the 
 		/// </summary>
 		[JsonConverter(typeof(DbGeographyConverter))]
-		public DbGeography BBox { get; set; }
-
-		[JsonConverter(typeof(DbGeographyConverter))]
-		public DbGeography Boundary { get; set; }
+		public DbGeography BoundingBox { get; set; }
 
 		#region navigation properties
 
@@ -71,6 +75,12 @@ namespace onYOURway.Models {
 
 		[MaxLength(100)]
 		public string Name { get; set; }
+
+		#region navigation properties
+
+		public virtual BaseMapFeature Feature { get; set; }
+
+		#endregion navigation properties
 
 	} //class CountryLocalized
 

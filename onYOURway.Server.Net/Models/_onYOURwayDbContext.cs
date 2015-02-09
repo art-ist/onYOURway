@@ -8,7 +8,7 @@ namespace onYOURway.Models {
 
 	public partial class onYOURwayDbContext : DbContext {
 		public onYOURwayDbContext()
-			: base("name=onYOURway") {
+			: base() {
 		}
 
 		#region Functions
@@ -48,7 +48,7 @@ namespace onYOURway.Models {
 		#region App EntitiySets
 
 		public virtual DbSet<Message> Messages { get; set; }
-		public virtual DbSet<ExternalSystem> Partners { get; set; }
+		public virtual DbSet<ExternalSystem> ExternalSystems { get; set; }
 
 		#endregion App EntitiySets
 
@@ -56,28 +56,35 @@ namespace onYOURway.Models {
 
 		public virtual DbSet<Tag> Tags { get; set; }
 		public virtual DbSet<TagName> TagNames { get; set; }
-		public virtual DbSet<TagRelation> TagRelations { get; set; }		
-		public virtual DbSet<EntryTag> HasTags { get; set; }
+		public virtual DbSet<TagRelation> TagRelations { get; set; }
+		public virtual DbSet<EntryTag> EntryTags { get; set; }
 
 		#endregion Taxonomy EntitySets
 
 		#region Location EntitiySets
 
-		public virtual DbSet<Country> Countries { get; set; }
+		//public virtual DbSet<Country> Countries { get; set; }
+		//public virtual DbSet<Province> Provinces { get; set; }
+		//public virtual DbSet<City> Cities { get; set; }
 		//public virtual DbSet<Street> Streets { get; set; }
 
-		public virtual DbSet<Feature> Features { get; set; }
-
 		public virtual DbSet<Region> Regions { get; set; }
-		public virtual DbSet<Map> RegionViews { get; set; }
+		public virtual DbSet<Map> Maps { get; set; }
 		//public virtual DbSet<ProductSuggestion> ProductSuggestions { get; set; }
-		public virtual DbSet<RegionLocalized> RegionAliases { get; set; }
+		public virtual DbSet<RegionLocalized> RegionsLocalized { get; set; }
 
-		public virtual DbSet<Location> Locations { get; set; }
+
+		public virtual DbSet<Entry> Entries { get; set; }
 		public virtual DbSet<EntryLocalization> EntryLocalizations { get; set; }
 		public virtual DbSet<EntryLink> EntryLinks { get; set; }
-		public virtual DbSet<EntryReference> EntryReferences { get; set; }		
+		public virtual DbSet<EntryExternalId> EntryExternalIds { get; set; }
 
+		//Entry collections by type
+		public virtual DbSet<Location> Locations { get; set; }
+		public virtual DbSet<Event> Events { get; set; }
+
+
+		public virtual DbSet<BaseMapFeature> BaseMapFeatures { get; set; }
 
 		#endregion Location EntitiySets
 

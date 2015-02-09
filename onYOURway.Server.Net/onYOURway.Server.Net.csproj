@@ -215,7 +215,6 @@
     <Compile Include="Models\Account\AccountViewModels.cs" />
     <Compile Include="Models\Location\Entry.cs" />
     <Compile Include="Models\Location\Event.cs" />
-    <Compile Include="Models\Location\Feature.cs" />
     <Compile Include="Models\Location\Realm.cs" />
     <Compile Include="Models\Lookup\BaseMapFeature.cs" />
     <Compile Include="Models\Lookup\City.cs" />
@@ -229,12 +228,11 @@
     <Compile Include="Models\Location\EntryLink.cs" />
     <Compile Include="Models\Location\Tag.cs" />
     <Compile Include="Models\Location\TagName.cs" />
-    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\App\Message.cs" />
     <Compile Include="Models\Results\Place.cs" />
     <Compile Include="Models\Results\SearchSuggestion.cs" />
     <Compile Include="Models\_onYOURwayDbContext.cs" />
-    <Compile Include="Models\Location\ExternalSystem.cs" />
-    <Compile Include="Models\Location\ProductSuggestion.cs" />
+    <Compile Include="Models\App\ExternalSystem.cs" />
     <Compile Include="Models\Location\Region.cs" />
     <Compile Include="Models\Location\Map.cs" />
     <Compile Include="Models\Lookup\Street.cs" />

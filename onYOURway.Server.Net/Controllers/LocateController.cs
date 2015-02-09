@@ -480,48 +480,69 @@ namespace onYOURway.Controllers {
 			if (string.IsNullOrWhiteSpace(locale)) locale = GetLang();
 
 			var result = db.Context
-				.Countries
+				.BaseMapFeatures
 				.Include("Localizations")
-				.Select(c => new {
-					id =  c.CountryCode,
-					text = c.Localizations.FirstOrDefault(l => l.Locale == locale) != null
-						 ? c.Localizations.First(l => l.Locale == locale).Name
-						 : c.Name
+				.Where(f => f.Type == "Country")
+				.Select(f => new {
+					id =  f.IsoCode,
+					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
+						 ? f.Localizations.First(l => l.Locale == locale).Name
+						 : f.Name
 				});
 			return result;
 
 		}
 
 		[HttpGet, BreezeQueryable]
-		public dynamic Provinces(string Country) {
+		public dynamic Provinces(string CountryCode, string locale = null) {
+			if (string.IsNullOrWhiteSpace(locale)) locale = GetLang();
 
 			var result = db.Context
-				.Provinces
-				.Select(p => new {
-					id = p.ProvinceCode,
-					text = p.Name
+				.BaseMapFeatures
+				.Include("Localizations")
+				.Where(f => f.Type == "Province" && f.Parent.IsoCode == CountryCode)
+				.Select(f => new {
+					id = f.IsoCode,
+					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
+						 ? f.Localizations.First(l => l.Locale == locale).Name
+						 : f.Name
 				});
 			return result;
 
 		}
 
-		//[HttpGet, BreezeQueryable]
-		//public dynamic Cities(string locale = null) {
-
-		//	return result;
-
-		//}
-
 		[HttpGet, BreezeQueryable]
-		public dynamic Streets(string City) {
+		public dynamic Cities(string CountryCode, string ProvinceCode, string locale = null) {
+			if (string.IsNullOrWhiteSpace(locale)) locale = GetLang();
 
 			var result = db.Context
-				.Streets
-				//.Where(s => s.Way.)
-				//.Select(s => new {
-				//	text = s.Name
-				//})
-				;
+				.BaseMapFeatures
+				.Include("Localizations")
+				.Where(f => f.Type == "City" && f.Parent.Parent.IsoCode == CountryCode && f.Parent.IsoCode == ProvinceCode)
+				.Select(f => new {
+					id = f.Id,
+					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
+						 ? f.Localizations.First(l => l.Locale == locale).Name
+						 : f.Name
+				});
+			return result;
+
+		}
+
+		[HttpGet, BreezeQueryable]
+		public dynamic Streets(Int64 CityId, string locale = null) {
+			if (string.IsNullOrWhiteSpace(locale)) locale = GetLang();
+
+			var result = db.Context
+				.BaseMapFeatures
+				.Include("Localizations")
+				.Where(f => f.Type == "Street" && f.Parent.Id == CityId)
+				.Select(f => new {
+					id = f.Id,
+					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
+						 ? f.Localizations.First(l => l.Locale == locale).Name
+						 : f.Name
+				});
 			return result;
 
 		}
