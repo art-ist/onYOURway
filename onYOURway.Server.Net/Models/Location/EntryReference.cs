@@ -6,7 +6,7 @@ namespace onYOURway.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-	[Table("oyw.EntryReferences")]
+	[Table("EntryReferences", Schema = "oyw")]
     public partial class EntryReference
     {
         [Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]

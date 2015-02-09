@@ -6,7 +6,10 @@ namespace onYOURway.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("oyw.Entries")]
+	/// <summary>
+	/// An Entry is an item of interest. Currently this can be a Location or an Event.
+	/// </summary>
+	[Table("Entries", Schema = "oyw")]
     public partial class Entry
     {
         public Entry()
@@ -19,27 +22,46 @@ namespace onYOURway.Models
 
         public Int64 Id { get; set; }
 
-        [Required, StringLength(200)]
-        public String Name { get; set; }
 
         [Required]
         [NonUnicode, MinLength(2), MaxLength(5)]
         public String Locale { get; set; }
 
+		/// <summary>
+		/// Native Name of the Entry.
+		/// </summary>
+		/// <remarks>Use localizations to add translations.</remarks>
+		[Required, StringLength(200)]
+        public String Name { get; set; }
 
-        public DbGeography Position { get; set; }
+		/// <summary>
+		/// Native Description of the Entry.
+		/// </summary>
+		/// <remarks>Use localizations to add translations.</remarks>
+		public String Description { get; set; }
 
+
+		[MaxLength(100)]
+		public String CssClass { get; set; }		
 
         [MaxLength(100)]
-        public String IconClass { get; set; }
+        public String IconCssClass { get; set; }
+		
+		[MaxLength(100)]
+		public String IconUrl { get; set; }
 
+
+		/// <summary>
+		/// Opening hours of events and locations
+		/// </summary>
         [StringLength(1000), NonUnicode]
         public String OpeningHours { get; set; }
 
-        public String Description { get; set; }
 
-        [Required, StringLength(10), NonUnicode]
-        public String Type { get; set; }
+
+		//[MaxLength(100), NonUnicode]
+		//public String Phone { get; set; }
+
 
 
 		public Int64 CreatedBy { get; set; }
@@ -51,6 +73,7 @@ namespace onYOURway.Models
 
 		[Column(TypeName = "datetime2")]
 		public DateTime? ModifiedAt { get; set; }
+
 
 
 		#region navigation properties

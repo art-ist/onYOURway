@@ -473,19 +473,62 @@ namespace onYOURway.Controllers {
 
 		}
 
+		#region Lookups
+
 		[HttpGet, BreezeQueryable]
-		public dynamic Countries(string lang = null) {
-			if (string.IsNullOrEmpty(lang)) lang = GetLang();
+		public dynamic Countries(string locale = null) {
+			if (string.IsNullOrWhiteSpace(locale)) locale = GetLang();
 
 			var result = db.Context
 				.Countries
-				.OrderBy(c => c.LOCAL)
+				.Include("Localizations")
 				.Select(c => new {
-					id =  c.ISO2,
-					text = c.LOCAL
+					id =  c.CountryCode,
+					text = c.Localizations.FirstOrDefault(l => l.Locale == locale) != null
+						 ? c.Localizations.First(l => l.Locale == locale).Name
+						 : c.Name
 				});
 			return result;
+
 		}
+
+		[HttpGet, BreezeQueryable]
+		public dynamic Provinces(string Country) {
+
+			var result = db.Context
+				.Provinces
+				.Select(p => new {
+					id = p.ProvinceCode,
+					text = p.Name
+				});
+			return result;
+
+		}
+
+		//[HttpGet, BreezeQueryable]
+		//public dynamic Cities(string locale = null) {
+
+		//	return result;
+
+		//}
+
+		[HttpGet, BreezeQueryable]
+		public dynamic Streets(string City) {
+
+			var result = db.Context
+				.Streets
+				//.Where(s => s.Way.)
+				//.Select(s => new {
+				//	text = s.Name
+				//})
+				;
+			return result;
+
+		}
+
+		#endregion Lookups
+
+		#region CRUD
 
 		// ~api/locate/SaveChanges
 		[HttpPost]
@@ -493,7 +536,7 @@ namespace onYOURway.Controllers {
 			return db.SaveChanges(saveBundle);
 		}
 
-
+		#endregion CRUD
 
 	} //class
 

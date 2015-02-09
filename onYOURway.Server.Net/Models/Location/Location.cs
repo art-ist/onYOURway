@@ -1,35 +1,51 @@
-namespace onYOURway.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+namespace onYOURway.Models {
+	using Newtonsoft.Json;
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations.Schema;
+	using System.Data.Entity.Spatial;
 
-    public partial class Location : Entry
-    {
+	public partial class Location : Entry {
 
-        [StringLength(2), NonUnicode]
-        public string Country { get; set; }
+		#region Address
 
-        [StringLength(3), NonUnicode]
-        public string Province { get; set; }
+		[StringLength(2), NonUnicode]
+		public String CountryCode { get; set; }
+
+		[StringLength(3), NonUnicode]
+		public String ProvinceCode { get; set; }
 
 		//TODO: change to unicode (nvarchar)
-        [StringLength(50), NonUnicode]
-        public string City { get; set; }
+		[MaxLength(100)]
+		public String City { get; set; }
 
-        [StringLength(10), NonUnicode]
-        public string Zip { get; set; }
+		[MaxLength(10), NonUnicode]
+		public String Zip { get; set; }
 
-        [StringLength(200), ]
-        public string Street { get; set; }
+		[MaxLength(200)]
+		public String Street { get; set; }
 
-        [StringLength(20)]
-        public string HouseNumber { get; set; }
+		[MaxLength(20)]
+		public String HouseNumber { get; set; }
 
-		[StringLength(100), NonUnicode]
-        public string Phone { get; set; }
+		#endregion Address
 
-    }
+		#region Geography
+
+		/// <summary>
+		/// Point to show a pin on a map
+		/// </summary>
+		[Required, JsonConverter(typeof(DbGeographyConverter))]
+		public DbGeography Posiiton { get; set; }
+
+		/// <summary>
+		/// Optional boundary (if the location covers a larger area, e.g. a park.)
+		/// </summary>
+		[JsonConverter(typeof(DbGeographyConverter))]
+		public DbGeography Boundary { get; set; }
+
+		#endregion Geography
+
+	}
 }

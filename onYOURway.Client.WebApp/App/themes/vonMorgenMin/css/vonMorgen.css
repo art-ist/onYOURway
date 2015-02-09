@@ -1,4 +1,4 @@
-@import url('../../vonMorgen/fonts/source-sans-pro.css');
+﻿@import url('../../vonMorgen/fonts/source-sans-pro.css');
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -93,9 +93,6 @@ ol {
 #map.listOpen {
   top: 70px !important;
 }
-@media (max-height: 639px) {
-  
-}
 @media (max-height: 639px) and (min-height: 480px) {
   #map.listOpen {
     top: 120px !important;
@@ -144,6 +141,9 @@ header .header .login a {
 header .header .navi a:hover,
 header .header .login a:hover {
   border-bottom: 1px solid #a1a1a1;
+}
+header .header .navi {
+  margin-left: 185px;
 }
 header .header .navi a {
   height: 24px;
@@ -989,9 +989,6 @@ div#placesList ul {
   -webkit-column-rule: 1px solid transparent;
   padding: 6px 12px 0 12px;
 }
-@media (max-height: 639px) {
-  
-}
 @media (max-height: 639px) and (min-height: 480px) {
   div#placesList ul {
     height: 120px !important;
@@ -1088,9 +1085,6 @@ div#placesList ul li.selected {
   min-width: 74px;
   padding: 8px;
 }
-@media (min-width: 480px) {
-  
-}
 @media (min-width: 480px) and (max-width: 599px) {
   #placePreview .picture {
     position: absolute;
@@ -1180,9 +1174,6 @@ div#placesList ul li.selected {
   min-width: 20%;
   padding: 0 8px 8px 8px;
 }
-@media (min-width: 480px) {
-  
-}
 @media (min-width: 480px) and (max-width: 599px) {
   #placePreview .contactInfo {
     margin-top: 22%;
@@ -1212,9 +1203,9 @@ div#placesList ul li.selected {
 #placePreview .contactInfo div.actions a.btn i {
   line-height: 32px;
   /*border-bottom: 2px solid transparent;*/
-
   height: 32px;
   vertical-align: bottom;
   font-size: 18px;
   border-bottom-color: #000000 !important;
 }
+/*# sourceMappingURL=vonMorgen.css.map */

@@ -6,7 +6,7 @@ using System.Data.Entity.Spatial;
 
 namespace onYOURway.Models {
 
-	[Table("oyw.Tag")]
+	[Table("Tag", Schema = "oyw")]
 	public partial class Tag {
 		public Tag() {
 			this.Names = new HashSet<TagName>();

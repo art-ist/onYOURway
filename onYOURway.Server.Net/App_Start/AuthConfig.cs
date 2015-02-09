@@ -60,5 +60,5 @@ namespace onYOURway {
 		} //ConfigureAuth
 
 
-	} //class Startup
+	} //class Auth
 } //ns

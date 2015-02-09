@@ -6,7 +6,7 @@ using System.Data.Entity.Spatial;
 
 namespace onYOURway.Models {
 
-	[Table("oyw.Maps")]
+	[Table("Maps", Schema = "oyw")]
 	public partial class Map {
 		public Map() {
 			this.Visible = true;
@@ -23,7 +23,7 @@ namespace onYOURway.Models {
 		
 		public Boolean Visible { get; set; }
 
-		public Int16 Position { get; set; }
+		public Int16 Sort { get; set; }
 
 		[Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public Int64 RegionId { get; set; }

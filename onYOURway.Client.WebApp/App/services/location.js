@@ -9,6 +9,7 @@ define([
 	'plugins/router',
 
 	'services/api/apiClient',
+    'services/api/places',
 	'services/api/placeSearch',
 	'services/api/searchSuggestions',
 	'services/api/placeComparators',
@@ -21,7 +22,7 @@ define([
     'services/map/routingLayer',
     'services/map/siteCollectorLayer',
     'services/map/tileLayer'
-], function (tell, router, apiClient, placeSearch, searchSuggestions, placeComparators, map, settings,
+], function (tell, router, apiClient, places, placeSearch, searchSuggestions, placeComparators, map, settings,
 			 placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
 
 	var location = {
@@ -58,8 +59,8 @@ define([
 		loadRegionFeatures: loadRegionFeatures, // used by svc mapAdapter and view siteCollector
 		removePointerAndDrawMarkers: removePointerAndDrawMarkers, // used in bindingHandler ventures
 
-		search: placesLayer.search, //used by component searchBox, svc app, views _nav.js, vonMorgen/nav.js, about/explorer.js
-		showByTagName: placesLayer.showByTagName, //used by svc discover, views siteCollector, home
+		search: placeSearch.search, //used by component searchBox, svc app, views _nav.js, vonMorgen/nav.js, about/explorer.js
+		showByTagName: placeSearch.showByTagName, //used by svc discover, views siteCollector, home
 		itemClick: placesLayer.itemClick, // used in svc placesLayer, views _map.html, vonMorgen/_map.js, vonMorgen/_map.html
 
 		locate: routingLayer.locate, //used in view _searchoptions.html
@@ -107,19 +108,20 @@ define([
 		regionLayer.loadRegions();
 		loadRegionFeatures();
 		placeSearch.initialize(location)
-	}
+		placesLayer.initialize(location);
+    }
 
 	function loadRegionFeatures() {
-		placesLayer.loadPlaces(location);
+	    places.loadPlaces(location);
 
 		require(['services/app'], function (app) {
 			searchSuggestions.loadSearchSuggestions(app.lang, location.region);
 		});
 	}
 
-	function removePointerAndDrawMarkers() {
+	function removePointerAndDrawMarkers(markersToDraw) {
 		pointerLayer.removePointer();
-		placesLayer.drawMarkers();
+		placesLayer.drawMarkers(markersToDraw);
 	}
 
 	function toggleMap(mode) {

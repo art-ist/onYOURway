@@ -19,8 +19,9 @@ using onYOURway.Providers;
 using onYOURway.Models;
 
 namespace onYOURway.Controllers {
-  [EnableCors("*", "*", "*")]
+
   [Authorize]
+  [EnableCors("*", "*", "*")]
   [RoutePrefix("api/Account")]
   public class AccountController : ApiController {
 

@@ -217,7 +217,10 @@
     <Compile Include="Models\Location\Event.cs" />
     <Compile Include="Models\Location\Feature.cs" />
     <Compile Include="Models\Location\Realm.cs" />
-    <Compile Include="Models\Location\Country.cs" />
+    <Compile Include="Models\Lookup\BaseMapFeature.cs" />
+    <Compile Include="Models\Lookup\City.cs" />
+    <Compile Include="Models\Lookup\Province.cs" />
+    <Compile Include="Models\Lookup\Country.cs" />
     <Compile Include="Models\DbGeographyConverter.cs" />
     <Compile Include="Models\Location\EntryTag.cs" />
     <Compile Include="Models\Location\Location.cs" />
@@ -233,8 +236,8 @@
     <Compile Include="Models\Location\ExternalSystem.cs" />
     <Compile Include="Models\Location\ProductSuggestion.cs" />
     <Compile Include="Models\Location\Region.cs" />
-    <Compile Include="Models\Location\RegionView.cs" />
-    <Compile Include="Models\Location\Street.cs" />
+    <Compile Include="Models\Location\Map.cs" />
+    <Compile Include="Models\Lookup\Street.cs" />
     <Compile Include="Models\Location\TagRelation.cs" />
     <Compile Include="Models\Account\UserProfile.cs" />
     <Compile Include="Models\_CustomConventions.cs" />

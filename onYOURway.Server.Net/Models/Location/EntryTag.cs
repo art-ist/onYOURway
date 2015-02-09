@@ -6,7 +6,7 @@ using System.Data.Entity.Spatial;
 
 namespace onYOURway.Models {
 
-	[Table("oyw.EntryTags")]
+	[Table("EntryTags", Schema = "oyw")]
 	public partial class EntryTag {
 		[Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public Int64 EntryId { get; set; }

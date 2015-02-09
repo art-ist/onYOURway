@@ -6,7 +6,7 @@
 //	using System.ComponentModel.DataAnnotations.Schema;
 //	using System.Data.Entity.Spatial;
 
-//	[Table("oyw.ProductSuggestion")]
+//	[Table("ProductSuggestion", Schema = "oyw")]
 //	public partial class ProductSuggestion
 //	{
 //		public long? LocationId { get; set; }

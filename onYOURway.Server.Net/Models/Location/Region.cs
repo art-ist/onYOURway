@@ -1,46 +1,46 @@
-namespace onYOURway.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+namespace onYOURway.Models {
+	using Newtonsoft.Json;
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations.Schema;
+	using System.Data.Entity.Spatial;
 
-    [Table("oyw.Region")]
-    public partial class Region {
-        public Region()
-        {
-            Aliases = new HashSet<RegionLocalized>();
-            Views = new HashSet<Map>();
-        }
+	[Table("oyw.Region")]
+	public partial class Region {
+		public Region() {
+			Localizations = new HashSet<RegionLocalized>();
+			Maps = new HashSet<Map>();
+		}
 
-        public long Id { get; set; }
+		public long Id { get; set; }
 
-        [Required]
-        [StringLength(200)]
-        public string Name { get; set; }
+		[Required]
+		[StringLength(200)]
+		public string Name { get; set; }
 
-        [StringLength(1000)]
-        public string Website { get; set; }
+		[StringLength(1000)]
+		public string Website { get; set; }
 
-        public long? OsmRelationId { get; set; }
+		public long? OsmRelationId { get; set; }
 
-        public int CreatedBy { get; set; }
+		public int CreatedBy { get; set; }
 
-        [Column(TypeName = "datetime2")]
-        public DateTime CreatedAt { get; set; }
+		[Column(TypeName = "datetime2")]
+		public DateTime CreatedAt { get; set; }
 
-        public int? ModifiedBy { get; set; }
+		public int? ModifiedBy { get; set; }
 
-        [Column(TypeName = "datetime2")]
-        public DateTime? ModifiedAt { get; set; }
+		[Column(TypeName = "datetime2")]
+		public DateTime? ModifiedAt { get; set; }
 
-        public DbGeography Boundary { get; set; }
+		[JsonConverter(typeof(DbGeographyConverter))]
+		public DbGeography Boundary { get; set; }
 
-        public virtual ICollection<RegionLocalized> Aliases { get; set; }
+		public virtual ICollection<RegionLocalized> Localizations { get; set; }
 
-        public virtual ICollection<Map> Views { get; set; }
-    }
+		public virtual ICollection<Map> Maps { get; set; }
+	}
 
 	[Table("oyw.RegionsLocalized")]
 	public partial class RegionLocalized {

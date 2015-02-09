@@ -1,34 +1,47 @@
-namespace onYOURway.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+namespace onYOURway.Models {
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations.Schema;
+	using System.Data.Entity.Spatial;
 
-	[Table("oyw.EntryLinks")]
-	public partial class EntryLink
-    {
-        [Key]
-        [Column(Order = 0)]
-        public long Id { get; set; }
+	/// <summary>
+	/// 
+	/// </summary>
+	[Table("EntryLinks", Schema = "oyw")]
+	public partial class EntryLink {
+		public EntryLink() {
+			this.Type = "Url";
+		}
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long EntryId { get; set; }
+		[Key, Column(Order = 0)]
+		public Int64 Id { get; set; }
 
-        [StringLength(2)]
-        public string Lang { get; set; }
+		[Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None)]
+		public Int64 EntryId { get; set; }
 
-        [Required]
-        [StringLength(30)]
-        public string Tag { get; set; }
+		[NonUnicode, MinLength(2), MaxLength(5)]
+		public String Locale { get; set; }
 
-        [Required]
-        [StringLength(1000)]
-        public string URL { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <example>Url,Phone,Email</example>
+		[Required, MaxLength(5)]
+		public String Type { get; set; }
 
-        public virtual Entry Location { get; set; }
-    }
-}
+		[Required, MaxLength(30)]
+		public String Title { get; set; }
+
+		[Required, MaxLength(1000)]
+		public String Url { get; set; }
+
+		#region navigation properties
+
+		[ForeignKey("EntryId")]
+		public virtual Entry Entry { get; set; }
+
+		#endregion navigation properties
+
+	} //class EntryLink
+} //ns

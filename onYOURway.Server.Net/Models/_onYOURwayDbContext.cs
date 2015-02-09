@@ -58,7 +58,7 @@ namespace onYOURway.Models {
 		public virtual DbSet<TagName> TagNames { get; set; }
 		public virtual DbSet<TagRelation> TagRelations { get; set; }		
 		public virtual DbSet<EntryTag> HasTags { get; set; }
-		
+
 		#endregion Taxonomy EntitySets
 
 		#region Location EntitiySets
@@ -67,7 +67,7 @@ namespace onYOURway.Models {
 		//public virtual DbSet<Street> Streets { get; set; }
 
 		public virtual DbSet<Feature> Features { get; set; }
-		
+
 		public virtual DbSet<Region> Regions { get; set; }
 		public virtual DbSet<Map> RegionViews { get; set; }
 		//public virtual DbSet<ProductSuggestion> ProductSuggestions { get; set; }
@@ -77,7 +77,7 @@ namespace onYOURway.Models {
 		public virtual DbSet<EntryLocalization> EntryLocalizations { get; set; }
 		public virtual DbSet<EntryLink> EntryLinks { get; set; }
 		public virtual DbSet<EntryReference> EntryReferences { get; set; }		
-		
+
 
 		#endregion Location EntitiySets
 
@@ -94,7 +94,7 @@ namespace onYOURway.Models {
 		/// </summary>
 		/// <param name="modelBuilder"></param>
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
-			
+
 		}
 	}
 }

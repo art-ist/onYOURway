@@ -15,7 +15,7 @@ namespace onYOURway.Models {
 		[Key, Column(Order=2), DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public Int32? ToTagId { get; set; }
 
-		public Int16? Position { get; set; }
+		public Int16? Sort { get; set; }
 
 		#region navigation properties
 

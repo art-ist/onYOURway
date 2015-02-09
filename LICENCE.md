@@ -1,11 +1,11 @@
 ﻿# Introduction
 
-The license, we'll set the onYOURway mapping plattform is not yet decided.
+The license, we'll set MindForest is not yet decided.
 But you can join the discussion [here](https://github.com/art-ist/onYOURway/issues/9).
 
 The basic idea is: 
-_if you are not using the plattform to gain commercial profit, if you promote the common good and personal freedom, you should be able to use the onYOURway Mapping Plattform freely and without cost. 
-If you are instead gaining profit, personally or for your company, you should give something back to the community. This can be by contributing your enhancements, spreading the word, or of course by sharing some of the profit you make with those who invested their time, passion and knowledge to make it all possible and supporting the further development and enhancement of this plattform_.
+_if you are not using the tool to gain commercial profit, if you promote the common good, free and open science or personal freedom, you should be able to use MindForest freely and without cost. 
+If you are instead gaining profit, personally or for your company, you should give something back to the community. This can be by contributing your enhancements, spreading the word, or of course by sharing some of the profit you make with those who invested their time, passion and knowledge to make it all possible and supporting the further development and enhancement of this tool_.
 
 
 ## Why not just CC or an OSI-Open Source License?

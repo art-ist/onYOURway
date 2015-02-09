@@ -84,7 +84,15 @@ define([
             };
 
             this.toggleCategory = function(cat) {
-                settings.showTagSelection(!settings.showTagSelection());
+                if (params && (params.toggleTagSelectionOpen === false) ) {
+
+
+
+                } else {
+
+                    settings.showTagSelection(!settings.showTagSelection());
+
+                }
             };
 
         };
