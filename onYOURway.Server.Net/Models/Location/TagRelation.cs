@@ -6,7 +6,7 @@ using System.Data.Entity.Spatial;
 
 namespace onYOURway.Models {
 
-	[Table("oyw.TagRelations")]
+	[Table("TagRelations", Schema = "oyw")]
 	public partial class TagRelation {
 
 		[Key, Column(Order=0), DatabaseGenerated(DatabaseGeneratedOption.None)]		

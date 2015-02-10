@@ -6,7 +6,7 @@ namespace onYOURway.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("my.UserProfile")]
+    [Table("UserProfile", Schema="My")]
     public partial class UserProfile
     {
         [Key]

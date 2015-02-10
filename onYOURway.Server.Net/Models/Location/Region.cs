@@ -6,7 +6,7 @@ namespace onYOURway.Models {
 	using System.ComponentModel.DataAnnotations.Schema;
 	using System.Data.Entity.Spatial;
 
-	[Table("oyw.Region")]
+	[Table("Region", Schema = "oyw")]
 	public partial class Region {
 		public Region() {
 			Localizations = new HashSet<RegionLocalized>();

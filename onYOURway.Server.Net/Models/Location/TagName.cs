@@ -6,7 +6,7 @@ using System.Data.Entity.Spatial;
 
 namespace onYOURway.Models {
 
-	[Table("oyw.TagName")]
+	[Table("TagName", Schema = "oyw")]
 	public partial class TagName {
 
 		[Key, Column(Order = 0)]

@@ -10,6 +10,9 @@ namespace onYOURway.Models
     public partial class EntryLocalization
     {
 
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public Int64 Id { get; set; }
+
         public Int64 EntryId { get; set; }
 
 		[Required, NonUnicode, MinLength(2), MaxLength(5)]

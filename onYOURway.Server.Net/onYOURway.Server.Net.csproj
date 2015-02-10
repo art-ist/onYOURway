@@ -211,15 +211,12 @@
     <Compile Include="JP.aspx.designer.cs">
       <DependentUpon>JP.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Account\AccountBindingModels.cs" />
-    <Compile Include="Models\Account\AccountViewModels.cs" />
+    <Compile Include="Models\_Auth\AccountBindingModels.cs" />
+    <Compile Include="Models\_Auth\AccountViewModels.cs" />
     <Compile Include="Models\Location\Entry.cs" />
     <Compile Include="Models\Location\Event.cs" />
     <Compile Include="Models\Location\Realm.cs" />
     <Compile Include="Models\Lookup\BaseMapFeature.cs" />
-    <Compile Include="Models\Lookup\City.cs" />
-    <Compile Include="Models\Lookup\Province.cs" />
-    <Compile Include="Models\Lookup\Country.cs" />
     <Compile Include="Models\DbGeographyConverter.cs" />
     <Compile Include="Models\Location\EntryTag.cs" />
     <Compile Include="Models\Location\Location.cs" />
@@ -229,28 +226,24 @@
     <Compile Include="Models\Location\Tag.cs" />
     <Compile Include="Models\Location\TagName.cs" />
     <Compile Include="Models\App\Message.cs" />
-    <Compile Include="Models\Results\Place.cs" />
-    <Compile Include="Models\Results\SearchSuggestion.cs" />
+    <Compile Include="Models\_Results\Place.cs" />
+    <Compile Include="Models\_Results\SearchSuggestion.cs" />
     <Compile Include="Models\_onYOURwayDbContext.cs" />
     <Compile Include="Models\App\ExternalSystem.cs" />
     <Compile Include="Models\Location\Region.cs" />
     <Compile Include="Models\Location\Map.cs" />
-    <Compile Include="Models\Lookup\Street.cs" />
     <Compile Include="Models\Location\TagRelation.cs" />
-    <Compile Include="Models\Account\UserProfile.cs" />
-    <Compile Include="Models\_CustomConventions.cs" />
+    <Compile Include="Models\My\UserProfile.cs" />
+    <Compile Include="Models\CustomConventions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
-    <Compile Include="Models\Account\ChallengeResult.cs" />
+    <Compile Include="Models\_Auth\ChallengeResult.cs" />
     <Compile Include="App_Start\_Startup.cs" />
     <Content Include="App_Data\onYOURway.XML" />
     <Content Include="App_Data\oyw.Messages.sql" />
     <Content Include="JP.aspx" />
     <Content Include="WebConfig.base.config" />
-    <Content Include="Models\__onYOURway DataModel.cd" />
-    <None Include="Web.vonMorgen.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <Content Include="Models\_onYOURway DataModel.cd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

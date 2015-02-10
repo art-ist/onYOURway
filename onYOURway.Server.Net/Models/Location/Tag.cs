@@ -10,6 +10,8 @@ namespace onYOURway.Models {
 	public partial class Tag {
 		public Tag() {
 			this.Names = new HashSet<TagName>();
+			this.Parents = new HashSet<TagRelation>();
+			this.Children = new HashSet<TagRelation>();
 		}
 
 		[Key]
@@ -37,6 +39,12 @@ namespace onYOURway.Models {
 
 		[InverseProperty("Tag")]
 		public virtual IEnumerable<TagName> Names { get; set; }
+
+		[InverseProperty("ToTagId")]
+		public virtual IEnumerable<TagRelation> Parents { get; set; }
+
+		[InverseProperty("FromTagId")]
+		public virtual IEnumerable<TagRelation> Children { get; set; }
 
 		#endregion navigation properties
 

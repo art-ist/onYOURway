@@ -5,11 +5,28 @@ namespace onYOURway.Models {
 	using System.Linq;
 	using System.Data.Entity.Core.Objects;
 	using System.Data.Entity.Infrastructure;
+	using System.Data.Entity.ModelConfiguration.Conventions;
 
 	public partial class onYOURwayDbContext : DbContext {
 		public onYOURwayDbContext()
-			: base() {
+			: base("DefaultConnection") {
 		}
+
+		#region customize DB creation
+
+		/// <summary>
+		/// Add additional Db schema definitions, that can't be done through code annotations, using Fliud Api
+		/// </summary>
+		/// <param name="modelBuilder"></param>
+		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+
+			////disable automatic cascade on delete for foreign key creation
+			//modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+			//modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+		}
+
+		#endregion customize DB creation
 
 		#region Functions
 
@@ -63,11 +80,8 @@ namespace onYOURway.Models {
 
 		#region Location EntitiySets
 
-		//public virtual DbSet<Country> Countries { get; set; }
-		//public virtual DbSet<Province> Provinces { get; set; }
-		//public virtual DbSet<City> Cities { get; set; }
-		//public virtual DbSet<Street> Streets { get; set; }
 
+		public virtual DbSet<Realm> Realms { get; set; }
 		public virtual DbSet<Region> Regions { get; set; }
 		public virtual DbSet<Map> Maps { get; set; }
 		//public virtual DbSet<ProductSuggestion> ProductSuggestions { get; set; }
@@ -84,6 +98,10 @@ namespace onYOURway.Models {
 		public virtual DbSet<Event> Events { get; set; }
 
 
+		//public virtual DbSet<Country> Countries { get; set; }
+		//public virtual DbSet<Province> Provinces { get; set; }
+		//public virtual DbSet<City> Cities { get; set; }
+		//public virtual DbSet<Street> Streets { get; set; }		
 		public virtual DbSet<BaseMapFeature> BaseMapFeatures { get; set; }
 
 		#endregion Location EntitiySets
@@ -96,12 +114,5 @@ namespace onYOURway.Models {
 
 		#endregion EntitySets
 
-		/// <summary>
-		/// Add additional Db schema definitions, that can't be done through code annotations, using Fliud Api
-		/// </summary>
-		/// <param name="modelBuilder"></param>
-		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
-
-		}
 	}
 }

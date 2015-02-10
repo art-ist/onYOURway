@@ -32,7 +32,7 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// Native Name
 		/// </summary>
-		[Key, Column(Order = 2), MaxLength(100)]
+		[MaxLength(100)]
 		public string Name { get; set; }
 
 		/// <summary>
