@@ -8,7 +8,7 @@ define([
     var self = {
         regions: ko.observableArray(),
         views: ko.observable(),
-        selectedRegion: ko.observable(),
+        selectedRegion: ko.observable(settings.defaultRegion()),
 
         loadRegions: loadRegions,
         setView: setView

@@ -1,11 +1,12 @@
 define([
         'plugins/router',
-        'services/logger',
+        'services/tell',
+        'services/api/apiClient',
         'services/api/placeSearch',
         'services/map/settings',
         'text!components/tagSelection-component.html'
     ],
-    function (router, logger, placeSearch, settings, template) {
+    function (router, tell, apiClient, placeSearch, settings, template) {
 
         var categories = [
             {
@@ -68,22 +69,28 @@ define([
             var self = this;
 
             // public interface
-            this.showTagSelection = settings.showTagSelection;
-            this.categories = categories;
+            self.showTagSelection = settings.showTagSelection;
+            self.categories = categories;
+            self.taxonomy = ko.observable();
+            getTaxonomy();
 
-            this.getCategoryCss = function (category) {
+            self.getCategoryCss = function (category) {
                 var result = {
                     active: category.active
                 };
-                result[category.key] = true;
+                result[category.CssClass] = true;
                 return result;
             }
 
-            this.toggleTag = function(tag) {
-                tag.active(!tag.active())
+            self.toggleTag = function(tag) {
+                tag.active(!tag.active());
+                if (tag.active()) {
+                    //TODO: use a second hidden 'filter by tag' array variable inside the placeSearch instead of replacing the search term!!
+                    placeSearch.searchTerm(tag.name.length ? tag.name[0].Name : tag.name.Name)
+                }
             };
 
-            this.toggleCategory = function(cat) {
+            self.toggleCategory = function(cat) {
                 if (params && (params.toggleTagSelectionOpen === false) ) {
 
 
@@ -94,6 +101,38 @@ define([
 
                 }
             };
+
+
+            function getTaxonomy() {
+                apiClient.getTaxonomy(settings.defaultRegion() /*, app.lang()*/)
+                    .then(function (d) {
+                        tell.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
+                        var categories = d.results[0].tags.tag;
+
+                        //TODO: move this code onto the server or the apiClient!
+                        $.each(categories, function(key, val) {
+                            val.CssClass = val.Id == 266 ? 'initiatives' : val.Id == 267 ? 'events' : 'companies';
+                            var longName = val.name.length ? val.name[0].Name : val.name.Name;
+                            val.shortName = longName.substr(0, longName.indexOf(' '));
+                            if (val.tag) {
+                                $.each(val.tag, function(k,v) {
+                                    v.active = ko.observable(v.Id == 270);
+                                });
+                                val.active = ko.computed(function () {
+                                        for (var i in val.tag)
+                                            if (val.tag[i].active())
+                                                return true;
+                                        return false;
+                                    }
+                                );
+                            } else {
+                                val.active = ko.observable(false);
+                            }
+                        });
+
+                        self.taxonomy(categories);
+                    })
+            }
 
         };
 

@@ -18,8 +18,8 @@ define([
         // breeze database context
 		self.manager = apiClient.locateContext;
 
-        // list of regions - these regions can be selected in the region drop down
-		self.region = ko.observable(3);
+        // currently selected region in the region dropDown
+		self.region = regionLayer.selectedRegion;
 
 	    // all tags that can be selected in the tagSelectionModal
 		self.taxonomy = ko.observableArray([]);
