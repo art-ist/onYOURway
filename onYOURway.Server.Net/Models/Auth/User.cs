@@ -12,7 +12,7 @@ namespace onYOURway.Models {
 	// You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
 
 	[Table("Users", Schema="App")]
-	public partial class User : IdentityUser/*, IInterceptable*/ {
+	public partial class User : IdentityUser /*, IInterceptable*/ {
 		public User()
 			: base() {
 			//this.Roles = new HashSet<IdentityUserRole>();

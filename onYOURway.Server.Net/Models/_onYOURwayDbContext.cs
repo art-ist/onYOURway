@@ -108,7 +108,7 @@ namespace onYOURway.Models {
 
 		#region Profile & Security EntitiySets
 
-		public virtual DbSet<UserProfile> UserProfiles { get; set; }
+		//public virtual DbSet<Users> Users { get; set; }
 
 		#endregion Profile & Security EntitiySets
 

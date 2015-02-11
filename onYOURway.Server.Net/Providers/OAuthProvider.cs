@@ -25,9 +25,9 @@ namespace onYOURway.Providers {
 		}
 
 		public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context) {
-			var userManager = context.OwinContext.GetUserManager<me2b.Core.AppUserManager>();
+			var userManager = context.OwinContext.GetUserManager<AppUserManager>();
 
-			me2b.Core.User user = await userManager.FindAsync(context.UserName, context.Password);
+			User user = await userManager.FindAsync(context.UserName, context.Password);
 			if (user == null) {
 				context.SetError("invalid_grant", "The user name or password is incorrect.");
 				return;
@@ -72,7 +72,7 @@ namespace onYOURway.Providers {
 			return Task.FromResult<object>(null);
 		}
 
-		public static AuthenticationProperties CreateProperties(me2b.Core.User user) {
+		public static AuthenticationProperties CreateProperties(User user) {
 			IDictionary<string, string> data = new Dictionary<string, string> {
 				{ "userName", user.UserName }
       };

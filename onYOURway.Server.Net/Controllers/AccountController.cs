@@ -214,8 +214,9 @@ namespace onYOURway.Controllers {
         return new ChallengeResult(provider, this);
       }
 
-      IdentityUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
-          externalLogin.ProviderKey));
+      User user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+          externalLogin.ProviderKey))
+		  as User;
 
       bool hasRegistered = user != null;
 
@@ -225,7 +226,7 @@ namespace onYOURway.Controllers {
             OAuthDefaults.AuthenticationType);
         ClaimsIdentity cookieIdentity = await UserManager.CreateIdentityAsync(user,
             CookieAuthenticationDefaults.AuthenticationType);
-        AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+        AuthenticationProperties properties = OAuthProvider.CreateProperties(user);
         Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
       }
       else {
