@@ -60,11 +60,7 @@ namespace onYOURway.Models {
 		public byte[] Image { get; set; }
 
 
-		//[MaxLength(100), NonUnicode]
-		//public String Phone { get; set; }
-
-
-		public Int32 CreatedByRealmId { get; set; }
+		public String RealmKey { get; set; }
 
 		public Int64 CreatedBy { get; set; }
 
@@ -95,6 +91,9 @@ namespace onYOURway.Models {
 		public virtual ICollection<EntryLocalization> Localizations { get; set; }
 
 		public virtual ICollection<EntryLink> Links { get; set; }
+
+		[ForeignKey("RealmKey")]
+		public virtual Realm Realm { get; set; }
 
 		#endregion navigation properties
 

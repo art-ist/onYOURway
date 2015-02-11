@@ -1,11 +1,11 @@
 define([
   'plugins/router',
-  'services/logger',
+  'services/tell',
   'services/api/placeSearch',
   'services/api/searchSuggestions',
   'text!components/searchBox-component.html'
 ],
-function (router, logger, placeSearch, searchSuggestions, template) {
+function (router, tell, placeSearch, searchSuggestions, template) {
 
     function SearchBoxViewModel(params) {
         // private members

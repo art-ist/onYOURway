@@ -1,9 +1,9 @@
 ﻿define([
   'services/app',
   'services/location',
-  'services/logger',
+  'services/tell',
   'services/platform'
-], function (app, location, logger, platform) {
+], function (app, location, tell, platform) {
 
   var vm = function () {
     var self = this;
@@ -13,12 +13,12 @@
     //#region lifecycle events
 
     //self.activate = function () {
-    //  logger.log('[Map] View activated', self.title);
+    //  tell.log('[Map] View activated', self.title);
     //  return true;
     //};
 
     //self.attached = function () {
-    //  logger.log('View attached', 'Map', $('#map'));
+    //  tell.log('View attached', 'Map', $('#map'));
     //  //if (!location.map) {
     //  //  self.location.initializeMap('map');
     //  //}

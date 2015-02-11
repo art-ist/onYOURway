@@ -28,14 +28,13 @@ define([
   'durandal/app',
   'durandal/viewLocator',
   'plugins/router',
-  'services/logger',
   'services/tell'
-], function (system, durandal, viewLocator, router, logger, tell) {
+], function (system, durandal, viewLocator, router, tell) {
 
     window.onerror = function globalErrorHandler(msg, file, line) {
-        logger.error(msg, file + ': ' + line);
+        tell.error(msg, file + ': ' + line);
     }
-    logger.traceLevel = 2;
+    tell.traceLevel = 2;
     tell.traceLevel = 7;
 
     registerBootstrapReplacements();

@@ -9,8 +9,8 @@ define([
   'plugins/router',
   'durandal/app',
   'services/app',
-  'services/logger'
-], function (router, durandal, app, logger) {
+  'services/tell'
+], function (router, durandal, app, tell) {
   var shell = {
     router: router,
     app: app,
@@ -63,7 +63,7 @@ define([
       }
     }
     router.map(routes);
-    logger.log('routes set', '_shell', routes);
+    tell.log('routes set', '_shell', routes);
     return router
       //.buildNavigationModel()
       .mapUnknownRoutes('home', 'UNBEKANNT') //TODO: 'not found' -> create error message
@@ -72,7 +72,7 @@ define([
   }
 
   //function onBind() {
-  //  //logger.log('map initialized', 'shell', $('#map').html())
+  //  //tell.log('map initialized', 'shell', $('#map').html())
   //}
 
   //#endregion Internal Methods

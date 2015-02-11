@@ -67,7 +67,7 @@ define([
     }
 
     function search(what) {
-        //logger.info('search: ' + what, 'location');
+        //tell.info('search: ' + what, 'location');
         self.searchTerm(what);
         if (location) try {
             var toShow;

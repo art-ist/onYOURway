@@ -12,8 +12,8 @@ namespace onYOURway.Models {
 	[Table("ExternalSystems", Schema = "oyw")]
 	public partial class ExternalSystem {
 
-		[StringLength(100)]
-		public String Id { get; set; }
+		[Key, StringLength(20)]
+		public String Key { get; set; }
 
 		[Required, MaxLength(200)]
 		public String Name { get; set; }

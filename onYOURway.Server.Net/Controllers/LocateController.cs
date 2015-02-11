@@ -32,8 +32,7 @@ namespace onYOURway.Controllers {
 		/// Returns object metadata based on the DB schema required by the Breeze client
 		/// </summary>
 		/// <returns>Metadata</returns>
-		[HttpOptions]
-		[AcceptVerbs("GET", "OPTIONS")] //[HttpGet]
+		[HttpOptions, AcceptVerbs("GET", "OPTIONS")] //[HttpGet]
 		public string Metadata() {
 			return db.Metadata();
 		}
@@ -90,19 +89,28 @@ namespace onYOURway.Controllers {
 			return result;
 		}
 
-
-		//[HttpGet]   // api/locate/Regions
 		/// <summary>
-		/// Get all regions that are onYOURway.
+		/// A realm (e.g. the the onYOURway-Project, 'Karte von morgen', the Green Map System or the TransforMap project) uses different capabilities of the onYOURway-mapping paltform, may have its own taxonomy and covers locations in different regions. The combination of realm, region and creator define how an entry can be administered.
+		/// </summary>
+		/// <returns>Queryable Array of Realm</returns>
+		[HttpGet]
+		public IQueryable<Realm> Realms() {
+			var result = db.Context.Realms
+				.Include("Localizations")
+			  ;
+			return result;
+		}
+
+		/// <summary>
+		/// Geographical region (country, city) and administrative domain usually maintained by one realm. E.g. "Bayreuth von morgen"
 		/// </summary>
 		/// <returns>Queryable Array of Region</returns>
-		[HttpOptions]
-		[AcceptVerbs("GET", "OPTIONS")]
+		[HttpGet]   // api/locate/Regions
 		public IQueryable<Region> Regions() {
 			var result = db.Context.Regions
-			  .Include("Views")
-			  .Include("Aliases")
-			  .OrderBy(r => r.Id)
+				.Include("Maps")
+				.Include("Localizations")
+				.OrderBy(r => r.Id)
 			  ;
 			return result;
 		}
@@ -313,48 +321,48 @@ namespace onYOURway.Controllers {
 		/// <returns></returns>
 		[HttpGet]
 		public dynamic SearchSuggestions(int regionId, string lang = null) {
-            if (string.IsNullOrEmpty(lang)) lang = GetLang();
+			if (string.IsNullOrEmpty(lang)) lang = GetLang();
 
-            var query =
-                (from l in db.Context.Locations 
-                 select new {
-                    Class = "location",
-                    Name = l.Name,
-                    Id = l.Id,
-                    Subtitle = l.Street + " " + l.HouseNumber + " " + l.City,
-                    ThumbnailUrl = "http://onyourway.at/Content/images/ventures/v-" + SqlFunctions.StringConvert((double)l.Id).Trim() + "-300.jpg"
-                })
-			//.Union
-			//	(from a in db.Context.Locations
-			//	 where a.Locale == null || a.Locale == lang 
-			//	 select new {
-			//		 Class = "location",
-			//		 Name = a.Name,
-			//		 Id = a.EntryId,
-			//		 Subtitle = a.Location.Street + " " + a.Location.HouseNumber + " " + a.Location.City,
-			//		 ThumbnailUrl = "http://onyourway.at/Content/images/ventures/v-" + SqlFunctions.StringConvert((double)a.LocationId).Trim() + "-300.jpg"
-			//	 })
-			//.Union
-			//	(from s in db.Context.Features
-			//	 where s.RegionId == regionId
-			//	 select new {
-			//		 Class = "street",
-			//		 Name = s.Name,
-			//		 Id = -1L,
-			//		 Subtitle = "",
-			//		 ThumbnailUrl = ""
-			//	 })
-            .Union
-                (from t in db.Context.TagNames
-                 where t.Name != null && (t.Lang == null || t.Lang == lang)
-                 select new {
-                     Class = "tag",
-                     Name = t.Name,
-                     Id = -1L,
-                     Subtitle = "",
-                     ThumbnailUrl = ""
-                 })
-            ;
+			var query =
+				(from l in db.Context.Locations
+				 select new {
+					 Class = "location",
+					 Name = l.Name,
+					 Id = l.Id,
+					 Subtitle = l.Street + " " + l.HouseNumber + " " + l.City,
+					 ThumbnailUrl = "http://onyourway.at/Content/images/ventures/v-" + SqlFunctions.StringConvert((double)l.Id).Trim() + "-300.jpg"
+				 })
+				//.Union
+				//	(from a in db.Context.Locations
+				//	 where a.Locale == null || a.Locale == lang 
+				//	 select new {
+				//		 Class = "location",
+				//		 Name = a.Name,
+				//		 Id = a.EntryId,
+				//		 Subtitle = a.Location.Street + " " + a.Location.HouseNumber + " " + a.Location.City,
+				//		 ThumbnailUrl = "http://onyourway.at/Content/images/ventures/v-" + SqlFunctions.StringConvert((double)a.LocationId).Trim() + "-300.jpg"
+				//	 })
+				//.Union
+				//	(from s in db.Context.Features
+				//	 where s.RegionId == regionId
+				//	 select new {
+				//		 Class = "street",
+				//		 Name = s.Name,
+				//		 Id = -1L,
+				//		 Subtitle = "",
+				//		 ThumbnailUrl = ""
+				//	 })
+			.Union
+				(from t in db.Context.TagNames
+				 where t.Name != null && (t.Lang == null || t.Lang == lang)
+				 select new {
+					 Class = "tag",
+					 Name = t.Name,
+					 Id = -1L,
+					 Subtitle = "",
+					 ThumbnailUrl = ""
+				 })
+			;
 			return query.ToArray();
 		} //SearchSuggestions
 
@@ -393,6 +401,9 @@ namespace onYOURway.Controllers {
 			return doc;
 		} //Places
 
+		/// <summary>
+		/// DEPRICATED
+		/// </summary>
 		public dynamic GetTaxonomy(int RegionId, string lang = null) {
 			//switch (RegionId) {
 			//	case 1:
@@ -423,8 +434,11 @@ namespace onYOURway.Controllers {
 			XmlDocument doc = new XmlDocument();
 			doc.LoadXml(xml);
 			return doc;
-		} //Places
+		} //GetTaxonomy
 
+		/// <summary>
+		/// DEPRICATED
+		/// </summary>
 		[HttpGet]
 		public dynamic Place(double Id) {
 			return db.Context
@@ -437,19 +451,6 @@ namespace onYOURway.Controllers {
 			  ;
 		}
 
-		[HttpGet]
-		public dynamic MyPlaces(int RegionId, string lang = null) {
-			if (string.IsNullOrEmpty(lang)) lang = GetLang();
-			//get UserId
-
-			return db.Context
-			  .Locations
-			  .Include("Aliases")
-			  .Include("Tags")
-			  .Include("Links")
-			  .FirstOrDefault()
-			  ;
-		}
 
 		[HttpGet]
 		public dynamic Tags(int? RegionId = 1, string lang = null) {
@@ -484,7 +485,7 @@ namespace onYOURway.Controllers {
 				.Include("Localizations")
 				.Where(f => f.Type == "Country")
 				.Select(f => new {
-					id =  f.IsoCode,
+					id = f.IsoCode,
 					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
 						 ? f.Localizations.First(l => l.Locale == locale).Name
 						 : f.Name

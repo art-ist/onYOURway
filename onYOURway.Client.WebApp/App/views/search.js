@@ -1,12 +1,11 @@
 ﻿/// <reference path="../services/app.js" />
-/// <reference path="../services/logger.js" />
 /// <reference path="../services/platform.js" />
 define([
   'services/app',
   'services/location',
-  'services/logger',
+  'services/tell',
   'services/platform'
-], function (app, location, logger, platform) {
+], function (app, location, tell, platform) {
 
   var vm = function () {
     var self = this;

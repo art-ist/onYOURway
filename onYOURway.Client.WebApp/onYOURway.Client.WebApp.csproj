@@ -127,12 +127,12 @@
     <Content Include="App\services\auth.js" />
     <Content Include="App\services\geoUtils.js" />
     <Content Include="App\services\location.js" />
-    <Content Include="App\services\logger.js" />
+    <None Include="App\services\logger.js.DELETE" />
     <Content Include="App\services\platform.js" />
     <Content Include="App\services\providers\geocode-google.js" />
     <Content Include="App\services\providers\geocode-nominatim.js" />
     <Content Include="App\services\providers\routing-yours.js" />
-    <Content Include="App\services\storage.js" />
+    <Content Include="App\services\localStorage.js" />
     <Content Include="App\services\tell.js" />
     <Content Include="App\themes\vonMorgen\css\searchBox.css">
       <DependentUpon>searchBox.less</DependentUpon>

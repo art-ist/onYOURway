@@ -1,8 +1,8 @@
 ﻿define([
   'durandal/system',
-  'services/logger',
+  'services/tell',
   'services/platform'
-], function (system, logger, platform) {
+], function (system, tell, platform) {
   var self = this;
 
   // Routes

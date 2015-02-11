@@ -31,10 +31,9 @@ define([
 
   'services/app',
   'services/platform',
-  'services/logger',
   'services/tell'
 ],
-  function (system, durandal, viewLocator, router, app, platform, logger, tell) {
+  function (system, durandal, viewLocator, router, app, platform, tell) {
 
     //specify which plugins to install and their configuration
     durandal.configurePlugins({
@@ -51,21 +50,21 @@ define([
     ko.components.register('tagSelection', { require: 'components/tagSelection-component' });
 
     window.onerror = function globalErrorHandler(msg, file, line) {
-      logger.error(msg, file + ': ' + line);
+      tell.error(msg, file + ': ' + line);
     }
 
     //>>excludeStart("build", true);
-    logger.traceLevel = 2;                 // Enable logging to output to console
+    //logger.traceLevel = 2;                 // Enable logging to output to console
     tell.traceLevel = 7;                 // Enable logging to output to console
-    system.debug(logger.traceLevel > 1);   // Enable durandal debug messages to show in the console 
+    system.debug(tell.traceLevel > 1);   // Enable durandal debug messages to show in the console 
     //>>excludeEnd("build");
 
     if (window.PhoneGap) {
-      logger.log('running on PhoneGap', 'main');
+      tell.log('running on PhoneGap', 'main');
       document.addEventListener("deviceready", onDeviceReady, false);
     } else {
       //$(document).ready(function () {
-      logger.log('running in Browser', 'main');
+      tell.log('running in Browser', 'main');
       onDeviceReady(); //trigger onDeviceReady manually
       //});
     } //if (window.PhoneGap)
@@ -94,7 +93,7 @@ define([
         };
 
         router.handleInvalidRoute = function (route, params) {
-          logger.logError('No Route Found', 'main', route);
+          trace.error('No Route Found', 'main', route);
         };
 
         //Look for viewmodels, views and partial views in the views folder
@@ -115,13 +114,13 @@ define([
     	var shell = 'themes/' + window.theme + '/shell';
     	switch (platform.device.type) { //choose shell depending on environment
     		case 'Phone':
-    			logger.log('starting Phone shell', 'main');
+    			tell.log('starting Phone shell', 'main');
     			durandal.setRoot(shell, 'entranceLeft'); //TODO: expected to set the default transition
     			break;
     			//case 'Tablet':
     			//case 'PC':
     		default:
-    			logger.log('starting default shell on device type: ' + platform.device.type, 'main');
+    			tell.log('starting default shell on device type: ' + platform.device.type, 'main');
     			durandal.setRoot(shell, { entrance: 'entranceLeft'/*, fadeOnly: true*/ }); //TODO: expected to set the default transition
     			break;
     	} //switch (platform.device.type)

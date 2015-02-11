@@ -1,6 +1,6 @@
 ﻿define([
-	'services/logger'
-], function (logger) {
+	'services/tell'
+], function (tell) {
 
 	//documentation:	http://wiki.openstreetmap.org/wiki/Nominatim
 	// see also:		http://open.mapquestapi.com/nominatim/
@@ -34,7 +34,7 @@
 			url: url
 		})
 		.then(function (result, param) {
-			logger.log('found: ', 'geocode-nominatim - getCoords', result);
+			tell.log('found: ', 'geocode-nominatim - getCoords', result);
 			var res = result[0];
 			var success = (result && result.length > 0);
 			var coords = success ? [res.lon, res.lat] : null;

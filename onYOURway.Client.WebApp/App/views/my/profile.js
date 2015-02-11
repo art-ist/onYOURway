@@ -1,8 +1,8 @@
 ﻿define([
-  'services/logger',
+  'services/tell',
   'services/app',
   'services/auth'
-], function (logger, app, auth) {
+], function (tell, app, auth) {
 
   var vm = function () {
     var self = this;
@@ -25,7 +25,7 @@
     //#region lifecycle events
 
     self.activate = function (article, sub, parameters) {
-      //logger.log('view activated', 'profile', { 'article': article, 'sub': sub, 'parameters': parameters });
+      //tell.log('view activated', 'profile', { 'article': article, 'sub': sub, 'parameters': parameters });
       if (article) {
         self.currentArticle('#' + article);
       }
@@ -33,17 +33,17 @@
     };
 
     //self.binding = function (context) {
-    //  logger.log('view binding', 'profile', context);
+    //  tell.log('view binding', 'profile', context);
     //  return true;
     //};
 
     //self.bindingComplete = function (context) {
-    //  logger.log('view bindingComplete', 'profile', { 'context': context });
+    //  tell.log('view bindingComplete', 'profile', { 'context': context });
     //  return true;
     //};
 
     self.attached = function (p1, p2, p3) {
-      //logger.log('view attached', 'profile', { 'p1': p1, 'p2': p2, 'p3': p3 });
+      //tell.log('view attached', 'profile', { 'p1': p1, 'p2': p2, 'p3': p3 });
       app.navigateInPage(function navigated(href, target) {
         self.currentArticle(href); //set vm property so databinding can use it
       });
@@ -66,14 +66,14 @@
 
     self.compositionComplete = function () {
       var target = $(self.currentArticle());
-      //logger.log('scrolling to ' + self.currentArticle(), 'profile', target);
+      //tell.log('scrolling to ' + self.currentArticle(), 'profile', target);
       if(target) $('.oyw-content-main').scrollTo(target, { offset: 0, duration: app.settings.animationDuration });
       $('.oyw-content-nav a[href="' + self.currentArticle() + '"]').parent('li').addClass('active');
       return true;
     }
 
     //self.detached = function (p1, p2, p3) {
-    //  logger.log('view detached', 'profile', { 'p1': p1, 'p2': p2, 'p3': p3 });
+    //  tell.log('view detached', 'profile', { 'p1': p1, 'p2': p2, 'p3': p3 });
     //  return true;
     //};
 

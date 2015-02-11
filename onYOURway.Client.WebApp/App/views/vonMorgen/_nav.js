@@ -1,10 +1,10 @@
 ﻿define([
   'services/app',
   'services/location',
-  'services/logger',
+  'services/tell',
   //'bootstrap',
   'knockout'
-], function (app, location, logger, ko) {
+], function (app, location, tell, ko) {
 
   var vm = {
     self: this,
@@ -35,7 +35,7 @@
     },
 
     //activate: function () {
-    //  logger.log('View activated', '_nav');
+    //  tell.log('View activated', '_nav');
     //},
 
     //attached: function () {
@@ -84,7 +84,7 @@
     //    i = $(that.options.item).data('value', item);
     //    i.find('i').html('fa-shopping-cart');
     //    i.find('a').html(that.highlighter(item));
-    //    logger.log(i, 'XXXXXX');
+    //    tell.log(i, 'XXXXXX');
     //    return i[0];
     //  });
     //  if (this.autoSelect) {

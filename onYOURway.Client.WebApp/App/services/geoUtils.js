@@ -1,7 +1,6 @@
-﻿/// <reference path="logger.js" />
-define([
-  'services/logger',
-], function (app, logger, platform, router, routingProvider) {
+﻿define([
+  'services/tell',
+], function (app, tell, platform, router, routingProvider) {
 
   var geoUtils = {
     wktToCoords: wktToCoords,

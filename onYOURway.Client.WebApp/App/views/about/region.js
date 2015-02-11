@@ -1,8 +1,8 @@
 ﻿define([
-  'services/logger',
+  'services/tell',
   'services/app'
 ],
-  function (logger, app) {
+  function (tell, app) {
 
     var self = {
       app: app,
@@ -12,7 +12,7 @@
       emailUrn: 'mehlto:'.replace('mehl', 'mail') + 'info[at]onYOURway[dot]at'.replace('[at]', '@').replace('[dot]', '.'),
 
       //activate: function () {
-      //  logger.log('View activated', self.title);
+      //  tell.log('View activated', self.title);
       //  return true;
       //},
 

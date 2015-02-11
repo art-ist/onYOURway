@@ -1,7 +1,7 @@
 ﻿define([
-  'services/logger',
+  'services/tell',
   'services/app'
-], function (logger, app) {
+], function (tell, app) {
 
   var vm = {
     self: this,

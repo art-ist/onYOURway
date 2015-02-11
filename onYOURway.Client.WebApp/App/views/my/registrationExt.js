@@ -1,8 +1,8 @@
 ﻿define([
-  'services/logger',
+  'services/tell',
   'services/app',
   'services/auth'
-], function (logger, app, auth) {
+], function (tell, app, auth) {
 
   var vm = function () {
     // Private state

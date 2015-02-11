@@ -74,7 +74,7 @@ namespace onYOURway.Models {
 		/// Key of realm to be localized
 		/// </summary>
 		[Key, Column(Order = 0)]
-		public Int32 RealmKey { get; set; }
+		public String RealmKey { get; set; }
 
 		/// <summary>
 		/// Locale e.g. "de-DE" or language e.g. "de" of localization
@@ -94,7 +94,7 @@ namespace onYOURway.Models {
 
 		#region navigation properties
 
-		[ForeignKey("RealmId")]
+		[ForeignKey("RealmKey")]
 		public virtual Realm Realm { get; set; }
 
 		#endregion navigation properties

@@ -1,17 +1,17 @@
 ﻿/// <reference path="../../../Scripts/q.js" />
 define([
-  'services/logger',
+  'services/tell',
   'services/app',
   'plugins/router'
 ],
-  function (logger, app, router) {
+  function (tell, app, router) {
 
     var vm = {
       app: app
       , title: 'Entdecker'
 
       //activate: function () {
-      //  logger.log('View activated', self.title);
+      //  tell.log('View activated', self.title);
 
       //  return true;
       //},

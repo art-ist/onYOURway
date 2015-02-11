@@ -1,7 +1,7 @@
 ﻿define([
-  'services/logger',
+  'services/tell',
   'services/app'
-], function (logger, app) {
+], function (tell, app) {
 
   function Item(title) {
     var self = this;
@@ -15,7 +15,7 @@
     title: 'Einkaufsliste',
 
     //activate: function (vm) {
-    //  logger.log('View activated', 'shoppingList');
+    //  tell.log('View activated', 'shoppingList');
     //  return true;
     //},
 

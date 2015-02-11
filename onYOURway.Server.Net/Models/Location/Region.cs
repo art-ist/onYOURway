@@ -37,9 +37,14 @@ namespace onYOURway.Models {
 		[JsonConverter(typeof(DbGeographyConverter))]
 		public DbGeography Boundary { get; set; }
 
+		#region navigation properties
+
 		public virtual ICollection<RegionLocalized> Localizations { get; set; }
 
 		public virtual ICollection<Map> Maps { get; set; }
+
+		#endregion navigation properties
+
 	}
 
 	[Table("oyw.RegionsLocalized")]
@@ -62,7 +67,12 @@ namespace onYOURway.Models {
 		[StringLength(1000)]
 		public string Website { get; set; }
 
+		#region navigation properties
+
 		public virtual Region Region { get; set; }
+
+		#endregion navigation properties
+
 	}
 
 }

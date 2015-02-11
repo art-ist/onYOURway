@@ -1,8 +1,8 @@
 ﻿define([
-  'services/logger',
+  'services/tell',
   'services/app',
 
-], function (logger, app) {
+], function (tell, app) {
 
   function resizeIframe(selector) {
     var frame = $(selector);
@@ -38,7 +38,7 @@
     //#region lifecycle events
 
     self.activate = function (article) {
-      //logger.log('View activated', self.title);
+      //tell.log('View activated', self.title);
       if (article) {
         self.currentArticle('#' + article);
       }
@@ -69,7 +69,7 @@
 
     self.compositionComplete = function () {
       var target = $(self.currentArticle());
-      //logger.log('scrolling to ' + self.currentArticle(), 'profile', target);
+      //tell.log('scrolling to ' + self.currentArticle(), 'profile', target);
       if(target) $('.oyw-content-main').scrollTo(target, { offset: 0, duration: app.settings.animationDuration });
       $('.oyw-content-nav a[href="' + self.currentArticle() + '"]').parent('li').addClass('active');
       return true;
@@ -85,7 +85,7 @@
 
     self.send = function () {
       if (!self.sendQuestSolved()) {
-        logger.logError('Sicherheitsabfrage nicht korrekt ausgefüllt.');
+        tell.error('Sicherheitsabfrage nicht korrekt ausgefüllt.');
         return;
       }
       $.ajax({
@@ -105,11 +105,11 @@
           c: self.res()
         },
         success: function (result) {
-          logger.success('Nachricht gesendet.');
+          tell.success('Nachricht gesendet.');
           self.res(null);
         },
         error: function (err) {
-          logger.error('Die Nachricht kann zurzeit leider nicht gesendet werden. Aber Sie können gerne ein Email an info.');
+          tell.error('Die Nachricht kann zurzeit leider nicht gesendet werden. Aber Sie können gerne ein Email an info.');
           self.res(null);
         }
       });

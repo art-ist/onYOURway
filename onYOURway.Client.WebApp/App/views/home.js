@@ -1,8 +1,8 @@
 ﻿define([
-  'services/logger',
+  'services/tell',
   'services/app'
 ],
-  function (logger, app) {
+  function (tell, app) {
 
   var vm = {
     self: this,
@@ -10,7 +10,7 @@
     title: null,
 
     activate: function () {
-      logger.log('View activated', 'home');
+      tell.log('View activated', 'home');
 
       return true;
     }

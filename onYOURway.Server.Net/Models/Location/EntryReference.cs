@@ -14,7 +14,7 @@ namespace onYOURway.Models
         public Int64 EntryId { get; set; }
 
 		[Key, Column(Order = 1), MaxLength(20), Index("IX_ExternslId", 1, IsUnique = true)]
-        public String ExternalSystemId { get; set; }
+        public String SystemKey { get; set; }
 
 		[MaxLength(200), Index("IX_ExternslId", 0, IsUnique=true)]
 		public String ExternalId { get; set; }
@@ -24,8 +24,8 @@ namespace onYOURway.Models
 		[ForeignKey("EntryId")]
         public virtual Entry Entry { get; set; }
 
-		[ForeignKey("ExternalSystemId")]
-		public virtual ExternalSystem ExternalSystem { get; set; }
+		[ForeignKey("SystemKey")]
+		public virtual ExternalSystem System { get; set; }
 
 		#endregion navigation properties
 

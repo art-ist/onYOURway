@@ -1,17 +1,15 @@
 ﻿/// <reference path="../../Scripts/jsts.js" />
 /// <reference path="../../Scripts/leaflet-0.5.1.js" />
 /// <reference path="../../Scripts/knockout-3.0.0.js" />
-/// <reference path="logger.js" />
 
 define([
   'services/location',
-  'services/logger',
   'services/tell',
   'services/platform',
   'services/auth',
-  'services/storage',
+  'services/localStorage',
   'plugins/router'
-], function (location, logger, tell, platform, auth, storage, router) {
+], function (location, tell, platform, auth, localStorage, router) {
 
 	//create global viewModel
 	var app = {
@@ -36,7 +34,7 @@ define([
 
 		location: location,
 		auth: auth,
-		storage: storage,
+		localStorage: localStorage,
 
 		when: location.when,
 		canLocate: navigator.geolocation.getCurrentPosition, //Function available?
@@ -256,10 +254,10 @@ define([
 	}
 
 	function loadShoppingList() {
-		//app.storage.clear();
+		//app.localStorage.clear();
 
 		//load locally stored data
-		app.storage.load('shoppingList', function (value) {
+		app.localStorage.load('shoppingList', function (value) {
 			//if nothing found use empty array
 			if (!value) value = [];
 			var _item = null;
@@ -273,8 +271,8 @@ define([
 	}
 
 	function saveShoppingList() {
-		app.storage.save('shoppingList', ko.toJS(app.shoppingList.items()));
-		//app.storage.save('shoppingList', ko.mapping.toJSON(app.shoppingList));
+		app.localStorage.save('shoppingList', ko.toJS(app.shoppingList.items()));
+		//app.localStorage.save('shoppingList', ko.mapping.toJSON(app.shoppingList));
 		tell.log('shoppingList saved', 'shoppingList', app.shoppingList.items().length);
 	}
 

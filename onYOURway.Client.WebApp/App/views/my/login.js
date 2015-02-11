@@ -1,8 +1,8 @@
 ﻿define([
   'services/app',
   'services/auth',
-  'services/logger'
-], function (app, auth, logger) {
+  'services/tell'
+], function (app, auth, tell) {
 
   var vm = function () {
     // Private state
@@ -29,7 +29,7 @@
 
     // Durandal page lifecycle events
     self.activate = function () {
-      logger.log('View activated', self.title);
+      tell.log('View activated', self.title);
       return true;
     };
 

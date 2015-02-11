@@ -2,8 +2,8 @@
 define([
   'services/app',
   'services/location',
-  'services/logger'
-], function (app, location, logger, platform) {
+  'services/tell'
+], function (app, location, tell, platform) {
 
   var vm = function () {
     var self = this;
@@ -11,7 +11,7 @@ define([
     self.location = location;
 
     self.activate = function (queryString) {
-      logger.log('activate', 'discover', queryString);
+      tell.log('activate', 'discover', queryString);
       if (queryString && queryString.tag) {
         location.showByTagName(queryString.tag);
       }

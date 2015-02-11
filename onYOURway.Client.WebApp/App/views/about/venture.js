@@ -1,15 +1,15 @@
 ﻿define([
-  'services/logger',
+  'services/tell',
   'services/app'
 ],
-  function (logger, app) {
+  function (tell, app) {
 
     var vm = {
       app: app,
       title: 'Anbieter',
 
       //activate: function () {
-      //  logger.log('View activated', self.title);
+      //  tell.log('View activated', self.title);
 
       //  return true;
       //},
