@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Comment CommentText="Lookups&#xD;&#xA;(caching basemap features)">
-    <Position X="1.25" Y="9.75" Height="0.427" Width="4.346" />
+    <Position X="1.25" Y="10.25" Height="0.427" Width="4.346" />
   </Comment>
   <Comment CommentText="Application&#xD;&#xA;">
-    <Position X="15" Y="5.25" Height="0.386" Width="4.408" />
+    <Position X="14.938" Y="5.25" Height="0.386" Width="4.491" />
   </Comment>
   <Comment CommentText="Taxonomy&#xD;&#xA;(optionally linked to external semantic mapping  tool)">
-    <Position X="14.886" Y="0.5" Height="0.448" Width="4.648" />
+    <Position X="14.886" Y="0.5" Height="0.448" Width="4.575" />
   </Comment>
   <Comment CommentText="Entries&#xD;&#xA;(main content)">
     <Position X="6.25" Y="0.5" Height="0.427" Width="7.627" />
@@ -16,7 +16,7 @@
     <Position X="1.177" Y="0.5" Height="0.427" Width="4.606" />
   </Comment>
   <Comment CommentText="Authentication and Profiles&#xD;&#xA;(what properties do we need for the user?)">
-    <Position X="11.937" Y="8.177" Height="0.427" Width="7.429" />
+    <Position X="11.937" Y="8.177" Height="0.427" Width="7.512" />
   </Comment>
   <Class Name="onYOURway.Models.ExternalSystem">
     <Position X="15.25" Y="6" Width="1.5" />
@@ -33,7 +33,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACAgAAAAAgAAAAAAAAAAQAAAAABAEAAAAAAAAABAA=</HashCode>
+      <HashCode>AAAAAgAAAAggAAQAAAAAAAQAAAAADAEAAAAAAAAABAA=</HashCode>
       <FileName>Models\Location\Realm.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -43,7 +43,7 @@
   <Class Name="onYOURway.Models.RealmLocalized">
     <Position X="4" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAABAAAAAAQAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAABAAAAAAAAAAAAAAFA=</HashCode>
       <FileName>Models\Location\Realm.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -192,11 +192,11 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="onYOURway.Models.RegionLocalized">
-    <Position X="4" Y="3.75" Width="1.5" />
+    <Position X="4" Y="4.25" Width="1.5" />
     <AssociationLine Name="Region" Type="onYOURway.Models.Region" FixedFromPoint="true">
       <Path>
-        <Point X="4" Y="4.812" />
-        <Point X="3" Y="4.812" />
+        <Point X="4" Y="5.312" />
+        <Point X="3" Y="5.312" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.037" Y="-0.273" />
@@ -295,14 +295,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="onYOURway.Models.Map">
-    <Position X="1.5" Y="7" Width="1.5" />
+    <Position X="1.5" Y="7.5" Width="1.5" />
     <Members>
       <Method Name="Map" Hidden="true" />
     </Members>
     <AssociationLine Name="Region" Type="onYOURway.Models.Region" FixedToPoint="true">
       <Path>
-        <Point X="2.438" Y="7" />
-        <Point X="2.438" Y="6.392" />
+        <Point X="2.438" Y="7.5" />
+        <Point X="2.438" Y="6.892" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-0.765" Y="0.372" />
@@ -320,23 +320,23 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="onYOURway.Models.MapLocalized">
-    <Position X="4" Y="7" Width="1.5" />
+    <Position X="4" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAiAAAAAAAAAAQAAABAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Location\Map.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="onYOURway.Models.BaseMapFeature">
-    <Position X="1.5" Y="10.5" Width="1.5" />
+    <Position X="1.5" Y="11" Width="1.5" />
     <Members>
       <Method Name="BaseMapFeature" Hidden="true" />
     </Members>
     <AssociationLine Name="Parent" Type="onYOURway.Models.BaseMapFeature" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.5" Y="11.438" />
-        <Point X="1.25" Y="11.438" />
-        <Point X="1.25" Y="11.125" />
-        <Point X="1.5" Y="11.125" />
+        <Point X="1.5" Y="11.938" />
+        <Point X="1.25" Y="11.938" />
+        <Point X="1.25" Y="11.625" />
+        <Point X="1.5" Y="11.625" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.07" Y="-0.244" />
@@ -344,10 +344,10 @@
     </AssociationLine>
     <AssociationLine Name="Children" Type="onYOURway.Models.BaseMapFeature" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.5" Y="11.938" />
-        <Point X="1.25" Y="11.938" />
-        <Point X="1.25" Y="12.312" />
-        <Point X="1.5" Y="12.312" />
+        <Point X="1.5" Y="12.438" />
+        <Point X="1.25" Y="12.438" />
+        <Point X="1.25" Y="12.812" />
+        <Point X="1.5" Y="12.812" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -363,11 +363,11 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="onYOURway.Models.BaseMapFeatureLocalized">
-    <Position X="4" Y="10.75" Width="1.5" />
+    <Position X="4" Y="11.25" Width="1.5" />
     <AssociationLine Name="Feature" Type="onYOURway.Models.BaseMapFeature" FixedToPoint="true">
       <Path>
-        <Point X="4" Y="11.438" />
-        <Point X="3" Y="11.438" />
+        <Point X="4" Y="11.938" />
+        <Point X="3" Y="11.938" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.11" Y="-0.273" />
@@ -382,14 +382,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="onYOURway.Models.Region">
-    <Position X="1.5" Y="3.75" Width="1.5" />
+    <Position X="1.5" Y="4.25" Width="1.5" />
     <Members>
       <Method Name="Region" Hidden="true" />
     </Members>
     <AssociationLine Name="Localizations" Type="onYOURway.Models.RegionLocalized" FixedFromPoint="true">
       <Path>
-        <Point X="3" Y="4.624" />
-        <Point X="4" Y="4.624" />
+        <Point X="3" Y="5.124" />
+        <Point X="4" Y="5.124" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.037" Y="0.102" />
@@ -451,17 +451,6 @@
     <Members>
       <Method Name="IdentityUser" Hidden="true" />
     </Members>
-    <AssociationLine Name="Logins" Type="Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="13.75" Y="9.938" />
-        <Point X="14.599" Y="9.938" />
-        <Point X="14.599" Y="11.5" />
-        <Point X="15" Y="11.5" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.327" Y="0.81" />
-      </MemberNameLabel>
-    </AssociationLine>
     <AssociationLine Name="Roles" Type="Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole" FixedToPoint="true">
       <Path>
         <Point X="13.75" Y="9.375" />
@@ -479,13 +468,23 @@
         <Point X="15" Y="13.187" />
       </Path>
     </AssociationLine>
+    <AssociationLine Name="Logins" Type="Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.75" Y="9.938" />
+        <Point X="14.599" Y="9.938" />
+        <Point X="14.599" Y="11.5" />
+        <Point X="15" Y="11.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.327" Y="0.81" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier />
     <ShowAsCollectionAssociation>
-      <Property Name="Logins" />
       <Property Name="Roles" />
       <Property Name="Claims" />
+      <Property Name="Logins" />
     </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin">
     <Position X="15" Y="10.75" Width="1.5" />
@@ -524,8 +523,8 @@
     </AssociationLine>
     <TypeIdentifier />
     <ShowAsAssociation>
-      <Property Name="User" />
       <Property Name="Role" />
+      <Property Name="User" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim">
@@ -555,7 +554,6 @@
       <Method Name="IdentityRole" Hidden="true" />
     </Members>
     <TypeIdentifier />
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="onYOURway.Models.CopyOfEntryLocalization">
     <Position X="10" Y="2" Width="1.5" />
