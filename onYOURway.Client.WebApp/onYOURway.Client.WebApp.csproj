@@ -153,6 +153,7 @@
     <Content Include="App\views\vonMorgenMin\_nav.html" />
     <Content Include="App\views\vonMorgenMin\_nav.js" />
     <Content Include="App\_libraries\less.min.js" />
+    <Content Include="App\_libraries\q.min.js" />
     <Content Include="App\_styles\font-awesome.min.css" />
     <Content Include="Content\vonMorgen\vegetables.jpg" />
     <Content Include="index.vonMorgen.html" />

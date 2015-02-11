@@ -3,12 +3,13 @@
   'services/api/placeSearch',
   'services/api/placeComparators',
   'services/api/searchSuggestions',
+  'services/api/taxonomy',
   'services/map/mapAdapter',
   'services/map/placesLayer',
   'services/map/tileLayer',
   'services/map/siteCollectorLayer',
   'services/map/settings'
-], function (places, search, sorters, searchSuggestions, map, placesLayer, tileLayer, siteCollectorLayer, settings) {
+], function (places, search, sorters, searchSuggestions, taxonomy, map, placesLayer, tileLayer, siteCollectorLayer, settings) {
 
   var vm = {
     searchFor: search.searchTerm,
@@ -34,6 +35,7 @@
     placesLayer.initialize(vm);
     search.initialize(vm);
     searchSuggestions.loadSearchSuggestions(ko.observable('de'));
+    taxonomy.loadTaxonomy();
     siteCollectorLayer.initialize();
   }
 

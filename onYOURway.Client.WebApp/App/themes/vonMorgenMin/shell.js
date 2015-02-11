@@ -7,8 +7,9 @@ URLs: (set in Views/Home/Index.cshtml)
 
 define([
   'plugins/router',
-  'durandal/app'
-], function (router, durandal) {
+  'durandal/app',
+   'services/map/settings'
+], function (router, durandal, settings) {
   return {
     router: router,
     activate: onActivate,
@@ -16,6 +17,8 @@ define([
 
   function onActivate() {
   	durandal.title = "Karte von Morgen";
+
+    settings.defaultRegion(265);
 
     router.map([
       { moduleId: 'vonMorgenMin/home',               route: ['', 'home', 'start'],                         title: ''  },
