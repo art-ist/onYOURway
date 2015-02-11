@@ -64,6 +64,8 @@ namespace onYOURway.Models {
 		//public String Phone { get; set; }
 
 
+		public Int32 CreatedByRealmId { get; set; }
+
 		public Int64 CreatedBy { get; set; }
 
 		[Column(TypeName = "datetime2")]
