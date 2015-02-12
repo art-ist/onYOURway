@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Comment CommentText="Lookups&#xD;&#xA;(caching basemap features)">
     <Position X="1.25" Y="10.25" Height="0.427" Width="4.346" />
   </Comment>
@@ -524,17 +524,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="onYOURway.Models.UserExternalLogin" Collapsed="true">
-    <Position X="15" Y="12.75" Width="1.5" />
+    <Position X="15" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAEAAAABAAAAAAAAA=</HashCode>
       <FileName>Models\Auth\IdentityModels.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="onYOURway.Models.User" Collapsed="true">
-    <Position X="12.25" Y="13.25" Width="1.5" />
-    <Members>
-      <Method Name="User" Hidden="true" />
-    </Members>
+    <Position X="12.25" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Auth\User.cs</FileName>

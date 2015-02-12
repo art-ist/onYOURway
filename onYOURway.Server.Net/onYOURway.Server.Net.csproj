@@ -209,6 +209,8 @@
     <Compile Include="Models\Auth\IdentityModels.cs" />
     <Compile Include="Models\Auth\IdentityStores.cs" />
     <Compile Include="Models\Auth\Role.cs" />
+    <Compile Include="Models\Auth\UserRole.cs" />
+    <Compile Include="Models\Auth\UserExternalLogin.cs" />
     <Compile Include="Models\Auth\User.cs" />
     <Compile Include="Models\Location\Entry.cs" />
     <Compile Include="Models\Location\Event.cs" />

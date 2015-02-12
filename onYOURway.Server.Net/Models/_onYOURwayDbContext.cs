@@ -70,6 +70,8 @@ namespace onYOURway.Models {
 		public virtual DbSet<Message> Messages { get; set; }
 		public virtual DbSet<ExternalSystem> ExternalSystems { get; set; }
 
+		/* Users, Roles inherit from IdentityDbContext */
+
 		#endregion App EntitiySets
 
 		#region Taxonomy EntitySets
@@ -81,7 +83,7 @@ namespace onYOURway.Models {
 
 		#endregion Taxonomy EntitySets
 
-		#region Location EntitiySets
+		#region Locate EntitiySets
 
 
 		public virtual DbSet<Realm> Realms { get; set; }
@@ -107,7 +109,7 @@ namespace onYOURway.Models {
 		//public virtual DbSet<Street> Streets { get; set; }		
 		public virtual DbSet<BaseMapFeature> BaseMapFeatures { get; set; }
 
-		#endregion Location EntitiySets
+		#endregion Locate EntitiySets
 
 		#region Profile & Security EntitiySets
 
