@@ -12,7 +12,6 @@ namespace onYOURway {
 	public partial class Startup {
 		
 		public Startup() {
-			Auth.Startup();
 		}
 
 		public void Configuration(IAppBuilder app) {

@@ -6,11 +6,11 @@ using System.Data.Entity.Spatial;
 
 namespace onYOURway.Models {
 
-	[Table("TagName", Schema = "oyw")]
-	public partial class TagName {
+	[Table("CategoryNames", Schema = "oyw")]
+	public partial class CategoryName {
 
 		[Key, Column(Order = 0)]
-		public Int32 TagId { get; set; }
+		public Int32 CategoryId { get; set; }
 
 		[Key, Column(Order = 1), MaxLength(2), MinLength(2), NonUnicode]
 		public String Lang { get; set; }
@@ -22,8 +22,8 @@ namespace onYOURway.Models {
 
 		public String Description { get; set; }
 
-		[ForeignKey("TagId")]
-		public virtual Tag Tag { get; set; }
+		[ForeignKey("CategoryId")]
+		public virtual Category Category { get; set; }
 
 	}
 

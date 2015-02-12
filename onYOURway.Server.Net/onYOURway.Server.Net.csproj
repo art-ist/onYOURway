@@ -190,7 +190,10 @@
     <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AppUserManager.cs" />
+    <Compile Include="Controllers\AccountViewModels.cs" />
+    <Compile Include="Controllers\AccountManagementViewModels.cs" />
+    <Compile Include="Controllers\AdminViewModel.cs" />
+    <Compile Include="Models\Auth\IdentityManagers.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -203,21 +206,22 @@
     <Compile Include="JP.aspx.designer.cs">
       <DependentUpon>JP.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Auth\IdentityModels.cs" />
+    <Compile Include="Models\Auth\IdentityStores.cs" />
+    <Compile Include="Models\Auth\Role.cs" />
     <Compile Include="Models\Auth\User.cs" />
-    <Compile Include="Models\_Auth\AccountBindingModels.cs" />
-    <Compile Include="Models\_Auth\AccountViewModels.cs" />
     <Compile Include="Models\Location\Entry.cs" />
     <Compile Include="Models\Location\Event.cs" />
     <Compile Include="Models\Location\Realm.cs" />
     <Compile Include="Models\Lookup\BaseMapFeature.cs" />
     <Compile Include="Models\DbGeographyConverter.cs" />
-    <Compile Include="Models\Location\EntryTag.cs" />
+    <Compile Include="Models\Location\EntryCategory.cs" />
     <Compile Include="Models\Location\Location.cs" />
     <Compile Include="Models\Location\EntryLocalization.cs" />
     <Compile Include="Models\Location\EntryReference.cs" />
     <Compile Include="Models\Location\EntryLink.cs" />
-    <Compile Include="Models\Location\Tag.cs" />
-    <Compile Include="Models\Location\TagName.cs" />
+    <Compile Include="Models\Location\Category.cs" />
+    <Compile Include="Models\Location\CategoryName.cs" />
     <Compile Include="Models\App\Message.cs" />
     <Compile Include="Models\_Results\Place.cs" />
     <Compile Include="Models\_Results\SearchSuggestion.cs" />
@@ -225,10 +229,10 @@
     <Compile Include="Models\App\ExternalSystem.cs" />
     <Compile Include="Models\Location\Region.cs" />
     <Compile Include="Models\Location\Map.cs" />
-    <Compile Include="Models\Location\TagRelation.cs" />
+    <Compile Include="Models\Location\CategoryRelation.cs" />
     <Compile Include="Models\CustomConventions.cs" />
+    <Compile Include="Models\onYOURwayDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\_Auth\ChallengeResult.cs" />
     <Compile Include="App_Start\_Startup.cs" />
     <Compile Include="Providers\OAuthProvider.cs" />
     <Content Include="App_Data\onYOURway.XML" />
@@ -250,7 +254,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\_Auth\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

@@ -1,13 +1,16 @@
-namespace onYOURway.Models {
-	using System;
-	using System.Data.Entity;
-	using System.ComponentModel.DataAnnotations.Schema;
-	using System.Linq;
-	using System.Data.Entity.Core.Objects;
-	using System.Data.Entity.Infrastructure;
-	using System.Data.Entity.ModelConfiguration.Conventions;
+using System;
+using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using Microsoft.AspNet.Identity.EntityFramework;
 
-	public partial class onYOURwayDbContext : DbContext {
+namespace onYOURway.Models {
+
+	public partial class onYOURwayDbContext 
+		: IdentityDbContext<User, Role, Int32, UserExternalLogin, UserRole, UserClaim> /*DbContext*/ {
 		public onYOURwayDbContext()
 			: base("DefaultConnection") {
 		}
@@ -71,10 +74,10 @@ namespace onYOURway.Models {
 
 		#region Taxonomy EntitySets
 
-		public virtual DbSet<Tag> Tags { get; set; }
-		public virtual DbSet<TagName> TagNames { get; set; }
-		public virtual DbSet<TagRelation> TagRelations { get; set; }
-		public virtual DbSet<EntryTag> EntryTags { get; set; }
+		public virtual DbSet<Category> Tags { get; set; }
+		public virtual DbSet<CategoryName> TagNames { get; set; }
+		public virtual DbSet<CategoryRelation> TagRelations { get; set; }
+		public virtual DbSet<EntryCategory> EntryTags { get; set; }
 
 		#endregion Taxonomy EntitySets
 
@@ -113,6 +116,10 @@ namespace onYOURway.Models {
 		#endregion Profile & Security EntitiySets
 
 		#endregion EntitySets
+
+		public static onYOURwayDbContext Create() {
+			return new onYOURwayDbContext();
+		}
 
 	}
 }

@@ -12,7 +12,7 @@ namespace onYOURway.Models {
 	public partial class Entry {
 		public Entry() {
 			this.Localizations = new HashSet<EntryLocalization>();
-			this.Tags = new HashSet<EntryTag>();
+			this.Tags = new HashSet<EntryCategory>();
 			this.Links = new HashSet<EntryLink>();
 			this.ExternalIds = new HashSet<EntryExternalId>();
 		}
@@ -84,7 +84,7 @@ namespace onYOURway.Models {
 
 		#region navigation properties
 
-		public virtual ICollection<EntryTag> Tags { get; set; }
+		public virtual ICollection<EntryCategory> Tags { get; set; }
 
 		public virtual ICollection<EntryExternalId> ExternalIds { get; set; }
 

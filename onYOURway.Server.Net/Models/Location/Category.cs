@@ -6,12 +6,12 @@ using System.Data.Entity.Spatial;
 
 namespace onYOURway.Models {
 
-	[Table("Tag", Schema = "oyw")]
-	public partial class Tag {
-		public Tag() {
-			this.Names = new HashSet<TagName>();
-			this.Parents = new HashSet<TagRelation>();
-			this.Children = new HashSet<TagRelation>();
+	[Table("Categories", Schema = "oyw")]
+	public partial class Category {
+		public Category() {
+			this.Names = new HashSet<CategoryName>();
+			this.Parents = new HashSet<CategoryRelation>();
+			this.Children = new HashSet<CategoryRelation>();
 		}
 
 		[Key]
@@ -26,6 +26,11 @@ namespace onYOURway.Models {
 		public String Type { get; set; }
 
 		/// <summary>
+		/// Indicates if the tag assignment can have a value and what datatype it is. (null = no value)
+		/// </summary>
+		public String ValueType { get; set; }
+
+		/// <summary>
 		/// Optional: Semicolon seperated list of possible values
 		/// </summary>
 		public String Values { get; set; }
@@ -37,14 +42,14 @@ namespace onYOURway.Models {
 
 		#region navigation properties
 
-		[InverseProperty("Tag")]
-		public virtual IEnumerable<TagName> Names { get; set; }
+		[InverseProperty("Category")]
+		public virtual IEnumerable<CategoryName> Names { get; set; }
 
-		[InverseProperty("ToTagId")]
-		public virtual IEnumerable<TagRelation> Parents { get; set; }
+		[InverseProperty("ToCategoryId")]
+		public virtual IEnumerable<CategoryRelation> Parents { get; set; }
 
-		[InverseProperty("FromTagId")]
-		public virtual IEnumerable<TagRelation> Children { get; set; }
+		[InverseProperty("FromCategoryId")]
+		public virtual IEnumerable<CategoryRelation> Children { get; set; }
 
 		#endregion navigation properties
 

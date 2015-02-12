@@ -7,26 +7,25 @@ using System.Data.Entity.Spatial;
 namespace onYOURway.Models {
 
 	[Table("TagRelations", Schema = "oyw")]
-	public partial class TagRelation {
+	public partial class CategoryRelation {
 
-		[Key, Column(Order=0), DatabaseGenerated(DatabaseGeneratedOption.None)]		
-		public Int32? FromTagId { get; set; }
-
+		[Key, Column(Order=0), DatabaseGenerated(DatabaseGeneratedOption.None)]
+		public Int32? FromCategoryId { get; set; }
+		
 		[Key, Column(Order=2), DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public Int32? ToTagId { get; set; }
+		public Int32? ToCategoryId { get; set; }
 
 		public Int16? Sort { get; set; }
 
 		#region navigation properties
 
-		[ForeignKey("FromTagId")]
-		public virtual Tag FromTag { get; set; }
+		[ForeignKey("FromCategoryId")]
+		public virtual Category FromCategory { get; set; }
 
-		[ForeignKey("ToTagId")]
-		public virtual Tag ToTag { get; set; }
+		[ForeignKey("ToCategoryId")]
+		public virtual Category ToCategory { get; set; }
 
 		#endregion navigation properties
-
 
 	} //TagRelation
 } //

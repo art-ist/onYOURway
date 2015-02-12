@@ -19,7 +19,7 @@
     <Position X="11.937" Y="8.177" Height="0.427" Width="7.512" />
   </Comment>
   <Class Name="onYOURway.Models.ExternalSystem">
-    <Position X="15.25" Y="6" Width="1.5" />
+    <Position X="15" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAQAAAAEgAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\App\ExternalSystem.cs</FileName>
@@ -104,7 +104,7 @@
       <Property Name="Entry" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="onYOURway.Models.EntryTag">
+  <Class Name="onYOURway.Models.EntryCategory">
     <Position X="12" Y="1.25" Width="1.5" />
     <AssociationLine Name="Entry" Type="onYOURway.Models.Entry" FixedFromPoint="true">
       <Path>
@@ -116,40 +116,43 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAgAAAAAQE=</HashCode>
-      <FileName>Models\Location\EntryTag.cs</FileName>
+      <HashCode>AAAQAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAgAAAACQA=</HashCode>
+      <FileName>Models\Location\EntryCategory.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Entry" />
-      <Property Name="Tag" />
+      <Property Name="Category" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="onYOURway.Models.Tag">
-    <Position X="15.25" Y="1.25" Width="1.5" />
+  <Class Name="onYOURway.Models.Category">
+    <Position X="15" Y="1.25" Width="1.5" />
     <Members>
-      <Method Name="Tag" Hidden="true" />
+      <Method Name="Category" Hidden="true" />
     </Members>
-    <AssociationLine Name="Names" Type="onYOURway.Models.TagName" FixedFromPoint="true">
+    <AssociationLine Name="Names" Type="onYOURway.Models.CategoryName" FixedToPoint="true">
       <Path>
-        <Point X="16.75" Y="3.172" />
-        <Point X="17.75" Y="3.172" />
+        <Point X="16.5" Y="3.375" />
+        <Point X="17.75" Y="3.375" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="Parents" Type="onYOURway.Models.TagRelation" FixedFromPoint="true">
+    <AssociationLine Name="Parents" Type="onYOURway.Models.CategoryRelation" FixedToPoint="true">
       <Path>
-        <Point X="16.75" Y="2.312" />
+        <Point X="16.5" Y="2.312" />
         <Point X="17.75" Y="2.312" />
       </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.277" Y="0.018" />
+      </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Children" Type="onYOURway.Models.TagRelation" FixedToPoint="true">
+    <AssociationLine Name="Children" Type="onYOURway.Models.CategoryRelation" FixedFromPoint="true">
       <Path>
-        <Point X="16.75" Y="1.562" />
+        <Point X="16.5" Y="1.562" />
         <Point X="17.75" Y="1.562" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>wAACgAAAAAAAAAAAAAAEAAAAAAAAAAAICQAgAAAIAAA=</HashCode>
-      <FileName>Models\Location\Tag.cs</FileName>
+      <HashCode>wAACgAAAAAAAAAAAAAAEAAAAAAAAAAAICQAgAAAIEAA=</HashCode>
+      <FileName>Models\Location\Category.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Names" />
@@ -157,54 +160,54 @@
       <Property Name="Children" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="onYOURway.Models.TagRelation">
+  <Class Name="onYOURway.Models.CategoryRelation">
     <Position X="17.75" Y="1.25" Width="1.5" />
-    <AssociationLine Name="FromTag" Type="onYOURway.Models.Tag" ManuallyRouted="true" FixedFromPoint="true">
+    <AssociationLine Name="FromCategory" Type="onYOURway.Models.Category" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="17.75" Y="1.75" />
-        <Point X="16.75" Y="1.75" />
+        <Point X="16.5" Y="1.75" />
       </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.068" Y="-0.242" />
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.088" Y="-0.221" Height="0.182" Width="1.089" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="ToTag" Type="onYOURway.Models.Tag" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="ToCategory" Type="onYOURway.Models.Category" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="17.75" Y="2.5" />
-        <Point X="17.013" Y="2.5" />
-        <Point X="17.013" Y="2.5" />
-        <Point X="16.75" Y="2.5" />
+        <Point X="17.25" Y="2.5" />
+        <Point X="17.25" Y="2.5" />
+        <Point X="16.5" Y="2.5" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.1" Y="-0.305" />
+        <Position X="0.037" Y="-0.232" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAAAAAAAQCACAAAAAAAAAAAAAAAAIAAA=</HashCode>
-      <FileName>Models\Location\TagRelation.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAEAgAQIAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Models\Location\CategoryRelation.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="FromTag" />
-      <Property Name="ToTag" />
+      <Property Name="FromCategory" />
+      <Property Name="ToCategory" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="onYOURway.Models.TagName">
+  <Class Name="onYOURway.Models.CategoryName">
     <Position X="17.75" Y="3" Width="1.5" />
-    <AssociationLine Name="Tag" Type="onYOURway.Models.Tag" FixedFromPoint="true">
+    <AssociationLine Name="Category" Type="onYOURway.Models.Category" FixedFromPoint="true">
       <Path>
-        <Point X="17.75" Y="3.375" />
-        <Point X="16.75" Y="3.375" />
+        <Point X="17.75" Y="3.562" />
+        <Point X="16.5" Y="3.562" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.11" Y="-0.252" />
+        <Position X="0.1" Y="-0.314" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAEAAAABAAAAAAAAAE=</HashCode>
-      <FileName>Models\Location\TagName.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAgAAAAAAAAQAAAAEAAAABAAAAAAACAA=</HashCode>
+      <FileName>Models\Location\CategoryName.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Tag" />
+      <Property Name="Category" />
     </ShowAsAssociation>
   </Class>
   <Class Name="onYOURway.Models.RegionLocalized">
@@ -250,16 +253,10 @@
     <Members>
       <Method Name="Entry" Hidden="true" />
     </Members>
-    <AssociationLine Name="Tags" Type="onYOURway.Models.EntryTag" FixedToPoint="true">
-      <Path>
-        <Point X="9" Y="1.688" />
-        <Point X="12" Y="1.688" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="ExternalIds" Type="onYOURway.Models.EntryExternalId" FixedFromPoint="true">
       <Path>
-        <Point X="9" Y="4.125" />
-        <Point X="12" Y="4.125" />
+        <Point X="9" Y="4.241" />
+        <Point X="12" Y="4.241" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="2.1" Y="0.07" />
@@ -276,8 +273,8 @@
     </AssociationLine>
     <AssociationLine Name="Links" Type="onYOURway.Models.EntryLink" FixedFromPoint="true">
       <Path>
-        <Point X="9" Y="5.312" />
-        <Point X="10" Y="5.312" />
+        <Point X="9" Y="5.476" />
+        <Point X="10" Y="5.476" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -285,7 +282,6 @@
       <FileName>Models\Location\Entry.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Tags" />
       <Property Name="ExternalIds" />
       <Property Name="Localizations" />
       <Property Name="Links" />
@@ -429,8 +425,8 @@
     <Position X="12" Y="3.5" Width="1.5" />
     <AssociationLine Name="Entry" Type="onYOURway.Models.Entry" FixedToPoint="true">
       <Path>
-        <Point X="12" Y="4.312" />
-        <Point X="9" Y="4.312" />
+        <Point X="12" Y="4.436" />
+        <Point X="9" Y="4.436" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.1" Y="-0.232" />
@@ -452,51 +448,6 @@
       <FileName>Models\App\Message.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="onYOURway.Models.User">
-    <Position X="12.25" Y="11.25" Width="1.5" />
-    <Members>
-      <Method Name="User" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Auth\User.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUser">
-    <Position X="12.25" Y="9" Width="1.5" />
-    <Members>
-      <Method Name="IdentityUser" Hidden="true" />
-    </Members>
-    <TypeIdentifier />
-  </Class>
-  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin">
-    <Position X="15" Y="10.75" Width="1.5" />
-    <Members>
-      <Method Name="IdentityUserLogin" Hidden="true" />
-    </Members>
-    <TypeIdentifier />
-  </Class>
-  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole">
-    <Position X="15" Y="9" Width="1.5" />
-    <Members>
-      <Method Name="IdentityUserRole" Hidden="true" />
-    </Members>
-    <TypeIdentifier />
-  </Class>
-  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim">
-    <Position X="15" Y="12.75" Width="1.5" />
-    <Members>
-      <Method Name="IdentityUserClaim" Hidden="true" />
-    </Members>
-    <TypeIdentifier />
-  </Class>
-  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityRole">
-    <Position X="17.75" Y="9" Width="1.5" />
-    <Members>
-      <Method Name="IdentityRole" Hidden="true" />
-    </Members>
-    <TypeIdentifier />
-  </Class>
   <Class Name="onYOURway.Models.CopyOfEntryLocalization">
     <Position X="10" Y="2" Width="1.5" />
     <AssociationLine Name="Entry" Type="onYOURway.Models.Entry" FixedFromPoint="true">
@@ -515,6 +466,79 @@
     <ShowAsAssociation>
       <Property Name="Entry" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUser&lt;TKey, TLogin, TRole, TClaim&gt;">
+    <Position X="12.25" Y="9" Width="1.5" />
+    <Members>
+      <Method Name="IdentityUser" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole&lt;TKey&gt;">
+    <Position X="15" Y="9" Width="1.5" />
+    <Members>
+      <Method Name="IdentityUserRole" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityRole&lt;TKey, TUserRole&gt;">
+    <Position X="17.75" Y="9" Width="1.5" />
+    <Members>
+      <Method Name="IdentityRole" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin&lt;TKey&gt;">
+    <Position X="15" Y="11.25" Width="1.5" />
+    <Members>
+      <Method Name="IdentityUserLogin" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim&lt;TKey&gt;">
+    <Position X="15" Y="13.75" Width="1.5" />
+    <Members>
+      <Method Name="IdentityUserClaim" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="onYOURway.Models.UserRole" Collapsed="true">
+    <Position X="15" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Auth\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="onYOURway.Models.Role" Collapsed="true">
+    <Position X="17.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Auth\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="onYOURway.Models.UserClaim" Collapsed="true">
+    <Position X="15" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Auth\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="onYOURway.Models.UserExternalLogin" Collapsed="true">
+    <Position X="15" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Auth\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="onYOURway.Models.User" Collapsed="true">
+    <Position X="12.25" Y="13.25" Width="1.5" />
+    <Members>
+      <Method Name="User" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Auth\User.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
