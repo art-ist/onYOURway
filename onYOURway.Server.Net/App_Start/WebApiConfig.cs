@@ -1,9 +1,10 @@
-﻿using System.Web.Http;
-using Microsoft.Owin.Security.OAuth;
+﻿using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Configuration;
+using System.Web.Http;
+using System.Web.Http.Cors;
 
-namespace onYOURway {
+namespace onYOURway.StartUp {
 
 	/// <summary>
 	/// Class to register the custom WebApi configuration for Breeze
@@ -22,7 +23,7 @@ namespace onYOURway {
 			config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
 			//Enable CORS (see: http://msdn.microsoft.com/en-us/magazine/dn532203.aspx)
-			config.EnableCors();
+			config.EnableCors(new EnableCorsAttribute("*", "*", "GET, POST"));
 
 			// Use camel case for JSON data.
 			config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

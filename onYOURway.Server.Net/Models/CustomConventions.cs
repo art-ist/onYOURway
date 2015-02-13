@@ -66,6 +66,9 @@ namespace onYOURway.Models {
 
 		} //CustomAttributesConvention
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public class SqlServerDefaultTypesConvention : Convention {
 			public SqlServerDefaultTypesConvention() {
 

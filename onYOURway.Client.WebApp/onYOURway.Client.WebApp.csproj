@@ -127,7 +127,6 @@
     <Content Include="App\services\auth.js" />
     <Content Include="App\services\geoUtils.js" />
     <Content Include="App\services\location.js" />
-    <None Include="App\services\logger.js.DELETE" />
     <Content Include="App\services\platform.js" />
     <Content Include="App\services\providers\geocode-google.js" />
     <Content Include="App\services\providers\geocode-nominatim.js" />
@@ -157,7 +156,8 @@
     <Content Include="App\_styles\font-awesome.min.css" />
     <Content Include="Content\vonMorgen\vegetables.jpg" />
     <Content Include="index.vonMorgen.html" />
-    <Content Include="Tests\Api\location\regionTest.js" />
+    <Content Include="Tests\Api\Locate\regionTest.js" />
+    <Content Include="Tests\Api\Account\identityTests.js" />
     <Content Include="Tests\App\components\searchBox-componentTest.js" />
     <Content Include="Tests\index.html" />
     <Content Include="Tests\main.js" />

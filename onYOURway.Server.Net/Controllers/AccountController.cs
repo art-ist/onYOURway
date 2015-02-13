@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace onYOURway.Controllers {
 
-	[Authorize, EnableCors("*", "*", "*")]
+	[Authorize, EnableCors("*", "*", "GET, POST")]
 	public class AccountController : Controller {
 		public AccountController() {
 		}

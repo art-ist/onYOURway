@@ -217,11 +217,12 @@
     <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\DatabaseConfig.cs" />
     <Compile Include="Controllers\AccountViewModels.cs" />
     <Compile Include="Controllers\AccountManagementViewModels.cs" />
     <Compile Include="Controllers\AdminViewModel.cs" />
     <Compile Include="Models\Auth\IdentityManagers.cs" />
-    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\LocateController.cs" />
@@ -254,7 +255,7 @@
     <Compile Include="Models\App\Message.cs" />
     <Compile Include="Models\_Results\Place.cs" />
     <Compile Include="Models\_Results\SearchSuggestion.cs" />
-    <Compile Include="Models\_onYOURwayDbContext.cs" />
+    <Compile Include="Models\onYOURwayDbContext.cs" />
     <Compile Include="Models\App\ExternalSystem.cs" />
     <Compile Include="Models\Location\Region.cs" />
     <Compile Include="Models\Location\Map.cs" />

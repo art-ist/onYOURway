@@ -14,7 +14,10 @@ QUnit.test(action, function (assert) {
 		timeout: 1000
 	}).done(function (results) {
 		assert.ok(results.length > 0, results.length + " regions found");
-		assert.ok(results[0].Boundary, "First region has a boundary");
+		if (results.length) {
+			assert.ok(results[0].Boundary, "First region has a boundary");
+		}
+		//else assert.ok(false, "No regions found");
 	}).fail(function (x, text, thrown) {
 		assert.ok(false, "Querying regions failed: " + text);
 	}).always(function () {

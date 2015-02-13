@@ -214,9 +214,10 @@
 	border-radius: 0 0 5px 5px;
 }
 
-#qunit-tests .fail                          { color: #000; background-color: #EE5757; }
+#qunit-tests .fail                          { color: #000; background-color: #ee9c9c; }
 #qunit-tests .fail .test-name,
 #qunit-tests .fail .module-name             { color: #000; }
+#qunit-tests .fail .test-message			{ font-weight: bold; }
 
 #qunit-tests .fail .test-actual             { color: #EE5757; }
 #qunit-tests .fail .test-expected           { color: #008000; }

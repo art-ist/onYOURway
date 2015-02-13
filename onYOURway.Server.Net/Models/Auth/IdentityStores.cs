@@ -10,10 +10,10 @@ namespace onYOURway.Models {
 
 	// Most likely won't need to customize these either, but they were needed because we implemented
 	// custom versions of all the other types:
-	public class AppUserStore : UserStore<User, Role, Int32, UserExternalLogin, UserRole , UserClaim>
+	public class AppUserStore : UserStore<User, Role, Int32, UserExternalLogin, UserRole, UserClaim>
 									  , IUserStore<User, Int32>
 									  , IDisposable {
-		public AppUserStore() 
+		public AppUserStore()
 			: this(new onYOURwayDbContext()) {
 			base.DisposeContext = true;
 		}
@@ -26,11 +26,11 @@ namespace onYOURway.Models {
 
 
 	public class AppRoleStore : RoleStore<Role, Int32, UserRole>
-									  ,	IQueryableRoleStore<Role, Int32>
-									  ,	IRoleStore<Role, Int32>
+									  , IQueryableRoleStore<Role, Int32>
+									  , IRoleStore<Role, Int32>
 									  , IDisposable {
 		public AppRoleStore()
-			: base(new IdentityDbContext()) {
+			: base(new onYOURwayDbContext()) {
 			base.DisposeContext = true;
 		}
 

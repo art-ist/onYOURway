@@ -6,9 +6,8 @@ using Owin;
 using System.Web.Http;
 using System.Web.Mvc;
 
-[assembly: OwinStartup(typeof(onYOURway.Startup))]
-
-namespace onYOURway {
+[assembly: OwinStartup(typeof(onYOURway.StartUp.Startup))]
+namespace onYOURway.StartUp {
 	public partial class Startup {
 		
 		public Startup() {
@@ -18,7 +17,11 @@ namespace onYOURway {
 
 			GlobalFilters.Filters.Add(new HandleErrorAttribute());
 
-			Auth.Configure(app);
+			//Database
+			DatabaseConfig.Configure();
+			//OWIN Middleware
+			IdentityConfig.Configure(app);
+			//WebApi
 			GlobalConfiguration.Configure(WebApiConfig.Register);
 
 		}

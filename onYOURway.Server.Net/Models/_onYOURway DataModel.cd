@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+<ClassDiagram MajorVersion="1" MinorVersion="1">
   <Comment CommentText="Lookups&#xD;&#xA;(caching basemap features)">
     <Position X="1.25" Y="10.25" Height="0.427" Width="4.346" />
   </Comment>
@@ -271,10 +271,10 @@
         <Position X="0.039" Y="0.089" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Links" Type="onYOURway.Models.EntryLink" FixedFromPoint="true">
+    <AssociationLine Name="Links" Type="onYOURway.Models.EntryLink" FixedToPoint="true">
       <Path>
-        <Point X="9" Y="5.476" />
-        <Point X="10" Y="5.476" />
+        <Point X="9" Y="5.312" />
+        <Point X="10" Y="5.312" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -343,6 +343,15 @@
     <Members>
       <Method Name="BaseMapFeature" Hidden="true" />
     </Members>
+    <AssociationLine Name="Localizations" Type="onYOURway.Models.BaseMapFeatureLocalized" FixedFromPoint="true">
+      <Path>
+        <Point X="3" Y="11.75" />
+        <Point X="4" Y="11.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.027" Y="0.06" Height="0.182" Width="1.068" />
+      </MemberNameLabel>
+    </AssociationLine>
     <AssociationLine Name="Parent" Type="onYOURway.Models.BaseMapFeature" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="1.5" Y="11.938" />
@@ -361,6 +370,9 @@
         <Point X="1.25" Y="12.812" />
         <Point X="1.5" Y="12.812" />
       </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.079" Y="0.112" Height="0.182" Width="0.766" />
+      </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAgAAAEQAQAACCAAAEAAwAAAAAABAA=</HashCode>
@@ -475,56 +487,56 @@
     <TypeIdentifier />
   </Class>
   <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole&lt;TKey&gt;">
-    <Position X="15" Y="9" Width="1.5" />
+    <Position X="15" Y="12" Width="1.5" />
     <Members>
       <Method Name="IdentityUserRole" Hidden="true" />
     </Members>
     <TypeIdentifier />
   </Class>
   <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityRole&lt;TKey, TUserRole&gt;">
-    <Position X="17.75" Y="9" Width="1.5" />
+    <Position X="17.75" Y="12" Width="1.5" />
     <Members>
       <Method Name="IdentityRole" Hidden="true" />
     </Members>
     <TypeIdentifier />
   </Class>
   <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin&lt;TKey&gt;">
-    <Position X="15" Y="11.25" Width="1.5" />
+    <Position X="15" Y="9" Width="1.5" />
     <Members>
       <Method Name="IdentityUserLogin" Hidden="true" />
     </Members>
     <TypeIdentifier />
   </Class>
   <Class Name="Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim&lt;TKey&gt;">
-    <Position X="15" Y="13.75" Width="1.5" />
+    <Position X="17.75" Y="9" Width="1.5" />
     <Members>
       <Method Name="IdentityUserClaim" Hidden="true" />
     </Members>
     <TypeIdentifier />
   </Class>
   <Class Name="onYOURway.Models.UserRole" Collapsed="true">
-    <Position X="15" Y="10.25" Width="1.5" />
+    <Position X="15" Y="13.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Auth\IdentityModels.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="onYOURway.Models.Role" Collapsed="true">
-    <Position X="17.75" Y="10.75" Width="1.5" />
+    <Position X="17.75" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Auth\IdentityModels.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="onYOURway.Models.UserClaim" Collapsed="true">
-    <Position X="15" Y="15.5" Width="1.5" />
+    <Position X="17.75" Y="11" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Auth\IdentityModels.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="onYOURway.Models.UserExternalLogin" Collapsed="true">
-    <Position X="15" Y="13" Width="1.5" />
+    <Position X="15" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAEAAAABAAAAAAAAA=</HashCode>
       <FileName>Models\Auth\IdentityModels.cs</FileName>
@@ -534,7 +546,7 @@
     <Position X="12.25" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Auth\User.cs</FileName>
+      <FileName>Models\Auth\IdentityModels.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

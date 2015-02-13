@@ -23,7 +23,7 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// Feature type e.g.: Country, City, Province, Street
 		/// </summary>
-		[MinLength(10), Index("IX_Type_Id", 0), Index("IX_Type_IsoCode", 0)]
+		[MaxLength(10), Index("IX_Type_Id", 0), Index("IX_Type_IsoCode", 0)]
 		public String Type { get; set; }
 
 		[Index, NonUnicode, MinLength(2), MaxLength(4), Index("IX_Type_IsoCode", 1)]

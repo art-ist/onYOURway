@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace onYOURway.Models {
 
-	public partial class onYOURwayDbContext 
+	public partial class onYOURwayDbContext
 		: IdentityDbContext<User, Role, Int32, UserExternalLogin, UserRole, UserClaim> /*DbContext*/ {
 		public onYOURwayDbContext()
 			: base("DefaultConnection") {
@@ -22,10 +22,24 @@ namespace onYOURway.Models {
 		/// </summary>
 		/// <param name="modelBuilder"></param>
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+			//base.OnModelCreating(modelBuilder);
+
+			//override identity table and schema mappings
+			//modelBuilder.Entity<UserRole>().ToTable("UserRoles", "App");
+			//modelBuilder.Entity<Role>().ToTable("Roles", "App");
+			//modelBuilder.Entity<UserClaim>().ToTable("UserClaims", "App");
+			//modelBuilder.Entity<UserExternalLogin>().ToTable("UserExternalLogins", "App");
+			//modelBuilder.Entity<User>().ToTable("Users", "App");
 
 			////disable automatic cascade on delete for foreign key creation
 			//modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 			//modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+			//TODO: make configurable with CategoryRelationAttribute
+			modelBuilder.Entity<CategoryRelation>()
+				.HasRequired<Category>(r => r.FromCategory)
+				.WithMany()
+				.WillCascadeOnDelete(false);
 
 		}
 

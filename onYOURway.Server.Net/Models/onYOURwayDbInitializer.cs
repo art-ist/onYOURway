@@ -13,46 +13,44 @@ namespace onYOURway.Models {
 	public class onYOURwayDbInitializer : CreateDatabaseIfNotExists<onYOURwayDbContext> {
 
 		protected override void Seed(onYOURwayDbContext context) {
-			//SeedAdminAccountAndRole(context);
 			base.Seed(context);
+			SeedAdminAccountAndRole(context);
 		}
 
-		////Create User=Admin@Admin.com with password=Admin@123456 in the Admin role        
-		//public static void SeedAdminAccountAndRole(onYOURwayDbContext db) {
-		//	var userManager = HttpContext
-		//		.Current
-		//		.GetOwinContext()
-		//		.GetUserManager<AppUserManager>();
+		//Create User=Admin with password=Pa$$w0rd in the Admin role        
+		public static void SeedAdminAccountAndRole(onYOURwayDbContext db) {
 
-		//	var roleManager = HttpContext
-		//		.Current
-		//		.GetOwinContext()
-		//		.Get<AppRoleManager>();
+			using (AppUserManager userManager = new AppUserManager(new AppUserStore(db))) {
+				using (AppRoleManager roleManager = new AppRoleManager(new AppRoleStore(db))) {
+					const string name = "Admin";
+					const string password = "Pa$$w0rd";
+					const string roleName = "Admin";
 
-		//	const string name = "Admin";
-		//	const string password = "Admin@123456";
-		//	const string roleName = "Admin";
+					//Create Role Admin if it does not exist
+					var role = roleManager.FindByName(roleName);
+					if (role == null) {
+						role = new Role(roleName);
+						var roleResult = roleManager.Create(role);
+					}
 
-		//	//Create Role Admin if it does not exist
-		//	var role = roleManager.FindByNameAsync(roleName);
-		//	if (role == null) {
-		//		role = new Role(roleName);
-		//		var roleresult = roleManager.Create(role);
-		//	}
+					var user = userManager.FindByName(name);
+					if (user == null) {
+						user = new User { UserName = name };
+						var result = userManager.Create(user, password);
+						result = userManager.SetLockoutEnabled(user.Id, false);
+					}
 
-		//	var user = userManager.FindByName(name);
-		//	if (user == null) {
-		//		user = new User { UserName = name, Email = name };
-		//		var result = userManager.Create(user, password);
-		//		result = userManager.SetLockoutEnabled(user.Id, false);
-		//	}
+					// Add user admin to Role Admin if not already added
+					var rolesForUser = userManager.GetRoles(user.Id);
+					if (!rolesForUser.Contains(role.Name)) {
+						var result = userManager.AddToRole(user.Id, role.Name);
+					}
+					//DON'T FORGET THIS!!!
+					db.SaveChanges();
+				} //using roleManager
+			} //using userManager
 
-		//	// Add user admin to Role Admin if not already added
-		//	var rolesForUser = userManager.GetRoles(user.Id);
-		//	if (!rolesForUser.Contains(role.Name)) {
-		//		var result = userManager.AddToRole(user.Id, role.Name);
-		//	}
-		//} //SeedAdminAccountAndRole
+		} //SeedAdminAccountAndRole
 
 	} //class onYOURwayDbInitializer
 
