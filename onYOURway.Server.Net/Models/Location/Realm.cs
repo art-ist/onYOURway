@@ -13,7 +13,7 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// Unique id
 		/// </summary>
-		[Key]
+		[Key, MaxLength(20)]
 		public String Key { get; set; }
 		
 		/// <summary>

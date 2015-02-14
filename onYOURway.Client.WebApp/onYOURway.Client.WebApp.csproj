@@ -156,11 +156,11 @@
     <Content Include="App\_styles\font-awesome.min.css" />
     <Content Include="Content\vonMorgen\vegetables.jpg" />
     <Content Include="index.vonMorgen.html" />
-    <Content Include="Tests\Api\Locate\regionTest.js" />
+    <Content Include="Tests\Api\Locate\locationBoundariesTests.js" />
     <Content Include="Tests\Api\Account\identityTests.js" />
     <Content Include="Tests\App\components\searchBox-componentTest.js" />
     <Content Include="Tests\index.html" />
-    <Content Include="Tests\main.js" />
+    <Content Include="Tests\testMain.js" />
     <Content Include="App\themes\onYOURway\css\bootstrap.css" />
     <Content Include="App\themes\onYOURway\css\onYOURway.css">
       <DependentUpon>onYOURway.less</DependentUpon>
@@ -615,7 +615,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5435</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:42101/</IISUrl>
+          <IISUrl>http://localhost:42101</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

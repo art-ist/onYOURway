@@ -10,10 +10,15 @@
 namespace onYOURway.Models
 {
     using System;
-    
+
+	public partial class SearchSuggestion {
+		public string Class { get; set; }
+		public string Name { get; set; }
+	}
+
     public partial class Place
     {
-        public string T { get; set; }
+		//public string T { get; set; }
         public long Id { get; set; }
         public string Name { get; set; }
         public string Alias { get; set; }
@@ -28,4 +33,5 @@ namespace onYOURway.Models
         public string Lines { get; set; }
         public string Open { get; set; }
     }
-}
+
+} //ns

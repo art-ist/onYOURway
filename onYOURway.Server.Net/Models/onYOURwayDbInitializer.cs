@@ -23,6 +23,7 @@ namespace onYOURway.Models {
 			using (AppUserManager userManager = new AppUserManager(new AppUserStore(db))) {
 				using (AppRoleManager roleManager = new AppRoleManager(new AppRoleStore(db))) {
 					const string name = "Admin";
+					const string email = "test@nomail.com";
 					const string password = "Pa$$w0rd";
 					const string roleName = "Admin";
 
@@ -35,7 +36,10 @@ namespace onYOURway.Models {
 
 					var user = userManager.FindByName(name);
 					if (user == null) {
-						user = new User { UserName = name };
+						user = new User { 
+							UserName = name,
+ 							Email = email
+						};
 						var result = userManager.Create(user, password);
 						result = userManager.SetLockoutEnabled(user.Id, false);
 					}

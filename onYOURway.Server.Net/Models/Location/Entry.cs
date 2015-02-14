@@ -59,7 +59,7 @@ namespace onYOURway.Models {
 
 		public byte[] Image { get; set; }
 
-
+		[MaxLength(20)]
 		public String RealmKey { get; set; }
 
 		public Int64 CreatedBy { get; set; }

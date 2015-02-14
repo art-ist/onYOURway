@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
- 
+
+
+#region define data annotations 
+
 namespace System.ComponentModel.DataAnnotations {
 
 	[AttributeUsage( AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false )]
@@ -15,23 +18,26 @@ namespace System.ComponentModel.DataAnnotations {
 		public String CssIconClass { get; set; }
 		public String Template { get; set; }
 	}
-}
+
+} //ns
 
 namespace System.ComponentModel.DataAnnotations.Schema {
 
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-	public class NonUnicodeAttribute : Attribute {
-	}
+	public class NonUnicodeAttribute : Attribute { }
 
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-	public class DateOnlyAttribute : Attribute {
-	}
+	public class DateOnlyAttribute : Attribute { }
 
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-	public class TimeOnlyAttribute : Attribute {
-	}
+	public class TimeOnlyAttribute : Attribute { }
 
-}
+} //ns
+
+#endregion define data annotations
+
+
+#region customize defaults using annotations
 
 namespace onYOURway.Models {
 
@@ -139,6 +145,6 @@ namespace onYOURway.Models {
 
 	} //ForeignKeyNamingConvention
 
-}
+} //ns
 
-
+#endregion customize defaults using annotations

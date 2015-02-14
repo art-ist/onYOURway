@@ -9,13 +9,13 @@
 	var routes = {
 		siteUrl: config.host + "/",
 		addExternalLoginUrl: config.host + "/api/Account/AddExternalLogin",
-		changePasswordUrl: config.host + "/api/Account/changePassword",
+		changePasswordUrl: config.host + "/api/Account/ChangePassword",
 		loginUrl: config.host + "/Token",
 		logoutUrl: config.host + "/api/Account/Logout",
 		registerUrl: config.host + "/api/Account/Register",
 		registerExternalUrl: config.host + "/api/Account/RegisterExternal",
 		removeLoginUrl: config.host + "/api/Account/RemoveLogin",
-		setPasswordUrl: config.host + "/api/Account/setPassword",
+		setPasswordUrl: config.host + "/api/Account/SetPassword",
 		userInfoUrl: config.host + "/api/Account/UserInfo",
 		externalLoginsUrl: function externalLoginsUrl(returnUrl, generateState) {
 			return config.host + "/api/Account/ExternalLogins"

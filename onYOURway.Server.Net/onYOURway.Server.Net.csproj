@@ -218,10 +218,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\DatabaseConfig.cs" />
-    <Compile Include="Controllers\AccountViewModels.cs" />
-    <Compile Include="Controllers\AccountManagementViewModels.cs" />
-    <Compile Include="Controllers\AdminViewModel.cs" />
-    <Compile Include="Models\Auth\IdentityManagers.cs" />
+    <Compile Include="Controllers\AccountControllerModels.cs" />
+    <Compile Include="Models\Identity\IdentityManagers.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -234,12 +232,12 @@
     <Compile Include="JP.aspx.designer.cs">
       <DependentUpon>JP.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Auth\IdentityModels.cs" />
-    <Compile Include="Models\Auth\IdentityStores.cs" />
-    <Compile Include="Models\Auth\Role.cs" />
-    <Compile Include="Models\Auth\UserRole.cs" />
-    <Compile Include="Models\Auth\UserExternalLogin.cs" />
-    <Compile Include="Models\Auth\User.cs" />
+    <Compile Include="Models\Identity\IdentityModels.cs" />
+    <Compile Include="Models\Identity\IdentityStores.cs" />
+    <Compile Include="Models\Identity\Role.cs" />
+    <Compile Include="Models\Identity\UserRole.cs" />
+    <Compile Include="Models\Identity\UserExternalLogin.cs" />
+    <Compile Include="Models\Identity\User.cs" />
     <Compile Include="Models\Location\Entry.cs" />
     <Compile Include="Models\Location\Event.cs" />
     <Compile Include="Models\Location\Realm.cs" />
@@ -253,8 +251,7 @@
     <Compile Include="Models\Location\Category.cs" />
     <Compile Include="Models\Location\CategoryName.cs" />
     <Compile Include="Models\App\Message.cs" />
-    <Compile Include="Models\_Results\Place.cs" />
-    <Compile Include="Models\_Results\SearchSuggestion.cs" />
+    <Compile Include="Controllers\LocateControllerModes.cs" />
     <Compile Include="Models\onYOURwayDbContext.cs" />
     <Compile Include="Models\App\ExternalSystem.cs" />
     <Compile Include="Models\Location\Region.cs" />
@@ -284,9 +281,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\_Auth\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

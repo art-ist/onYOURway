@@ -23,8 +23,8 @@
 
 //Tests
 define([
-	'App/components/searchBox-componentTest',
+	//'App/components/searchBox-componentTest',
 	'Api/Account/identityTests',
-	'Api/Locate/regionTest'
+	'Api/Locate/locationBoundariesTests'
 ],
 function () { });

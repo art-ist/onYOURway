@@ -6,55 +6,58 @@
 	<title>QUnit Tests for onYOURway App and Service Api</title>
 </head>
 <body>
-    <div id="qunit"></div>
-    <div id="qunit-fixture"></div>
+	<div id="header">
+		<p style="text-align: right;"><a href="../">Start onYOURway</a></p>
+	</div>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
 
-    <!-- include all scripts, that are also included for the main application -->
+	<!-- include all scripts, that are also included for the main application -->
 	<script src="../App/app.config.js"></script>
-    <script src="../App/_libraries/jquery-2.0.1.js"></script>
-    <script src="../App/_libraries/jquery-ui-1.10.4.custom.js"></script>
-    <script src="../App/_libraries/modernizr-2.7.1.js"></script>
-    <script src="../App/_libraries/knockout-3.2.0.js"></script>
-    <script src="../App/_libraries/q.js"></script>
-    <script src="../App/_libraries/bootstrap.js"></script>
-    <script src="../App/_libraries/knockout.mapping-2.4.1.js"></script>
-    <script src="../App/_libraries/knockout.validation.debug.js"></script>
-    <script src="../App/_libraries/toastr.js"></script>
-    <script src="../App/_libraries/breeze.debug.js"></script>
-    <script src="../App/_libraries/breeze.saveErrorExtensions.js"></script>
-    <script src="../App/_libraries/jQuery.scrollTo-1.4.8.js"></script>
-    <script src="../App/_libraries/jquery.scrollIntoView.js"></script>
-    <script src="../App/_libraries/moment-with-langs.js"></script>
-    <script src="../App/_libraries/suncalc.js"></script>
-    <script src="../App/_libraries/opening_hours.js"></script>
-    <script src="../App/_libraries/leaflet/leaflet-0.7.1.js"></script>
-    <script src="../App/_libraries/leaflet/javascript.util.js"></script>
-    <script src="../App/_libraries/leaflet/jsts.js"></script>
-    <script src="../App/_libraries/leaflet/leaflet.awesome-markers.js"></script>
-    <script src="../App/_libraries/leaflet/leaflet.markercluster-src.js"></script>
-    <script src="../App/_libraries/leaflet/leaflet.overpass-layer.js"></script>
-    <script src="../App/_libraries/leaflet/leaflet.draw.js"></script>
-    <script src="../App/_libraries/bootstrap-datepicker.js"></script>
-    <script src="../App/_libraries/locales/bootstrap-datepicker.de.js"></script>
-    <script src="../App/_libraries/bootstrap-typeahead.js"></script>
-    <script src="../App/_libraries/intro.js"></script>
-    <script src="../App/_libraries/owl.carousel.js"></script>
-    <script src="../App/_libraries/select2/select2.js"></script>
-    <script src="../App/_libraries/knockout-bootstrap.js"></script>
-    <script src="../App/extensions/global-extensions.js"></script>
-    <script src="../App/bindingHandlers/class-bindingHandler.js"></script>
-    <script src="../App/bindingHandlers/datepicker-bindingHandler.js"></script>
-    <script src="../App/bindingHandlers/localize-bindingHandler.js"></script>
-    <script src="../App/bindingHandlers/map-bindingHandler.js"></script>
-    <script src="../App/bindingHandlers/textDate-bindingHandler.js"></script>
-    <script src="../App/bindingHandlers/timeslider-bindingHandler.js"></script>
-    <script src="../App/bindingHandlers/typeahead-bindingHandler.js"></script>
-    <script src="../App/bindingHandlers/ventures-bindingHandler.js"></script>
-    <script src="../App/bindingHandlers/_instance-bindingProvider.js"></script>
+	<script src="../App/_libraries/jquery-2.0.1.js"></script>
+	<script src="../App/_libraries/jquery-ui-1.10.4.custom.js"></script>
+	<script src="../App/_libraries/modernizr-2.7.1.js"></script>
+	<script src="../App/_libraries/knockout-3.2.0.js"></script>
+	<script src="../App/_libraries/q.js"></script>
+	<script src="../App/_libraries/bootstrap.js"></script>
+	<script src="../App/_libraries/knockout.mapping-2.4.1.js"></script>
+	<script src="../App/_libraries/knockout.validation.debug.js"></script>
+	<script src="../App/_libraries/toastr.js"></script>
+	<script src="../App/_libraries/breeze.debug.js"></script>
+	<script src="../App/_libraries/breeze.saveErrorExtensions.js"></script>
+	<script src="../App/_libraries/jQuery.scrollTo-1.4.8.js"></script>
+	<script src="../App/_libraries/jquery.scrollIntoView.js"></script>
+	<script src="../App/_libraries/moment-with-langs.js"></script>
+	<script src="../App/_libraries/suncalc.js"></script>
+	<script src="../App/_libraries/opening_hours.js"></script>
+	<script src="../App/_libraries/leaflet/leaflet-0.7.1.js"></script>
+	<script src="../App/_libraries/leaflet/javascript.util.js"></script>
+	<script src="../App/_libraries/leaflet/jsts.js"></script>
+	<script src="../App/_libraries/leaflet/leaflet.awesome-markers.js"></script>
+	<script src="../App/_libraries/leaflet/leaflet.markercluster-src.js"></script>
+	<script src="../App/_libraries/leaflet/leaflet.overpass-layer.js"></script>
+	<script src="../App/_libraries/leaflet/leaflet.draw.js"></script>
+	<script src="../App/_libraries/bootstrap-datepicker.js"></script>
+	<script src="../App/_libraries/locales/bootstrap-datepicker.de.js"></script>
+	<script src="../App/_libraries/bootstrap-typeahead.js"></script>
+	<script src="../App/_libraries/intro.js"></script>
+	<script src="../App/_libraries/owl.carousel.js"></script>
+	<script src="../App/_libraries/select2/select2.js"></script>
+	<script src="../App/_libraries/knockout-bootstrap.js"></script>
+	<script src="../App/extensions/global-extensions.js"></script>
+	<script src="../App/bindingHandlers/class-bindingHandler.js"></script>
+	<script src="../App/bindingHandlers/datepicker-bindingHandler.js"></script>
+	<script src="../App/bindingHandlers/localize-bindingHandler.js"></script>
+	<script src="../App/bindingHandlers/map-bindingHandler.js"></script>
+	<script src="../App/bindingHandlers/textDate-bindingHandler.js"></script>
+	<script src="../App/bindingHandlers/timeslider-bindingHandler.js"></script>
+	<script src="../App/bindingHandlers/typeahead-bindingHandler.js"></script>
+	<script src="../App/bindingHandlers/ventures-bindingHandler.js"></script>
+	<script src="../App/bindingHandlers/_instance-bindingProvider.js"></script>
 
-    <!-- test library -->
-    <script src="_qUnit/qunit-1.16.0.js"></script>
-    <script type="text/javascript" src="../App/_libraries/require.js" data-main="main"></script>
+	<!-- test library -->
+	<script src="_qUnit/qunit-1.16.0.js"></script>
+	<script type="text/javascript" src="../App/_libraries/require.js" data-main="testMain"></script>
 
 </body>
 </html>
