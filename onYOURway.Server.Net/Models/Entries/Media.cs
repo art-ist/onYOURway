@@ -5,7 +5,8 @@ namespace onYOURway.Models {
 	using System.ComponentModel.DataAnnotations.Schema;
 	using System.Data.Entity.Spatial;
 
-	public partial class Media  {
+	[Table("Media", Schema = "oyw")]
+	public partial class Media {
 
 		public Int64 Id { get; set; }
 
