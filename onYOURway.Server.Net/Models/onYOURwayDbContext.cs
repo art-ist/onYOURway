@@ -41,6 +41,17 @@ namespace onYOURway.Models {
 				.WithMany()
 				.WillCascadeOnDelete(false);
 
+			modelBuilder.Entity<Entry>()
+				.HasRequired<Media>(m => m.Thumb)
+				.WithMany()
+				.WillCascadeOnDelete(false);
+
+
+			modelBuilder.Entity<Entry>()
+				.HasRequired<Media>(m => m.Image)
+				.WithMany()
+				.WillCascadeOnDelete(false);
+
 		}
 
 		#endregion customize DB creation
@@ -97,7 +108,7 @@ namespace onYOURway.Models {
 
 		#endregion Taxonomy EntitySets
 
-		#region Locate EntitiySets
+		#region Entry EntitiySets
 
 
 		public virtual DbSet<Realm> Realms { get; set; }
@@ -116,6 +127,8 @@ namespace onYOURway.Models {
 		public virtual DbSet<Location> Locations { get; set; }
 		public virtual DbSet<Event> Events { get; set; }
 
+		public virtual DbSet<Media> Media { get; set; }
+
 
 		//public virtual DbSet<Country> Countries { get; set; }
 		//public virtual DbSet<Province> Provinces { get; set; }
@@ -123,7 +136,7 @@ namespace onYOURway.Models {
 		//public virtual DbSet<Street> Streets { get; set; }		
 		public virtual DbSet<BaseMapFeature> BaseMapFeatures { get; set; }
 
-		#endregion Locate EntitiySets
+		#endregion Entry EntitiySets
 
 		#region Profile & Security EntitiySets
 
