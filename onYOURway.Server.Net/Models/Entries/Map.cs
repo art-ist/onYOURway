@@ -11,10 +11,11 @@ namespace onYOURway.Models {
 		public Map() {
 			this.Visible = true;
 			this.Localizations = new HashSet<MapLocalized>();
+			this.Id = new Guid();
 		}
 
 		[Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public Int32 Id { get; set; }
+		public Guid Id { get; set; }
 
 		[Required, MaxLength(200)]
 		public String Name { get; set; }
@@ -45,7 +46,7 @@ namespace onYOURway.Models {
 	public partial class MapLocalized {
 
 		[Key, Column(Order = 0)]
-		public Int32 MapId { get; set; }
+		public Guid MapId { get; set; }
 
 		/// <summary>
 		/// Locale e.g. "de-DE" or language e.g. "de" of localization

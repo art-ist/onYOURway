@@ -26,7 +26,10 @@ namespace onYOURway.Models {
 		public String Type { get; set; }
 
 		/// <summary>
-		/// Indicates if the tag assignment can have a value and what datatype it is. (null = no value)
+		/// Indicates if the tag assignment can have a value and what data-/type it is. 
+		/// - null ... no value allowed (the category is assigned or not)
+		/// - string
+		/// - array of options e.g. ['green', 'blue', 'red']
 		/// </summary>
 		public String ValueType { get; set; }
 
@@ -37,7 +40,7 @@ namespace onYOURway.Models {
 
 		public Boolean Visible { get; set; }
 
-		[MaxLength(40), NonUnicode]
+		[MaxLength(100), NonUnicode]
 		public String ForeignId { get; set; }
 
 		#region navigation properties

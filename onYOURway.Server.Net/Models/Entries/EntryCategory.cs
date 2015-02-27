@@ -6,10 +6,10 @@ using System.Data.Entity.Spatial;
 
 namespace onYOURway.Models {
 
-	[Table("EntryCategorys", Schema = "oyw")]
+	[Table("EntryCategories", Schema = "oyw")]
 	public partial class EntryCategory {
 		[Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public Int64 EntryId { get; set; }
+		public Guid EntryId { get; set; }
 
 		[Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public Int32 CategoryId { get; set; }

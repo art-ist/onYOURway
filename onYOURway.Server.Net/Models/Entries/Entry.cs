@@ -12,12 +12,13 @@ namespace onYOURway.Models {
 	public partial class Entry {
 		public Entry() {
 			this.Localizations = new HashSet<EntryLocalization>();
-			this.Tags = new HashSet<EntryCategory>();
+			this.Categories = new HashSet<EntryCategory>();
 			this.Links = new HashSet<EntryLink>();
 			this.ExternalIds = new HashSet<EntryExternalId>();
+			this.Id = new Guid();
 		}
 
-		public Int64 Id { get; set; }
+		public Guid Id { get; set; }
 
 
 		[Required]
@@ -57,19 +58,19 @@ namespace onYOURway.Models {
 		public String OpeningHours { get; set; }
 
 
-		public Int64 ThumbId { get; set; }
+		public Guid? ThumbId { get; set; }
 
-		public Int64 ImageId { get; set; }
+		public Guid? ImageId { get; set; }
 
 		[MaxLength(20)]
 		public String RealmKey { get; set; }
 
-		public Int64 CreatedBy { get; set; }
+		public Guid CreatedBy { get; set; }
 
 		[Column(TypeName = "datetime2")]
 		public DateTime CreatedAt { get; set; }
 
-		public Int64? ModifiedBy { get; set; }
+		public Guid? ModifiedBy { get; set; }
 
 		[Column(TypeName = "datetime2")]
 		public DateTime? ModifiedAt { get; set; }
@@ -77,16 +78,29 @@ namespace onYOURway.Models {
 		public bool ApprovalRequired { get; set; }
 
 		[Column(TypeName = "datetime2")]
-		public DateTime ApprovedAt { get; set; }
+		public DateTime? ApprovedAt { get; set; }
 
 		public Guid? ApprovedBy { get; set; }
 
 		public bool Published { get; set; }
 
+		/// <summary>
+		/// When importing data from foreign sources this is a unique key for the import source Recuring imports from the same source should use the same key.
+		/// </summary>
+		/// <remarks>The key may correspond to an external system key but it is not intended to create an external system for every imported spreadsheet.</remarks>
+		[MaxLength(100), Index("IX_ExternalSource", 0, IsUnique = true)]
+		public String SourceKey { get; set; }
+
+		/// <summary>
+		/// When importing data from foreign sources this is the unique id to identify the individual entry/record in the external source.
+		/// </summary>
+		[MaxLength(100), Index("IX_ExternalSource", 1, IsUnique = true)]
+		public String SourceId { get; set; }
+
 
 		#region navigation properties
 
-		public virtual ICollection<EntryCategory> Tags { get; set; }
+		public virtual ICollection<EntryCategory> Categories { get; set; }
 
 		public virtual ICollection<EntryExternalId> ExternalIds { get; set; }
 

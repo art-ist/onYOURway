@@ -9,13 +9,16 @@ namespace onYOURway.Models {
 	[Table("CategoryNames", Schema = "oyw")]
 	public partial class CategoryName {
 
-		[Key, Column(Order = 0)]
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public Int64 Id { get; set; }
+
+		[Index("U_oyw_CategoryNames", IsUnique = true, Order = 0)]
 		public Int32 CategoryId { get; set; }
 
-		[Key, Column(Order = 1), MaxLength(2), MinLength(2), NonUnicode]
+		[Index("U_oyw_CategoryNames", IsUnique = true, Order = 1), MaxLength(2), MinLength(2), NonUnicode]
 		public String Lang { get; set; }
 
-		[MaxLength(1000)]
+		[Index("U_oyw_CategoryNames", IsUnique = true, Order = 2), MaxLength(1000)]
 		public String Name { get; set; }
 
 		public Boolean Show { get; set; }

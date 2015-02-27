@@ -1,19 +1,22 @@
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
+
+
 namespace onYOURway.Models {
-	using Newtonsoft.Json;
-	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel.DataAnnotations;
-	using System.ComponentModel.DataAnnotations.Schema;
-	using System.Data.Entity.Spatial;
 
 	[Table("Regions", Schema = "oyw")]
 	public partial class Region {
 		public Region() {
-			Localizations = new HashSet<RegionLocalized>();
-			Maps = new HashSet<Map>();
+			this.Localizations = new HashSet<RegionLocalized>();
+			this.Maps = new HashSet<Map>();
+			this.Id = new Guid();
 		}
 
-		public long Id { get; set; }
+		public Guid Id { get; set; }
 
 		[Required]
 		[StringLength(200)]
@@ -49,19 +52,14 @@ namespace onYOURway.Models {
 
 	[Table("oyw.RegionsLocalized")]
 	public partial class RegionLocalized {
-		[Key]
-		[Column(Order = 0)]
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public long RegionId { get; set; }
 
-		[Key]
-		[Column(Order = 1)]
-		[StringLength(2)]
+		[Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
+		public Guid RegionId { get; set; }
+
+		[Key, Column(Order = 1), StringLength(2)]
 		public string Lang { get; set; }
 
-		[Key]
-		[Column(Order = 2)]
-		[StringLength(200)]
+		[Key, Column(Order = 2), StringLength(200)]
 		public string Name { get; set; }
 
 		[StringLength(1000)]

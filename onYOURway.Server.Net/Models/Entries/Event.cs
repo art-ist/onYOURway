@@ -7,7 +7,7 @@ namespace onYOURway.Models {
 
 	public partial class Event : Entry {
 
-		public Int64 LocationId { get; set; }
+		public Guid LocationId { get; set; }
 
 		public DateTimeOffset Start { get; set; }
 

@@ -7,8 +7,11 @@ namespace onYOURway.Models {
 
 	[Table("Media", Schema = "oyw")]
 	public partial class Media {
+		public Media() {
+			this.Id = new Guid();
+		}
 
-		public Int64 Id { get; set; }
+		public Guid Id { get; set; }
 
 		public String MediaType { get; set; }
 

@@ -330,7 +330,7 @@ namespace onYOURway.Controllers {
 					 Name = l.Name,
 					 Id = l.Id,
 					 Subtitle = l.Street + " " + l.HouseNumber + " " + l.City,
-					 ThumbnailUrl = "http://onyourway.at/Content/images/ventures/v-" + SqlFunctions.StringConvert((double)l.Id).Trim() + "-300.jpg"
+					 ThumbnailUrl = "http://onyourway.at/api/media/" + l.Id.ToString() + "-300.jpg"
 				 })
 				//.Union
 				//	(from a in db.Context.Locations
@@ -352,16 +352,16 @@ namespace onYOURway.Controllers {
 				//		 Subtitle = "",
 				//		 ThumbnailUrl = ""
 				//	 })
-			.Union
-				(from t in db.Context.TagNames
-				 where t.Name != null && (t.Lang == null || t.Lang == lang)
-				 select new {
-					 Class = "tag",
-					 Name = t.Name,
-					 Id = -1L,
-					 Subtitle = "",
-					 ThumbnailUrl = ""
-				 })
+			//.Union
+			//	(from t in db.Context.TagNames
+			//	 where t.Name != null && (t.Lang == null || t.Lang == lang)
+			//	 select new {
+			//		 Class = "tag",
+			//		 Name = t.Name,
+			//		 Id = -1L,
+			//		 Subtitle = "",
+			//		 ThumbnailUrl = ""
+			//	 })
 			;
 			return query.ToArray();
 		} //SearchSuggestions
@@ -440,7 +440,7 @@ namespace onYOURway.Controllers {
 		/// DEPRICATED
 		/// </summary>
 		[HttpGet]
-		public dynamic Place(double Id) {
+		public dynamic Place(Guid Id) {
 			return db.Context
 			  .Locations
 			  .Include("Aliases")

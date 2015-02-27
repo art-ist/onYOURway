@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
-using System.Web.Mvc;
+//using System.Web.Mvc;
 
 [assembly: OwinStartup(typeof(onYOURway.StartUp.Startup))]
 namespace onYOURway.StartUp {
@@ -15,7 +15,8 @@ namespace onYOURway.StartUp {
 
 		public void Configuration(IAppBuilder app) {
 
-			GlobalFilters.Filters.Add(new HandleErrorAttribute());
+			//TODO: setup global error handler
+			//GlobalFilters.Filters.Add(new HandleErrorAttribute());
 
 			//Database
 			DatabaseConfig.Configure();

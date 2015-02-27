@@ -1,25 +1,30 @@
-namespace onYOURway.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
+
+namespace onYOURway.Models {
 
 	[Table("EntryLocalizations", Schema = "oyw")]
-    public partial class EntryLocalization
-    {
-
+	public partial class EntryLocalization {
+		public EntryLocalization() {
+			this.Id = new Guid();
+		}
+	
+		/// <summary>
+		/// This allows multiple localized Names / Aliases
+		/// </summary>
 		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public Int64 Id { get; set; }
+		public Guid Id { get; set; }
 
-        public Int64 EntryId { get; set; }
+		public Guid EntryId { get; set; }
 
 		[Required, NonUnicode, MinLength(2), MaxLength(5)]
 		public String Locale { get; set; }
 
-        [Required, MaxLength(200)]
-        public string Name { get; set; }
+		[Required, MaxLength(200)]
+		public string Name { get; set; }
 
 		public String Description { get; set; }
 
@@ -30,6 +35,6 @@ namespace onYOURway.Models
 
 		#endregion navigation properties
 
-    }
+	}
 
 }

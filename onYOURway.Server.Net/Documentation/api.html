@@ -1,0 +1,201 @@
+﻿<html>
+  <body>
+    <h1>onYOURway.Server</h1>
+    <h2>StartUp.WebApiConfig</h2>
+            <p>
+            Class to register the custom WebApi configuration for Breeze
+            </p>
+        <h3>Methods</h3>
+    <h4>Register(System.Web.Http.HttpConfiguration)</h4>
+    <p>
+            Configures the WebApi, enables CORS and Authentication Filters and registers routes. 
+            </p>
+    <h5>Parameters</h5>
+    <p><strong>config: </strong>HttpConfiguration to be set (passed by the system)</p>
+    <h2>StartUp.CustomBreezeConfig</h2>
+            <p>
+            Custom Breeze Confguration
+            </p>
+        <h3>Methods</h3>
+    <h4>CreateJsonSerializerSettings</h4>
+    <p>
+            Customize the JsonSerializer used by the Breeze ApiController
+            </p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong>Customized Settngs</p>
+    <h2>Controllers.LocateController</h2>
+            <p>
+            Api for mapping data: regions and locations in these regions
+            </p>
+        <h3>Methods</h3>
+    <h4>Metadata</h4>
+    <p>
+            Returns object metadata based on the DB schema required by the Breeze client
+            </p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong>Metadata</p>
+    <h4>Messages(System.String)</h4>
+    <p>
+            Gets all localizable messages for the app in the given language
+            </p>
+    <h5>Parameters</h5>
+    <p><strong>lang: </strong>language or locale to return the messages in if this parameter is omitted, the first browser language is used</p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong></p>
+    <h4>Realms</h4>
+    <p>
+            A realm (e.g. the the onYOURway-Project, 'Karte von morgen', the Green Map System or the TransforMap project) uses different capabilities of the onYOURway-mapping paltform, may have its own taxonomy and covers locations in different regions. The combination of realm, region and creator define how an entry can be administered.
+            </p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong>Queryable Array of Realm</p>
+    <h4>Regions</h4>
+    <p>
+            Geographical region (country, city) and administrative domain usually maintained by one realm. E.g. "Bayreuth von morgen"
+            </p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong>Queryable Array of Region</p>
+    <h4>SearchSuggestions(System.Int32,System.String)</h4>
+    <p>
+            Gets all features of the selected region as search suggestions (typeahead) for the main search box
+            </p>
+    <h5>Parameters</h5>
+    <p><strong>regionId: </strong>Id of the current region</p>
+    <p><strong>lang: </strong>Language id e.g. "de"</p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong></p>
+    <h4>Places(System.Int32,System.String)</h4>
+    <p>
+            Gets all searchable features (Ventures, (Transport)Lines, (Transport)Stops, T)
+            </p>
+    <h5>Parameters</h5>
+    <p><strong>RegionId: </strong></p>
+    <p><strong>lang: </strong></p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong>Ventures</p>
+    <h4>GetTaxonomy(System.Int32,System.String)</h4>
+    <p>
+            DEPRICATED
+            </p>
+    <h4>Place(System.Guid)</h4>
+    <p>
+            DEPRICATED
+            </p>
+    <h2>Controllers.MyController.VCard</h2>
+            <p>
+            <em>See: !:http://weblogs.asp.net/gunnarpeipman/archive/2009/08/09/creating-vcard-with-image-in-net.aspx</em>
+            </p>
+        <h2>Models.Entry</h2>
+            <p>
+            An Entry is an item of interest. Currently this can be a Location or an Event.
+            </p>
+        <h3>Properties</h3>
+    <h4>Name</h4>
+            <p>
+            Native Name of the Entry.
+            </p>
+            <p>Use localizations to add translations.</p>
+        <h4>Description</h4>
+            <p>
+            Native Description of the Entry.
+            </p>
+            <p>Use localizations to add translations.</p>
+        <h4>OpeningHours</h4>
+            <p>
+            Opening hours of events and locations
+            </p>
+            <em>See: !:http://wiki.openstreetmap.org/wiki/Key:opening_hours</em>
+            <em>See: !:http://openingh.openstreetmap.de/evaluation_tool/</em>
+        <h4>SourceKey</h4>
+            <p>
+            When importing data from foreign sources this is a unique key for the import source Recuring imports from the same source should use the same key.
+            </p>
+            <p>The key may correspond to an external system key but it is not intended to create an external system for every imported spreadsheet.</p>
+        <h4>SourceId</h4>
+            <p>
+            When importing data from foreign sources this is the unique id to identify the individual entry/record in the external source.
+            </p>
+        <h4>
+    </h4>
+            <p>
+            This allows multiple localized Names / Aliases
+            </p>
+        <h4>
+    </h4>
+            <p>
+            
+            </p>
+            <p><strong>Example: </strong>Url,Phone,Email</p>
+        <h4>
+    </h4>
+            <p>
+            
+            </p>
+            0 ... do not publish, ues for administrative purpose only
+            1 ... humans only, try to protect against grabbers, publish in details and via throttled API
+            2 ... include in bulk results in API, exports and publish to external systems
+        <h2>Models.RealmLocalized</h2>
+            Realm
+        <h3>Properties</h3>
+    <h4>RealmKey</h4>
+            <p>
+            Key of realm to be localized
+            </p>
+        <h4>Locale</h4>
+            <p>
+            Locale e.g. "de-DE" or language e.g. "de" of localization
+            </p>
+        <h4>Name</h4>
+            <p>
+            Localized name
+            </p>
+        <h4>Description</h4>
+            <p>
+            Localized description
+            </p>
+        <h2>Models.EntryLink</h2>
+            <p>
+            Links to websites, phone numbers email addresses, ...
+            </p>
+            <p>Do not replicate with systems enforcing this table to be published e.g. ODbL</p>
+        <h3>Properties</h3>
+    <h4>Type</h4>
+            <p>
+            
+            </p>
+            <p><strong>Example: </strong>Url,Phone,Email</p>
+        <h4>AccessLevel</h4>
+            <p>
+            
+            </p>
+            0 ... do not publish, ues for administrative purpose only
+            1 ... humans only, try to protect against grabbers, publish in details and via throttled API
+            2 ... include in bulk results in API, exports and publish to external systems
+        <h2>Models.Message</h2>
+            <p>
+            Localization Messages
+            </p>
+        <h2>Models.ExternalSystem</h2>
+            <p>
+            External system, linked to automatically exchan ge data via API or (automated) ETL process.
+            </p>
+            <p>Do not replicate</p>
+        <h3>Properties</h3>
+    <h4>Website</h4>
+            <p>
+            Website of the 
+            </p>
+            <p>This is not nessessarily the base Url of the API.</p>
+        <h2>Models.onYOURwayConventions</h2>
+            <p>
+            Customize the default modeling behaviour
+            </p>
+        <h2>Models.onYOURwayConventions.SqlServerDefaultTypesConvention</h2>
+            <p>
+            
+            </p>
+        <h2>Models.onYOURwayConventions.ForeignKeyNamingConvention</h2>
+            <p>
+            Provides a convention for fixing the independent association (IA) foreign key column names.
+            </p>
+        </body>
+</html>

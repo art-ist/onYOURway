@@ -13,13 +13,14 @@ namespace onYOURway.Models {
 	public partial class EntryLink {
 		public EntryLink() {
 			this.Type = "Url";
+			this.Id = new Guid();
 		}
 
 		[Key, Column(Order = 0)]
-		public Int64 Id { get; set; }
+		public Guid Id { get; set; }
 
 		[Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public Int64 EntryId { get; set; }
+		public Guid EntryId { get; set; }
 
 		[NonUnicode, MinLength(2), MaxLength(5)]
 		public String Locale { get; set; }

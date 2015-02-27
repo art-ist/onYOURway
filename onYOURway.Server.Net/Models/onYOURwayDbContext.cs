@@ -42,13 +42,13 @@ namespace onYOURway.Models {
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Entry>()
-				.HasRequired<Media>(m => m.Thumb)
+				.HasOptional<Media>(m => m.Thumb)
 				.WithMany()
 				.WillCascadeOnDelete(false);
 
 
 			modelBuilder.Entity<Entry>()
-				.HasRequired<Media>(m => m.Image)
+				.HasOptional<Media>(m => m.Image)
 				.WithMany()
 				.WillCascadeOnDelete(false);
 
