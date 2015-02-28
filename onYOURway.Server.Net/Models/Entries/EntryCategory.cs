@@ -12,9 +12,11 @@ namespace onYOURway.Models {
 		public Guid EntryId { get; set; }
 
 		[Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public Int32 CategoryId { get; set; }
+		public Guid CategoryId { get; set; }
 
 		public String Value { get; set; }
+
+		public String Comment { get; set; }
 
 		#region navigation properties
 

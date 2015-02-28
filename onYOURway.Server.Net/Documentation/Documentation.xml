@@ -39,6 +39,18 @@
             </summary>
             <returns>Metadata</returns>
         </member>
+        <member name="M:onYOURway.Controllers.LocateController.GetLang">
+            <summary>
+            Get Lang based on Request UserLanguages
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.GetRealm">
+            <summary>
+            Get Realm based on Request Uri
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:onYOURway.Controllers.LocateController.Messages(System.String)">
             <summary>
             Gets all localizable messages for the app in the given language
@@ -57,6 +69,15 @@
             Geographical region (country, city) and administrative domain usually maintained by one realm. E.g. "Bayreuth von morgen"
             </summary>
             <returns>Queryable Array of Region</returns>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.Locations">
+            <summary>
+            Returns a list of locations including their related properties
+            </summary>
+            <param name="RegionId"></param>
+            <param name="lang"></param>
+            <returns>anonymous locationinfo</returns>
+            <remarks>OBSOLETE, use Places instead</remarks>
         </member>
         <member name="M:onYOURway.Controllers.LocateController.SearchSuggestions(System.Int32,System.String)">
             <summary>
@@ -216,7 +237,7 @@
             Localized description
             </summary>
         </member>
-        <member name="P:onYOURway.Models.BaseMapFeature.Type">
+        <member name="P:onYOURway.Models.BaseMapFeature.Class">
             <summary>
             Feature type e.g.: Country, City, Province, Street
             </summary>
@@ -268,21 +289,43 @@
             
             </summary>
             <value>0 ... do not publish, ues for administrative purpose only</value>
-            <value>1 ... humans only, try to protect against grabbers, publish in details and via throttled API</value>
-            <value>2 ... include in bulk results in API, exports and publish to external systems</value>
+            <value>1 ... humans only - try to protect against grabbers, publish in details and via throttled API, do not replicate to external databases</value>
+            <value>2 ... public - include in bulk results in API, exports and publish to external systems</value>
         </member>
-        <member name="P:onYOURway.Models.Category.ValueType">
+        <member name="P:onYOURway.Models.Category.Key">
             <summary>
-            Indicates if the tag assignment can have a value and what data-/type it is. 
+            Optional unique string-based id wich might be more intuitive to work with than the internally used UUID's
+            </summary>
+            <remarks>This key can also be used to corellate to external key/value baed tagging systems like OSM</remarks>
+        </member>
+        <member name="P:onYOURway.Models.Category.ValueEditor">
+            <summary>
+            Select an editor to add an additional value to the category assignment (possibly a percentage of products for organic stores). 
             - null ... no value allowed (the category is assigned or not)
-            - string
+            - text, textarea, reichtext
             - array of options e.g. ['green', 'blue', 'red']
             </summary>
         </member>
-        <member name="P:onYOURway.Models.Category.Values">
+        <member name="P:onYOURway.Models.Category.ValueOptions">
             <summary>
-            Optional: Semicolon seperated list of possible values
+            Optional: Semicolon seperated list of possible values for select or option group editors
             </summary>
+        </member>
+        <member name="P:onYOURway.Models.Category.Visible">
+            <summary>
+            Determines if this category is available for selection in the SiteCollector
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.CategoryName.Visible">
+            <summary>
+            Determines if this name is shown when listing categories in the entry details. It can still be used for searching.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.CategoryName.Description">
+            <summary>
+            Description what this ctegory means or how to qualify.
+            </summary>
+            <remarks>While it is quite easy to tell if a venture is a restaurant, it is not that easy for an organic store.</remarks>
         </member>
         <member name="T:onYOURway.Models.Message">
             <summary>
@@ -306,6 +349,16 @@
             Website of the 
             </summary>
             <remarks>This is not nessessarily the base Url of the API.</remarks>
+        </member>
+        <member name="P:onYOURway.Models.Region.BoundingBox">
+            <summary>
+            Bounding box of the 
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Map.BoundingBox">
+            <summary>
+            Bounding box of the 
+            </summary>
         </member>
         <member name="P:onYOURway.Models.MapLocalized.Locale">
             <summary>

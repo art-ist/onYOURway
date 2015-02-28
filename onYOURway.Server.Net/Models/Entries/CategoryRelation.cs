@@ -13,10 +13,10 @@ namespace onYOURway.Models {
 		}
 
 		[Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public Int32? FromCategoryId { get; set; }
+		public Guid FromCategoryId { get; set; }
 
 		[Key, Column(Order = 2), DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public Int32? ToCategoryId { get; set; }
+		public Guid ToCategoryId { get; set; }
 
 		/// <summary>
 		/// Kind of relationship refering to OWL syntax
@@ -24,6 +24,7 @@ namespace onYOURway.Models {
 		/// <value>subClassOf</value>
 		/// <value>sameAs</value>
 		/// <see cref="http://www.w3.org/TR/2004/REC-owl-features-20040210/#s2.1"/>
+		[Required]
 		public String RelationshipType { get; set; }
 
 		public Int16? Sort { get; set; }

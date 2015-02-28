@@ -264,6 +264,7 @@
     <Content Include="App_Data\oyw.Messages.sql" />
     <Content Include="Documentation\Documentation.xsl" />
     <Content Include="JP.aspx" />
+    <Content Include="Models\onYOURwayDbAfterModelCreated.sql" />
     <Content Include="WebConfig.base.config">
       <SubType>Designer</SubType>
     </Content>

@@ -46,7 +46,7 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// Root tag of the taxonomy used by this realm thus selecting the available taxonomy
 		/// </summary>
-		public Int32 TaxonomyId { get; set; }
+		public Guid TaxonomyId { get; set; }
 
 		/// <summary>
 		/// Optional geographical focus of the realm. Null means worldwide.

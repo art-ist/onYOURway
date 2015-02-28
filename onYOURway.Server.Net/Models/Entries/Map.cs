@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,7 @@ namespace onYOURway.Models {
 			this.Id = new Guid();
 		}
 
-		[Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None)]
+		[Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public Guid Id { get; set; }
 
 		[Required, MaxLength(200)]
@@ -29,7 +30,11 @@ namespace onYOURway.Models {
 		[Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public Int64 RegionId { get; set; }
 
-		public DbGeography Boundary { get; set; }
+		/// <summary>
+		/// Bounding box of the 
+		/// </summary>
+		[JsonConverter(typeof(DbGeographyConverter))]
+		public DbGeography BoundingBox { get; set; }
 
 		#region navigation properties
 

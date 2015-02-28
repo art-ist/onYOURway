@@ -16,23 +16,27 @@ namespace onYOURway.Models {
 			this.Id = new Guid();
 		}
 
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public Guid Id { get; set; }
 
 		[Required]
 		[StringLength(200)]
-		public string Name { get; set; }
+		public String Name { get; set; }
 
 		[StringLength(1000)]
-		public string Website { get; set; }
+		public String Website { get; set; }
 
-		public long? OsmRelationId { get; set; }
+		[MaxLength(20)]
+		public String RealmKey { get; set; }
+
+		public Int64? OsmRelationId { get; set; }
 
 		public int CreatedBy { get; set; }
 
 		[Column(TypeName = "datetime2")]
 		public DateTime CreatedAt { get; set; }
 
-		public int? ModifiedBy { get; set; }
+		public Int32? ModifiedBy { get; set; }
 
 		[Column(TypeName = "datetime2")]
 		public DateTime? ModifiedAt { get; set; }
@@ -40,11 +44,20 @@ namespace onYOURway.Models {
 		[JsonConverter(typeof(DbGeographyConverter))]
 		public DbGeography Boundary { get; set; }
 
+		/// <summary>
+		/// Bounding box of the 
+		/// </summary>
+		[JsonConverter(typeof(DbGeographyConverter))]
+		public DbGeography BoundingBox { get; set; }
+
 		#region navigation properties
 
-		public virtual ICollection<RegionLocalized> Localizations { get; set; }
+		[ForeignKey("RealmKey")]
+		public virtual Realm Realm { get; set; }
 
 		public virtual ICollection<Map> Maps { get; set; }
+
+		public virtual ICollection<RegionLocalized> Localizations { get; set; }
 
 		#endregion navigation properties
 

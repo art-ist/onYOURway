@@ -28,6 +28,8 @@ namespace onYOURway.Controllers {
 
 		readonly EFContextProvider<onYOURwayDbContext> db = new EFContextProvider<onYOURwayDbContext>();
 
+		#region Metadata and App
+
 		/// <summary>
 		/// Returns object metadata based on the DB schema required by the Breeze client
 		/// </summary>
@@ -37,11 +39,28 @@ namespace onYOURway.Controllers {
 			return db.Metadata();
 		}
 
+		/// <summary>
+		/// Get Lang based on Request UserLanguages
+		/// </summary>
+		/// <returns></returns>
 		private string GetLang() {
 			var langs = HttpContext.Current.Request.UserLanguages;
 			if (langs.Count() == 0)
 				return "";
 			return langs[0].Substring(0, 2);
+		}
+
+		/// <summary>
+		/// Get Realm based on Request Uri
+		/// </summary>
+		/// <returns></returns>
+		private Realm GetRealm() {
+			string uri = this.Request.RequestUri.AbsoluteUri;
+			return db.Context
+				.Realms
+				.SqlQuery("Select * From oyw.Realms r Where @p0 Like r.UriPattern;", uri)
+				.FirstOrDefault()
+			;
 		}
 
 		/// <summary>
@@ -89,6 +108,10 @@ namespace onYOURway.Controllers {
 			return result;
 		}
 
+		#endregion Metadata and App
+
+		#region Boundaries
+
 		/// <summary>
 		/// A realm (e.g. the the onYOURway-Project, 'Karte von morgen', the Green Map System or the TransforMap project) uses different capabilities of the onYOURway-mapping paltform, may have its own taxonomy and covers locations in different regions. The combination of realm, region and creator define how an entry can be administered.
 		/// </summary>
@@ -115,62 +138,23 @@ namespace onYOURway.Controllers {
 			return result;
 		}
 
-		///// <summary>
-		///// Returns a list of locations including their related properties
-		///// </summary>
-		///// <param name="RegionId"></param>
-		///// <param name="lang"></param>
-		///// <returns>anonymous locationinfo</returns>
-		///// <remarks>OBSOLETE, use Places instead</remarks>
-		//[HttpGet]   // api/locate/Locations
-		//public IQueryable<dynamic> Locations(int RegionId = 1, string lang = null) {
-		//	if (string.IsNullOrEmpty(lang)) lang = GetLocale();
-		//  return db.Context.Locations
-		//    .Include(l => l.Tags)
-		//    .Include(l => l.Aliases)
-		//    .Include(l => l.Open.Select(o => o.Hours))
-		//    .Select(l => new {
-		//      Id = l.Id,
-		//      Name = l.Name,
-		//      Aliases = l.Aliases,
-		//      Street = l.Street ?? "", //Street = ((l.Street ?? "") + " " + (l.HouseNumber ?? "")).Trim(),
-		//      HouseNumber = l.HouseNumber ?? "",
-		//      Zip = l.Zip ?? "",
-		//      City = l.City ?? "",
-		//      Position = l.Position,
-		//      //Group = l.Tags.Where(t => t.Type == "Class").FirstOrDefault().Names.Where(n => n.Lang == lang).FirstOrDefault().Name,
-		//      kind = l.Tags.Where(t => t.Type == "Branche").FirstOrDefault().Names.Where(n => n.Lang == lang).FirstOrDefault().Name,
-		//      open = l.Open
-		//              .Where(o => !o.EndDate.HasValue || o.EndDate >= DateTime.Now)
-		//              .Select(o => new {
-		//                OpenId = o.OpenId,
-		//                StartDate = o.StartDate,
-		//                EndDate = o.EndDate,
-		//                Hours = o.Hours.Select(h => new {
-		//                  TimeBlockId = h.TimeBlockId,
-		//                  WeekDay = h.WeekDay,
-		//                  StartTime = h.StartTime,
-		//                  EndTime = h.EndTime
-		//                })
-		//              }),
-		//      tags = l.Tags
-		//              .Join(
-		//                db.Context.TagNames.Where(n => n.Lang == lang)
-		//                , t => t, n => n.Tag,
-		//                (t, n) => new { n.TagId, n.Name }
-		//              ),
-		//      //Tags = l.Tags
-		//      //.Select(t => new {
-		//      //  Id = t.Id,
-		//      //  Names = t.Names.Where(n => n.Lang == lang).Select(n => n.Name)
-		//      //})          
-		//      ////obsolete: now calculated on the client (keep code, maybe in the future filter by distance)
-		//      //Distance = string.IsNullOrEmpty(CloseTo) ? null : l.Position.Distance(DbGeography.FromText(CloseTo, 4326))
-		//    })
-		//    //.OrderBy(l => l.Id)
-		//    //.OrderBy(l => l.Distance)
-		//    ;
-		//}
+		#endregion Boundaries
+
+
+		/// <summary>
+		/// Returns a list of locations including their related properties
+		/// </summary>
+		/// <param name="RegionId"></param>
+		/// <param name="lang"></param>
+		/// <returns>anonymous locationinfo</returns>
+		/// <remarks>OBSOLETE, use Places instead</remarks>
+		[HttpGet]   // api/locate/Locations
+		public IQueryable<dynamic> Locations() {
+			return db.Context.Locations
+			  .Include("Categories")
+			  .Include("Localizations")
+			  ;
+		}
 
 		//[HttpOptions]
 		//[AcceptVerbs("GET", "OPTIONS")]
@@ -214,104 +198,8 @@ namespace onYOURway.Controllers {
 		//  return result;
 		//}
 
-		//[HttpGet]
-		//public IQueryable<BikeWay> BikeFeatures(int RegionId) {
-		//  //var boundary = db.Context.Regions.Where(r => r.Id == RegionId).First().Boundary;
-		//  //var result = new Dictionary<string, object>();
-		//  //result.Add("BikeWays",
-		//  //  db.Context.BikeWays.ToArray() //.Where(l => l.Way.Intersects(boundary)).ToArray()
-		//  //  );
-		//  //return result.ToArray();
-		//  return db.Context.BikeWays;
-		//}
-
-		//[HttpGet]
-		//public List<Place> GetPlaces(int RegionId, string lang = "de") {
-		//  List<Place> result = new List<Place>();
-		//  var boundary = db.Context.Regions.Where(r => r.Id == RegionId).First().Boundary;
-
-		//  //Ventures
-		//  result.AddRange(
-		//    db.Context.Locations
-		//    .Include("Tags")
-		//    .Include("Tags.Names")
-		//    .Include("Aliases")
-		//    .Include("Open")
-		//    .Include("Open.Hours")
-		//    //.Where(l => //intercepts boundary)
-		//    .Select(l => new Place() {
-		//      PlaceType = PlaceTypes.Venture,
-		//      Id = l.Id,
-		//      Name = l.Name,
-		//      Street = l.Street ?? "", //= ((l.Street ?? "") + " " + (l.HouseNumber ?? "")).Trim(),
-		//      HouseNumber = l.HouseNumber ?? "",
-		//      Zip = l.Zip ?? "",
-		//      City = l.City ?? "",
-		//      Position = l.Position,
-		//      //Group = l.Tags.Where(t => t.Type == "Class").FirstOrDefault().Names.Where(n => n.Lang == lang).FirstOrDefault().Name,    //Obsolete?
-		//      Kind = l.Tags.Where(t => t.Type == "Branche").FirstOrDefault().Names.Where(n => n.Lang == lang).FirstOrDefault().Name,   //Obsolete?
-		//      Open = l.Open
-		//              .Where(o => !o.EndDate.HasValue || o.EndDate >= DateTime.Now)
-		//              .Select(o => new {
-		//                //OpenId = o.OpenId,
-		//                StartDate = o.StartDate,
-		//                EndDate = o.EndDate,
-		//                Hours = o.Hours.Select(h => new {
-		//                  //TimeBlockId = h.TimeBlockId,
-		//                  WeekDay = h.WeekDay,
-		//                  StartTime = h.StartTime,
-		//                  EndTime = h.EndTime
-		//                })
-		//              }),
-		//      Tags = l.Tags.Select(t => new {
-		//        Id = t.Id,
-		//        Names = t.Names.Select(n => n.Name),  //.Where(n => n.Lang == null || n.Lang == lang)
-		//      }) //Select Tags
-		//    }) //Select Place
-		//  ); //Ventures
-
-		//  //Streets
-		//  result.AddRange(
-		//       db.Context.Streets
-		//       .Where(s => s.RegionId == RegionId) //intercepts boundary
-		//       .Select(s => new Place() {
-		//         PlaceType = PlaceTypes.Street,
-		//         Name = s.Name
-		//       }) //Select Place
-
-		//   ); //Streets
-
-		//  //TransportLines
-		//  result.AddRange(
-		//    db.Context.TransportLines
-		//    //.Where(l => intercepts boundary)
-		//       .Select(l => new Place() {
-		//         PlaceType = PlaceTypes.TransportLine,
-		//         Id = l.Id,
-		//         Name = l.Name,
-		//         Group = l.Operator,
-		//         Kind = l.Mode,
-		//         Color = l.Color,
-		//         Position = l.Way
-		//       }) //Select Place
-		// );//TransportLines
-
-		//  //TransportStops
-		//  result.AddRange(
-		//       db.Context.TransportStops
-		//    //.Where(l => intercepts boundary)
-		//       .Select(s => new Place() {
-		//         PlaceType = PlaceTypes.TransportStop,
-		//         Id = s.Id,
-		//         Name = s.Name,
-		//         Kind = "Haltestelle",
-		//         Position = s.Position
-		//       }) //Select Place
-
-		//   );//TransportStops
-
-		//  return result;
-		//} //GetPlaces
+	
+	
 
 		/// <summary>
 		/// Gets all features of the selected region as search suggestions (typeahead) for the main search box
@@ -462,7 +350,7 @@ namespace onYOURway.Controllers {
 				.Select(t => new {
 					t.Id,
 					t.Type,
-					Names = t.Names.Where(n => t.Names.Any(_n => _n.Lang == lang) ? n.Lang == lang : string.IsNullOrEmpty(n.Lang)).Select(n => new { n.Name, n.Lang, n.Show }),
+					Names = t.Names.Where(n => t.Names.Any(_n => _n.Locale == lang) ? n.Locale == lang : string.IsNullOrEmpty(n.Locale)).Select(n => new { n.Name, Lang = n.Locale, Show = n.Visible }),
 					//TODO: fix query instead of just exchanging property names
 					//Children = t.Parents.Select(p => p.Id),
 					//Parents = t.Children.Select(c => c.Id)
@@ -483,7 +371,7 @@ namespace onYOURway.Controllers {
 			var result = db.Context
 				.BaseMapFeatures
 				.Include("Localizations")
-				.Where(f => f.Type == "Country")
+				.Where(f => f.Class == "Country")
 				.Select(f => new {
 					id = f.IsoCode,
 					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
@@ -501,7 +389,7 @@ namespace onYOURway.Controllers {
 			var result = db.Context
 				.BaseMapFeatures
 				.Include("Localizations")
-				.Where(f => f.Type == "Province" && f.Parent.IsoCode == CountryCode)
+				.Where(f => f.Class == "Province" && f.Parent.IsoCode == CountryCode)
 				.Select(f => new {
 					id = f.IsoCode,
 					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
@@ -519,7 +407,7 @@ namespace onYOURway.Controllers {
 			var result = db.Context
 				.BaseMapFeatures
 				.Include("Localizations")
-				.Where(f => f.Type == "City" && f.Parent.Parent.IsoCode == CountryCode && f.Parent.IsoCode == ProvinceCode)
+				.Where(f => f.Class == "City" && f.Parent.Parent.IsoCode == CountryCode && f.Parent.IsoCode == ProvinceCode)
 				.Select(f => new {
 					id = f.Id,
 					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
@@ -537,7 +425,7 @@ namespace onYOURway.Controllers {
 			var result = db.Context
 				.BaseMapFeatures
 				.Include("Localizations")
-				.Where(f => f.Type == "Street" && f.Parent.Id == CityId)
+				.Where(f => f.Class == "Street" && f.Parent.Id == CityId)
 				.Select(f => new {
 					id = f.Id,
 					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null

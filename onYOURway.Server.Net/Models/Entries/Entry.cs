@@ -18,10 +18,10 @@ namespace onYOURway.Models {
 			this.Id = new Guid();
 		}
 
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public Guid Id { get; set; }
 
 
-		[Required]
 		[NonUnicode, MinLength(2), MaxLength(5)]
 		public String Locale { get; set; }
 
@@ -45,7 +45,7 @@ namespace onYOURway.Models {
 		[MaxLength(100)]
 		public String IconCssClass { get; set; }
 
-		[MaxLength(100)]
+		[MaxLength(200)]
 		public String IconUrl { get; set; }
 
 
@@ -88,13 +88,13 @@ namespace onYOURway.Models {
 		/// When importing data from foreign sources this is a unique key for the import source Recuring imports from the same source should use the same key.
 		/// </summary>
 		/// <remarks>The key may correspond to an external system key but it is not intended to create an external system for every imported spreadsheet.</remarks>
-		[MaxLength(100), Index("IX_ExternalSource", 0, IsUnique = true)]
+		[MaxLength(100)]
 		public String SourceKey { get; set; }
 
 		/// <summary>
 		/// When importing data from foreign sources this is the unique id to identify the individual entry/record in the external source.
 		/// </summary>
-		[MaxLength(100), Index("IX_ExternalSource", 1, IsUnique = true)]
+		[MaxLength(100)]
 		public String SourceId { get; set; }
 
 

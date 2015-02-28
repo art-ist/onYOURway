@@ -42,8 +42,8 @@ namespace onYOURway.Models {
 		/// 
 		/// </summary>
 		/// <value>0 ... do not publish, ues for administrative purpose only</value>
-		/// <value>1 ... humans only, try to protect against grabbers, publish in details and via throttled API</value>
-		/// <value>2 ... include in bulk results in API, exports and publish to external systems</value>
+		/// <value>1 ... humans only - try to protect against grabbers, publish in details and via throttled API, do not replicate to external databases</value>
+		/// <value>2 ... public - include in bulk results in API, exports and publish to external systems</value>
 		public Int16 AccessLevel { get; set; }
 
 		#region navigation properties

@@ -12,10 +12,18 @@ namespace onYOURway.Models {
 			this.Names = new HashSet<CategoryName>();
 			this.Parents = new HashSet<CategoryRelation>();
 			this.Children = new HashSet<CategoryRelation>();
+			this.Visible = true;
 		}
 
-		[Key]
-		public Int32 Id { get; set; }
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public Guid Id { get; set; }
+
+		/// <summary>
+		/// Optional unique string-based id wich might be more intuitive to work with than the internally used UUID's
+		/// </summary>
+		/// <remarks>This key can also be used to corellate to external key/value baed tagging systems like OSM</remarks>
+		[MaxLength(100)]
+		public String Key { get; set; }
 
 		[MaxLength(100)]
 		public String CssClass { get; set; }
@@ -23,25 +31,30 @@ namespace onYOURway.Models {
 		[MaxLength(100)]
 		public String IconCssClass { get; set; }
 
+		[MaxLength(200)]
+		public String IconUrl { get; set; }
+
+		[MaxLength(20)]
 		public String Type { get; set; }
 
 		/// <summary>
-		/// Indicates if the tag assignment can have a value and what data-/type it is. 
+		/// Select an editor to add an additional value to the category assignment (possibly a percentage of products for organic stores). 
 		/// - null ... no value allowed (the category is assigned or not)
-		/// - string
+		/// - text, textarea, reichtext
 		/// - array of options e.g. ['green', 'blue', 'red']
 		/// </summary>
-		public String ValueType { get; set; }
+		[MaxLength(100)]
+		public String ValueEditor { get; set; }
 
 		/// <summary>
-		/// Optional: Semicolon seperated list of possible values
+		/// Optional: Semicolon seperated list of possible values for select or option group editors
 		/// </summary>
-		public String Values { get; set; }
+		public String ValueOptions { get; set; }
 
+		/// <summary>
+		/// Determines if this category is available for selection in the SiteCollector
+		/// </summary>
 		public Boolean Visible { get; set; }
-
-		[MaxLength(100), NonUnicode]
-		public String ForeignId { get; set; }
 
 		#region navigation properties
 

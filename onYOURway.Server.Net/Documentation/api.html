@@ -34,6 +34,18 @@
             </p>
     <h5>Return Value</h5>
     <p><strong>Return Value: </strong>Metadata</p>
+    <h4>GetLang</h4>
+    <p>
+            Get Lang based on Request UserLanguages
+            </p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong></p>
+    <h4>GetRealm</h4>
+    <p>
+            Get Realm based on Request Uri
+            </p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong></p>
     <h4>Messages(System.String)</h4>
     <p>
             Gets all localizable messages for the app in the given language
@@ -54,6 +66,15 @@
             </p>
     <h5>Return Value</h5>
     <p><strong>Return Value: </strong>Queryable Array of Region</p>
+    <h4>Locations</h4>
+    <p>
+            Returns a list of locations including their related properties
+            </p>
+    <h5>Parameters</h5>
+    <p><strong>RegionId: </strong></p>
+    <p><strong>lang: </strong></p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong>anonymous locationinfo</p>
     <h4>SearchSuggestions(System.Int32,System.String)</h4>
     <p>
             Gets all features of the selected region as search suggestions (typeahead) for the main search box
@@ -131,8 +152,8 @@
             
             </p>
             0 ... do not publish, ues for administrative purpose only
-            1 ... humans only, try to protect against grabbers, publish in details and via throttled API
-            2 ... include in bulk results in API, exports and publish to external systems
+            1 ... humans only - try to protect against grabbers, publish in details and via throttled API, do not replicate to external databases
+            2 ... public - include in bulk results in API, exports and publish to external systems
         <h2>Models.RealmLocalized</h2>
             Realm
         <h3>Properties</h3>
@@ -168,8 +189,8 @@
             
             </p>
             0 ... do not publish, ues for administrative purpose only
-            1 ... humans only, try to protect against grabbers, publish in details and via throttled API
-            2 ... include in bulk results in API, exports and publish to external systems
+            1 ... humans only - try to protect against grabbers, publish in details and via throttled API, do not replicate to external databases
+            2 ... public - include in bulk results in API, exports and publish to external systems
         <h2>Models.Message</h2>
             <p>
             Localization Messages
