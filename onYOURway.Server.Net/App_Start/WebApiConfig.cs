@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin.Security.OAuth;
+﻿using Breeze.Serialization;
+using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Configuration;
 using System.Web.Http;
@@ -62,6 +63,7 @@ namespace onYOURway.StartUp {
 		/// <see cref="http://www.breezejs.com/documentation/web-api-controller"/>
 		protected override Newtonsoft.Json.JsonSerializerSettings CreateJsonSerializerSettings() {
 			var serializerSettings = base.CreateJsonSerializerSettings();
+			serializerSettings.Binder = DynamicTypeRenamingSerializationBinder.Instance;
 			//serializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore; 
 			//serializerSettings.MissingMemberHandling = Newtonsoft.Json.MissingMemberHandling.Ignore;
 			return serializerSettings;

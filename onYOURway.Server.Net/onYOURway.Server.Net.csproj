@@ -215,6 +215,7 @@
   <ItemGroup>
     <Compile Include="App_Start\DatabaseConfig.cs" />
     <Compile Include="Controllers\AccountControllerModels.cs" />
+    <Compile Include="App_Start\BreezeDynamicTypeRenamingSerializationBinder.cs" />
     <Compile Include="Models\Entries\Media.cs" />
     <Compile Include="Models\Identity\IdentityManagers.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />

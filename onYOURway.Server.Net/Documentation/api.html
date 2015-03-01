@@ -1,7 +1,33 @@
 ﻿<html>
   <body>
     <h1>onYOURway.Server</h1>
-    <h2>StartUp.WebApiConfig</h2>
+    <h2>Serialization.DynamicTypeRenamingSerializationBinder</h2>
+            <p>
+            Renames the serialized type name of dynamically generated types.
+            Used by Json.Net when populating the $type property in
+            JSON serializated data.
+            </p>
+            <p>
+            This class delegates to the Json.Net <em>See: T:Newtonsoft.Json.Serialization.DefaultSerializationBinder</em>
+            except when serializing a dynamic type in which case it outputs a
+            simplified version of the dynamic type name and pretends the type
+            belongs to an assembly named "Dynamic".
+            <p>
+            It cures an objection many people have to the actual CLR name of the
+            dynamic type that is created for objects returned by a projection into an anonymous type.
+            </p>
+            </p>
+            <p><strong>Example: </strong>
+            A projection query in John Papa's "Code Camper Jumpstart" sample returns
+            an anonymous type. With the default binder, the serialized name for that type is
+            "_IB_DGU56or_prSk3yzZB87I8gCBWABk[[System.Int32, mscorlib],[System.String, mscorlib],[System.String, mscorlib],[System.Int32, mscorlib],[System.Int32, mscorlib],[System.Int32, mscorlib],[System.Int32, mscorlib],[System.String, mscorlib],[System.String, mscorlib]], _IB_DGU56or_prSk3yzZB87I8gCBWABk_IdeaBlade"
+            <p>This binder will intercept that type and name it
+            "_IB_DGU56or_prSk3yzZB87I8gCBWABk, Dynamic".</p>
+            <p>Does the same thing for the anonymous types that a controller could return.
+            For example, the DocCode "Lookups" endpoint creates and returns an anonymous object.
+            This binder will cause the $type to be something like "&lt;&gt;f__AnonymousType6`3, Dynamic".</p>
+            </p>
+        <h2>StartUp.WebApiConfig</h2>
             <p>
             Class to register the custom WebApi configuration for Breeze
             </p>
