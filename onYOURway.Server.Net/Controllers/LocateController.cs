@@ -26,7 +26,7 @@ namespace onYOURway.Controllers {
 	[BreezeController, EnableCors("*", "*", "*"), RoutePrefix("api/Locate")]
 	public class LocateController : ApiController {
 
-		readonly EFContextProvider<onYOURwayDbContext> db = new EFContextProvider<onYOURwayDbContext>();
+		readonly EFContextProvider<onYOURwayDbContext> db = new onYOURwayContextProvider();
 
 		#region Metadata and App
 
@@ -170,7 +170,7 @@ namespace onYOURway.Controllers {
 		/// <summary>
 		/// Returns a list of locations including their related properties
 		/// </summary>
-		[HttpGet, BreezeQueryable]
+		[HttpGet, EnableBreezeQuery]
 		public IQueryable<dynamic> Locations() {
 			return db.Context
 				.Locations
@@ -218,12 +218,13 @@ namespace onYOURway.Controllers {
 		/// <summary>
 		/// DEPRICATED
 		/// </summary>
-		[HttpGet, BreezeQueryable, Route("Location/(Id)")]
+		[HttpGet, Route("Location/{Id}"), EnableBreezeQuery]
 		public dynamic Location(Guid Id) {
 			return db.Context
 			  .Locations
 			  .Include("Localizations")
 			  .Include("Categories")
+			  .Include("Categories.Category")
 			  .Include("Links")
 			  .Where(l => l.Id == Id)
 			  .FirstOrDefault()
@@ -410,9 +411,8 @@ namespace onYOURway.Controllers {
 
 		#region Updates
 
-		// ~api/locate/SaveChanges
-		[HttpPost]
-		public SaveResult SaveChanges(JObject saveBundle) {
+		[HttpPost, Route("{Realm}/SaveChanges")]
+		public SaveResult SaveChanges(string Realm,  JObject saveBundle) {
 			return db.SaveChanges(saveBundle);
 		}
 
