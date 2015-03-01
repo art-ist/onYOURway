@@ -12,9 +12,15 @@ namespace onYOURway.Models {
 
 	public class onYOURwayDbInitializer : CreateDatabaseIfNotExists<onYOURwayDbContext> {
 
-		protected override void Seed(onYOURwayDbContext context) {
-			base.Seed(context);
-			SeedAdminAccountAndRole(context);
+		protected override void Seed(onYOURwayDbContext db) {
+			base.Seed(db);
+
+			//Create additional db logic (Constraints and Indexes that can't be defined in EF, Functions, Procedures )
+			db.RunSqlScript(HttpContext.Current.Server.MapPath("Models/onYOURwayDbAfterModelCreated.sql"));
+
+			//Initialize Security
+			SeedAdminAccountAndRole(db);
+
 		}
 
 		//Create User=Admin with password=Pa$$w0rd in the Admin role        
@@ -23,7 +29,7 @@ namespace onYOURway.Models {
 			using (AppUserManager userManager = new AppUserManager(new AppUserStore(db))) {
 				using (AppRoleManager roleManager = new AppRoleManager(new AppRoleStore(db))) {
 					const string name = "Admin";
-					const string email = "test@nomail.com";
+					const string email = "admin@nomail.local";
 					const string password = "Pa$$w0rd";
 					const string roleName = "Admin";
 

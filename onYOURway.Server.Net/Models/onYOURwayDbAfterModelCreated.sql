@@ -1,4 +1,4 @@
---#region Defaults, Constraints
+﻿--#region Defaults, Constraints
 
 Create Unique NonClustered Index U_Categories_Key  On oyw.Categories([Key]) Where [Key] Is Not Null; --maybe change to crawling taxonomy tree based check
 
@@ -9,17 +9,6 @@ Create Unique NonClustered Index U_Source_Key_Id On oyw.Entries(SourceKey, Sourc
 -- #region Triggers
 
 go
-Create Function oyw.BoundingBox(@geom geography) returns geography As Begin
-	If @geom Is Null return null; 
-	-- Convert to geometry via WKB
-	Declare @bounding geometry = geometry::STGeomFromWKB( @geom.STAsBinary(), @geom.STSrid );
-	-- Check Validity
-	If (@bounding.STIsValid() = 0) Set @bounding = @bounding.MakeValid();
-	-- Use STEnvelope()
-	Declare @boundingbox geometry = @bounding.STEnvelope();
-	-- Convert result back to geography via WKB
-	Return geography::STGeomFromWKB(@boundingbox.STAsBinary(), @boundingbox.STSrid);
-End
 
 -- #endregion Triggers
 
@@ -59,6 +48,20 @@ Create View oyw.CategoryNames As
 */
 go
 
+Create Function oyw.BoundingBox(@geom geography) returns geography As Begin
+	If @geom Is Null return null; 
+	-- Convert to geometry via WKB
+	Declare @bounding geometry = geometry::STGeomFromWKB( @geom.STAsBinary(), @geom.STSrid );
+	-- Check Validity
+	If (@bounding.STIsValid() = 0) Set @bounding = @bounding.MakeValid();
+	-- Use STEnvelope()
+	Declare @boundingbox geometry = @bounding.STEnvelope();
+	-- Convert result back to geography via WKB
+	Return geography::STGeomFromWKB(@boundingbox.STAsBinary(), @boundingbox.STSrid);
+End
+go
+-- Select oyw.BoundingBox(Geography::STGeomFromText('LINESTRING(0 0, 10 10, 21 2)', 4326)).ToString();
+
 CREATE Function oyw.GetCategoriesOf(@EntryId uniqueidentifier) Returns Table As Return 
 	WITH 
 	allCats As (
@@ -87,13 +90,12 @@ CREATE Function oyw.GetCategoriesOf(@EntryId uniqueidentifier) Returns Table As 
 	SELECT Distinct
 		*
 	From
-		allCats 
-	;
+		allCats;
 go
 -- Select * From oyw.GetCategoriesOf('00000000-0000-0000-0000-000000000140');
 
-CREATE Proc oyw.GetLocationInfo (@RegionId uniqueidentifier, @Lang char(2) = 'de') As
-	--  Declare @lang char(2) ='de', @RegionId uniqueidentifier = NewId();
+CREATE Proc oyw.GetLocationInfo (@Region nvarchar(40), @Lang char(2) = 'de') As
+	--  Declare @lang char(2) ='de', @Region nvarchar(40) = 'Test';
 
 	Select (
 		Select
@@ -139,7 +141,7 @@ CREATE Proc oyw.GetLocationInfo (@RegionId uniqueidentifier, @Lang char(2) = 'de
 		Where
 			l.Discriminator = 'Location'
 			And 
-			l.Position.STWithin((Select r.BoundingBox From oyw.Regions r Where r.Id = @RegionId)) = 1
+			l.Position.STWithin((Select r.BoundingBox From oyw.Regions r Where r.[Key] = @Region)) = 1
 		For Xml Path('Locations'), type
 	)
 	For Xml Path('LocationsInfo')
@@ -167,7 +169,7 @@ Create Function oyw.GetSubCategoryIds(@parentId as uniqueidentifier) Returns Tab
 	) Select * From p
 ;
 go
---  Select * From oyw.GetSubCategoryIds('00000000-0000-0000-0000-000000000265');
+-- Select * From oyw.GetSubCategoryIds('00000000-0000-0000-0000-000000000265');
 
 Create Function oyw.GetSubCategoriesXml(@parentId as uniqueidentifier, @lang varchar(2) = '') Returns Xml
 Begin
@@ -221,11 +223,11 @@ Create Function dbo.Split(@items nvarchar(max), @seperator nvarchar(100) = ',') 
 	Return;
 End
 go
---Select * From dbo.Split('Sepp,Franz, Fritz', ',') Order By Item;
+-- Select * From dbo.Split('Sepp,Franz, Fritz', ',') Order By Item;
 
-Create Proc oyw.SearchSuggestions ( @uri nvarchar(1000) = null, @regionId uniqueidentifier = null, @Lang char(2) = null, @Classes varchar(max) = null ) As 
+Create Proc oyw.SearchSuggestions ( @uri nvarchar(1000) = null, @Region nvarchar(40) = null, @Lang char(2) = null, @Classes varchar(max) = null ) As 
 	If @Classes Is Null Set @Classes = 'location,city,street';
-	Declare @bounding Geography = (Select BoundingBox From oyw.Regions Where Id = @RegionId);
+	Declare @bounding Geography = (Select BoundingBox From oyw.Regions Where [Key] = @Region);
 	Declare @taxonomyId uniqueidentifier = (Select TaxonomyId From oyw.Realms r Where @uri Like r.UrlPattern);
 
 	Select 
@@ -239,7 +241,7 @@ Create Proc oyw.SearchSuggestions ( @uri nvarchar(1000) = null, @regionId unique
 		And
 		(l.ApprovalRequired = 0 Or l.ApprovedBy Is Not Null)
 		And
-		(l.Position.STWithin(@bounding) = 1 Or @regionId Is Null)
+		(l.Position.STWithin(@bounding) = 1 Or @Region Is Null)
 		And
 		'location' In (Select item From dbo.Split(@Classes, ','))
 	--Union 
@@ -251,7 +253,7 @@ Create Proc oyw.SearchSuggestions ( @uri nvarchar(1000) = null, @regionId unique
 	From 
 		Lookup.BaseMapFeatures f
 	Where 
-		(f.Position.STWithin(@bounding) = 1 Or f.Boundary.STIntersects(@bounding) = 1 Or @regionId Is Null)
+		(f.Position.STWithin(@bounding) = 1 Or f.Boundary.STIntersects(@bounding) = 1 Or @Region Is Null)
 		And
 		Class In (Select item From dbo.Split(@Classes, ','))
 
@@ -275,8 +277,6 @@ Create Proc oyw.SearchSuggestions ( @uri nvarchar(1000) = null, @regionId unique
 		Name
 	;
 go
-/* 
-Exec oyw.SearchSuggestions 'service.onyourway.at/whatever', '00000000-0000-0000-0000-000000000001', 'de', 'location, category, street'
-*/
+-- Exec oyw.SearchSuggestions 'service.onyourway.at/whatever', '00000000-0000-0000-0000-000000000001', 'de', 'location, category, street'
 
 -- #endregion Functions and Procedures

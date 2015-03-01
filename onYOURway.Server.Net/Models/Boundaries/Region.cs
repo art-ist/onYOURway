@@ -13,23 +13,25 @@ namespace onYOURway.Models {
 		public Region() {
 			this.Localizations = new HashSet<RegionLocalized>();
 			this.Maps = new HashSet<Map>();
-			this.Id = new Guid();
 		}
 
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public Guid Id { get; set; }
+		[Key, MaxLength(40), DatabaseGenerated(DatabaseGeneratedOption.None)]
+		public String Key { get; set; }
 
-		[Required]
-		[StringLength(200)]
+		[Required, MaxLength(200)]
 		public String Name { get; set; }
 
-		[StringLength(1000)]
+		/// <summary>
+		/// Description in the native language of the region. In case of international activity we suggest using english here.
+		/// </summary>
+		public String Description { get; set; }
+
+		[MaxLength(1000)]
 		public String Website { get; set; }
 
 		[MaxLength(20)]
 		public String RealmKey { get; set; }
 
-		public Int64? OsmRelationId { get; set; }
 
 		public int CreatedBy { get; set; }
 
@@ -37,6 +39,13 @@ namespace onYOURway.Models {
 		public DateTime CreatedAt { get; set; }
 
 		public Int32? ModifiedBy { get; set; }
+
+
+		[MaxLength(10)]
+		public String BaseMapFeatureClass { get; set; }
+
+		public Int64? BaseMapFeatureId { get; set; }
+
 
 		[Column(TypeName = "datetime2")]
 		public DateTime? ModifiedAt { get; set; }
@@ -50,10 +59,14 @@ namespace onYOURway.Models {
 		[JsonConverter(typeof(DbGeographyConverter))]
 		public DbGeography BoundingBox { get; set; }
 
+
 		#region navigation properties
 
 		[ForeignKey("RealmKey")]
 		public virtual Realm Realm { get; set; }
+
+		[ForeignKey("BaseMapFeatureClass, BaseMapFeatureId")]
+		public virtual BaseMapFeature BaseMapFeature { get; set; }
 
 		public virtual ICollection<Map> Maps { get; set; }
 
@@ -61,29 +74,38 @@ namespace onYOURway.Models {
 
 		#endregion navigation properties
 
-	}
+	} //class Region
 
 	[Table("oyw.RegionsLocalized")]
 	public partial class RegionLocalized {
 
-		[Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public Guid RegionId { get; set; }
+		[Key, MaxLength(40), Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
+		public String RegionKey { get; set; }
 
-		[Key, Column(Order = 1), StringLength(2)]
-		public string Lang { get; set; }
+		[Key, Column(Order = 1), MinLength(2), MaxLength(5)]
+		public string Locale { get; set; }
 
-		[Key, Column(Order = 2), StringLength(200)]
-		public string Name { get; set; }
+		/// <summary>
+		/// Localized name
+		/// </summary>
+		[Key, Column(Order = 2), MaxLength(200)]
+		public String Name { get; set; }
 
-		[StringLength(1000)]
-		public string Website { get; set; }
+		/// <summary>
+		/// Localized description
+		/// </summary>
+		public String Description { get; set; }
+
+		[MaxLength(1000)]
+		public String Website { get; set; }
 
 		#region navigation properties
 
+		[ForeignKey("RegionKey")]
 		public virtual Region Region { get; set; }
 
 		#endregion navigation properties
 
-	}
+	} //class RegionLocalized
 
-}
+} //ns

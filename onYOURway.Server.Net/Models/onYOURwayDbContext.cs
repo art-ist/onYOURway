@@ -6,6 +6,9 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Text;
+using System.Diagnostics;
+using System.Data.Entity.Validation;
 
 namespace onYOURway.Models {
 
@@ -58,33 +61,11 @@ namespace onYOURway.Models {
 
 		#region Functions
 
-		public virtual ObjectResult<SearchSuggestion> SearchSuggestions(Nullable<int> regionId, string lang) {
-			var regionIdParameter = regionId.HasValue ?
-			new ObjectParameter("regionId", regionId) :
-			new ObjectParameter("regionId", typeof(int));
-			var langParameter = lang != null ?
-			new ObjectParameter("Lang", lang) :
-			new ObjectParameter("Lang", typeof(string));
-			return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchSuggestion>("SearchSuggestions", regionIdParameter, langParameter);
-		}
-		public virtual ObjectResult<Place> GetPlaces(Nullable<int> regionId, string lang) {
-			var regionIdParameter = regionId.HasValue ?
-			new ObjectParameter("RegionId", regionId) :
-			new ObjectParameter("RegionId", typeof(int));
-			var langParameter = lang != null ?
-			new ObjectParameter("Lang", lang) :
-			new ObjectParameter("Lang", typeof(string));
-			return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Place>("GetPlaces", regionIdParameter, langParameter);
-		}
-		public virtual ObjectResult<String> GetTaxonomy(string idSet, string lang) {
-			var idSetParameter = idSet != null ?
-			new ObjectParameter("idSet", idSet) :
-			new ObjectParameter("idSet", typeof(string));
-			var langParameter = lang != null ?
-			new ObjectParameter("lang", lang) :
-			new ObjectParameter("lang", typeof(string));
-			return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetTaxonomy", idSetParameter, langParameter);
-		}
+		//public virtual ObjectResult<String> GetTaxonomy(string idSet, string lang) {
+		//	var idSetParameter = idSet != null ? new ObjectParameter("idSet", idSet) : new ObjectParameter("idSet", typeof(string));
+		//	var langParameter = lang != null ? new ObjectParameter("lang", lang) : new ObjectParameter("lang", typeof(string));
+		//	return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetTaxonomy", idSetParameter, langParameter);
+		//}
 
 		#endregion Functions
 
@@ -146,9 +127,90 @@ namespace onYOURway.Models {
 
 		#endregion EntitySets
 
+		#region Helpers
+
+		//Factory
 		public static onYOURwayDbContext Create() {
 			return new onYOURwayDbContext();
 		}
 
-	}
-}
+		//Validation
+		public void ExtractValidationErrors(DbEntityValidationException ex) {
+			foreach (var entity in ex.EntityValidationErrors) {
+				foreach (var error in entity.ValidationErrors) {
+					Trace.WriteLine(error.ErrorMessage);
+				}
+			}
+		}//ExtractValidationErrors
+
+		//Seed
+		public void RunSqlScript(String FilePath, bool RunAsTransaction = true) {
+			DbContext db = this;
+			((System.Data.SqlClient.SqlConnection)db.Database.Connection).InfoMessage += (delegate(object sender, System.Data.SqlClient.SqlInfoMessageEventArgs e) {
+				Trace.WriteLine(e.Message);
+			});
+			db.Database.CommandTimeout = 120;
+
+			DbContextTransaction tran = null;
+			StringBuilder batch = new StringBuilder();
+			try {
+				using (System.IO.StreamReader rd = new System.IO.StreamReader(FilePath, Encoding.Unicode, true)) {
+					Trace.WriteLine("== starting Script " + FilePath);
+
+					if (RunAsTransaction) tran = db.Database.BeginTransaction();
+					while (true) {
+						string line = rd.ReadLine();
+						bool batchComplete = false;
+						if (line.Trim().ToLower() == "go" || line.TrimStart().ToLower().StartsWith("go;")) {
+							batchComplete = true;
+						}
+						else if (rd.EndOfStream) {
+							batch.AppendLine(line);
+							batchComplete = true;
+						}
+						else {
+							batch.AppendLine(line);
+						}//if
+						if (batchComplete) {
+							var sql = batch.ToString();
+							if (!string.IsNullOrWhiteSpace(sql)) {
+								int rows = db.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, sql);
+								Trace.WriteLine(string.Format(rows == -1 ? "Done.\n" : "{0} rows affected.", rows));
+							}
+							batch.Clear();
+						}
+						if (rd.EndOfStream) break;
+					}//while
+					if (tran != null) tran.Commit();
+
+				}//using
+			}//try
+			catch (System.Data.SqlClient.SqlException ex) {
+				if (tran != null) tran.Rollback();
+				if (ex.InnerException == null) {
+					Trace.WriteLine(string.Format("Running batch:\n{0}", batch));
+					Trace.WriteLine("SQL Error: " + ex.Message);
+				}
+				else {
+					Trace.WriteLine("SQL Error: " + ex.Message + "\n" + ex.InnerException.Message);
+				}
+				throw ex;
+			}
+			catch (Exception ex) {
+				if (ex.InnerException == null) {
+					Trace.WriteLine("Error: " + ex.Message);
+				}
+				else {
+					Trace.WriteLine("Error: " + ex.Message + "\n" + ex.InnerException.Message);
+				}
+				throw ex;
+			}
+			//finally {
+			//	((System.Data.SqlClient.SqlConnection)db.Database.Connection).InfoMessage -= DbInitializer_InfoMessage;
+			//}
+		}//RunSqlScript
+
+		#endregion Helpers
+
+	} //class
+} //ns

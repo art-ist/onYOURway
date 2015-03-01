@@ -27,8 +27,8 @@ namespace onYOURway.Models {
 
 		public Int16 Sort { get; set; }
 
-		[Key, Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public Int64 RegionId { get; set; }
+		[Key, MaxLength(40), Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
+		public String RegionKey { get; set; }
 
 		/// <summary>
 		/// Bounding box of the 
@@ -38,6 +38,7 @@ namespace onYOURway.Models {
 
 		#region navigation properties
 
+		[ForeignKey("RegionKey")]
 		public virtual Region Region { get; set; }
 
 		public ICollection<MapLocalized> Localizations { get; set; }
