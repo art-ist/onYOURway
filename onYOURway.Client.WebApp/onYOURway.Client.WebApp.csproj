@@ -58,6 +58,7 @@
     <Content Include="App\services\map\settings.js" />
     <Content Include="App\services\map\siteCollectorLayer.js" />
     <Content Include="App\services\map\tileLayer.js" />
+    <Content Include="App\services\providers\routing-bing.js" />
     <Content Include="App\themes\transforMap\css\bootstrap.css" />
     <Content Include="App\themes\transforMap\css\searchBox.css">
       <DependentUpon>searchBox.less</DependentUpon>
