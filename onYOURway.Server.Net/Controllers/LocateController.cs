@@ -16,13 +16,14 @@ using Newtonsoft.Json.Linq;
 using Breeze.ContextProvider;
 using System.Web;
 using Microsoft.Data.OData;
+using System.Web.Http.OData;
 
 namespace onYOURway.Controllers {
 
 	/// <summary>
 	/// Api for mapping data: regions and locations in these regions
 	/// </summary>
-	[BreezeController, EnableCors("*", "*", "*")]
+	[BreezeController, EnableCors("*", "*", "*"), RoutePrefix("api/Locate")]
 	public class LocateController : ApiController {
 
 		readonly EFContextProvider<onYOURwayDbContext> db = new EFContextProvider<onYOURwayDbContext>();
@@ -115,7 +116,7 @@ namespace onYOURway.Controllers {
 		/// A realm (e.g. the the onYOURway-Project, 'Karte von morgen', the Green Map System or the TransforMap project) uses different capabilities of the onYOURway-mapping paltform, may have its own taxonomy and covers locations in different regions. The combination of realm, region and creator define how an entry can be administered.
 		/// </summary>
 		/// <returns>Queryable Array of Realm</returns>
-		[HttpGet, BreezeQueryable]
+		[HttpGet, EnableBreezeQuery]
 		public IQueryable<Realm> Realms() {
 			var result = db.Context
 				.Realms
@@ -124,16 +125,40 @@ namespace onYOURway.Controllers {
 			return result;
 		}
 
+		[HttpGet, Route("Realm/{Key}"), EnableBreezeQuery]
+		public Realm Realm(string Key) {
+			var result = db.Context
+				.Realms
+				.Include("Localizations")
+				.Include("Regions")
+				.SingleOrDefault(r => r.Key == Key)
+			  ;
+			return result;
+		}
+
 		/// <summary>
 		/// Geographical region (country, city) and administrative domain usually maintained by one realm. E.g. "Bayreuth von morgen"
 		/// </summary>
 		/// <returns>Queryable Array of Region</returns>
-		[HttpGet, BreezeQueryable]   // api/locate/Regions
-		public IQueryable<Region> Regions() {
+		[HttpGet, Route("Regions"), Route("{Realm}/Regions")]
+		public IQueryable<Region> Regions(string Realm = null) {
+			IQueryable<Region> result = db.Context
+				.Regions
+				.Include("Localizations")
+			  ;
+			if (Realm != null) {
+				result = result.Where(r => r.RealmKey == Realm);
+			}
+			return result;
+		}
+
+		[HttpGet, Route("Region/{Key}"), EnableBreezeQuery]
+		public Region Region(string Key) {
 			var result = db.Context
 				.Regions
-				.Include("Maps")
 				.Include("Localizations")
+				.Include("Maps")
+				.SingleOrDefault(r => r.Key == Key)
 			  ;
 			return result;
 		}
@@ -209,7 +234,7 @@ namespace onYOURway.Controllers {
 
 		#region Taxonomy
 
-		[HttpGet, Route("{Realm}/Categories")]
+		[HttpGet, Route("{Realm}/Categories"), EnableQuery]
 		public dynamic Categories(Guid? Realm = null, string lang = null) {
 			if (string.IsNullOrEmpty(lang)) lang = GetLang();
 
@@ -229,7 +254,7 @@ namespace onYOURway.Controllers {
 
 		}
 
-		[HttpGet, BreezeQueryable]
+		[HttpGet, EnableBreezeQuery]
 		public dynamic Taxonomies(string Lang = null) {
 			if (string.IsNullOrEmpty(Lang)) Lang = GetLang();
 			return db.Context
@@ -244,9 +269,7 @@ namespace onYOURway.Controllers {
 		[HttpGet, Route("{Realm}/GetTaxonomy"), Route("GetTaxonomy/{TaxonomyId}")]
 		public dynamic GetTaxonomy(string Realm = null, Guid? TaxonomyId = null, string Lang = null) {
 			if (string.IsNullOrEmpty(Lang)) Lang = GetLang();
-			if (TaxonomyId == null) {
-				TaxonomyId = db.Context.Realms.SingleOrDefault(r => r.Key == Realm).TaxonomyId;
-			}
+			if (TaxonomyId == null) TaxonomyId = db.Context.Realms.SingleOrDefault(r => r.Key == Realm).TaxonomyId;
 
 			string xml = null;
 			using (SqlCommand cd = new SqlCommand()) {
@@ -279,28 +302,30 @@ namespace onYOURway.Controllers {
 		/// Gets all features of the selected region as search suggestions (typeahead) for the main search box
 		/// </summary>
 		/// <param name="Region">Key of the current region</param>
-		/// <param name="lang">Language id e.g. "de"</param>
+		/// <param name="Locale">Language id e.g. "de"</param>
 		/// <returns></returns>
-		[HttpGet, Route("{Realm}/GetTaxonomy")]
-		public dynamic SearchSuggestions(string Region, string lang = null) {
-			if (string.IsNullOrEmpty(lang)) lang = GetLang();
+		[HttpGet, Route("{Realm}/SearchSuggestions"), EnableQuery]
+		public IEnumerable<SearchSuggestion> SearchSuggestions(string Realm, string Region = "", string Classes = null, string Locale = null) {
+			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
+			if (string.IsNullOrWhiteSpace(Classes)) Classes = string.IsNullOrEmpty(Region) 
+															? "category,location,city" 
+															: "category,location,city,street";
 
-			var query =
-				(from l in db.Context.Locations
-				 select new {
-					 Class = "location",
-					 Name = l.Name,
-					 Id = l.Id,
-					 Subtitle = l.Street + " " + l.HouseNumber + " " + l.City,
-					 ThumbnailUrl = "http://onyourway.at/api/media/" + l.Id.ToString() + "-300.jpg"
-				 });
+			var result = db.Context.Database
+				.SqlQuery<SearchSuggestion>("oyw.SearchSuggestions",
+					new SqlParameter("Realm", Realm),
+					new SqlParameter("Region", Region),
+					new SqlParameter("Classes", Classes),
+					new SqlParameter("Lang", Locale)
+				);
+			//ThumbUrl = "http://onyourway.at/api/media/" + l.Id.ToString() + "-300.jpg"
+			return result.ToArray();
 
-			return query.ToArray();
 		} //SearchSuggestions
 
-		[HttpGet, BreezeQueryable]
-		public dynamic Countries(string locale = null) {
-			if (string.IsNullOrWhiteSpace(locale)) locale = GetLang();
+		[HttpGet, Route("GetCountries"), EnableQuery]
+		public dynamic GetCountries(string Locale = null) {
+			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 
 			var result = db.Context
 				.BaseMapFeatures
@@ -308,17 +333,18 @@ namespace onYOURway.Controllers {
 				.Where(f => f.Class == "Country")
 				.Select(f => new {
 					id = f.IsoCode,
-					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
-						 ? f.Localizations.First(l => l.Locale == locale).Name
-						 : f.Name
+					text = f.Localizations.Any(l => l.Locale == Locale)
+						 ? f.Localizations.FirstOrDefault(l => l.Locale == Locale).Name
+						 : f.Name,
+					boundingbox = f.BoundingBox.AsText()
 				});
-			return result;
+			return result.ToArray();
 
-		}
+		} //GetCountries
 
-		[HttpGet, BreezeQueryable]
-		public dynamic Provinces(string CountryCode, string locale = null) {
-			if (string.IsNullOrWhiteSpace(locale)) locale = GetLang();
+		[HttpGet, EnableQuery]
+		public dynamic GetProvinces(string CountryCode, string Locale = null) {
+			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 
 			var result = db.Context
 				.BaseMapFeatures
@@ -326,35 +352,44 @@ namespace onYOURway.Controllers {
 				.Where(f => f.Class == "Province" && f.Parent.IsoCode == CountryCode)
 				.Select(f => new {
 					id = f.IsoCode,
-					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
-						 ? f.Localizations.First(l => l.Locale == locale).Name
-						 : f.Name
+					text = f.Localizations.Any(l => l.Locale == Locale)
+						 ? f.Localizations.FirstOrDefault(l => l.Locale == Locale).Name
+						 : f.Name,
+					boundingbox = f.BoundingBox.AsText()
 				});
 			return result;
 
 		}
 
-		[HttpGet, BreezeQueryable]
-		public dynamic Cities(string CountryCode, string ProvinceCode, string locale = null) {
-			if (string.IsNullOrWhiteSpace(locale)) locale = GetLang();
+		[HttpGet, Route("GetCities"), Route("GetCities/{CountryCode}"), Route("GetCities/{CountryCode}/{ProvinceCode}"), EnableQuery]
+		public dynamic GetCities(string CountryCode, string ProvinceCode = null, string Locale = null) {
+			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 
 			var result = db.Context
 				.BaseMapFeatures
 				.Include("Localizations")
-				.Where(f => f.Class == "City" && f.Parent.Parent.IsoCode == CountryCode && f.Parent.IsoCode == ProvinceCode)
+				.Where(f => f.Class == "City" 
+							&& 
+							(
+								(f.ParentClass == "Province" && f.Parent.Parent.IsoCode == CountryCode && f.Parent.IsoCode == ProvinceCode)
+								||
+								(f.ParentClass == "Country" && f.Parent.IsoCode == CountryCode)
+							)
+				)
 				.Select(f => new {
 					id = f.Id,
-					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
-						 ? f.Localizations.First(l => l.Locale == locale).Name
-						 : f.Name
+					text = f.Localizations.Any(l => l.Locale == Locale)
+						 ? f.Localizations.FirstOrDefault(l => l.Locale == Locale).Name
+						 : f.Name,
+					boundingbox = f.BoundingBox.AsText()
 				});
 			return result;
 
 		}
 
-		[HttpGet, BreezeQueryable]
-		public dynamic Streets(Int64 CityId, string locale = null) {
-			if (string.IsNullOrWhiteSpace(locale)) locale = GetLang();
+		[HttpGet, Route("GetStreets"), Route("GetStreets/{CityId}"), EnableQuery]
+		public dynamic GetStreets(Int64 CityId, string Locale = null) {
+			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 
 			var result = db.Context
 				.BaseMapFeatures
@@ -362,12 +397,13 @@ namespace onYOURway.Controllers {
 				.Where(f => f.Class == "Street" && f.Parent.Id == CityId)
 				.Select(f => new {
 					id = f.Id,
-					text = f.Localizations.FirstOrDefault(l => l.Locale == locale) != null
-						 ? f.Localizations.First(l => l.Locale == locale).Name
-						 : f.Name
+					text = f.Localizations.Any(l => l.Locale == Locale)
+						 ? f.Localizations.FirstOrDefault(l => l.Locale == Locale).Name
+						 : f.Name,
+					boundingbox = f.BoundingBox.AsText()
 				});
 			return result;
-
+			
 		}
 
 		#endregion Lookups

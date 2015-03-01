@@ -94,7 +94,7 @@ CREATE Function oyw.GetCategoriesOf(@EntryId uniqueidentifier) Returns Table As 
 go
 -- Select * From oyw.GetCategoriesOf('00000000-0000-0000-0000-000000000140');
 
-CREATE Proc oyw.GetLocationInfo (@Region nvarchar(40), @Lang char(2) = 'de') As
+CREATE Proc oyw.GetLocationInfoXml (@Region nvarchar(40), @Lang char(2) = 'de') As
 	--  Declare @lang char(2) ='de', @Region nvarchar(40) = 'Test';
 
 	Select (
@@ -212,10 +212,9 @@ Begin
     )
 End;
 go
-/* 
- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000265', 'de');
- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000001', 'de');
-*/
+-- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000265', 'de');
+-- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000001', 'de');
+-- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000001', 'en');
 
 Create Function dbo.Split(@items nvarchar(max), @seperator nvarchar(100) = ',') Returns @result Table (Item nvarchar(max)) As Begin
 	Declare @listx xml = '<s>' + Replace(Replace(Replace(@items, @seperator+' ', @seperator), ' '+@seperator, @seperator), @seperator, '</s><s>') + '</s>';
@@ -225,16 +224,21 @@ End
 go
 -- Select * From dbo.Split('Sepp,Franz, Fritz', ',') Order By Item;
 
-Create Proc oyw.SearchSuggestions ( @uri nvarchar(1000) = null, @Region nvarchar(40) = null, @Lang char(2) = null, @Classes varchar(max) = null ) As 
-	If @Classes Is Null Set @Classes = 'location,city,street';
+Create Proc oyw.SearchSuggestions ( @Realm nvarchar(20) = null, @Region nvarchar(40) = null, @Classes varchar(max) = null, @Lang char(2) = null ) As 
+	If @Classes Is Null Set @Classes = 'category,location,city,street';
+	If @Lang Is Null Set @Lang = 'en';
 	Declare @bounding Geography = (Select BoundingBox From oyw.Regions Where [Key] = @Region);
-	Declare @taxonomyId uniqueidentifier = (Select TaxonomyId From oyw.Realms r Where @uri Like r.UrlPattern);
+	--Declare @taxonomyId uniqueidentifier = (Select TaxonomyId From oyw.Realms r Where @uri Like r.UrlPattern);
+	Declare @taxonomyId uniqueidentifier = (Select TaxonomyId From oyw.Realms r Where r.[Key] = @Realm);
 
 	Select 
-		'location' As Class, l.Name, l.CssClass, IsNull(l.IconCssClass, 'fa-map-marker'), l.IconUrl, l.Street, l.Zip, l.City
-	From 
+		'location' As Class, l.Id,
+		IsNull((Select Top 1 Name From oyw.EntryLocalizations Where EntryId = l.Id And Locale = @Lang), l.Name) As Name, 
+		l.CssClass, IsNull(l.IconCssClass, 'fa-map-marker'), l.IconUrl, 
+		l.Street, l.Zip, l.City
+	From
 		oyw.Entries l
-	Where 
+	Where
 		l.Discriminator = 'Location'
 		And
 		l.Published = 1
@@ -249,22 +253,27 @@ Create Proc oyw.SearchSuggestions ( @uri nvarchar(1000) = null, @Region nvarchar
 
 	Union All
 	Select 
-		Class, f.Name, null, Case Class When 'country' Then 'fa-flag' When 'city' Then 'fa-university ' When 'street' Then 'fa-road' End As IconCssClass, null, null, null, null --TODO: add city
-	From 
+		Class, f.Id,
+		IsNull((Select Top 1 Name From Lookup.BaseMapFeaturesLocalized Where Class = f.Class And Id = f.Id And Locale = @Lang), f.Name) As Name, 
+		null, Case Class When 'country' Then 'fa-flag' When 'city' Then 'fa-university ' When 'street' Then 'fa-road' End As IconCssClass, null, 
+		null, null, null --TODO: add city
+	From
 		Lookup.BaseMapFeatures f
-	Where 
+	Where
 		(f.Position.STWithin(@bounding) = 1 Or f.Boundary.STIntersects(@bounding) = 1 Or @Region Is Null)
 		And
 		Class In (Select item From dbo.Split(@Classes, ','))
 
 	Union All
 	Select 
-		'category' As Class, cn.Name , null, 'fa-tag', null, null, null, null
-	From 
+		'category' As Class, c.Id,
+		cn.Name, 
+		null, 'fa-tag', null, null, null, null
+	From
 		oyw.CategoryNames cn
 		Inner Join
 		oyw.Categories c On (cn.CategoryId = c.Id)
-	Where 
+	Where
 		'category' In (Select item From dbo.Split(@Classes, ','))
 		And
 		Name Is Not Null 
@@ -273,10 +282,12 @@ Create Proc oyw.SearchSuggestions ( @uri nvarchar(1000) = null, @Region nvarchar
 		And
 		CategoryId In (Select Id From GetSubCategoryIds(@taxonomyId))
 
-	Order By 
+	Order By
 		Name
 	;
 go
--- Exec oyw.SearchSuggestions 'service.onyourway.at/whatever', '00000000-0000-0000-0000-000000000001', 'de', 'location, category, street'
+-- Exec oyw.SearchSuggestions 'oyw', 'oyw-Test-Baden', 'de', 'location, category, street'
+-- Exec oyw.SearchSuggestions 'kvm', 'kvm-Beyreuth', 'de', 'location, category, street'
+-- Exec oyw.SearchSuggestions 'tm', 'tm-Graz', 'de', 'category'
 
 -- #endregion Functions and Procedures

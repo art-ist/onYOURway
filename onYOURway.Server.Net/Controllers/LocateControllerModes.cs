@@ -13,10 +13,17 @@ namespace onYOURway.Models
 
 	public partial class SearchSuggestion {
 		public string Class { get; set; }
+		public string Id { get; set; }
 		public string Name { get; set; }
+		public string CssClass { get; set; }
+		public string IconCssClss { get; set; }
+		public string IconUrl { get; set; }
+		public string Street { get; set; }
+		public string Zip { get; set; }
+		public string City { get; set; }
 	}
 
-    public partial class Place
+    public partial class LocationInfo
     {
 		//public string T { get; set; }
         public long Id { get; set; }

@@ -64,7 +64,7 @@
             </summary>
             <returns>Queryable Array of Realm</returns>
         </member>
-        <member name="M:onYOURway.Controllers.LocateController.Regions">
+        <member name="M:onYOURway.Controllers.LocateController.Regions(System.String)">
             <summary>
             Geographical region (country, city) and administrative domain usually maintained by one realm. E.g. "Bayreuth von morgen"
             </summary>
@@ -93,12 +93,12 @@
             Gets the complete taxonomy
             </summary>
         </member>
-        <member name="M:onYOURway.Controllers.LocateController.SearchSuggestions(System.String,System.String)">
+        <member name="M:onYOURway.Controllers.LocateController.SearchSuggestions(System.String,System.String,System.String,System.String)">
             <summary>
             Gets all features of the selected region as search suggestions (typeahead) for the main search box
             </summary>
             <param name="Region">Key of the current region</param>
-            <param name="lang">Language id e.g. "de"</param>
+            <param name="Locale">Language id e.g. "de"</param>
             <returns></returns>
         </member>
         <member name="M:onYOURway.Controllers.MyController.Notify(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
