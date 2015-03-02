@@ -5,23 +5,23 @@
  *    services can be replaced by other implementations without modifying views or other services.
  */
 define([
-	'services/tell',
-	'plugins/router',
+	'services/tell',						//
+	'plugins/router',						//
 
-	'services/api/apiClient',
-    'services/api/places',
-	'services/api/placeSearch',
-	'services/api/searchSuggestions',
-	'services/api/placeComparators',
+	'services/api/apiClient',				//
+    'services/api/places',					//
+	'services/api/placeSearch',				// search locations/places by name, category, ...
+	'services/api/searchSuggestions',		// get search suggestions
+	'services/api/placeComparators',		// sorting places aka. locations
 
-	'services/map/mapAdapter',
-	'services/map/settings',
-    'services/map/placesLayer',
-    'services/map/pointerLayer',
-    'services/map/regionLayer',
-    'services/map/routingLayer',
-    'services/map/siteCollectorLayer',
-    'services/map/tileLayer'
+	'services/map/mapAdapter',				// 
+	'services/map/settings',				// 
+    'services/map/placesLayer',				// map markers
+    'services/map/pointerLayer',			// pointer connecting list and pin
+    'services/map/regionLayer',				// region background
+    'services/map/routingLayer',			// routing
+    'services/map/siteCollectorLayer',		// siteCollector
+    'services/map/tileLayer'				// basemap
 ], function (tell, router, apiClient, places, placeSearch, searchSuggestions, placeComparators, map, settings,
 			 placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
 
@@ -92,11 +92,12 @@ define([
 	return location;
 
 	function initialize() {
-		location.sortBy(location.sortOptions[0]);
 
+		location.sortBy(location.sortOptions[0]);
 		location.sortBy.subscribe(function (newValue) {
 			location.mapLocations(location.mapLocations().sort(newValue.Sorter));
 		});
+
 	}
 
 	function initializeMap(containerId) {

@@ -5,7 +5,7 @@ define([
     return {
         defaultRegion: ko.observable(1), // default region '1' === onYOURway / Baden -- can be overriden in shell.js
 
-        mode: ko.observable("bicycle"), //supported: bicycle, foot, car  //TODO: add multi, public
+        mode: ko.observable("bicycle"), //supported: bicycle, foot, car  //TODO: add public, multi
         //Map Styling
         walkIn5: 330,   //meters in 5 minutes at 4 km/h
         bikeIn5: 1800,  //meters in 5 minutes at 21,6 km/h

@@ -4,9 +4,9 @@ define([
     'services/map/settings'
 ], function (tell, apiClient, settings) {
 
-    var self = {
-        taxonomy: ko.observable([{name: {Name: 'loading'}, shortName: 'loading', active: ko.observable(false), CssClass: 'initiatives'}, {name: {Name: 'please'}, shortName: 'please', active: ko.observable(false), CssClass: 'events'}, {name: {Name: 'wait'}, shortName: 'wait', active: ko.observable(false), CssClass: 'companies'}]),
+	var self = {
 
+        taxonomy: ko.observable([{name: {Name: 'loading'}, shortName: 'loading', active: ko.observable(false), CssClass: 'initiatives'}, {name: {Name: 'please'}, shortName: 'please', active: ko.observable(false), CssClass: 'events'}, {name: {Name: 'wait'}, shortName: 'wait', active: ko.observable(false), CssClass: 'companies'}]),
         loadTaxonomy: loadTaxonomy
 
     };

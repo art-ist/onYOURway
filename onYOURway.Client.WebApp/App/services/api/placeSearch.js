@@ -129,5 +129,4 @@ define([
         //router.navigate('map');
     }
 
-
 });

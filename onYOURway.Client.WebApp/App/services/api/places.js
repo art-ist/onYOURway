@@ -28,9 +28,9 @@ define([
                         //tell.log('places found', 'location - _loadPlaces', places);
 
                         //extend places
-                        //$.each(places, function (i, item) {
                         places.forEach(function (item) {
-                            if (item.Position && item.Position().startsWith("POINT")) item.coords = item.Position().replace(/POINT \(/, '').replace(/\)/, '').split(' ');
+                            //if (item.Position && item.Position().startsWith("POINT")) item.coords = item.Position().replace(/POINT \(/, '').replace(/\)/, '').split(' ');
+                        	if (item.Position && item.Position().startsWith("POINT")) item.coords = wktToCoords(item.Position());
 
                             //** opening_hours **
                             if (item.oh === undefined && item.OpeningHours && item.OpeningHours()) {
