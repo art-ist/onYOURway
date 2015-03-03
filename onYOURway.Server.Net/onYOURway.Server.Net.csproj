@@ -31,7 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>Documentation\Documentation.xml</DocumentationFile>
+    <DocumentationFile>Docs\Documentation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -261,10 +261,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\_Startup.cs" />
     <Compile Include="Providers\OAuthProvider.cs" />
-    <Content Include="Documentation\api.html" />
-    <Content Include="Documentation\Documentation.xml" />
+    <Content Include="Docs\api.html" />
+    <Content Include="Docs\Documentation.xml" />
     <Content Include="App_Data\oyw.Messages.sql" />
-    <Content Include="Documentation\Documentation.xsl" />
+    <Content Include="Docs\Documentation.xsl" />
     <Content Include="JP.aspx" />
     <Content Include="Models\onYOURwayDbAfterModelCreated.sql" />
     <Content Include="WebConfig.base.config">
@@ -342,7 +342,7 @@
   -->
   <Target Name="AfterBuild">
     <TransformXml Source="WebConfig.base.config" Transform="Web.$(Configuration).config" Destination="Web.config" StackTrace="true" />
-    <XslTransformation XmlInputPaths="Documentation\Documentation.xml" XslInputPath="Documentation\Documentation.xsl" OutputPaths="Documentation\api.html" />
+    <XslTransformation XmlInputPaths="Docs\Documentation.xml" XslInputPath="Docs\Documentation.xsl" OutputPaths="Docs\api.html" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>

@@ -18,7 +18,10 @@ using onYOURway.StartUp;
 
 namespace onYOURway.Controllers {
 
-	[Authorize, RoutePrefix("api/Account")]
+	/// <summary>
+	/// The AccountController manages Accounts, Roles, Permissions and Profiles
+	/// </summary>
+	[Authorize] //Route as set in WebApiConfig: /Account or /{Realm}/Account
 	public class AccountController : ApiController {
 		//see: http://www.codeproject.com/Articles/843445/ASP-NET-Web-Api-and-Identity-Customizing-Identity?msg=5001696#xx5001696xx
 		//see: https://github.com/TypecastException/AspNetIdentity2WebApi-RBA/blob/master/AspNetIdentity2WebApiCustomize/Controllers/AccountController.cs

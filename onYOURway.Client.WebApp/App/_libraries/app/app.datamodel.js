@@ -1,16 +1,16 @@
 ﻿function AppDataModel() {
   var self = this,
       // Routes
-      addExternalLoginUrl = config.host + "/api/Account/AddExternalLogin",
-      changePasswordUrl = config.host + "/api/Account/changePassword",
+      addExternalLoginUrl = config.host + "/Account/AddExternalLogin",
+      changePasswordUrl = config.host + "/Account/changePassword",
       loginUrl = config.host + "/Token",
-      logoutUrl = config.host + "/api/Account/Logout",
-      registerUrl = config.host + "/api/Account/Register",
-      registerExternalUrl = config.host + "/api/Account/RegisterExternal",
-      removeLoginUrl = config.host + "/api/Account/RemoveLogin",
-      setPasswordUrl = config.host + "/api/Account/setPassword",
+      logoutUrl = config.host + "/Account/Logout",
+      registerUrl = config.host + "/Account/Register",
+      registerExternalUrl = config.host + "/Account/RegisterExternal",
+      removeLoginUrl = config.host + "/Account/RemoveLogin",
+      setPasswordUrl = config.host + "/Account/setPassword",
       siteUrl = config.host + "/",
-      userInfoUrl = config.host + "/api/Account/UserInfo";
+      userInfoUrl = config.host + "/Account/UserInfo";
 
   // Route operations
   function externalLoginsUrl(returnUrl, generateState) {

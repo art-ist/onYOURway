@@ -44,7 +44,7 @@ define([
 
 		route: routingLayer.route, //used in view _searchoptions.html, svc placesLayer, routingLayer
 
-		realm: '',						//realm key app.config.js overrules 
+		realm: '',							//override autodetect in app.config.js
 		regions: regionLayer.regions,		//used in view siteCollector
 		region: regionLayer.selectedRegion, //used in view _nav.html
 		views: regionLayer.views,			//used in view _nav.html

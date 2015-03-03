@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../Scripts/jsts.js" />
 /// <reference path="../../Scripts/leaflet-0.5.1.js" />
-/// <reference path="../../Scripts/knockout-3.0.0.js" />
+/// <reference path="../../Scripts/knockout-3.2.0.js" />
 
 define([
   'services/location',
@@ -185,6 +185,7 @@ define([
 
 	//#endregion localization
 
+	//read a value from app.config.js based on key string (if the same value exists in a realm config, the realm specific setting wins)
 	function getConfigValue(key) {
 		try {
 			var val;
@@ -198,6 +199,8 @@ define([
 
 	function initialize() {
 		tell.log('app initializing', 'app');
+		//make available to console
+		window.app = app;
 
 		setRealm();
 		loadMessages();
@@ -207,8 +210,6 @@ define([
 			loadShoppingList();
 		}
 
-		//make available to console
-		window.app = app;
 	}
 
 	//#region initialization
@@ -216,17 +217,27 @@ define([
 	function setRealm() {
 		//get realm based on key 'realm' in app.config.js
 		if (config.realm) {
-			location.getRealmByKey(key)
-				.then(function (data) {
-					location.realm = data.results[0];
-				})
+			//tell.log('getting realm info for ' + config.realm, 'app');
+			//location.getRealmByKey(config.realm)
+			//	.then(function (data) {
+			//		tell.log('setting realm', 'app', data.results[0]);
+			//		location.realm = data.results[0];
+			//	})
+			tell.log('setting realm', 'app', config.realm);
+			location.realm = config.realm;
 		}
 		//if not configured, get realm based on current window.location
 		else {
-			location.getRealmByUri(window.location)
-				.then(function (data) {
-					location.realm = data.results[0];
-				})
+			tell.log('getting realm info for ' + window.location,  'app');
+			//location.getRealmByUri(window.location)
+			//	.then(function (data) {
+			//		tell.log('setting realm', 'app', data.results[0]);
+			//		location.realm = data.results[0];
+			//	})
+			$.get(config.host + '/locate/', function (data) {
+				$(".result").html(data);
+				alert("Load was performed.");
+			});
 		}
 	} //setRealm
 

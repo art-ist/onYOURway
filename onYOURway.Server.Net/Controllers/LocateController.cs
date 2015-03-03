@@ -17,13 +17,14 @@ using Breeze.ContextProvider;
 using System.Web;
 using Microsoft.Data.OData;
 using System.Web.Http.OData;
+using System.Text.RegularExpressions;
 
 namespace onYOURway.Controllers {
 
 	/// <summary>
-	/// Api for mapping data: regions and locations in these regions
+	/// Api for mapping data: e.g. regions, locations and the lookup of basemap features like countries, cities, ...
 	/// </summary>
-	[BreezeController, EnableCors("*", "*", "*"), RoutePrefix("api/Locate")]
+	[BreezeController, EnableCors("*", "*", "*")] //Route as set in WebApiConfig: /Locate or /{Realm}/Locate
 	public class LocateController : ApiController {
 
 		readonly EFContextProvider<onYOURwayDbContext> db = new onYOURwayContextProvider();
@@ -129,29 +130,36 @@ namespace onYOURway.Controllers {
 		public Realm Realm(string Key) {
 			var result = db.Context
 				.Realms
-				//.Include("Localizations")
+				.Include("Localizations")
 				.SingleOrDefault(r => r.Key == Key)
 			  ;
 			return result;
 		}
 
-		[HttpGet, Route("RealmForUrl/{Url}"), EnableBreezeQuery]
-		public Realm RealmForUrl(string Url) {
-			var result = db.Context
+		[HttpGet]
+		public string GetRealmKey(string Uri) {
+			var realms = db.Context
 				.Realms
-				.SqlQuery("Select * From oyw.Realms Where Url Like UriPattern;")
-				//.Include("Localizations")
-				.FirstOrDefault()
-			  ;
-			return result;
-		}
+				.Include("Localizations")
+				.ToArray()	//get from db
+				.Where(r => Regex.IsMatch(Uri, r.UriPattern, RegexOptions.IgnoreCase))
+			;
+			var count = realms.Count();
+			if (count > 1) {
+				throw new HttpException(500, string.Format("More than one ({1}) realms found to match uri {0}.", Uri, count));
+			}
+			if (count == 1) {
+				return realms.First().Key;
+			}
+				throw new HttpException(404, string.Format("No realm found matching uri {0}.", Uri));
+		} //GetRealmKey
 
 
 		/// <summary>
 		/// Geographical region (country, city) and administrative domain usually maintained by one realm. E.g. "Bayreuth von morgen"
 		/// </summary>
 		/// <returns>Queryable Array of Region</returns>
-		[HttpGet, Route("Regions"), Route("{Realm}/Regions")]
+		[HttpGet]
 		public IQueryable<Region> Regions(string Realm = null) {
 			IQueryable<Region> result = db.Context
 				.Regions
@@ -320,8 +328,8 @@ namespace onYOURway.Controllers {
 		[HttpGet, Route("{Realm}/SearchSuggestions"), EnableQuery]
 		public IEnumerable<SearchSuggestion> SearchSuggestions(string Realm, string Region = "", string Classes = null, string Locale = null) {
 			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
-			if (string.IsNullOrWhiteSpace(Classes)) Classes = string.IsNullOrEmpty(Region) 
-															? "category,location,city" 
+			if (string.IsNullOrWhiteSpace(Classes)) Classes = string.IsNullOrEmpty(Region)
+															? "category,location,city"
 															: "category,location,street";
 
 			var result = db.Context.Database
@@ -381,8 +389,8 @@ namespace onYOURway.Controllers {
 			var result = db.Context
 				.BaseMapFeatures
 				.Include("Localizations")
-				.Where(f => f.Class == "City" 
-							&& 
+				.Where(f => f.Class == "City"
+							&&
 							(
 								(f.ParentClass == "Province" && f.Parent.Parent.IsoCode == CountryCode && f.Parent.IsoCode == ProvinceCode)
 								||
@@ -416,7 +424,7 @@ namespace onYOURway.Controllers {
 					boundingbox = f.BoundingBox.AsText()
 				});
 			return result;
-			
+
 		}
 
 		#endregion Lookups
@@ -424,7 +432,7 @@ namespace onYOURway.Controllers {
 		#region Updates
 
 		[HttpPost, Route("{Realm}/SaveChanges")]
-		public SaveResult SaveChanges(string Realm,  JObject saveBundle) {
+		public SaveResult SaveChanges(string Realm, JObject saveBundle) {
 			return db.SaveChanges(saveBundle);
 		}
 

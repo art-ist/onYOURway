@@ -16,7 +16,7 @@
     function loadSearchSuggestions(region) {
         var query = breeze.EntityQuery.from("SearchSuggestions");
         query.parameters = {
-            Region: region && region() ? region().Id() : app.getConfigValue('region'),
+            Region: region && region() ? ko.utils.unwrapObservable(region().Id) : app.getConfigValue('region'),
             Lang: app.lang()
         };
 

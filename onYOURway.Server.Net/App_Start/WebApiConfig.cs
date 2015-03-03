@@ -30,21 +30,17 @@ namespace onYOURway.StartUp {
 			config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
 			// Web API routes
+			//	use routes defined by code attributes
 			config.MapHttpAttributeRoutes();
-
-			//config.Routes.MapHttpRoute(
-			//  name: "DefaultApi",
-			//  routeTemplate: "api/{controller}/{id}",
-			//  defaults: new { id = RouteParameter.Optional }
-			//);
+			//	configure global routing templates
 			config.Routes.MapHttpRoute(
-			  name: "BreezeApi",
-			  routeTemplate: "api/{controller}/{action}"
+			  name: "onyourwayBreezeApi",
+			  routeTemplate: "{controller}/{action}"
 			);
 			config.Routes.MapHttpRoute(
-			  name: "BreezeApiWithRegion",
-			  routeTemplate: "api/{region}/{controller}/{action}",
-			  defaults: new { region = ConfigurationManager.AppSettings["DefaultRegion"] }
+			  name: "onyourwayBreezeRealmApi",
+			  routeTemplate: "{controller}/{realm}/{action}",
+			  defaults: new { realm = string.Empty }
 			);
 		} //Register
 

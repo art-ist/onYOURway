@@ -254,33 +254,33 @@ define([
 
 	    //#endregion lifecycle callbacks
 
-	    /**
-         * initialize the list of regions (self.region)
-         */
-		var getRegions = function (query) {
-		    if (query && query.term) {
-		        var s = regionLayer.regions();
-				if (s && s.length) {
-					var data = [];
-					var data2 = [];
-					var i;
-					for (i = 0; i < s.length; i++) {
-						if (s[i]) {
-							var idx = s[i].toLowerCase().indexOf(query.term.toLowerCase());
-							if (idx == 0) {
-								data.push({id: s[i], text: s[i]});
-							} else if (idx > 0) {
-								data2.push({id: s[i], text: s[i]});
-							}
-						}
-					}
-					for (i = 0; i < data2.length; i++) {
-						data.push(data2[i]);
-					}
-					query.callback({results: data});
-				}
-		    }
-		};
+	    ///**
+        // * initialize the list of regions (self.region)
+        // */
+		//var getRegions = function (query) {
+		//    if (query && query.term) {
+		//        var s = regionLayer.regions();
+		//		if (s && s.length) {
+		//			var data = [];
+		//			var data2 = [];
+		//			var i;
+		//			for (i = 0; i < s.length; i++) {
+		//				if (s[i]) {
+		//					var idx = s[i].toLowerCase().indexOf(query.term.toLowerCase());
+		//					if (idx == 0) {
+		//						data.push({id: s[i], text: s[i]});
+		//					} else if (idx > 0) {
+		//						data2.push({id: s[i], text: s[i]});
+		//					}
+		//				}
+		//			}
+		//			for (i = 0; i < data2.length; i++) {
+		//				data.push(data2[i]);
+		//			}
+		//			query.callback({results: data});
+		//		}
+		//    }
+		//};
 
 		/**
          * get the hierarchy of assignable tags (self.taxonomy)

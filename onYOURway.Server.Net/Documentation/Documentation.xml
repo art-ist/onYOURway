@@ -55,9 +55,14 @@
             <remarks>Beware of settings that confuse the breeze client</remarks>
             <see cref="!:http://www.breezejs.com/documentation/web-api-controller"/>
         </member>
+        <member name="T:onYOURway.Controllers.AccountController">
+            <summary>
+            The AccountController manages Accounts, Roles, Permissions and Profiles
+            </summary>
+        </member>
         <member name="T:onYOURway.Controllers.LocateController">
             <summary>
-            Api for mapping data: regions and locations in these regions
+            Api for mapping data: e.g. regions, locations and the lookup of basemap features like countries, cities, ...
             </summary>
         </member>
         <member name="M:onYOURway.Controllers.LocateController.Metadata">
@@ -102,7 +107,7 @@
             Returns a list of locations including their related properties
             </summary>
         </member>
-        <member name="M:onYOURway.Controllers.LocateController.Places(System.String,System.String)">
+        <member name="M:onYOURway.Controllers.LocateController.GetPlaces(System.String,System.String)">
             <summary>
             Gets all searchable features (Ventures, (Transport)Lines, (Transport)Stops, T)
             </summary>

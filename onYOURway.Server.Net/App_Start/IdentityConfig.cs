@@ -31,7 +31,7 @@ namespace onYOURway.StartUp {
 			OAuthOptions = new OAuthAuthorizationServerOptions {
 				TokenEndpointPath = new PathString("/Token"),
 				Provider = new OAuthProvider(PublicClientId),
-				AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+				AuthorizeEndpointPath = new PathString("/Account/ExternalLogin"),
 				AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
 				AllowInsecureHttp = true
 			};

@@ -8,22 +8,22 @@
 	// Routes
 	var routes = {
 		siteUrl: config.host + "/",
-		addExternalLoginUrl: config.host + "/api/Account/AddExternalLogin",
-		changePasswordUrl: config.host + "/api/Account/ChangePassword",
+		addExternalLoginUrl: config.host + "/Account/AddExternalLogin",
+		changePasswordUrl: config.host + "/Account/ChangePassword",
 		loginUrl: config.host + "/Token",
-		logoutUrl: config.host + "/api/Account/Logout",
-		registerUrl: config.host + "/api/Account/Register",
-		registerExternalUrl: config.host + "/api/Account/RegisterExternal",
-		removeLoginUrl: config.host + "/api/Account/RemoveLogin",
-		setPasswordUrl: config.host + "/api/Account/SetPassword",
-		userInfoUrl: config.host + "/api/Account/UserInfo",
+		logoutUrl: config.host + "/Account/Logout",
+		registerUrl: config.host + "/Account/Register",
+		registerExternalUrl: config.host + "/Account/RegisterExternal",
+		removeLoginUrl: config.host + "/Account/RemoveLogin",
+		setPasswordUrl: config.host + "/Account/SetPassword",
+		userInfoUrl: config.host + "/Account/UserInfo",
 		externalLoginsUrl: function externalLoginsUrl(returnUrl, generateState) {
-			return config.host + "/api/Account/ExternalLogins"
+			return config.host + "/Account/ExternalLogins"
 				+ "?returnUrl=" + (encodeURIComponent(returnUrl))
 				+ "&generateState=" + (generateState ? "true" : "false");
 		},
 		manageInfoUrl: function manageInfoUrl(returnUrl, generateState) {
-			return config.host + "/api/Account/ManageInfo"
+			return config.host + "/Account/ManageInfo"
 				+ "?returnUrl=" + (encodeURIComponent(returnUrl))
 				+ "&generateState=" + (generateState ? "true" : "false");
 		}
