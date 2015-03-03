@@ -25,6 +25,6 @@
 define([
 	//'App/components/searchBox-componentTest',
 	'Api/Account/identityTests',
-	'Api/Locate/locationBoundariesTests'
+	'Api/Locate/locateBoundariesTests'
 ],
 function () { });

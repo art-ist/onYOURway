@@ -244,7 +244,7 @@
     <Content Include="App\_styles\font-awesome.min.css" />
     <Content Include="Content\vonMorgen\vegetables.jpg" />
     <Content Include="index.vonMorgen.html" />
-    <Content Include="Tests\Api\Locate\locationBoundariesTests.js" />
+    <Content Include="Tests\Api\Locate\locateBoundariesTests.js" />
     <Content Include="Tests\Api\Account\identityTests.js" />
     <Content Include="Tests\App\components\searchBox-componentTest.js" />
     <Content Include="Tests\index.html" />

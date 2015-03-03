@@ -21,7 +21,10 @@ namespace onYOURway.Controllers {
 	/// <summary>
 	/// The AccountController manages Accounts, Roles, Permissions and Profiles
 	/// </summary>
-	[Authorize] //Route as set in WebApiConfig: /Account or /{Realm}/Account
+	/// <remarks>Actions on this controller can be called via the route /Account
+	/// Routes are set via attributes via attributes, relative to controllers RoutePrefix. Accounts are not part of the realm API.
+	/// </remarks>
+	[Authorize, RoutePrefix("Account")]
 	public class AccountController : ApiController {
 		//see: http://www.codeproject.com/Articles/843445/ASP-NET-Web-Api-and-Identity-Customizing-Identity?msg=5001696#xx5001696xx
 		//see: https://github.com/TypecastException/AspNetIdentity2WebApi-RBA/blob/master/AspNetIdentity2WebApiCustomize/Controllers/AccountController.cs

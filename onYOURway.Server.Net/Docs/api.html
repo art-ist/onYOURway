@@ -53,9 +53,16 @@
             <p>
             The AccountController manages Accounts, Roles, Permissions and Profiles
             </p>
+            <p>Actions on this controller can be called via the route /Account
+            Routes are set via attributes via attributes, relative to controllers RoutePrefix. Accounts are not part of the realm API.
+            </p>
         <h2>Controllers.LocateController</h2>
             <p>
             Api for mapping data: e.g. regions, locations and the lookup of basemap features like countries, cities, ...
+            </p>
+            <p>
+            Actions on this controller can be called via the routes /Locate or /{Realm}/Locate as configured in App_Start/WebApiConfig.cs.
+            A Route attribute on a method overrides that setting. 
             </p>
         <h3>Methods</h3>
     <h4>Metadata</h4>
@@ -100,13 +107,13 @@
     <p>
             Returns a list of locations including their related properties
             </p>
-    <h4>GetPlaces(System.String,System.String)</h4>
+    <h4>GetPlaces(System.String,System.String,System.String)</h4>
     <p>
             Gets all searchable features (Ventures, (Transport)Lines, (Transport)Stops, T)
             </p>
     <h5>Parameters</h5>
     <p><strong>Region: </strong></p>
-    <p><strong>lang: </strong></p>
+    <p><strong>Locale: </strong></p>
     <h5>Return Value</h5>
     <p><strong>Return Value: </strong>Ventures</p>
     <h4>Location(System.Guid)</h4>
@@ -124,6 +131,15 @@
     <h5>Parameters</h5>
     <p><strong>Region: </strong>Key of the current region</p>
     <p><strong>Locale: </strong>Language id e.g. "de"</p>
+    <h5>Return Value</h5>
+    <p><strong>Return Value: </strong>Search suggestions are only available in realm API</p>
+    <h4>SaveChanges(System.String,Newtonsoft.Json.Linq.JObject)</h4>
+    <p>
+            Send a savebundle of modified entities to update database
+            </p>
+    <h5>Parameters</h5>
+    <p><strong>Realm: </strong></p>
+    <p><strong>saveBundle: </strong></p>
     <h5>Return Value</h5>
     <p><strong>Return Value: </strong></p>
     <h2>Controllers.MyController.VCard</h2>

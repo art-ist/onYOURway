@@ -19,8 +19,6 @@ define([
 		//simple properties
 		title: 'onYOURway',
 
-		realm: location.realm,
-
 		lang: ko.observable('de'),
 		langs: [
 			{ id: 'de', name: 'Deutsch' },
@@ -189,7 +187,7 @@ define([
 	function getConfigValue(key) {
 		try {
 			var val;
-			val = eval('config.' + app.realm + '.' + key);
+			val = eval('config.' + realm + '.' + key);
 			if (typeof val != 'undefined') return val;
 			return eval('config.' + key);
 		} catch (e) {
@@ -199,8 +197,8 @@ define([
 
 	function initialize() {
 		tell.log('app initializing', 'app');
-		//make available to console
-		window.app = app;
+
+		window.oyc = app;	//TODO: replace with scripting- (or console-) API implemented as service
 
 		setRealm();
 		loadMessages();

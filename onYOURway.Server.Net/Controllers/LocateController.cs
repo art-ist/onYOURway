@@ -24,7 +24,11 @@ namespace onYOURway.Controllers {
 	/// <summary>
 	/// Api for mapping data: e.g. regions, locations and the lookup of basemap features like countries, cities, ...
 	/// </summary>
-	[BreezeController, EnableCors("*", "*", "*")] //Route as set in WebApiConfig: /Locate or /{Realm}/Locate
+	/// <remarks>
+	/// Actions on this controller can be called via the routes /Locate or /{Realm}/Locate as configured in App_Start/WebApiConfig.cs.
+	/// A Route attribute on a method overrides that setting. 
+	/// </remarks>
+	[BreezeController, EnableCors("*", "*", "*")]
 	public class LocateController : ApiController {
 
 		readonly EFContextProvider<onYOURwayDbContext> db = new onYOURwayContextProvider();
@@ -126,7 +130,7 @@ namespace onYOURway.Controllers {
 			return result;
 		}
 
-		[HttpGet, Route("Realm/{Key}"), EnableBreezeQuery]
+		[HttpGet, Route("Locate/{key}/Realm"), Route("Locate/Realm/{Key}"), EnableBreezeQuery]
 		public Realm Realm(string Key) {
 			var result = db.Context
 				.Realms
@@ -171,8 +175,8 @@ namespace onYOURway.Controllers {
 			return result;
 		}
 
-		[HttpGet, Route("Region/{Key}"), EnableBreezeQuery]
-		public Region Region(string Key) {
+		[HttpGet, Route("Locate/{Realm}/Region/{Key}"), Route("Locate/Region/{Key}"), EnableBreezeQuery]
+		public Region Region(string Realm, string Key) {
 			var result = db.Context
 				.Regions
 				.Include("Localizations")
@@ -204,11 +208,11 @@ namespace onYOURway.Controllers {
 		/// Gets all searchable features (Ventures, (Transport)Lines, (Transport)Stops, T)
 		/// </summary>
 		/// <param name="Region"></param>
-		/// <param name="lang"></param>
+		/// <param name="Locale"></param>
 		/// <returns>Ventures</returns>
 		[HttpGet]
-		public dynamic GetPlaces(String Region, string lang = null) {
-			if (string.IsNullOrEmpty(lang)) lang = GetLang();
+		public dynamic GetPlaces(string Realm, string Region, string Locale = null) {
+			if (string.IsNullOrEmpty(Locale)) Locale = GetLang();
 			////string xml = db.Context.GetPlaces(Region, lang).First().ToString();
 			string xml = null;
 			using (SqlCommand cd = new SqlCommand()) {
@@ -216,7 +220,7 @@ namespace onYOURway.Controllers {
 				cd.CommandType = System.Data.CommandType.StoredProcedure;
 				cd.CommandText = "oyw.GetPlaces";
 				cd.Parameters.AddWithValue("@Region", Region);
-				cd.Parameters.AddWithValue("@Lang", lang);
+				cd.Parameters.AddWithValue("@Lang", Locale);
 				cd.Connection.Open();
 				using (XmlReader xr = cd.ExecuteXmlReader()) {
 					if (xr != null) {
@@ -238,7 +242,7 @@ namespace onYOURway.Controllers {
 		/// <summary>
 		/// DEPRICATED
 		/// </summary>
-		[HttpGet, Route("Location/{Id}"), EnableBreezeQuery]
+		[HttpGet, Route("Locate/{Realm}/Location/{Id}"), Route("Locate/Location/{Id}"), EnableBreezeQuery]
 		public dynamic Location(Guid Id) {
 			return db.Context
 			  .Locations
@@ -255,7 +259,7 @@ namespace onYOURway.Controllers {
 
 		#region Taxonomy
 
-		[HttpGet, Route("{Realm}/Categories"), EnableQuery]
+		[HttpGet, EnableQuery]
 		public dynamic Categories(Guid? Realm = null, string lang = null) {
 			if (string.IsNullOrEmpty(lang)) lang = GetLang();
 
@@ -287,17 +291,17 @@ namespace onYOURway.Controllers {
 		/// <summary>
 		/// Gets the complete taxonomy
 		/// </summary>
-		[HttpGet, Route("{Realm}/GetTaxonomy"), Route("GetTaxonomy/{TaxonomyId}")]
-		public dynamic GetTaxonomy(string Realm = null, Guid? TaxonomyId = null, string Lang = null) {
+		[HttpGet, Route("Locate/{Realm}/GetTaxonomy"), Route("Locate/GetTaxonomy/{Id}")]
+		public dynamic GetTaxonomy(string Realm = null, Guid? Id = null, string Lang = null) {
 			if (string.IsNullOrEmpty(Lang)) Lang = GetLang();
-			if (TaxonomyId == null) TaxonomyId = db.Context.Realms.SingleOrDefault(r => r.Key == Realm).TaxonomyId;
+			if (Id == null) Id = db.Context.Realms.SingleOrDefault(r => r.Key == Realm).TaxonomyId;
 
 			string xml = null;
 			using (SqlCommand cd = new SqlCommand()) {
 				cd.Connection = (SqlConnection)db.Context.Database.Connection;
 				cd.CommandType = System.Data.CommandType.StoredProcedure;
 				cd.CommandText = "oyw.GetSubCategoriesXml";
-				cd.Parameters.AddWithValue("@parentId", TaxonomyId);
+				cd.Parameters.AddWithValue("@parentId", Id);
 				cd.Parameters.AddWithValue("@lang", Lang);
 				cd.Connection.Open();
 				using (XmlReader xr = cd.ExecuteXmlReader()) {
@@ -324,8 +328,8 @@ namespace onYOURway.Controllers {
 		/// </summary>
 		/// <param name="Region">Key of the current region</param>
 		/// <param name="Locale">Language id e.g. "de"</param>
-		/// <returns></returns>
-		[HttpGet, Route("{Realm}/SearchSuggestions"), EnableQuery]
+		/// <returns>Search suggestions are only available in realm API</returns>
+		[HttpGet, Route("Locate/{Realm}/SearchSuggestions"), EnableQuery]
 		public IEnumerable<SearchSuggestion> SearchSuggestions(string Realm, string Region = "", string Classes = null, string Locale = null) {
 			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 			if (string.IsNullOrWhiteSpace(Classes)) Classes = string.IsNullOrEmpty(Region)
@@ -344,7 +348,7 @@ namespace onYOURway.Controllers {
 
 		} //SearchSuggestions
 
-		[HttpGet, Route("GetCountries"), EnableQuery]
+		[HttpGet, EnableQuery]
 		public dynamic GetCountries(string Locale = null) {
 			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 
@@ -382,7 +386,7 @@ namespace onYOURway.Controllers {
 
 		}
 
-		[HttpGet, Route("GetCities"), Route("GetCities/{CountryCode}"), Route("GetCities/{CountryCode}/{ProvinceCode}"), EnableQuery]
+		[HttpGet, Route("Locate/GetCities"), Route("Locate/GetCities/{CountryCode}"), Route("Locate/GetCities/{CountryCode}/{ProvinceCode}"), EnableQuery]
 		public dynamic GetCities(string CountryCode, string ProvinceCode = null, string Locale = null) {
 			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 
@@ -408,7 +412,7 @@ namespace onYOURway.Controllers {
 
 		}
 
-		[HttpGet, Route("GetStreets"), Route("GetStreets/{CityId}"), EnableQuery]
+		[HttpGet, Route("Locate/GetStreets"), Route("Locate/GetStreets/{CityId}"), EnableQuery]
 		public dynamic GetStreets(Int64 CityId, string Locale = null) {
 			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 
@@ -431,7 +435,14 @@ namespace onYOURway.Controllers {
 
 		#region Updates
 
-		[HttpPost, Route("{Realm}/SaveChanges")]
+		/// <summary>
+		/// Send a savebundle of modified entities to update database
+		/// </summary>
+		/// <param name="Realm"></param>
+		/// <param name="saveBundle"></param>
+		/// <returns></returns>
+		/// <remarks>Saving changes is are only available in realm API. The user must be authentivcated to save changes.</remarks>
+		[HttpPost, Authorize, Route("Locate/{Realm}/SaveChanges")]
 		public SaveResult SaveChanges(string Realm, JObject saveBundle) {
 			return db.SaveChanges(saveBundle);
 		}
