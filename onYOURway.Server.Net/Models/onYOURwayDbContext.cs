@@ -186,6 +186,7 @@ namespace onYOURway.Models {
 				}//using
 			}//try
 			catch (System.Data.SqlClient.SqlException ex) {
+				Trace.WriteLine(string.Format("Running script:\n{0}", FilePath));
 				if (tran != null) tran.Rollback();
 				if (ex.InnerException == null) {
 					Trace.WriteLine(string.Format("Running batch:\n{0}", batch));

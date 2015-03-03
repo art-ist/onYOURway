@@ -224,70 +224,96 @@ End
 go
 -- Select * From dbo.Split('Sepp,Franz, Fritz', ',') Order By Item;
 
-Create Proc oyw.SearchSuggestions ( @Realm nvarchar(20) = null, @Region nvarchar(40) = null, @Classes varchar(max) = null, @Lang char(2) = null ) As 
-	If @Classes Is Null Set @Classes = 'category,location,city,street';
+Create Proc oyw.SearchSuggestions ( @Realm nvarchar(20) = null, @Region nvarchar(40) = null, @Classes nvarchar(max) = null, @Lang char(2) = null ) As 
+	Declare @bounding Geography;
+	Declare @taxonomyId uniqueidentifier;
+	
+	Select @taxonomyId = TaxonomyId From oyw.Realms r Where r.[Key] = @Realm;
+	If @Region Is Not Null Select @bounding = BoundingBox From oyw.Regions Where [Key] = @Region;
+	If @Classes Is Null Set @Classes = Case When @Region Is Null Then 'category,location,city,street' Else 'category,location,street' End;
 	If @Lang Is Null Set @Lang = 'en';
-	Declare @bounding Geography = (Select BoundingBox From oyw.Regions Where [Key] = @Region);
-	--Declare @taxonomyId uniqueidentifier = (Select TaxonomyId From oyw.Realms r Where @uri Like r.UrlPattern);
-	Declare @taxonomyId uniqueidentifier = (Select TaxonomyId From oyw.Realms r Where r.[Key] = @Realm);
 
-	Select 
-		'location' As Class, l.Id,
-		IsNull((Select Top 1 Name From oyw.EntryLocalizations Where EntryId = l.Id And Locale = @Lang), l.Name) As Name, 
-		l.CssClass, IsNull(l.IconCssClass, 'fa-map-marker'), l.IconUrl, 
-		l.Street, l.Zip, l.City
-	From
-		oyw.Entries l
-	Where
-		l.Discriminator = 'Location'
-		And
-		l.Published = 1
-		And
-		(l.ApprovalRequired = 0 Or l.ApprovedBy Is Not Null)
-		And
-		(l.Position.STWithin(@bounding) = 1 Or @Region Is Null)
-		And
-		'location' In (Select item From dbo.Split(@Classes, ','))
-	--Union 
-	--Select 'location' As Class, Name From oyw.LocationAlias Where Lang Is Null Or Lang = @Lang --And LocationId In (Select Id From @locs)
+	Declare @result table (
+		Class nvarchar(10) Null,
+		Id varchar(100),
+		Name nvarchar(200),
+		CssClass nvarchar(100),
+		IconCssClass nvarchar(100),
+		IconUrl nvarchar(200),
+		Street nvarchar(200),
+		Zip nvarchar(100),
+		City nvarchar(100),
+		IsIn nvarchar(100)
+	);
 
-	Union All
+	If Exists(Select * From dbo.Split(@Classes, ',') Where Item = 'location') Begin
+	Insert Into @result
+		Select 
+			'location' As Class, Convert(nvarchar(100), l.Id),
+			IsNull((Select Top 1 Name From oyw.EntryLocalizations Where EntryId = l.Id And Locale = @Lang), l.Name) As Name, 
+			l.CssClass, IsNull(l.IconCssClass, 'fa-map-marker'), l.IconUrl, 
+			l.Street, l.Zip, l.City, Concat(l.City, ', ' + l.Street) As IsIn
+		From
+			oyw.Entries l
+		Where
+			l.Discriminator = 'Location'
+			And
+			l.Published = 1
+			And
+			(l.ApprovalRequired = 0 Or l.ApprovedBy Is Not Null)
+			And
+			(l.Position.STWithin(@bounding) = 1 Or @Region Is Null)
+			--And
+			--'location' In (Select item From dbo.Split(@Classes, ','))
+		--Union 
+		--Select 'location' As Class, Name From oyw.LocationAlias Where Lang Is Null Or Lang = @Lang --And LocationId In (Select Id From @locs)
+	End
+
 	Select 
 		Class, f.Id,
 		IsNull((Select Top 1 Name From Lookup.BaseMapFeaturesLocalized Where Class = f.Class And Id = f.Id And Locale = @Lang), f.Name) As Name, 
 		null, Case Class When 'country' Then 'fa-flag' When 'city' Then 'fa-university ' When 'street' Then 'fa-road' End As IconCssClass, null, 
-		null, null, null --TODO: add city
+		null, null, null, IsIn --TODO: add city
 	From
 		Lookup.BaseMapFeatures f
 	Where
-		(f.Position.STWithin(@bounding) = 1 Or f.Boundary.STIntersects(@bounding) = 1 Or @Region Is Null)
-		And
 		Class In (Select item From dbo.Split(@Classes, ','))
+		--And
+		--(@Region Is Null Or f.Position.STWithin(@bounding) = 1 Or f.Boundary.STIntersects(@bounding) = 1) --TODO: evaluate these
 
-	Union All
-	Select 
-		'category' As Class, c.Id,
-		cn.Name, 
-		null, 'fa-tag', null, null, null, null
-	From
-		oyw.CategoryNames cn
-		Inner Join
-		oyw.Categories c On (cn.CategoryId = c.Id)
-	Where
-		'category' In (Select item From dbo.Split(@Classes, ','))
-		And
-		Name Is Not Null 
-		And 
-		(Locale Is Null Or Locale = @Lang)
-		And
-		CategoryId In (Select Id From GetSubCategoryIds(@taxonomyId))
+	If Exists(Select * From dbo.Split(@Classes, ',') Where Item = 'location') Begin
+		Select 
+			'category' As Class, c.Id,
+			cn.Name, 
+			null, 'fa-tag', null, null, null, null, null --pn.Name
+		From
+			--(
+				oyw.CategoryNames cn
+				Inner Join
+				oyw.Categories c On (cn.CategoryId = c.Id)
+			--)		
+			--Left Join
+			--oyw.CategoryRelations pr On (pr.ToCategoryId = c.Id)
+			--Left Join
+			--oyw.CategoryNames pn On (pr.FromCategoryId = pn.CategoryId And Locale Is Null Or Locale = @Lang)
+		Where
+			'category' In (Select item From dbo.Split(@Classes, ','))
+			And
+			Name Is Not Null 
+			And 
+			(Locale Is Null Or Locale = @Lang)
+			And
+			CategoryId In (Select Id From GetSubCategoryIds(@taxonomyId))
+	End
 
-	Order By
-		Name
-	;
+	Select * From @result Order By Name;
 go
--- Exec oyw.SearchSuggestions 'oyw', 'oyw-Test-Baden', 'de', 'location, category, street'
--- Exec oyw.SearchSuggestions 'kvm', 'kvm-Beyreuth', 'de', 'location, category, street'
--- Exec oyw.SearchSuggestions 'tm', 'tm-Graz', 'de', 'category'
+-- Select * From oyw.Regions
+-- Select * From lookup.BaseMapFeatures
+-- Select * FRom dbo.split('location, category, street', ',')
+-- Select TaxonomyId From oyw.Realms r Where r.[Key] = 'kvm'
+-- Exec oyw.SearchSuggestions 'oyw', 'Test', 'location, category, city', 'de'
+-- Exec oyw.SearchSuggestions 'kvm', 'Beyreuth', 'location, category, street', 'de'
+-- Exec oyw.SearchSuggestions 'tm', 'Graz', 'category', 'de'
 
 -- #endregion Functions and Procedures

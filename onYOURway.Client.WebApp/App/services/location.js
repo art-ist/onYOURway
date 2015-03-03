@@ -26,7 +26,7 @@ define([
 			 placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
 
 	var location = {
-		settings: settings,
+		settings: settings,  //services/map/settings
 
 		searchFor: placeSearch.searchTerm, //used in view _searchoptions.html, svc placesLayer
 		when: ko.observable(new Date()), //used in view _searchoptions.html, svc placesLayer
@@ -44,9 +44,13 @@ define([
 
 		route: routingLayer.route, //used in view _searchoptions.html, svc placesLayer, routingLayer
 
-		regions: regionLayer.regions, //used in view siteCollector
+		realm: '',						//realm key app.config.js overrules 
+		regions: regionLayer.regions,		//used in view siteCollector
 		region: regionLayer.selectedRegion, //used in view _nav.html
-		views: regionLayer.views, //used in view _nav.html
+		views: regionLayer.views,			//used in view _nav.html
+
+		getRealmByKey: apiClient.getRealmByKey,
+		getRealmByUri: apiClient.getRealmByUri,
 
 		tileLayers: tileLayer.tileLayers, //used by view _nav.html
 		activeTileLayer: tileLayer.activeLayer, //used by view _nav.html

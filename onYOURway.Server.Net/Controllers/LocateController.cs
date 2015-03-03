@@ -129,12 +129,23 @@ namespace onYOURway.Controllers {
 		public Realm Realm(string Key) {
 			var result = db.Context
 				.Realms
-				.Include("Localizations")
-				.Include("Regions")
+				//.Include("Localizations")
 				.SingleOrDefault(r => r.Key == Key)
 			  ;
 			return result;
 		}
+
+		[HttpGet, Route("RealmForUrl/{Url}"), EnableBreezeQuery]
+		public Realm RealmForUrl(string Url) {
+			var result = db.Context
+				.Realms
+				.SqlQuery("Select * From oyw.Realms Where Url Like UriPattern;")
+				//.Include("Localizations")
+				.FirstOrDefault()
+			  ;
+			return result;
+		}
+
 
 		/// <summary>
 		/// Geographical region (country, city) and administrative domain usually maintained by one realm. E.g. "Bayreuth von morgen"
@@ -163,6 +174,7 @@ namespace onYOURway.Controllers {
 			return result;
 		}
 
+
 		#endregion Boundaries
 
 		#region Entries
@@ -187,7 +199,7 @@ namespace onYOURway.Controllers {
 		/// <param name="lang"></param>
 		/// <returns>Ventures</returns>
 		[HttpGet]
-		public dynamic Places(String Region, string lang = null) {
+		public dynamic GetPlaces(String Region, string lang = null) {
 			if (string.IsNullOrEmpty(lang)) lang = GetLang();
 			////string xml = db.Context.GetPlaces(Region, lang).First().ToString();
 			string xml = null;
@@ -310,7 +322,7 @@ namespace onYOURway.Controllers {
 			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 			if (string.IsNullOrWhiteSpace(Classes)) Classes = string.IsNullOrEmpty(Region) 
 															? "category,location,city" 
-															: "category,location,city,street";
+															: "category,location,street";
 
 			var result = db.Context.Database
 				.SqlQuery<SearchSuggestion>("oyw.SearchSuggestions",

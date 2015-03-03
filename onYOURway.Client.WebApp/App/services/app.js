@@ -18,6 +18,9 @@ define([
 
 		//simple properties
 		title: 'onYOURway',
+
+		realm: location.realm,
+
 		lang: ko.observable('de'),
 		langs: [
 			{ id: 'de', name: 'Deutsch' },
@@ -31,6 +34,8 @@ define([
 		msg: null /* messages (translations texts) - will be initialized on load */,
 		getMsg: getMessage,
 		tryMsg: getMessage, //tryGetMessage,
+
+		getConfigValue: getConfigValue,
 
 		location: location,
 		auth: auth,
@@ -180,14 +185,52 @@ define([
 
 	//#endregion localization
 
+	function getConfigValue(key) {
+		try {
+			var val;
+			val = eval('config.' + app.realm + '.' + key);
+			if (typeof val != 'undefined') return val;
+			return eval('config.' + key);
+		} catch (e) {
+			return eval('config.' + key);
+		}
+	}
+
 	function initialize() {
 		tell.log('app initializing', 'app');
 
+		setRealm();
 		loadMessages();
 
 		//load shopping list
-		loadShoppingList();
+		if (config.features.shoppingList) {
+			loadShoppingList();
+		}
+
+		//make available to console
+		window.app = app;
 	}
+
+	//#region initialization
+
+	function setRealm() {
+		//get realm based on key 'realm' in app.config.js
+		if (config.realm) {
+			location.getRealmByKey(key)
+				.then(function (data) {
+					location.realm = data.results[0];
+				})
+		}
+		//if not configured, get realm based on current window.location
+		else {
+			location.getRealmByUri(window.location)
+				.then(function (data) {
+					location.realm = data.results[0];
+				})
+		}
+	} //setRealm
+
+	//#endregion initialization
 
 	function navigateToLoggedIn(userName, access_token, rememberMe) {
 		var user = app.user;

@@ -27,7 +27,7 @@ namespace onYOURway.Models {
 		[Required]
 		public String RelationshipType { get; set; }
 
-		public Int16? Sort { get; set; }
+		public Int16? SortOrder { get; set; }
 
 		#region navigation properties
 

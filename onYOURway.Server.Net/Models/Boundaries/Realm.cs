@@ -28,7 +28,7 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// RegEx pattern to recognize Realm from url
 		/// </summary>
-		public String UrlPattern { get; set; }
+		public String UriPattern { get; set; }
 
 		/// <summary>
 		/// Comma seperated list of items to return in search suggestions

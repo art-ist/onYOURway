@@ -36,7 +36,7 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// Point to show a pin on a map
 		/// </summary>
-		[Required, JsonConverter(typeof(DbGeographyConverter))]
+		[JsonConverter(typeof(DbGeographyConverter))]
 		public DbGeography Position { get; set; }
 
 		/// <summary>

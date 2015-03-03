@@ -12,9 +12,9 @@ define([
 
     function loadPlaces(location) {
         require(['services/app'], function (app) {
-            var query = breeze.EntityQuery.from("Places");
+            var query = breeze.EntityQuery.from("GetPlaces");
             query.parameters = {
-                RegionId: location.region && location.region() ? location.region().Id() : 1,
+                Region: location.region && location.region() ? ko.utils.unwrapObservable(location.region().Key) : config.region,
                 Lang: app.lang()
             };
 

@@ -25,7 +25,7 @@ namespace onYOURway.Models {
 		
 		public Boolean Visible { get; set; }
 
-		public Int16 Sort { get; set; }
+		public Int16 SortOrder { get; set; }
 
 		[Key, MaxLength(40), Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public String RegionKey { get; set; }

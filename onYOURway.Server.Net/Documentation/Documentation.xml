@@ -177,7 +177,7 @@
             <summary>
             When importing data from foreign sources this is a unique key for the import source Recuring imports from the same source should use the same key.
             </summary>
-            <remarks>The key may correspond to an external system key but it is not intended to create an external system for every imported spreadsheet.</remarks>
+            <remarks>The key may correspond to an external system key but it is not intended to create an external system for e.g. every imported spreadsheet.</remarks>
         </member>
         <member name="P:onYOURway.Models.Entry.SourceId">
             <summary>
@@ -194,7 +194,7 @@
             Native name e.g. used as title in realm description
             </summary>
         </member>
-        <member name="P:onYOURway.Models.Realm.UrlPattern">
+        <member name="P:onYOURway.Models.Realm.UriPattern">
             <summary>
             RegEx pattern to recognize Realm from url
             </summary>
@@ -269,6 +269,11 @@
             Feature type e.g.: Country, City, Province, Street
             </summary>
         </member>
+        <member name="P:onYOURway.Models.BaseMapFeature.IsIn">
+            <summary>
+            Name of the region, wehere the feature is located. e.g. name of the city, a street is in.
+            </summary>
+        </member>
         <member name="P:onYOURway.Models.BaseMapFeature.Name">
             <summary>
             Native Name
@@ -282,6 +287,16 @@
         <member name="P:onYOURway.Models.BaseMapFeature.BoundingBox">
             <summary>
             Bounding box of the 
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.BaseMapFeature.SourceKey">
+            <summary>
+            When importing data from foreign sources this is a unique key to identify the external source. Leaving blank may indicate OSM.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.BaseMapFeature.SourceId">
+            <summary>
+            When importing data from foreign sources this is the unique id to identify the individual entry/record in the external source.
             </summary>
         </member>
         <member name="P:onYOURway.Models.Location.Position">

@@ -54,9 +54,8 @@ define([
     }
 
     //>>excludeStart("build", true);
-    //logger.traceLevel = 2;                 // Enable logging to output to console
-    tell.traceLevel = 7;                 // Enable logging to output to console
-    system.debug(tell.traceLevel > 1);   // Enable durandal debug messages to show in the console 
+    tell.traceLevel = config.traceLevel;    // Enable logging to output to console
+    system.debug(tell.traceLevel > 1);		// Enable durandal debug messages to show in the console 
     //>>excludeEnd("build");
 
     if (window.PhoneGap) {

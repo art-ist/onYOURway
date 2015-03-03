@@ -34,8 +34,7 @@ define([
     window.onerror = function globalErrorHandler(msg, file, line) {
         tell.error(msg, file + ': ' + line);
     }
-    tell.traceLevel = 2;
-    tell.traceLevel = 7;
+    tell.traceLevel = config.traceLevel;
 
     registerBootstrapReplacements();
 

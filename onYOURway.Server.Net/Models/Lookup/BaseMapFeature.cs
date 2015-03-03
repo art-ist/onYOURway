@@ -24,6 +24,12 @@ namespace onYOURway.Models {
 		[Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.None), Index("IX_Class_Id", 1)]
 		public Int64 Id { get; set; }
 
+		/// <summary>
+		/// Name of the region, wehere the feature is located. e.g. name of the city, a street is in.
+		/// </summary>
+		[MaxLength(100)]
+		public string IsIn { get; set; }
+
 		[MaxLength(10), Index("IX_Parent_Class_Id", 0)]
 		public String ParentClass { get; set; }
 
@@ -53,6 +59,18 @@ namespace onYOURway.Models {
 		/// </summary>
 		[JsonConverter(typeof(DbGeographyConverter))]
 		public DbGeography BoundingBox { get; set; }
+
+		/// <summary>
+		/// When importing data from foreign sources this is a unique key to identify the external source. Leaving blank may indicate OSM.
+		/// </summary>
+		[MaxLength(100)]
+		public String SourceKey { get; set; }
+
+		/// <summary>
+		/// When importing data from foreign sources this is the unique id to identify the individual entry/record in the external source.
+		/// </summary>
+		[MaxLength(100)]
+		public String SourceId { get; set; }
 
 		#region navigation properties
 

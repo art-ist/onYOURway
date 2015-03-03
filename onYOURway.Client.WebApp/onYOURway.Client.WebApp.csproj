@@ -49,6 +49,7 @@
     <Content Include="App\services\api\places.js" />
     <Content Include="App\services\api\placeSearch.js" />
     <Content Include="App\services\api\searchSuggestions.js" />
+    <Content Include="App\services\api\taxonomy.js" />
     <Content Include="App\services\map\mapAdapter.js" />
     <Content Include="App\services\map\placesLayer.js" />
     <Content Include="App\services\map\pointerLayer.js" />

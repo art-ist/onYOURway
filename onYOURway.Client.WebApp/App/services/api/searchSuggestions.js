@@ -13,11 +13,11 @@
     };
     return self;
 
-    function loadSearchSuggestions(lang, region) {
+    function loadSearchSuggestions(region) {
         var query = breeze.EntityQuery.from("SearchSuggestions");
         query.parameters = {
-            RegionId: region && region() ? region().Id() : 1,
-            Lang: lang()
+            Region: region && region() ? region().Id() : app.getConfigValue('region'),
+            Lang: app.lang()
         };
 
         return apiClient.locateContext

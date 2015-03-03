@@ -87,7 +87,7 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// When importing data from foreign sources this is a unique key for the import source Recuring imports from the same source should use the same key.
 		/// </summary>
-		/// <remarks>The key may correspond to an external system key but it is not intended to create an external system for every imported spreadsheet.</remarks>
+		/// <remarks>The key may correspond to an external system key but it is not intended to create an external system for e.g. every imported spreadsheet.</remarks>
 		[MaxLength(100)]
 		public String SourceKey { get; set; }
 

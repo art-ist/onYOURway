@@ -118,6 +118,7 @@
 				</li>
 				<!--View-->
 				<!--Shopping List-->
+				<!-- ko if: config.features.shoppingList -->
 				<li>
 					<a href="#/my/shoppingList" title="Unterwegs erledigen / Einkaufsliste" id="menu-shoppingList">
 						<span class="badge badge-sup badge-warning" data-bind="text: shoppingList.itemsTodo(), visible: shoppingList.itemsTodo()"></span>
@@ -126,6 +127,7 @@
 						<span class="visible-xs"> &nbsp;Einkaufsliste</span>
 					</a>
 				</li>
+				<!-- /ko -->
 				<!--Shopping List-->
 				<!--My-->
 				<li class="dropdown">

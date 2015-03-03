@@ -8,7 +8,7 @@ URLs: (set in Views/Home/Index.cshtml)
 define([
   'plugins/router',
   'durandal/app',
-   'services/map/settings'
+  'services/map/settings'
 ], function (router, durandal, settings) {
   return {
     router: router,
