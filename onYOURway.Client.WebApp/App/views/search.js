@@ -2,7 +2,7 @@
 /// <reference path="../services/platform.js" />
 define([
   'services/app',
-  'services/location',
+  'services/locate',
   'services/tell',
   'services/platform'
 ], function (app, location, tell, platform) {

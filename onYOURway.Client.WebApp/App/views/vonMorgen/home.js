@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../Scripts/r.js" />
 define([
   'services/app',
-  'services/location',
+  'services/locate',
   'services/tell'
 ], function (app, location, tell, platform) {
 

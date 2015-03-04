@@ -1,6 +1,6 @@
 ﻿define([
   'services/app',
-  'services/location',
+  'services/locate',
   'services/tell',
   //'bootstrap',
   'knockout'

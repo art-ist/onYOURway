@@ -1,5 +1,4 @@
-﻿@import url('../fonts/source-sans-pro.css');
-/*colors*/
+﻿/*colors*/
 input.searchBox {
   min-height: 34px;
 }
@@ -37,7 +36,7 @@ div.searchBoxSuggestion div.clearFloat {
 /* Boostrap overrides      */
 /*#region base styling */
 html {
-  font-family: 'source-sans-pro', 'sans-serif';
+  font-family: Arial, 'sans-serif';
   font-style: normal;
   font-weight: 600;
   line-height: 1.2em;
@@ -681,7 +680,7 @@ form > .row {
 /*#region map*/
 #map {
   position: absolute;
-  top: 113px;
+  top: 50px;
   bottom: 0;
   left: 0;
   right: 0;

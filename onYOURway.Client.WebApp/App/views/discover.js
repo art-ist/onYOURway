@@ -1,19 +1,19 @@
 ﻿/// <reference path="../../Scripts/r.js" />
 define([
   'services/app',
-  'services/location',
+  'services/locate',
   'services/tell'
-], function (app, location, tell, platform) {
+], function (app, locate, tell, platform) {
 
   var vm = function () {
     var self = this;
     self.app = app;
-    self.location = location;
+    self.locate = locate;
 
     self.activate = function (queryString) {
       tell.log('activate', 'discover', queryString);
       if (queryString && queryString.tag) {
-        location.showByTagName(queryString.tag);
+        locate.showByTagName(queryString.tag);
       }
       return true;
     };

@@ -1,14 +1,14 @@
 ﻿define([
   'services/app',
-  'services/location',
+  'services/locate',
   'services/tell',
   'services/platform'
-], function (app, location, tell, platform) {
+], function (app, locate, tell, platform) {
 
   var vm = function () {
     var self = this;
     self.app = app;
-    self.location = location;
+    self.locate = locate;
 
     //#region lifecycle events
 
@@ -19,8 +19,8 @@
 
     //self.attached = function () {
     //  tell.log('View attached', 'Map', $('#map'));
-    //  //if (!location.map) {
-    //  //  self.location.initializeMap('map');
+    //  //if (!locate.map) {
+    //  //  self.locate.initializeMap('map');
     //  //}
     //};
 
@@ -31,39 +31,39 @@
     //#region Properties
 
     self.showMap = ko.computed(function () {
-      if (location.settings.showMap() === 'auto') {
+      if (locate.settings.showMap() === 'auto') {
         return true;
       }
       else {
-        return location.settings.showMap();
+        return locate.settings.showMap();
       }
     });
 
     self.showList = ko.computed(function () {
-      if (location.showSiteCollector) {
+      if (locate.showSiteCollector) {
         return false;
       }
-      if (location.settings.showList() === 'auto') {
-        return (location.mapLocations().length > 0);
+      if (locate.settings.showList() === 'auto') {
+        return (locate.mapLocations().length > 0);
       }
       else {
-        return location.settings.showList();
+        return locate.settings.showList();
       }
     });
 
     self.showDetails = ko.computed(function () {
-      if (location.showSiteCollector) {
+      if (locate.showSiteCollector) {
           return false;
       }
-      if (location.settings.showDetails() === 'auto') {
-        return (location.selectedItem());
+      if (locate.settings.showDetails() === 'auto') {
+        return (locate.selectedItem());
       }
       else {
-        return location.settings.showDetails();
+        return locate.settings.showDetails();
       } 
     });
 
-    self.showSiteCollector = location.settings.showSiteCollector;
+    self.showSiteCollector = locate.settings.showSiteCollector;
 
     //#endregion Properties
 

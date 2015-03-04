@@ -14,21 +14,11 @@
     return self;
 
     function loadSearchSuggestions(region) {
-        var query = breeze.EntityQuery.from("SearchSuggestions");
-        query.parameters = {
-            Region: region && region() ? ko.utils.unwrapObservable(region().Id) : app.getConfigValue('region'),
-            Lang: app.lang()
-        };
-
-        return apiClient.locateContext
-            .executeQuery(query)
-            .then(putToCache)
-            .fail(function (error) {
-                var msg = breeze.saveErrorMessageService.getErrorMessage(error);
-                error.message = msg;
-                tell.logError("Suchvorschläge konnten nicht geladen werden.", 'searchSuggestions - loadSearchSuggestions', error);
-                throw error;
-            });
+    	return apiClient.getSearchSuggestions(region)
+			.then(function (date) {
+				tell.log('loading SearchSuggestions succeeded', 'searchSuggestions', data);
+			})
+            .then(putToCache);
     }
 
     function putToCache(apiResponse) {

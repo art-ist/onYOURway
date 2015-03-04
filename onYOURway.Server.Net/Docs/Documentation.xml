@@ -1,0 +1,470 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>onYOURway.Server</name>
+    </assembly>
+    <members>
+        <member name="T:Breeze.Serialization.DynamicTypeRenamingSerializationBinder">
+            <summary>
+            Renames the serialized type name of dynamically generated types.
+            Used by Json.Net when populating the $type property in
+            JSON serializated data.
+            </summary>
+            <remarks>
+            This class delegates to the Json.Net <see cref="T:Newtonsoft.Json.Serialization.DefaultSerializationBinder"/>
+            except when serializing a dynamic type in which case it outputs a
+            simplified version of the dynamic type name and pretends the type
+            belongs to an assembly named "Dynamic".
+            <para>
+            It cures an objection many people have to the actual CLR name of the
+            dynamic type that is created for objects returned by a projection into an anonymous type.
+            </para>
+            </remarks>
+            <example>
+            A projection query in John Papa's "Code Camper Jumpstart" sample returns
+            an anonymous type. With the default binder, the serialized name for that type is
+            "_IB_DGU56or_prSk3yzZB87I8gCBWABk[[System.Int32, mscorlib],[System.String, mscorlib],[System.String, mscorlib],[System.Int32, mscorlib],[System.Int32, mscorlib],[System.Int32, mscorlib],[System.Int32, mscorlib],[System.String, mscorlib],[System.String, mscorlib]], _IB_DGU56or_prSk3yzZB87I8gCBWABk_IdeaBlade"
+            <para>This binder will intercept that type and name it
+            "_IB_DGU56or_prSk3yzZB87I8gCBWABk, Dynamic".</para>
+            <para>Does the same thing for the anonymous types that a controller could return.
+            For example, the DocCode "Lookups" endpoint creates and returns an anonymous object.
+            This binder will cause the $type to be something like "&lt;&gt;f__AnonymousType6`3, Dynamic".</para>
+            </example>
+        </member>
+        <member name="T:onYOURway.StartUp.WebApiConfig">
+            <summary>
+            Class to register the custom WebApi configuration for Breeze
+            </summary>
+        </member>
+        <member name="M:onYOURway.StartUp.WebApiConfig.Register(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Configures the WebApi, enables CORS and Authentication Filters and registers routes. 
+            </summary>
+            <param name="config">HttpConfiguration to be set (passed by the system)</param>
+        </member>
+        <member name="T:onYOURway.StartUp.CustomBreezeConfig">
+            <summary>
+            Custom Breeze Confguration
+            </summary>
+        </member>
+        <member name="M:onYOURway.StartUp.CustomBreezeConfig.CreateJsonSerializerSettings">
+            <summary>
+            Customize the JsonSerializer used by the Breeze ApiController
+            </summary>
+            <returns>Customized Settngs</returns>
+            <remarks>Beware of settings that confuse the breeze client</remarks>
+            <see cref="!:http://www.breezejs.com/documentation/web-api-controller"/>
+        </member>
+        <member name="T:onYOURway.Controllers.AccountController">
+            <summary>
+            The AccountController manages Accounts, Roles, Permissions and Profiles
+            </summary>
+            <remarks>Actions on this controller can be called via the route /Account
+            Routes are set via attributes via attributes, relative to controllers RoutePrefix. Accounts are not part of the realm API.
+            </remarks>
+        </member>
+        <member name="T:onYOURway.Controllers.LocateController">
+            <summary>
+            Api for mapping data: e.g. regions, locations and the lookup of basemap features like countries, cities, ...
+            </summary>
+            <remarks>
+            Actions on this controller can be called via the routes /Locate or /{Realm}/Locate as configured in App_Start/WebApiConfig.cs.
+            A Route attribute on a method overrides that setting. 
+            </remarks>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.Metadata">
+            <summary>
+            Returns object metadata based on the DB schema required by the Breeze client
+            </summary>
+            <returns>Metadata</returns>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.GetLang">
+            <summary>
+            Get Lang based on Request UserLanguages
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.GetRealm">
+            <summary>
+            Get Realm based on Request Uri
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.Messages(System.String)">
+            <summary>
+            Gets all localizable messages for the app in the given language
+            </summary>
+            <param name="lang">language or locale to return the messages in if this parameter is omitted, the first browser language is used</param>
+            <returns></returns>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.Realms">
+            <summary>
+            A realm (e.g. the the onYOURway-Project, 'Karte von morgen', the Green Map System or the TransforMap project) uses different capabilities of the onYOURway-mapping paltform, may have its own taxonomy and covers locations in different regions. The combination of realm, region and creator define how an entry can be administered.
+            </summary>
+            <returns>Queryable Array of Realm</returns>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.Regions(System.String)">
+            <summary>
+            Geographical region (country, city) and administrative domain usually maintained by one realm. E.g. "Bayreuth von morgen"
+            </summary>
+            <returns>Queryable Array of Region</returns>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.Locations">
+            <summary>
+            Returns a list of locations including their related properties
+            </summary>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.GetPlaces(System.String,System.String,System.String)">
+            <summary>
+            Gets all searchable features (Ventures, (Transport)Lines, (Transport)Stops, T)
+            </summary>
+            <param name="Region"></param>
+            <param name="Locale"></param>
+            <returns>Ventures</returns>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.Location(System.Guid)">
+            <summary>
+            DEPRICATED
+            </summary>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.GetTaxonomy(System.String,System.Nullable{System.Guid},System.String)">
+            <summary>
+            Gets the complete taxonomy
+            </summary>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.SearchSuggestions(System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets all features of the selected region as search suggestions (typeahead) for the main search box
+            </summary>
+            <param name="Region">Key of the current region</param>
+            <param name="Locale">Language id e.g. "de"</param>
+            <returns>Search suggestions are only available in realm API</returns>
+        </member>
+        <member name="M:onYOURway.Controllers.LocateController.SaveChanges(System.String,Newtonsoft.Json.Linq.JObject)">
+            <summary>
+            Send a savebundle of modified entities to update database
+            </summary>
+            <param name="Realm"></param>
+            <param name="saveBundle"></param>
+            <returns></returns>
+            <remarks>Saving changes is are only available in realm API. The user must be authentivcated to save changes.</remarks>
+        </member>
+        <member name="M:onYOURway.Controllers.MyController.Notify(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sendet eine Nachricht mit Kontaktdaten
+            </summary>
+            <param name="FirstName"></param>
+            <param name="LastName"></param>
+            <param name="Company"></param>
+            <param name="Email"></param>
+            <param name="Role"></param>
+            <param name="Project"></param>
+            <param name="Message"></param>
+            <param name="a"></param>
+            <param name="b"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="T:onYOURway.Controllers.MyController.VCard">
+            <summary>
+            <see cref="!:http://weblogs.asp.net/gunnarpeipman/archive/2009/08/09/creating-vcard-with-image-in-net.aspx"/>
+            </summary>
+        </member>
+        <member name="T:onYOURway.Models.Entry">
+            <summary>
+            An Entry is an item of interest. Currently this can be a Location or an Event.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Entry.Name">
+            <summary>
+            Native Name of the Entry.
+            </summary>
+            <remarks>Use localizations to add translations.</remarks>
+        </member>
+        <member name="P:onYOURway.Models.Entry.Description">
+            <summary>
+            Native Description of the Entry.
+            </summary>
+            <remarks>Use localizations to add translations.</remarks>
+        </member>
+        <member name="P:onYOURway.Models.Entry.OpeningHours">
+            <summary>
+            Opening hours of events and locations
+            </summary>
+            <see cref="!:http://wiki.openstreetmap.org/wiki/Key:opening_hours"/>
+            <see cref="!:http://openingh.openstreetmap.de/evaluation_tool/"/>
+        </member>
+        <member name="P:onYOURway.Models.Entry.SourceKey">
+            <summary>
+            When importing data from foreign sources this is a unique key for the import source Recuring imports from the same source should use the same key.
+            </summary>
+            <remarks>The key may correspond to an external system key but it is not intended to create an external system for e.g. every imported spreadsheet.</remarks>
+        </member>
+        <member name="P:onYOURway.Models.Entry.SourceId">
+            <summary>
+            When importing data from foreign sources this is the unique id to identify the individual entry/record in the external source.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.Key">
+            <summary>
+            Unique id
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.Name">
+            <summary>
+            Native name e.g. used as title in realm description
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.UriPattern">
+            <summary>
+            RegEx pattern to recognize Realm from url
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.SuggestItems">
+            <summary>
+            Comma seperated list of items to return in search suggestions
+            </summary>
+            <example>Location</example>
+            <example>location,tag,city,street</example>
+        </member>
+        <member name="P:onYOURway.Models.Realm.Description">
+            <summary>
+            Description in the native language of the realm. In case of international activity we suggest using english here.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.LogoUrl">
+            <summary>
+            Path to the logo for the Realm (should be relative to the path /Content/{RealmKey} and be 160x160 pixel)
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.TaxonomyId">
+            <summary>
+            Root tag of the taxonomy used by this realm thus selecting the available taxonomy
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.Boundary">
+            <summary>
+            Optional geographical focus of the realm. Null means worldwide.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.Taxonomy">
+            <summary>
+            Root category of the taxonomy used by the realm.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.Localizations">
+            <summary>
+            Translations of the strings to different languages
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.Regions">
+            <summary>
+            Regions activley supporting the current realm
+            </summary>
+        </member>
+        <member name="T:onYOURway.Models.RealmLocalized">
+            Realm
+        </member>
+        <member name="P:onYOURway.Models.RealmLocalized.RealmKey">
+            <summary>
+            Key of realm to be localized
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.RealmLocalized.Locale">
+            <summary>
+            Locale e.g. "de-DE" or language e.g. "de" of localization
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.RealmLocalized.Name">
+            <summary>
+            Localized name
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.RealmLocalized.Description">
+            <summary>
+            Localized description
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.BaseMapFeature.Class">
+            <summary>
+            Feature type e.g.: Country, City, Province, Street
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.BaseMapFeature.IsIn">
+            <summary>
+            Name of the region, wehere the feature is located. e.g. name of the city, a street is in.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.BaseMapFeature.Name">
+            <summary>
+            Native Name
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.BaseMapFeature.Position">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.BaseMapFeature.BoundingBox">
+            <summary>
+            Bounding box of the 
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.BaseMapFeature.SourceKey">
+            <summary>
+            When importing data from foreign sources this is a unique key to identify the external source. Leaving blank may indicate OSM.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.BaseMapFeature.SourceId">
+            <summary>
+            When importing data from foreign sources this is the unique id to identify the individual entry/record in the external source.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Location.Position">
+            <summary>
+            Point to show a pin on a map
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Location.Boundary">
+            <summary>
+            Optional boundary (if the location covers a larger area, e.g. a park.)
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.EntryLocalization.Id">
+            <summary>
+            This allows multiple localized Names / Aliases
+            </summary>
+        </member>
+        <member name="T:onYOURway.Models.EntryLink">
+            <summary>
+            Links to websites, phone numbers email addresses, ...
+            </summary>
+            <remarks>Do not replicate with systems enforcing this table to be published e.g. ODbL</remarks>
+        </member>
+        <member name="P:onYOURway.Models.EntryLink.Type">
+            <summary>
+            
+            </summary>
+            <example>Url,Phone,Email</example>
+        </member>
+        <member name="P:onYOURway.Models.EntryLink.AccessLevel">
+            <summary>
+            
+            </summary>
+            <value>0 ... do not publish, ues for administrative purpose only</value>
+            <value>1 ... humans only - try to protect against grabbers, publish in details and via throttled API, do not replicate to external databases</value>
+            <value>2 ... public - include in bulk results in API, exports and publish to external systems</value>
+        </member>
+        <member name="P:onYOURway.Models.Category.Key">
+            <summary>
+            Optional unique string-based id wich might be more intuitive to work with than the internally used UUID's
+            </summary>
+            <remarks>This key can also be used to corellate to external key/value baed tagging systems like OSM</remarks>
+        </member>
+        <member name="P:onYOURway.Models.Category.ValueEditor">
+            <summary>
+            Select an editor to add an additional value to the category assignment (possibly a percentage of products for organic stores). 
+            - null ... no value allowed (the category is assigned or not)
+            - text, textarea, reichtext
+            - array of options e.g. ['green', 'blue', 'red']
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Category.ValueOptions">
+            <summary>
+            Optional: Semicolon seperated list of possible values for select or option group editors
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Category.Visible">
+            <summary>
+            Determines if this category is available for selection in the SiteCollector
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.CategoryName.Visible">
+            <summary>
+            Determines if this name is shown when listing categories in the entry details. It can still be used for searching.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.CategoryName.Description">
+            <summary>
+            Description what this ctegory means or how to qualify.
+            </summary>
+            <remarks>While it is quite easy to tell if a venture is a restaurant, it is not that easy for an organic store.</remarks>
+        </member>
+        <member name="T:onYOURway.Models.Message">
+            <summary>
+            Localization Messages
+            </summary>
+        </member>
+        <member name="M:onYOURway.Models.onYOURwayDbContext.OnModelCreating(System.Data.Entity.DbModelBuilder)">
+            <summary>
+            Add additional Db schema definitions, that can't be done through code annotations, using Fliud Api
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="T:onYOURway.Models.ExternalSystem">
+            <summary>
+            External system, linked to automatically exchan ge data via API or (automated) ETL process.
+            </summary>
+            <remarks>Do not replicate</remarks>
+        </member>
+        <member name="P:onYOURway.Models.ExternalSystem.Website">
+            <summary>
+            Website of the 
+            </summary>
+            <remarks>This is not nessessarily the base Url of the API.</remarks>
+        </member>
+        <member name="P:onYOURway.Models.Region.Description">
+            <summary>
+            Description in the native language of the region. In case of international activity we suggest using english here.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Region.BoundingBox">
+            <summary>
+            Bounding box of the 
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.RegionLocalized.Name">
+            <summary>
+            Localized name
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.RegionLocalized.Description">
+            <summary>
+            Localized description
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Map.BoundingBox">
+            <summary>
+            Bounding box of the 
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.MapLocalized.Locale">
+            <summary>
+            Locale e.g. "de-DE" or language e.g. "de" of localization
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.CategoryRelation.RelationshipType">
+            <summary>
+            Kind of relationship refering to OWL syntax
+            </summary>
+            <value>subClassOf</value>
+            <value>sameAs</value>
+            <see cref="!:http://www.w3.org/TR/2004/REC-owl-features-20040210/#s2.1"/>
+        </member>
+        <member name="T:onYOURway.Models.onYOURwayConventions">
+            <summary>
+            Customize the default modeling behaviour
+            </summary>
+        </member>
+        <member name="T:onYOURway.Models.onYOURwayConventions.SqlServerDefaultTypesConvention">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:onYOURway.Models.onYOURwayConventions.ForeignKeyNamingConvention">
+            <summary>
+            Provides a convention for fixing the independent association (IA) foreign key column names.
+            </summary>
+        </member>
+    </members>
+</doc>

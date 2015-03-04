@@ -6,7 +6,7 @@ define([
     var map = null;
 
     var self = {
-        initializeMap: initializeMap,
+    	initializeMapControl: initializeMapControl,
         panIntoView: panIntoView,
         replaceLayer: replaceLayer,
         removeLayer: removeLayer,
@@ -26,8 +26,8 @@ define([
     };
     return self;
 
-    function initializeMap(containerId) {
-        tell.log('[map/map] Initializing Map', 'map/map', containerId);
+    function initializeMapControl(containerId) {
+        tell.log('initializing map control', 'mapAdapter', containerId);
         map = L.map(containerId, {attributionControl: false});
         return map;
     }

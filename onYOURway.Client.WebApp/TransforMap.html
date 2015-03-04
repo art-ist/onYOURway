@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>TransforMap</title>
+	<meta name="description" content="Mapping the Mappings" />
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link href="/App/_styles/jquery-ui/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
+	<link href="/App/_styles/ie10mobile.css" rel="stylesheet" />
+	<link href="/App/_styles/durandal.css" rel="stylesheet" />
+	<link href="/App/_styles/toastr.css" rel="stylesheet" />
+	<link href="/App/_styles/font-awesome.css" rel="stylesheet" />
+	<link href="/App/_styles/leaflet/leaflet.css" rel="stylesheet" />
+	<link href="/App/_styles/leaflet/leaflet.awesome-markers.css" rel="stylesheet" />
+	<link href="/App/_styles/leaflet/MarkerCluster.css" rel="stylesheet" />
+	<link href="/App/_styles/leaflet/MarkerCluster.Default.css" rel="stylesheet" />
+	<link href="/App/_styles/bootstrap-datepicker.css" rel="stylesheet" />
+	<link href="/App/_styles/typeahead.js-bootstrap.css" rel="stylesheet" />
+	<link href="/App/_styles/introjs.css" rel="stylesheet" />
+	<link href="/App/_styles/owl.carousel.css" rel="stylesheet" />
+	<link href="/App/_styles/owl.theme.css" rel="stylesheet" />
+	<link href="/App/_styles/select2.css" rel="stylesheet" />
+	<link href="/App/_styles/select2-bootstrap.css" rel="stylesheet" />
+	<link href="/App/themes/_shared.css" rel="stylesheet" />
+
+	<script type="text/javascript">
+		window.theme = 'TransforMap';
+	</script>
+
+	<!-- Browser Tweaks -->
+	<script type="text/javascript">
+		if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+			var msViewportStyle = document.createElement("style");
+			msViewportStyle.appendChild(document.createTextNode("@-ms-viewport{width:auto!important}"));
+			document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+		}
+	</script>
+	<!--[if lte IE 8]>
+		<link rel="stylesheet" href="../dist/MarkerCluster.Default.ie.css" />
+	<![endif]-->
+	<!-- /Browser Tweaks -->
+
+</head>
+<body>
+
+	<div id="applicationHost">
+		<div class="page-splash">
+			<style type="text/css">
+				.page-splash {
+					position: absolute;
+					position: fixed;
+					width: 240px;
+					left: 50%;
+					margin-left: -120px;
+					height: 160px;
+					top: 50%;
+					margin-top: -80px;
+					text-align: center;
+				}
+
+				#page-splash-indicator {
+					margin-top: 10px;
+				}
+			</style>
+
+			<div id="page-splash-message">
+				<img src="App/themes/transforMap/images/logo.png" alt="TransforMap">
+
+				<p><br /><i class="icon-spinner icon-2x icon-spin"></i></p>
+			</div>
+
+		</div>
+	</div>
+
+	<script src="/App/_libraries/jquery-2.0.1.js"></script>
+	<script src="/App/_libraries/jquery-ui-1.10.4.custom.js"></script>
+	<script src="/App/_libraries/modernizr-2.7.1.js"></script>
+	<script src="/App/app.config.js"></script>
+	<script src="/App/_libraries/knockout-3.2.0.js"></script>
+	<script src="/App/_libraries/q.js"></script>
+	<script src="/App/_libraries/bootstrap.js"></script>
+	<script src="/App/_libraries/knockout.mapping-2.4.1.js"></script>
+	<script src="/App/_libraries/knockout.validation.debug.js"></script>
+	<script src="/App/_libraries/toastr.js"></script>
+	<script src="/App/_libraries/breeze.debug.js"></script>
+	<script src="/App/_libraries/breeze.saveErrorExtensions.js"></script>
+	<script src="/App/_libraries/jquery.scrollTo-1.4.8.js"></script>
+	<script src="/App/_libraries/jquery.scrollIntoView.js"></script>
+	<script src="/App/_libraries/moment-with-langs.js"></script>
+	<script src="/App/_libraries/suncalc.js"></script>
+	<script src="/App/_libraries/opening_hours.js"></script>
+	<script src="/App/_libraries/leaflet/leaflet-0.7.1.js"></script>
+	<script src="/App/_libraries/leaflet/javascript.util.js"></script>
+	<script src="/App/_libraries/leaflet/jsts.js"></script>
+	<script src="/App/_libraries/leaflet/leaflet.awesome-markers.js"></script>
+	<script src="/App/_libraries/leaflet/leaflet.markercluster-src.js"></script>
+	<script src="/App/_libraries/leaflet/leaflet.overpass-layer.js"></script>
+	<script src="/App/_libraries/leaflet/leaflet.draw.js"></script>
+	<script src="/App/_libraries/bootstrap-datepicker.js"></script>
+	<script src="/App/_libraries/locales/bootstrap-datepicker.de.js"></script>
+	<script src="/App/_libraries/bootstrap-typeahead.js"></script>
+	<script src="/App/_libraries/intro.js"></script>
+	<script src="/App/_libraries/owl.carousel.js"></script>
+	<script src="/App/_libraries/select2/select2.js"></script>
+	<script src="/App/_libraries/knockout-bootstrap.js"></script>
+	<script src="/App/extensions/global-extensions.js"></script>
+	<script src="/App/bindingHandlers/class-bindingHandler.js"></script>
+	<script src="/App/bindingHandlers/datepicker-bindingHandler.js"></script>
+	<script src="/App/bindingHandlers/localize-bindingHandler.js"></script>
+	<script src="/App/bindingHandlers/map-bindingHandler.js"></script>
+	<script src="/App/bindingHandlers/select2-bindingHandler.js"></script>
+	<script src="/App/bindingHandlers/textDate-bindingHandler.js"></script>
+	<script src="/App/bindingHandlers/timeslider-bindingHandler.js"></script>
+	<script src="/App/bindingHandlers/typeahead-bindingHandler.js"></script>
+	<script src="/App/bindingHandlers/places-bindingHandler.js"></script>
+	<script src="/App/bindingHandlers/_instance-bindingProvider.js"></script>
+
+	<script type="text/javascript" src="/App/_libraries/require.js" data-main="/App/main"></script>
+
+</body>
+</html>

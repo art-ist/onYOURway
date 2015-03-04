@@ -186,7 +186,6 @@ namespace onYOURway.Controllers {
 			return result;
 		}
 
-
 		#endregion Boundaries
 
 		#region Entries
@@ -210,17 +209,18 @@ namespace onYOURway.Controllers {
 		/// <param name="Region"></param>
 		/// <param name="Locale"></param>
 		/// <returns>Ventures</returns>
-		[HttpGet]
-		public dynamic GetPlaces(string Realm, string Region, string Locale = null) {
+		[HttpGet, Route("Locate/{Realm}/{Region}/GetPlaces"), Route("Locate/{Realm}/GetPlaces")]
+		public dynamic GetPlaces(string Realm, string Region = "", string Locale = null) {
 			if (string.IsNullOrEmpty(Locale)) Locale = GetLang();
 			////string xml = db.Context.GetPlaces(Region, lang).First().ToString();
 			string xml = null;
 			using (SqlCommand cd = new SqlCommand()) {
 				cd.Connection = (SqlConnection)db.Context.Database.Connection;
 				cd.CommandType = System.Data.CommandType.StoredProcedure;
-				cd.CommandText = "oyw.GetPlaces";
-				cd.Parameters.AddWithValue("@Region", Region);
-				cd.Parameters.AddWithValue("@Lang", Locale);
+				cd.CommandText = "oyw.GetLocationInfoXml";
+				cd.Parameters.AddWithValue("Realm", Region);
+				cd.Parameters.AddWithValue("Region", Region);
+				cd.Parameters.AddWithValue("Lang", Locale);
 				cd.Connection.Open();
 				using (XmlReader xr = cd.ExecuteXmlReader()) {
 					if (xr != null) {
@@ -329,7 +329,7 @@ namespace onYOURway.Controllers {
 		/// <param name="Region">Key of the current region</param>
 		/// <param name="Locale">Language id e.g. "de"</param>
 		/// <returns>Search suggestions are only available in realm API</returns>
-		[HttpGet, Route("Locate/{Realm}/SearchSuggestions"), EnableQuery]
+		[HttpGet, Route("Locate/{Realm}/SearchSuggestions"), Route("Locate/{Realm}/{Region}/SearchSuggestions"), EnableQuery]
 		public IEnumerable<SearchSuggestion> SearchSuggestions(string Realm, string Region = "", string Classes = null, string Locale = null) {
 			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 			if (string.IsNullOrWhiteSpace(Classes)) Classes = string.IsNullOrEmpty(Region)

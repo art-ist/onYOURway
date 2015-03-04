@@ -3,13 +3,13 @@
 /// <reference path="../../Scripts/knockout-3.2.0.js" />
 
 define([
-  'services/location',
+  'services/locate',
   'services/tell',
   'services/platform',
   'services/auth',
   'services/localStorage',
   'plugins/router'
-], function (location, tell, platform, auth, localStorage, router) {
+], function (locate, tell, platform, auth, localStorage, router) {
 
 	//create global viewModel
 	var app = {
@@ -35,11 +35,13 @@ define([
 
 		getConfigValue: getConfigValue,
 
-		location: location,
+		//TODO: change all finish the renaming of the location service to locate service to avoid confusion with window.locate and to increase alignment with service API
+		locate: locate,
+		location: locate,	//TODO: remove this
 		auth: auth,
 		localStorage: localStorage,
 
-		when: location.when,
+		when: locate.when,
 		canLocate: navigator.geolocation.getCurrentPosition, //Function available?
 
 		//observable properties
@@ -67,7 +69,7 @@ define([
 		settings: {
 			mapBackground: true,
 			animationDuration: 500,
-			location: location.settings //aggregate location settings in app settings
+			location: locate.settings //aggregate locate settings in app settings
 		},
 
 		shoppingList: {
@@ -75,7 +77,7 @@ define([
 			itemsTodo: function () { return ko.computed(getShoppingListTodoCount, app.shoppingList.items(), { deferEvaluation: true }); },
 
 			addItem: addShoppingListItem,
-			findItem: function () { location.search(this.Title()); },
+			findItem: function () { locate.search(this.Title()); },
 			removeItem: removeShoppingListItem,
 			clean: cleanShoppingList
 		},
@@ -90,7 +92,7 @@ define([
 	function loadMessages() {
 		var readManager = new breeze.EntityManager({
 			dataService: new breeze.DataService({
-				serviceName: config.host + '/api/locate'
+				serviceName: config.host + '/locate'
 			, hasServerMetadata: false  // never ask the server for metadata (we don not want this manager to mengle json data into any metadata based object types)
 			}),
 		});
@@ -176,7 +178,7 @@ define([
 		app.lang(langId);
 
 		loadMessages();
-		location.loadRegionFeatures();
+		locate.loadRegionFeatures();
 
 		return false;
 	}
@@ -200,8 +202,8 @@ define([
 
 		window.oyc = app;	//TODO: replace with scripting- (or console-) API implemented as service
 
-		setRealm();
 		loadMessages();
+		initializeLocateService();
 
 		//load shopping list
 		if (config.features.shoppingList) {
@@ -212,29 +214,17 @@ define([
 
 	//#region initialization
 
-	function setRealm() {
+	function initializeLocateService() {
 		//get realm based on key 'realm' in app.config.js
 		if (config.realm) {
-			//tell.log('getting realm info for ' + config.realm, 'app');
-			//location.getRealmByKey(config.realm)
-			//	.then(function (data) {
-			//		tell.log('setting realm', 'app', data.results[0]);
-			//		location.realm = data.results[0];
-			//	})
-			tell.log('setting realm', 'app', config.realm);
-			location.realm = config.realm;
+			//tell.log('setting realm', 'app', config.realm);
+			locate.initialize(config.realm, app.lang);
 		}
 		//if not configured, get realm based on current window.location
 		else {
 			tell.log('getting realm info for ' + window.location,  'app');
-			//location.getRealmByUri(window.location)
-			//	.then(function (data) {
-			//		tell.log('setting realm', 'app', data.results[0]);
-			//		location.realm = data.results[0];
-			//	})
-			$.get(config.host + '/locate/', function (data) {
-				$(".result").html(data);
-				alert("Load was performed.");
+			$.get(config.host + '/locate/GetRealmKey?Uri=' + window.location, function (data) {
+				locate.initialize(data, app.lang);
 			});
 		}
 	} //setRealm

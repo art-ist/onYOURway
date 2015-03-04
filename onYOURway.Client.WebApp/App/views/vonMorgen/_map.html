@@ -44,8 +44,8 @@
                 <button class="locBoxBtn" data-bind="click: $root.toggleRate">****</button>
             </div>
             <div class="locBoxInfo" data-bind="css: { unhide: $root.showInfo }">
-                <img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
-                <ul class="ventureDetails-taglist" data-bind="foreach: Tag">
+                <img class="locationDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
+                <ul class="locationDetails-taglist" data-bind="foreach: Tag">
                     <li><a class="btn btn-success btn-xs" data-bind="text: Name, attr: { href: '#/karte?tag=' + Name() }"></a></li>
                 </ul>
 
@@ -197,12 +197,12 @@
     </div>
     <!--/List-->
     <!--/Details-- >
-    <div id="ventureDetails" data-bind="with: location.selectedItem">
+    <div id="locationDetails" data-bind="with: location.selectedItem">
 
-      <div class="ventureDetails-imageArea">
-        <img class="ventureDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
-        <h2 class="ventureDetails-header" data-bind="text: Name"></h2>
-        <ul class="ventureDetails-taglist" data-bind="foreach: Tag">
+      <div class="locationDetails-imageArea">
+        <img class="locationDetails-image" data-bind="attr: { src: '../../Content/images/ventures/v-' + Id() + '-300.jpg' }" onerror="this.style.display='none'" />
+        <h2 class="locationDetails-header" data-bind="text: Name"></h2>
+        <ul class="locationDetails-taglist" data-bind="foreach: Tag">
           <li><a class="btn btn-success btn-xs" data-bind="text: Name, attr: { href: '#/karte?tag=' + Name() }"></a></li>
         </ul>
       </div>
@@ -219,7 +219,7 @@
       <!-- /ko -- >
     </div>
 
-    <div class="ventureDetails-details">
+    <div class="locationDetails-details">
       <!-- ko if: $data.Street -- >
       <h4>Adresse</h4>
       <p class="detail-address">
