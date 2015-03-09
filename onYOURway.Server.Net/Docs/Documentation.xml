@@ -194,6 +194,11 @@
             <see cref="!:http://wiki.openstreetmap.org/wiki/Key:opening_hours"/>
             <see cref="!:http://openingh.openstreetmap.de/evaluation_tool/"/>
         </member>
+        <member name="P:onYOURway.Models.Entry.RealmKey">
+            <summary>
+            Assign an Entry to a Realm. This will not determine, wich Entries will be shown, when a Realm is searched but to determine who has the authority to approve entries if there is more than one Region active at a single location.
+            </summary>
+        </member>
         <member name="P:onYOURway.Models.Entry.SourceKey">
             <summary>
             When importing data from foreign sources this is a unique key for the import source Recuring imports from the same source should use the same key.

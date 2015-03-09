@@ -201,11 +201,6 @@ define([
 		config.get = getConfigValue;
 		window.oyc = app;	//TODO: replace with scripting- (or console-) API implemented as service
 
-		// does not track promise rejection thus eliminating the infamous and useless 'Should be empty' 
-		// but showing the actual errors happening during async operations in console
-		// ... and the weirdest thing is that it throws 'Q.stopUnhandledRejectionTracking() is not a function' error but stil works!
-		Q.stopUnhandledRejectionTracking();		
-
 		loadMessages();
 		initializeLocateService();
 
