@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../Scripts/jsts.js" />
 /// <reference path="../../Scripts/leaflet-0.5.1.js" />
-/// <reference path="../../Scripts/knockout-3.2.0.js" />
+/// <reference path="../../Scripts/knockout-3.3.0.js" />
 
 define([
   'services/locate',
@@ -19,7 +19,7 @@ define([
 		//simple properties
 		title: 'onYOURway',
 
-		lang: ko.observable(),
+		lang: ko.observable(navigator.language.substring(0,2)),
 		langs: [
 			{ id: 'de', name: 'Deutsch' },
 			{ id: 'en', name: 'English' },

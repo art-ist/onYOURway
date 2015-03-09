@@ -253,15 +253,13 @@ namespace onYOURway.Controllers {
 		[HttpGet, Route("Locate/{Realm}/{Region}/GetLocationInfos"), Route("Locate/{Realm}/GetLocationInfos")]
 		public dynamic GetLocationInfos(string Realm, string Region = "", string Locale = null) {
 			if (string.IsNullOrEmpty(Locale)) Locale = GetLang();
-			////string xml = db.Context.GetPlaces(Region, lang).First().ToString();
-			string xml = null;
 			using (SqlCommand cd = new SqlCommand()) {
 				cd.Connection = (SqlConnection)db.Context.Database.Connection;
 				cd.CommandType = System.Data.CommandType.StoredProcedure;
 				cd.CommandText = "oyw.GetLocationInfoXml";
 				cd.Parameters.AddWithValue("Realm", Region);
 				cd.Parameters.AddWithValue("Region", Region);
-				cd.Parameters.AddWithValue("Lang", Locale);
+				cd.Parameters.AddWithValue("Locale", Locale);
 				cd.Connection.Open();
 				using (XmlReader xr = cd.ExecuteXmlReader()) {
 					if (xr != null) {
@@ -274,6 +272,7 @@ namespace onYOURway.Controllers {
 				}
 			}
 			XmlDocument doc = new XmlDocument();
+			string xml = null;
 			doc.LoadXml(xml);
 			//string json = JsonConvert.SerializeXmlNode(doc);
 			//return new System.Web.Mvc.ContentResult { Content = json, ContentType = "application/json" };

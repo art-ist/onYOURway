@@ -24,7 +24,7 @@ define([
       { moduleId: 'vonMorgenMin/home',               route: ['', 'home', 'start'],                         title: ''  },
       { moduleId: 'vonMorgenMin/onlyMap',            route: ['map', 'karte'],          hash: 'map',        title: 'Karte'  },
       { moduleId: 'vonMorgenMin/searchResults',      route: 'search(/:searchTerm)',                        title: 'Suche'  },
-      { moduleId: 'my/siteCollector',                route: ['add', 'neu'],                                title: 'Neu'  }
+      { moduleId: 'siteCollector',                route: ['add', 'neu'],                                title: 'Neu'  }
     ]);
 
     return router.mapUnknownRoutes('vonMorgenMin/home', 'UNBEKANNT').activate('vonMorgenMin/home');

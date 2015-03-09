@@ -18,6 +18,9 @@ namespace onYOURway.Models {
 			//Create additional db logic (Constraints and Indexes that can't be defined in EF, Functions, Procedures )
 			db.RunSqlScript(HttpContext.Current.Server.MapPath("Models/onYOURwayDbAfterModelCreated.sql"));
 
+			//Create additional db logic (Constraints and Indexes that can't be defined in EF, Functions, Procedures )
+			db.RunSqlScript(HttpContext.Current.Server.MapPath("App_Data/oyw.Messages.sql"));
+	
 			//Initialize Security
 			SeedAdminAccountAndRole(db);
 

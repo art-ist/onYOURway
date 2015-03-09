@@ -88,6 +88,8 @@
     <Content Include="App\themes\transforMap\images\favicon.ico" />
     <Content Include="App\views\transforMap\_nav.html" />
     <Content Include="App\views\transforMap\_nav.js" />
+    <Content Include="App\_libraries\knockout-3.3.0.js" />
+    <Content Include="App\_libraries\knockout-3.3.0.min.js" />
     <Content Include="TransforMap.html" />
     <Content Include="App\themes\transforMap\shell.html" />
     <Content Include="App\themes\transforMap\shell.js" />
@@ -250,12 +252,8 @@
     <Content Include="App\views\my\registrationExt.js" />
     <Content Include="App\views\my\shoppingList.html" />
     <Content Include="App\views\my\shoppingList.js" />
-    <Content Include="App\views\my\siteCollector.html" />
-    <Content Include="App\views\my\siteCollector.js" />
-    <Content Include="App\views\my\wizardEdit.BAK.html" />
-    <Content Include="App\views\my\wizardEdit.BAK.js" />
-    <Content Include="App\views\my\wizardNew.BAK.html" />
-    <Content Include="App\views\my\wizardNew.BAK.js" />
+    <Content Include="App\views\siteCollector.html" />
+    <Content Include="App\views\siteCollector.js" />
     <Content Include="App\views\search.html" />
     <Content Include="App\views\search.js" />
     <Content Include="App\views\vonMorgen\home.html" />
@@ -389,7 +387,6 @@
     <Content Include="App\_libraries\jquery.scrollIntoView.js" />
     <Content Include="App\_libraries\jquery.scrollIntoView.min.js" />
     <Content Include="App\_libraries\jQuery.scrollTo-1.4.8.js" />
-    <Content Include="App\_libraries\knockout-3.2.0.js" />
     <Content Include="App\_libraries\knockout-bootstrap.js" />
     <Content Include="App\_libraries\knockout.mapping-2.4.1.js" />
     <Content Include="App\_libraries\knockout.validation.debug.js" />

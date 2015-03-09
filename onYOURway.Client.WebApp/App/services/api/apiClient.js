@@ -29,7 +29,13 @@
 		getLocationInfos: getLocationInfos,
 		//TODO: remove my/wizardNew and all its dependencies  (locationToEdit)
 		locationToEdit: ko.observable(null),
-		getLocation: getLocation
+		getLocation: getLocation,
+
+		hasChanges: hasChanges,
+		createEntity: createEntity,
+		detachEntity: detachEntity,
+		saveChanges: saveChanges
+
 	};
 	return self;
 
@@ -251,5 +257,30 @@
             	tell.error("Location data could not be loaded: " + error.message, 'locate - getLocation', error);
             });
 	}
+
+	//#region Updates
+
+	function hasChanges() {
+		return locateContext.hasChanges();
+	}
+
+	function createEntity(typeName, initialValues) {
+		return locateContext.createEntity(typeName, initialValues);
+	}
+
+	function detachEntity(item) {
+		return detachEntity(item);
+	}
+
+	function saveChanges() {
+		return locateContext
+			.saveChanges()
+			.fail(function (error) {
+				tell.error("Your entries couldn't be saved.\nReason: " + error.message, 'locate', error);
+		    });
+	}
+
+	//#endregion Updates
+
 
 });

@@ -92,14 +92,14 @@
             </div>
 
             <div class="col-sm-6">
-                <!--tags/icons-->
+                <!--categories-->
                 <div class="form-group">
 
 					<label data-bind="localText: 'siteCollector.site.categories'">Categories:</label>
 
                     <div class="form-group">
 
-                        <ul class="item-tags" data-bind="foreach: tags">
+                        <ul class="item-categories" data-bind="foreach: categories">
                             <li data-bind="text: $data.name.Name || $data.name[0].Name"></li>
                         </ul>
 
@@ -172,8 +172,8 @@
 </div>
 <!-- /Site Collector -->
 
-<!-- Modal for tag selection -->
-<div class="modal fade in hidden" style="display: block; z-index: 1000000;" id="tagSelectionModal">
+<!-- Modal for category selection -->
+<div class="modal fade in hidden" style="display: block; z-index: 1000000;" id="categorySelectionModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -194,9 +194,9 @@
                                 </h4>
                             </div>
                             <div id="group_172" class="panel-collapse collapse" data-bind="attr: { id: Id }">
-                                <div class="panel-body list-group" data-bind="foreach: tag">
+                                <div class="panel-body list-group" data-bind="foreach: category">
 
-                                    <a class="list-group-item" data-bind="attr: { id: Id }, click: function() {$root.toggleTag($data)}, css: $root.tags.indexOf($data) >= 0 ? 'active' : ''">
+                                    <a class="list-group-item" data-bind="attr: { id: Id }, click: function() {$root.toggleTag($data)}, css: $root.categories.indexOf($data) >= 0 ? 'active' : ''">
                                         <h5 class="m-t-n-xxs m-b-n-xxs translate">
                                             <span data-bind="text: $data.name.Name || $data.name[0].Name"></span><br />
                                             <small data-bind="text: $data.name.Description"></small>
@@ -214,6 +214,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-<!-- /tagSelectionModal -->
+<!-- /categorySelectionModal -->
 
 <div class="modal-backdrop fade in hidden"></div>

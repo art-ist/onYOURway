@@ -4,7 +4,7 @@
         'durandal'		: '../App/_libraries/durandal',
         'plugins'		: '../App/_libraries/durandal/plugins',
         'transitions'	: '../App/_libraries/durandal/transitions',
-        'knockout'		: '../App/_libraries/knockout-3.2.0',
+        'knockout'		: '../App/_libraries/knockout-3.3.0',
         'jquery'		: '../App/_libraries/jquery-2.0.1',
         'bootstrap'		: '../App/_libraries/bootstrap',
         'squire'		: '../App/_libraries/squire',

@@ -21,7 +21,7 @@ exports.config = function (weyland) {
             'durandal': './_libraries/durandal',
             'plugins': './_libraries/durandal/plugins',
             'transitions': './_libraries/durandal/transitions',
-            'knockout': './_libraries/knockout-3.2.0',
+            'knockout': './_libraries/knockout-3.3.0',
             'jquery': './_libraries/jquery-2.0.1',
             'bootstrap': './_libraries/bootstrap',
             'services': './services',
