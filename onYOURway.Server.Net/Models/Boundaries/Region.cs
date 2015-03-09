@@ -15,10 +15,13 @@ namespace onYOURway.Models {
 			this.Maps = new HashSet<Map>();
 		}
 
-		[Key, MaxLength(40), DatabaseGenerated(DatabaseGeneratedOption.None)]
+		[Key, Column(Order = 0), MaxLength(20), Index("U_Region_Name", 0, IsUnique=true)]
+		public String RealmKey { get; set; }
+	
+		[Key, Column(Order = 1), MaxLength(40)]
 		public String Key { get; set; }
 
-		[Required, MaxLength(200)]
+		[Required, MaxLength(200), Index("U_Region_Name", 1, IsUnique=true)]
 		public String Name { get; set; }
 
 		/// <summary>
@@ -29,9 +32,13 @@ namespace onYOURway.Models {
 		[MaxLength(1000)]
 		public String Website { get; set; }
 
-		[MaxLength(20)]
-		public String RealmKey { get; set; }
-
+		/// <summary>
+		/// Path to the logo for the Region
+		/// </summary>
+		/// <remarks>if no logo url is given, the realm-logo should be used, the url should be absolute or relative to the path /Content/{RealmKey} and be 160x160 pixel
+		/// </remarks>
+		[MaxLength(1000)]
+		public String LogoUrl { get; set; }
 
 		public int CreatedBy { get; set; }
 
@@ -50,21 +57,36 @@ namespace onYOURway.Models {
 		[Column(TypeName = "datetime2")]
 		public DateTime? ModifiedAt { get; set; }
 
-		[JsonConverter(typeof(DbGeographyConverter))]
+		/// <summary>
+		/// E.g. the borders of a city that acts as a region.
+		/// </summary>
+		/// <remarks>If </remarks>
+		[JsonConverter(typeof(DbGeographyWktConverter))]
 		public DbGeography Boundary { get; set; }
 
 		/// <summary>
-		/// Bounding box of the 
+		/// Bounding box of the Region (can be calculated from Boundary)
 		/// </summary>
-		[JsonConverter(typeof(DbGeographyConverter))]
+		[JsonConverter(typeof(DbGeographyWktConverter))]
 		public DbGeography BoundingBox { get; set; }
 
+		public Guid? DefaultMapId { get; set; }
 
 		#region navigation properties
 
 		[ForeignKey("RealmKey")]
 		public virtual Realm Realm { get; set; }
 
+		[ForeignKey("DefaultMapId")]
+		public virtual Map DefaultMap { get; set; }
+
+		/// <summary>
+		/// If a region represents a city or district it can be mapped to the according basemap feature. So e.g. the boundaries can be derived from there.
+		/// </summary>
+		/// <remarks>
+		/// This also opens the possibility to have two different 'regions' in the same geographical space 
+		/// but being promoted by different realms. E.g. The town of Bayreuth could be a region in the onYOURway realm while 'Bayreuth von morgen' could be a region in the vonMorgen realm.
+		/// </remarks>
 		[ForeignKey("BaseMapFeatureClass, BaseMapFeatureId")]
 		public virtual BaseMapFeature BaseMapFeature { get; set; }
 
@@ -79,16 +101,19 @@ namespace onYOURway.Models {
 	[Table("oyw.RegionsLocalized")]
 	public partial class RegionLocalized {
 
-		[Key, MaxLength(40), Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
+		[Key, Column(Order = 0), MaxLength(20), Index("U_RegionLocalized_Name", 0, IsUnique = true)]
+		public String RealmKey { get; set; }
+
+		[Key, Column(Order = 1), MaxLength(40)]
 		public String RegionKey { get; set; }
 
-		[Key, Column(Order = 1), MinLength(2), MaxLength(5)]
+		[Key, Column(Order = 2), MinLength(2), MaxLength(5), Index("U_RegionLocalized_Name", 1, IsUnique = true)]
 		public string Locale { get; set; }
 
 		/// <summary>
 		/// Localized name
 		/// </summary>
-		[Key, Column(Order = 2), MaxLength(200)]
+		[MaxLength(200), Index("U_RegionLocalized_Name", 2, IsUnique = true)]
 		public String Name { get; set; }
 
 		/// <summary>
@@ -101,7 +126,7 @@ namespace onYOURway.Models {
 
 		#region navigation properties
 
-		[ForeignKey("RegionKey")]
+		[ForeignKey("RealmKey, RegionKey")]
 		public virtual Region Region { get; set; }
 
 		#endregion navigation properties

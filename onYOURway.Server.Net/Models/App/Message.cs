@@ -9,7 +9,7 @@ namespace onYOURway.Models
 	/// <summary>
 	/// Localization Messages
 	/// </summary>
-    [Table("Message", Schema="App")]
+    [Table("Messages", Schema="App")]
     public partial class Message
     {
         [Key]

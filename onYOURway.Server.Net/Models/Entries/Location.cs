@@ -36,13 +36,13 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// Point to show a pin on a map
 		/// </summary>
-		[JsonConverter(typeof(DbGeographyConverter))]
+		[JsonConverter(typeof(DbGeographyWktConverter))]
 		public DbGeography Position { get; set; }
 
 		/// <summary>
 		/// Optional boundary (if the location covers a larger area, e.g. a park.)
 		/// </summary>
-		[JsonConverter(typeof(DbGeographyConverter))]
+		[JsonConverter(typeof(DbGeographyWktConverter))]
 		public DbGeography Boundary { get; set; }
 
 		#endregion Geography

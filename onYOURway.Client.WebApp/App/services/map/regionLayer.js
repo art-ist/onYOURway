@@ -30,23 +30,24 @@ define([
 	}
 
 	function setRegion(index) {
-		if (typeof index == 'undefined' || index)
-
-			var regions = self.regions();
-		tell.log('setRegion', 'regionLayer - setRegion', regions);
-		self.selectedRegion(regions[index]);
-		if (regions.length) {
-			self.views(regions[index].Views());
-			//ToDo: in Select Region auslagern?
-			self.setView(0);
-		}
-		drawVeilOfSilence([regions[index]]); //highlight the selected region only
+		tell.log('setting region', 'regionLayer', index);
+		//if (typeof index == 'undefined' || index)
+		//	var regions = self.regions();
+		//self.selectedRegion(regions[index]);
+		//if (regions.length) {
+		//	self.views(regions[index].Views());
+		//	//ToDo: in Select Region auslagern?
+		//	self.setView(0);
+		//}
+		//drawVeilOfSilence([regions[index]]); //highlight the selected region only
 	}
 
 	function setView(i) {
-		var view = self.views()[i];
-		var box = geoUtils.wktToCoords(view.Boundary().Geography.WellKnownText);
-		map.fitBounds([[box[3][1], box[3][0]], [box[1][1], box[1][0]]]);
+		tell.log('setting view', 'regionLayer', i);
+		//var view = self.views()[i];
+		//var box = geoUtils.wktToCoords(view.Boundary().Geography.WellKnownText);
+		//map.fitBounds([[box[3][1], box[3][0]], [box[1][1], box[1][0]]]);
+		map.setView(0);
 		return;
 	}
 

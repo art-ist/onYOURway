@@ -15,7 +15,7 @@ namespace onYOURway.Models {
 			this.Id = new Guid();
 		}
 
-		[Key, Column(Order = 1), DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public Guid Id { get; set; }
 
 		[Required, MaxLength(200)]
@@ -27,18 +27,21 @@ namespace onYOURway.Models {
 
 		public Int16 SortOrder { get; set; }
 
-		[Key, MaxLength(40), Column(Order = 0), DatabaseGenerated(DatabaseGeneratedOption.None)]
+		[MaxLength(20)]
+		public String RealmKey { get; set; }
+
+		[MaxLength(40)]
 		public String RegionKey { get; set; }
 
 		/// <summary>
 		/// Bounding box of the 
 		/// </summary>
-		[JsonConverter(typeof(DbGeographyConverter))]
+		[JsonConverter(typeof(DbGeographyWktConverter))]
 		public DbGeography BoundingBox { get; set; }
 
 		#region navigation properties
 
-		[ForeignKey("RegionKey")]
+		[ForeignKey("RealmKey, RegionKey")]
 		public virtual Region Region { get; set; }
 
 		public ICollection<MapLocalized> Localizations { get; set; }

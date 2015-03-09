@@ -21,11 +21,11 @@
 <!--/List-->
 <!-- Site Collector -->
 <div id="mySiteCollector" style="padding: 15px;">
-
+	<a class="oyw-btn-close hidden-xs fa fa-times" href="#/map"></a>
     <form class="form">
 
         <div class="row panel-body">
-            <h1><span data-bind="localText: 'siteCollector.title.add'">Add a new site</span></h1>
+            <h1><span data-bind="localText: 'siteCollector.title'">Add a new site</span></h1>
         </div>
 
         <div class="row">
@@ -43,12 +43,12 @@
                 </div>-->
 
                 <div class="form-group">
-                    <label for="addSiteName" class="translate">Name:</label>
+					<label for="addSiteName" data-bind="localText: 'siteCollector.site.name'">Name:</label>
                     <input id="addSiteName" type="text" data-bind="value: entity.Name" class="form-control siteName translatePlaceholder" placeholder="What is the name of the site?" />
                 </div>
 
                 <div class="form-group">
-                    <label for="addSiteDescription" class="translate">Description:</label>
+					<label for="addSiteDescription" data-bind="localText: 'siteCollector.site.description'">Description:</label>
                     <textarea data-bind="value: entity.Description" class="form-control translatePlaceholder" id="addSiteDescription" placeholder="How do you describe the site?"></textarea>
                 </div>
 
@@ -59,7 +59,7 @@
                 <!--Address and Position-->
                 <div class="form-group">
                     <div class="btn btn-sm btn-warning pull-right selectPosition"><i class="fa fa-location-arrow"></i> <span class="translate">use current location</span></div>
-                    <label for="addSiteLocationStreet">Address:</label>
+					<label for="addSiteLocationStreet" data-bind="localText: 'siteCollector.site.address'">Address:</label>
                 </div>
                 <div class="form-group">
                     <input data-bind="value: entity.Country, select2: { data: countries, placeholder: 'Select Country' }" class="form-control translate" />
@@ -77,8 +77,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="btn btn-large btn-warning updatePosition" data-bind="click: setMarker"><i class="fa fa-map-marker" /> <span class="translate">get position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
-                    <div class="btn btn-large btn-warning pull-right updateAddress" data-bind="click: setAddress"><i class="fa fa-arrow-up icon-highlight" /> <span class="translate">get address</span> <i class="fa fa-envelope" /></div>
+                    <div class="btn btn-large btn-warning updatePosition" data-bind="click: setMarker"><i class="fa fa-map-marker" /> <span data-bind="localText: 'siteCollector.getPosition'">get position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
+                    <div class="btn btn-large btn-warning pull-right updateAddress" data-bind="click: setAddress"><i class="fa fa-arrow-up icon-highlight" /> <span data-bind="localText: 'siteCollector.getAddress'">get address</span> <i class="fa fa-envelope" /></div>
                 </div>
                 <div class="form-group">
                     <div class="input-group input-group-c12">
@@ -86,7 +86,7 @@
                         <input data-bind="value: longitude" id="addSiteLocationLng" type="text" class="form-control locationLng input-group-c6" placeholder="Längengrad" />
                     </div>
                     <div class="line accuracy">
-                        <div class="error hilight hidden"><span class="translate">Position accuracy</span>: &plusmn;<span class="value"></span>m</div>
+                        <div class="error hilight hidden"><span data-bind="localText: 'siteCollector.accuracy'">Position accuracy</span>: &plusmn;<span class="value"></span>m</div>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                 <!--tags/icons-->
                 <div class="form-group">
 
-                    <label class="translate">Tags:</label>
+					<label data-bind="localText: 'siteCollector.site.categories'">Categories:</label>
 
                     <div class="form-group">
 
@@ -103,7 +103,7 @@
                             <li data-bind="text: $data.name.Name || $data.name[0].Name"></li>
                         </ul>
 
-                        <button class="btn btn-warning btn-block" id="addTags" data-bind="click: toggleTagSelection"><i class="icon-plus"></i> <span class="translate">Select Tags</span></button>
+                        <button class="btn btn-warning btn-block" id="selectCategories" data-bind="click: toggleTagSelection"><i class="icon-plus"></i> <span data-bind="localText: 'siteCollector.selectCategories'">Select Categories</span></button>
                     </div>
                 </div>
 
@@ -127,7 +127,7 @@
                 <!--opening_hours-->
                 <div class="form-group">
                     <label>
-                        <span class="translate">Opening Hours: (<a href="http://openingh.openstreetmap.de/evaluation_tool" target="_blank">how to set this</a>)</span>
+						<span data-bind="localText: 'siteCollector.site.openingHours'">Opening Hours: (see <a href="http://openingh.openstreetmap.de/evaluation_tool" target="_blank">how to set this</a>)</span>
                     </label>
                     <input data-bind="" id="openingHours" type="text" class="form-control" placeholder="Opening Hours (editor comming soon)" />
                     <select data-bind="options: opening_hour_samples" id="openingHours_Select" class="form-control"></select>
@@ -136,7 +136,7 @@
                 <!--accessibility-->
                 <div class="form-group">
                     <label>
-                        <span class="translate">Accessibility:</span>
+						<span data-bind="localText: 'siteCollector.site.accessibility.label'">Accessibility:</span>
                     </label>
                     <select data-bind="" id="accessibility" class="form-control">
                         <option value="">unknown</option>
@@ -144,6 +144,7 @@
                         <option value="limited">teilweise rollstuhlgerecht</option>
                         <option value="no">nicht rollstuhlgerecht</option>
                     </select>
+					<!--<input data-bind="" id="openingHours" type="text" class="form-control" placeholder="description" data-bind="localAttribute: { placeholder: 'siteCollector.site.accessibility.description' }" />-->
                 </div>
 
                 <!--<div class="line photo">
@@ -163,8 +164,8 @@
         </div>
 
         <div class="row panel-body">
-            <button class="ok btn btn-success btn-large pull-right" data-bind="click: submit"><i class="fa fa-check"></i> <span class="translate">submit</span> </button>
-            <button class="ok btn btn-default btn-large pull-right" data-bind="click: close"><i class="fa fa-remove"></i> <span class="translate">cancel</span> </button>
+            <button class="ok btn btn-success btn-large pull-right" data-bind="click: submit"><i class="fa fa-check"></i> <span data-bind="localText: 'submit'">submit</span> </button>
+            <button class="ok btn btn-default btn-large pull-right" data-bind="click: close"><i class="fa fa-remove"></i> <span data-bind="localText: 'cancel'">cancel</span> </button>
         </div>
     </form>
 

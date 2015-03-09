@@ -94,7 +94,7 @@
             <summary>
             Gets all localizable messages for the app in the given language
             </summary>
-            <param name="lang">language or locale to return the messages in if this parameter is omitted, the first browser language is used</param>
+            <param name="Locale">language or locale to return the messages in if this parameter is omitted, the first browser language is used</param>
             <returns></returns>
         </member>
         <member name="M:onYOURway.Controllers.LocateController.Realms">
@@ -114,7 +114,7 @@
             Returns a list of locations including their related properties
             </summary>
         </member>
-        <member name="M:onYOURway.Controllers.LocateController.GetPlaces(System.String,System.String,System.String)">
+        <member name="M:onYOURway.Controllers.LocateController.GetLocationInfos(System.String,System.String,System.String)">
             <summary>
             Gets all searchable features (Ventures, (Transport)Lines, (Transport)Stops, T)
             </summary>
@@ -232,10 +232,17 @@
             Description in the native language of the realm. In case of international activity we suggest using english here.
             </summary>
         </member>
+        <member name="P:onYOURway.Models.Realm.Website">
+            <summary>
+            Website of the organization representing the realm
+            </summary>
+        </member>
         <member name="P:onYOURway.Models.Realm.LogoUrl">
             <summary>
-            Path to the logo for the Realm (should be relative to the path /Content/{RealmKey} and be 160x160 pixel)
+            Path to the logo for the Realm
             </summary>
+            <remarks>should be absolute or relative to the path /Content/{RealmKey} and be 160x160 pixel
+            </remarks>
         </member>
         <member name="P:onYOURway.Models.Realm.TaxonomyId">
             <summary>
@@ -247,9 +254,19 @@
             Optional geographical focus of the realm. Null means worldwide.
             </summary>
         </member>
+        <member name="P:onYOURway.Models.Realm.BoundingBox">
+            <summary>
+            Bounding box of the realm (can be calculated from Boundary)
+            </summary>
+        </member>
         <member name="P:onYOURway.Models.Realm.Taxonomy">
             <summary>
             Root category of the taxonomy used by the realm.
+            </summary>
+        </member>
+        <member name="P:onYOURway.Models.Realm.DefaultRegion">
+            <summary>
+            A realm can have an optional default Region. If so a client could show this region by default.
             </summary>
         </member>
         <member name="P:onYOURway.Models.Realm.Localizations">
@@ -318,6 +335,11 @@
         <member name="P:onYOURway.Models.BaseMapFeature.SourceId">
             <summary>
             When importing data from foreign sources this is the unique id to identify the individual entry/record in the external source.
+            </summary>
+        </member>
+        <member name="T:onYOURway.Models.DbGeographyWktConverter">
+            <summary>
+            Converts DbGeography to WellKnownText
             </summary>
         </member>
         <member name="P:onYOURway.Models.Location.Position">
@@ -418,10 +440,32 @@
             Description in the native language of the region. In case of international activity we suggest using english here.
             </summary>
         </member>
+        <member name="P:onYOURway.Models.Region.LogoUrl">
+            <summary>
+            Path to the logo for the Region
+            </summary>
+            <remarks>if no logo url is given, the realm-logo should be used, the url should be absolute or relative to the path /Content/{RealmKey} and be 160x160 pixel
+            </remarks>
+        </member>
+        <member name="P:onYOURway.Models.Region.Boundary">
+            <summary>
+            E.g. the borders of a city that acts as a region.
+            </summary>
+            <remarks>If </remarks>
+        </member>
         <member name="P:onYOURway.Models.Region.BoundingBox">
             <summary>
-            Bounding box of the 
+            Bounding box of the Region (can be calculated from Boundary)
             </summary>
+        </member>
+        <member name="P:onYOURway.Models.Region.BaseMapFeature">
+            <summary>
+            If a region represents a city or district it can be mapped to the according basemap feature. So e.g. the boundaries can be derived from there.
+            </summary>
+            <remarks>
+            This also opens the possibility to have two different 'regions' in the same geographical space 
+            but being promoted by different realms. E.g. The town of Bayreuth could be a region in the onYOURway realm while 'Bayreuth von morgen' could be a region in the vonMorgen realm.
+            </remarks>
         </member>
         <member name="P:onYOURway.Models.RegionLocalized.Name">
             <summary>

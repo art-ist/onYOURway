@@ -1,4 +1,5 @@
-﻿/*colors*/
+﻿@import url('../fonts/source-sans-pro.css');
+/*colors*/
 input.searchBox {
   min-height: 34px;
 }
@@ -25,7 +26,8 @@ div.searchBoxSuggestion div.clearFloat {
 /***************************/
 /* onyYOURway overrides      */
 #mySiteCollector {
-  background-color: #f7f8f8;
+  background-color: #ffffff;
+  top: 113px;
   /*bottom: 0px;
 	top: 30%;
 	height: 70%;
@@ -35,7 +37,7 @@ div.searchBoxSuggestion div.clearFloat {
 /* Boostrap overrides      */
 /*#region base styling */
 html {
-  font-family: Arial, 'sans-serif';
+  font-family: 'source-sans-pro', 'sans-serif';
   font-style: normal;
   font-weight: 600;
   line-height: 1.2em;
@@ -50,7 +52,7 @@ body {
 #navbar {
   position: relative;
   font-weight: 400;
-  background-color: #f7f8f8;
+  background-color: #ffffff;
 }
 #navbar > .container {
   position: relative;
@@ -198,7 +200,7 @@ input.searchBox {
   input.searchBox {
     width: 22% !important;
     display: inline-block;
-    padding: 0 35px 0 0 !important;
+    padding: 0 35px 0 0!important;
   }
 }
 @media (max-width: 991px) {
@@ -226,16 +228,12 @@ input.form-control,
 textarea.form-control,
 select.form-control,
 .select2-container {
-  border: 1px solid #dedddd;
+  border: none;
   box-shadow: none;
   border-radius: 0;
   min-height: 30px;
   background-image: none;
-  background-color: #ffffff;
-}
-.form-control:focus {
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #dedddd;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #dedddd;
+  background-color: transparent;
 }
 div.form-control.select2-container ul.select2-choices {
   border-radius: 0 !important;
@@ -275,7 +273,7 @@ ol {
 }
 .oyw-content-main li:before {
   content: '●';
-  color: #2d2d2d;
+  color: #f9a01b;
   margin-right: 0.6em;
 }
 .list-group-item {
@@ -409,12 +407,12 @@ ol {
 }
 .page-background {
   position: absolute;
-  top: 50px;
+  top: 113px;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 10;
-  background-color: #f7f8f8;
+  background-color: #ffffff;
   overflow: auto;
 }
 .page {
@@ -516,6 +514,9 @@ form > .row {
 }*/
 @media (max-width: 1200px) {
   /* xs & sm & md*/
+  .page-background {
+    background-color: #f8f8f8;
+  }
   .page {
     margin: 0;
     position: absolute;
@@ -602,11 +603,14 @@ form > .row {
   position: absolute;
   right: 0;
   top: 0;
+  width: 35px;
+  height: 35px;
   text-align: right;
-  padding: 7px 8px;
+  padding: 7px 8px 0 0;
   color: #ccc;
   opacity: 0.5;
   z-index: 9;
+  border-radius: 0 0 0 35px;
 }
 .oyw-btn-close:hover,
 .oyw-btn-close:focus {
@@ -677,7 +681,7 @@ form > .row {
 /*#region map*/
 #map {
   position: absolute;
-  top: 50px;
+  top: 113px;
   bottom: 0;
   left: 0;
   right: 0;

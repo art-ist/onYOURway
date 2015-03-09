@@ -19,7 +19,7 @@ define([
 		//simple properties
 		title: 'onYOURway',
 
-		lang: ko.observable('de'),
+		lang: ko.observable(),
 		langs: [
 			{ id: 'de', name: 'Deutsch' },
 			{ id: 'en', name: 'English' },
@@ -32,8 +32,6 @@ define([
 		msg: null /* messages (translations texts) - will be initialized on load */,
 		getMsg: getMessage,
 		tryMsg: getMessage, //tryGetMessage,
-
-		getConfigValue: getConfigValue,
 
 		//TODO: change all finish the renaming of the location service to locate service to avoid confusion with window.locate and to increase alignment with service API
 		locate: locate,
@@ -98,13 +96,13 @@ define([
 		});
 		var q = new breeze.EntityQuery().from('Messages');
 		if (app.lang()) {
-			q = q.withParameters({ lang: app.lang() });
+			q = q.withParameters({ Locale: app.lang() });
 		}
-		//tell.start('App - Loading Messages');
+		tell.start('App - Loading Messages');
 		return readManager.executeQuery(q)
 			.then(function (data) {
 				app.msg = data.results[0];
-				//tell.done('App - Loading Messages');
+				tell.done('App - Loading Messages');
 				$(app).trigger('messagesLoaded');
 				// configure breeze client side validation messages (used as fallback by the breezeValidation-bindingHandler, if no error.validation[key] message is found)
 				if (app.msg && app.msg.error && app.msg.error.breeze && breeze && breeze.Validator && breeze.Validator.messageTemplates) {
@@ -116,7 +114,7 @@ define([
 				}
 			})
 			.fail(function (e) {
-				//tell.error('Loading messages failed', 'App', e, 'App - Loading Messages');
+				tell.error('Loading messages failed', 'App', e, 'App - Loading Messages');
 			});
 		;
 	}
@@ -200,13 +198,19 @@ define([
 	function initialize() {
 		tell.log('app initializing', 'app');
 
+		config.get = getConfigValue;
 		window.oyc = app;	//TODO: replace with scripting- (or console-) API implemented as service
+
+		// does not track promise rejection thus eliminating the infamous and useless 'Should be empty' 
+		// but showing the actual errors happening during async operations in console
+		// ... and the weirdest thing is that it throws 'Q.stopUnhandledRejectionTracking() is not a function' error but stil works!
+		Q.stopUnhandledRejectionTracking();		
 
 		loadMessages();
 		initializeLocateService();
 
 		//load shopping list
-		if (config.features.shoppingList) {
+		if (config.get('features.shoppingList')) {
 			loadShoppingList();
 		}
 

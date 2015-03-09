@@ -18,6 +18,7 @@ using System.Web;
 using Microsoft.Data.OData;
 using System.Web.Http.OData;
 using System.Text.RegularExpressions;
+using System.Data.Entity.Spatial;
 
 namespace onYOURway.Controllers {
 
@@ -71,11 +72,11 @@ namespace onYOURway.Controllers {
 		/// <summary>
 		/// Gets all localizable messages for the app in the given language
 		/// </summary>
-		/// <param name="lang">language or locale to return the messages in if this parameter is omitted, the first browser language is used</param>
+		/// <param name="Locale">language or locale to return the messages in if this parameter is omitted, the first browser language is used</param>
 		/// <returns></returns>
 		[HttpGet]
-		public dynamic Messages(string lang = null) {
-			string locale = lang ?? GetLang();
+		public dynamic Messages(string Locale = null) {
+			string locale = Locale ?? GetLang();
 
 			var local = db.Context
 				.Messages
@@ -155,9 +156,49 @@ namespace onYOURway.Controllers {
 			if (count == 1) {
 				return realms.First().Key;
 			}
-				throw new HttpException(404, string.Format("No realm found matching uri {0}.", Uri));
+			throw new HttpException(404, string.Format("No realm found matching uri {0}.", Uri));
 		} //GetRealmKey
 
+		[HttpGet]
+		public dynamic GetRealmInfo(string Key, string Locale) {
+			var realm = db.Context
+				.Realms
+				.Include("Regions")
+				.Include("DefaultRegion")
+				.Where(r => r.Key == Key)
+				.Select(r => new { 
+					Key = r.Key
+					,Name = r.Localizations.Any(l => l.Locale == Locale)
+						 ? r.Localizations.FirstOrDefault(l => l.Locale == Locale).Name
+						 : r.Name
+					,Description = r.Localizations.Any(l => l.Locale == Locale)
+						 ? r.Localizations.FirstOrDefault(l => l.Locale == Locale).Description
+						 : r.Description
+					,Regions = r.Regions.Select (reg => new {
+						Key = r.Key
+						,Name = r.Localizations.Any(l => l.Locale == Locale)
+								? r.Localizations.FirstOrDefault(l => l.Locale == Locale).Name
+								: r.Name
+						,Description = r.Localizations.Any(l => l.Locale == Locale)
+								? r.Localizations.FirstOrDefault(l => l.Locale == Locale).Description
+								: r.Description
+						,LogoUrl = r.LogoUrl
+					})
+					,r.DefaultRegionKey
+					,BoundingBox = 
+						r.BoundingBox //return explicit bbox
+						?? (r.DefaultRegion != null //if null -> default region exists?
+							? r.DefaultRegion.BoundingBox	//return explicit bbox
+								?? (r.DefaultRegion.DefaultMap != null //if null -> default map defined?
+									? r.DefaultRegion.DefaultMap.BoundingBox	//default map should have bunding box
+									: ( r.DefaultRegion.BaseMapFeature != null ? r.DefaultRegion.BaseMapFeature.BoundingBox : null ) //try to get bbox of basemap feature or give up
+									)
+							: null //no defaut region return null -> take world
+							)
+				})
+				.Single();
+			return realm;
+		}
 
 		/// <summary>
 		/// Geographical region (country, city) and administrative domain usually maintained by one realm. E.g. "Bayreuth von morgen"
@@ -209,8 +250,8 @@ namespace onYOURway.Controllers {
 		/// <param name="Region"></param>
 		/// <param name="Locale"></param>
 		/// <returns>Ventures</returns>
-		[HttpGet, Route("Locate/{Realm}/{Region}/GetPlaces"), Route("Locate/{Realm}/GetPlaces")]
-		public dynamic GetPlaces(string Realm, string Region = "", string Locale = null) {
+		[HttpGet, Route("Locate/{Realm}/{Region}/GetLocationInfos"), Route("Locate/{Realm}/GetLocationInfos")]
+		public dynamic GetLocationInfos(string Realm, string Region = "", string Locale = null) {
 			if (string.IsNullOrEmpty(Locale)) Locale = GetLang();
 			////string xml = db.Context.GetPlaces(Region, lang).First().ToString();
 			string xml = null;

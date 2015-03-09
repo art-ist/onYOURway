@@ -47,11 +47,11 @@ define([
 
     function drawPointer(mode) { //draws a pointer to connect the listitem of the selected venture with its marker
         removePointer();
-        if (!settings.showPointer  //disabled in settings
+        if (!settings.showPointer		//disabled in settings
             || !selectedItemObservable()        //no item selected
             || !selectedItemObservable().marker //selected item has no marker
-            || !settings.showList()   //list not visible
-            || !settings.showMap()    //map not visible
+            || !settings.showList()		//list not visible
+            || !settings.showMap()		//map not visible
         ) { return; } // don't display marker -> done after hiding
 
         var $listItem = $('#' + selectedItemObservable().Id());

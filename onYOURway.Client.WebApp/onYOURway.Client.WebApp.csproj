@@ -73,13 +73,14 @@
     <Content Include="App\themes\transforMap\css\transforMap.min.css">
       <DependentUpon>transforMap.css</DependentUpon>
     </Content>
-    <Content Include="App\themes\transforMap\images\logo.png" />
-    <Content Include="App\themes\vonMorgenMin\css\vonMorgen.css" />
-    <Content Include="App\themes\vonMorgenMin\css\vonMorgen.min.css">
+    <Content Include="App\themes\transforMap\images\logo-s.png" />
+    <Content Include="App\themes\transforMap\images\logo-w.png" />
+    <Content Include="App\themes\vonMorgen\css\vonMorgen.css" />
+    <Content Include="App\themes\vonMorgen\css\vonMorgen.min.css">
       <DependentUpon>vonMorgen.css</DependentUpon>
     </Content>
-    <Content Include="App\themes\vonMorgenMin\images\logo.png" />
-    <Content Include="App\themes\vonMorgen\css\searchBox.min.css">
+    <Content Include="App\themes\vonMorgen\images\logo.png" />
+    <Content Include="App\themes\vonMorgenB\css\searchBox.min.css">
       <DependentUpon>searchBox.css</DependentUpon>
     </Content>
     <Content Include="App\views\transforMap\home.html" />
@@ -90,27 +91,27 @@
     <Content Include="TransforMap.html" />
     <Content Include="App\themes\transforMap\shell.html" />
     <Content Include="App\themes\transforMap\shell.js" />
-    <Content Include="App\themes\vonMorgenMin\shell.html" />
-    <Content Include="App\themes\vonMorgenMin\shell.js" />
-    <Content Include="App\themes\vonMorgen\css\searchBox.css.map">
+    <Content Include="App\themes\vonMorgen\shell.html" />
+    <Content Include="App\themes\vonMorgen\shell.js" />
+    <Content Include="App\themes\vonMorgenB\css\searchBox.css.map">
       <DependentUpon>searchBox.css</DependentUpon>
     </Content>
-    <Content Include="App\themes\vonMorgen\css\searchBox.less" />
+    <Content Include="App\themes\vonMorgenB\css\searchBox.less" />
     <Content Include="App\themes\transforMap\css\transforMap.less" />
     <Content Include="App\themes\transforMap\css\transforMap.css.map">
       <DependentUpon>transforMap.css</DependentUpon>
     </Content>
-    <Content Include="App\themes\vonMorgenMin\css\components\searchBox.less" />
-    <Content Include="App\themes\vonMorgenMin\css\components\tagSelection.less" />
-    <Content Include="App\themes\vonMorgenMin\css\my\siteCollector.less" />
-    <Content Include="App\themes\vonMorgenMin\css\searchResults\placePreview.less" />
-    <Content Include="App\themes\vonMorgenMin\css\searchResults\placesList.less" />
-    <Content Include="App\themes\vonMorgenMin\css\_map.less" />
-    <Content Include="App\themes\vonMorgenMin\css\_nav.less" />
-    <Content Include="App\themes\vonMorgenMin\css\home.less" />
-    <Content Include="App\themes\vonMorgenMin\css\vonMorgen.css.map" />
-    <Content Include="App\themes\vonMorgenMin\css\vonMorgen.less" />
-    <Content Include="App\themes\vonMorgenMin\css\_responsive.less" />
+    <Content Include="App\themes\vonMorgen\css\components\searchBox.less" />
+    <Content Include="App\themes\vonMorgen\css\components\tagSelection.less" />
+    <Content Include="App\themes\vonMorgen\css\my\siteCollector.less" />
+    <Content Include="App\themes\vonMorgen\css\searchResults\placePreview.less" />
+    <Content Include="App\themes\vonMorgen\css\searchResults\placesList.less" />
+    <Content Include="App\themes\vonMorgen\css\_map.less" />
+    <Content Include="App\themes\vonMorgen\css\_nav.less" />
+    <Content Include="App\themes\vonMorgen\css\home.less" />
+    <Content Include="App\themes\vonMorgen\css\vonMorgen.css.map" />
+    <Content Include="App\themes\vonMorgen\css\vonMorgen.less" />
+    <Content Include="App\themes\vonMorgen\css\_responsive.less" />
     <Content Include="App\themes\transforMap\css\searchBox.less" />
     <Content Include="App\themes\transforMap\css\searchBox.css.map">
       <DependentUpon>searchBox.css</DependentUpon>
@@ -168,14 +169,14 @@
     <Content Include="App\services\providers\routing-yours.js" />
     <Content Include="App\services\localStorage.js" />
     <Content Include="App\services\tell.js" />
-    <Content Include="App\themes\vonMorgen\css\searchBox.css">
+    <Content Include="App\themes\vonMorgenB\css\searchBox.css">
       <DependentUpon>searchBox.less</DependentUpon>
     </Content>
-    <Content Include="App\themes\vonMorgen\images\logo.jpg" />
-    <Content Include="App\themes\vonMorgen\images\logo.png" />
-    <Content Include="App\themes\vonMorgen\images\logo66.png" />
-    <Content Include="App\themes\vonMorgen\images\logo73.png" />
-    <Content Include="App\themes\vonMorgen\images\logoanimation90.gif" />
+    <Content Include="App\themes\vonMorgenB\images\logo.jpg" />
+    <Content Include="App\themes\vonMorgenB\images\logo.png" />
+    <Content Include="App\themes\vonMorgenB\images\logo66.png" />
+    <Content Include="App\themes\vonMorgenB\images\logo73.png" />
+    <Content Include="App\themes\vonMorgenB\images\logoanimation90.gif" />
     <Content Include="App\views\vonMorgenMin\home.html" />
     <Content Include="App\views\vonMorgenMin\home.js" />
     <Content Include="App\views\vonMorgenMin\onlyMap.html" />
@@ -190,7 +191,7 @@
     <Content Include="App\_libraries\q.min.js" />
     <Content Include="App\_styles\font-awesome.min.css" />
     <Content Include="Content\vonMorgen\vegetables.jpg" />
-    <Content Include="index.vonMorgen.html" />
+    <Content Include="vonMorgenB.html" />
     <Content Include="Tests\Api\Locate\locateBoundariesTests.js" />
     <Content Include="Tests\Api\Account\identityTests.js" />
     <Content Include="Tests\App\components\searchBox-componentTest.js" />
@@ -205,17 +206,17 @@
     </Content>
     <Content Include="App\themes\onYOURway\shell.html" />
     <Content Include="App\themes\onYOURway\shell.js" />
-    <Content Include="App\themes\vonMorgen\css\bootstrap.css" />
-    <Content Include="App\themes\vonMorgen\css\vonMorgen.css">
+    <Content Include="App\themes\vonMorgenB\css\bootstrap.css" />
+    <Content Include="App\themes\vonMorgenB\css\vonMorgen.css">
       <DependentUpon>vonMorgen.less</DependentUpon>
     </Content>
-    <Content Include="App\themes\vonMorgen\css\vonMorgen.min.css">
+    <Content Include="App\themes\vonMorgenB\css\vonMorgen.min.css">
       <DependentUpon>vonMorgen.css</DependentUpon>
     </Content>
-    <Content Include="App\themes\vonMorgen\fonts\source-sans-pro.css" />
-    <Content Include="App\themes\vonMorgen\images\logoanimation.gif" />
-    <Content Include="App\themes\vonMorgen\shell.html" />
-    <Content Include="App\themes\vonMorgen\shell.js" />
+    <Content Include="App\themes\vonMorgenB\fonts\source-sans-pro.css" />
+    <Content Include="App\themes\vonMorgenB\images\logoanimation.gif" />
+    <Content Include="App\themes\vonMorgenB\shell.html" />
+    <Content Include="App\themes\vonMorgenB\shell.js" />
     <Content Include="App\themes\_shared.css">
       <DependentUpon>_shared.less</DependentUpon>
     </Content>
@@ -294,70 +295,70 @@
       <DependentUpon>onYOURway.css</DependentUpon>
     </Content>
     <Content Include="App\themes\onYOURway\css\onYOURway.less" />
-    <Content Include="App\themes\vonMorgen\css\vonMorgen.less" />
-    <Content Include="App\themes\vonMorgen\css\vonMorgen.css.map">
+    <Content Include="App\themes\vonMorgenB\css\vonMorgen.less" />
+    <Content Include="App\themes\vonMorgenB\css\vonMorgen.css.map">
       <DependentUpon>vonMorgen.css</DependentUpon>
     </Content>
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-Black.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-BlackIt.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-Bold.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-BoldIt.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-ExtraLight.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-ExtraLightIt.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-It.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-Light.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-LightIt.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-Regular.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-Semibold.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\EOT\SourceSansPro-SemiboldIt.eot" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-Black.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-BlackIt.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-Bold.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-BoldIt.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-ExtraLight.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-ExtraLightIt.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-It.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-Light.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-LightIt.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-Regular.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-Semibold.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\OTF\SourceSansPro-SemiboldIt.otf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-Black.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-BlackIt.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-Bold.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-BoldIt.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-ExtraLight.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-ExtraLightIt.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-It.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-Light.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-LightIt.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-Regular.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-Semibold.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\TTF\SourceSansPro-SemiboldIt.ttf" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-Black.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-BlackIt.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-Bold.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-BoldIt.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-ExtraLight.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-ExtraLightIt.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-It.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-Light.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-LightIt.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-Regular.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-Semibold.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\OTF\SourceSansPro-SemiboldIt.otf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Black.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-BlackIt.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Bold.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-BoldIt.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-ExtraLight.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-ExtraLightIt.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-It.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Light.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-LightIt.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Regular.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-Semibold.ttf.woff" />
-    <Content Include="App\themes\vonMorgen\fonts\WOFF\TTF\SourceSansPro-SemiboldIt.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-Black.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-BlackIt.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-Bold.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-BoldIt.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-ExtraLight.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-ExtraLightIt.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-It.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-Light.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-LightIt.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-Regular.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-Semibold.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\EOT\SourceSansPro-SemiboldIt.eot" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-Black.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-BlackIt.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-Bold.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-BoldIt.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-ExtraLight.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-ExtraLightIt.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-It.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-Light.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-LightIt.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-Regular.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-Semibold.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\OTF\SourceSansPro-SemiboldIt.otf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-Black.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-BlackIt.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-Bold.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-BoldIt.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-ExtraLight.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-ExtraLightIt.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-It.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-Light.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-LightIt.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-Regular.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-Semibold.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\TTF\SourceSansPro-SemiboldIt.ttf" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-Black.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-BlackIt.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-Bold.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-BoldIt.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-ExtraLight.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-ExtraLightIt.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-It.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-Light.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-LightIt.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-Regular.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-Semibold.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\OTF\SourceSansPro-SemiboldIt.otf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-Black.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-BlackIt.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-Bold.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-BoldIt.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-ExtraLight.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-ExtraLightIt.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-It.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-Light.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-LightIt.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-Regular.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-Semibold.ttf.woff" />
+    <Content Include="App\themes\vonMorgenB\fonts\WOFF\TTF\SourceSansPro-SemiboldIt.ttf.woff" />
     <Content Include="vonMorgen.html" />
     <Content Include="weyland-config.js" />
     <None Include="App\_libraries\breeze.intellisense.js" />

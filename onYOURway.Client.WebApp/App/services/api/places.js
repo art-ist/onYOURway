@@ -11,8 +11,8 @@ define([
 	return self;
 
 	function loadPlaces(location) {
-		var region = location.region && location.region() ? ko.utils.unwrapObservable(location.region().Key) : config.region;
-		apiClient.getPlaces(region)
+		var region = location.region && location.region() ? ko.utils.unwrapObservable(location.region().Key) : config.get('defaultRegion');
+		apiClient.getLocationInfos(region)
 			.then(function (d) {
 				if (d.results) {
 					//TODO: create model class in separate file and use it as a breeze constructor in apiClient - instead of this mess here!

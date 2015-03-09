@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Comment CommentText="Lookups&#xD;&#xA;(caching basemap features)">
-    <Position X="0.75" Y="11" Height="0.427" Width="5.138" />
+    <Position X="0.75" Y="12" Height="0.427" Width="5.138" />
   </Comment>
   <Comment CommentText="Application&#xD;&#xA;">
     <Position X="14.364" Y="6.021" Height="0.407" Width="4.98" />
@@ -32,8 +32,8 @@
     </Members>
     <AssociationLine Name="Taxonomy" Type="onYOURway.Models.Category" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.75" Y="3.312" />
-        <Point X="5.833" Y="3.312" />
+        <Point X="2.75" Y="3.739" />
+        <Point X="5.833" Y="3.739" />
         <Point X="5.833" Y="1.333" />
         <Point X="15.5" Y="1.333" />
         <Point X="15.5" Y="1.5" />
@@ -44,8 +44,8 @@
     </AssociationLine>
     <AssociationLine Name="Localizations" Type="onYOURway.Models.RealmLocalized" FixedFromPoint="true">
       <Path>
-        <Point X="2.75" Y="2.253" />
-        <Point X="4" Y="2.253" />
+        <Point X="2.75" Y="2.43" />
+        <Point X="4" Y="2.43" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.214" Y="0.05" />
@@ -53,21 +53,22 @@
     </AssociationLine>
     <AssociationLine Name="Regions" Type="onYOURway.Models.Region" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.75" Y="3.75" />
-        <Point X="3.563" Y="3.75" />
-        <Point X="3.563" Y="4.875" />
-        <Point X="2.75" Y="4.875" />
+        <Point X="2.75" Y="4.28" />
+        <Point X="3.563" Y="4.28" />
+        <Point X="3.563" Y="5.417" />
+        <Point X="2.75" Y="5.417" />
       </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.05" Y="1.172" />
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.05" Y="1.172" Height="0.182" Width="0.837" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAwAAAAggAAQAAAAAAAQAAAAADAEAAAAEAAAABAA=</HashCode>
+      <HashCode>AAAAAwAAAAgggAQACAAAAAQAACAADAEgAAAEAAAABAA=</HashCode>
       <FileName>Models\Boundaries\Realm.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Taxonomy" />
+      <Property Name="DefaultRegion" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Localizations" />
@@ -78,8 +79,8 @@
     <Position X="4" Y="1.5" Width="1.5" />
     <AssociationLine Name="Realm" Type="onYOURway.Models.Realm" FixedToPoint="true">
       <Path>
-        <Point X="4" Y="2.427" />
-        <Point X="2.75" Y="2.427" />
+        <Point X="4" Y="2.646" />
+        <Point X="2.75" Y="2.646" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.537" Y="-0.283" />
@@ -263,18 +264,18 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="onYOURway.Models.RegionLocalized">
-    <Position X="4" Y="4.5" Width="1.5" />
+    <Position X="4" Y="5" Width="1.5" />
     <AssociationLine Name="Region" Type="onYOURway.Models.Region" FixedFromPoint="true">
       <Path>
-        <Point X="4" Y="5.684" />
-        <Point X="2.75" Y="5.684" />
+        <Point X="4" Y="6.306" />
+        <Point X="2.75" Y="6.306" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.516" Y="-0.221" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAggAAAAAAAAIQAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAgAAggAAAAAAAAIQAAABAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Models\Boundaries\Region.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -334,8 +335,8 @@
     </AssociationLine>
     <AssociationLine Name="Realm" Type="onYOURway.Models.Realm" FixedToPoint="true">
       <Path>
-        <Point X="7" Y="3.438" />
-        <Point X="2.75" Y="3.438" />
+        <Point X="7" Y="3.894" />
+        <Point X="2.75" Y="3.894" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="3.516" Y="0.071" Height="0.182" Width="0.683" />
@@ -397,32 +398,32 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="onYOURway.Models.Map">
-    <Position X="1.25" Y="8.25" Width="1.5" />
+    <Position X="1.25" Y="9.25" Width="1.5" />
     <Members>
       <Method Name="Map" Hidden="true" />
     </Members>
     <AssociationLine Name="Region" Type="onYOURway.Models.Region" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.75" Y="8.625" />
-        <Point X="3.448" Y="8.625" />
-        <Point X="3.448" Y="7.248" />
-        <Point X="2.75" Y="7.248" />
+        <Point X="2.75" Y="9.657" />
+        <Point X="3.448" Y="9.657" />
+        <Point X="3.448" Y="8.5" />
+        <Point X="2.75" Y="8.5" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.081" Y="-1.338" Height="0.182" Width="0.732" />
+        <Position X="0.05" Y="-1.088" Height="0.182" Width="0.732" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="Localizations" Type="onYOURway.Models.MapLocalized" FixedFromPoint="true">
       <Path>
-        <Point X="2.75" Y="9.562" />
-        <Point X="4" Y="9.562" />
+        <Point X="2.75" Y="10.674" />
+        <Point X="4" Y="10.674" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.058" Y="0.05" Height="0.182" Width="1.141" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACBAAAgAAgAAAAAAAAAIQAACAAAAEIAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACBAAAgAAgAAAAAAAAAIQAACAAAAEIAAAAAAAAAEA=</HashCode>
       <FileName>Models\Boundaries\Map.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -433,21 +434,21 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="onYOURway.Models.MapLocalized">
-    <Position X="4" Y="8.25" Width="1.5" />
+    <Position X="4" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAiAAAAAAAAAAQAAABAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Boundaries\Map.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="onYOURway.Models.BaseMapFeature">
-    <Position X="1.25" Y="11.75" Width="1.5" />
+    <Position X="1.25" Y="12.75" Width="1.5" />
     <Members>
       <Method Name="BaseMapFeature" Hidden="true" />
     </Members>
     <AssociationLine Name="Localizations" Type="onYOURway.Models.BaseMapFeatureLocalized" FixedFromPoint="true">
       <Path>
-        <Point X="2.75" Y="12.736" />
-        <Point X="4" Y="12.736" />
+        <Point X="2.75" Y="13.736" />
+        <Point X="4" Y="13.736" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.017" Y="0.06" Height="0.182" Width="1.162" />
@@ -455,10 +456,10 @@
     </AssociationLine>
     <AssociationLine Name="Parent" Type="onYOURway.Models.BaseMapFeature" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.25" Y="12.983" />
-        <Point X="1" Y="12.983" />
-        <Point X="1" Y="12.571" />
-        <Point X="1.25" Y="12.571" />
+        <Point X="1.25" Y="13.983" />
+        <Point X="1" Y="13.983" />
+        <Point X="1" Y="13.571" />
+        <Point X="1.25" Y="13.571" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.122" Y="-0.254" />
@@ -466,10 +467,10 @@
     </AssociationLine>
     <AssociationLine Name="Children" Type="onYOURway.Models.BaseMapFeature" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.25" Y="13.64" />
-        <Point X="1" Y="13.64" />
-        <Point X="1" Y="14.131" />
-        <Point X="1.25" Y="14.131" />
+        <Point X="1.25" Y="14.64" />
+        <Point X="1" Y="14.64" />
+        <Point X="1" Y="15.131" />
+        <Point X="1.25" Y="15.131" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.079" Y="0.112" Height="0.182" Width="0.766" />
@@ -488,11 +489,11 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="onYOURway.Models.BaseMapFeatureLocalized">
-    <Position X="4" Y="11.75" Width="1.5" />
+    <Position X="4" Y="12.75" Width="1.5" />
     <AssociationLine Name="Feature" Type="onYOURway.Models.BaseMapFeature" FixedToPoint="true">
       <Path>
-        <Point X="4" Y="12.983" />
-        <Point X="2.75" Y="12.983" />
+        <Point X="4" Y="13.875" />
+        <Point X="2.75" Y="13.875" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.495" Y="-0.252" />
@@ -507,16 +508,16 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="onYOURway.Models.Region">
-    <Position X="1.25" Y="4.5" Width="1.5" />
+    <Position X="1.25" Y="5" Width="1.5" />
     <Members>
       <Method Name="Region" Hidden="true" />
     </Members>
     <AssociationLine Name="Realm" Type="onYOURway.Models.Realm" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.75" Y="4.75" />
-        <Point X="3.438" Y="4.75" />
-        <Point X="3.438" Y="3.875" />
-        <Point X="2.75" Y="3.875" />
+        <Point X="2.75" Y="5.278" />
+        <Point X="3.438" Y="5.278" />
+        <Point X="3.438" Y="4.434" />
+        <Point X="2.75" Y="4.434" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.07" Y="-0.807" Height="0.182" Width="0.618" />
@@ -524,41 +525,42 @@
     </AssociationLine>
     <AssociationLine Name="BaseMapFeature" Type="onYOURway.Models.BaseMapFeature" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.75" Y="6.812" />
-        <Point X="6.01" Y="6.812" />
-        <Point X="6.01" Y="14.72" />
-        <Point X="2.75" Y="14.72" />
+        <Point X="2.75" Y="7.572" />
+        <Point X="6.01" Y="7.572" />
+        <Point X="6.01" Y="15.72" />
+        <Point X="2.75" Y="15.72" />
       </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.069" Y="7.987" />
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.048" Y="8.081" Height="0.182" Width="1.41" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="Maps" Type="onYOURway.Models.Map" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.75" Y="7.125" />
-        <Point X="3.562" Y="7.125" />
-        <Point X="3.562" Y="8.75" />
-        <Point X="2.75" Y="8.75" />
+        <Point X="2.75" Y="8.375" />
+        <Point X="3.562" Y="8.375" />
+        <Point X="3.562" Y="9.793" />
+        <Point X="2.75" Y="9.793" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.05" Y="1.683" Height="0.182" Width="0.764" />
+        <Position X="0.008" Y="1.454" Height="0.182" Width="0.764" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="Localizations" Type="onYOURway.Models.RegionLocalized" FixedToPoint="true">
       <Path>
-        <Point X="2.75" Y="5.475" />
-        <Point X="4" Y="5.475" />
+        <Point X="2.75" Y="6.075" />
+        <Point X="4" Y="6.075" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
         <Position X="0.058" Y="0.081" Height="0.182" Width="1.089" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>gAAACAABAAAggAQAACAAAAQAgCAAAAEAAAAAACCABFE=</HashCode>
+      <HashCode>gAAACIABAAgggAQAACAAAAQAgCAQAAEAAAAAACCABFE=</HashCode>
       <FileName>Models\Boundaries\Region.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Realm" />
+      <Property Name="DefaultMap" />
       <Property Name="BaseMapFeature" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
@@ -673,8 +675,8 @@
         <Point X="20" Y="6.18" />
         <Point X="20" Y="1.25" />
         <Point X="3.125" Y="1.25" />
-        <Point X="3.125" Y="1.812" />
-        <Point X="2.75" Y="1.812" />
+        <Point X="3.125" Y="1.885" />
+        <Point X="2.75" Y="1.885" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="16.81" Y="-4.64" />

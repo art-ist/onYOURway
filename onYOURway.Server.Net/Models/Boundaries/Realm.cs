@@ -43,8 +43,17 @@ namespace onYOURway.Models {
 		public String Description { get; set; }
 
 		/// <summary>
-		/// Path to the logo for the Realm (should be relative to the path /Content/{RealmKey} and be 160x160 pixel)
+		/// Website of the organization representing the realm
 		/// </summary>
+		[MaxLength(1000)]
+		public String Website { get; set; }
+
+		/// <summary>
+		/// Path to the logo for the Realm
+		/// </summary>
+		/// <remarks>should be absolute or relative to the path /Content/{RealmKey} and be 160x160 pixel
+		/// </remarks>
+		[MaxLength(1000)]
 		public String LogoUrl { get; set; }
 
 		/// <summary>
@@ -55,8 +64,17 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// Optional geographical focus of the realm. Null means worldwide.
 		/// </summary>
-		[JsonConverter(typeof(DbGeographyConverter))]
+		[JsonConverter(typeof(DbGeographyWktConverter))]
 		public DbGeography Boundary { get; set; }
+
+		/// <summary>
+		/// Bounding box of the realm (can be calculated from Boundary)
+		/// </summary>
+		[JsonConverter(typeof(DbGeographyWktConverter))]
+		public DbGeography BoundingBox { get; set; }
+
+		[MaxLength(40)]
+		public String DefaultRegionKey { get; set; }
 
 		#region navigation properties
 
@@ -65,6 +83,12 @@ namespace onYOURway.Models {
 		/// </summary>
 		[ForeignKey("TaxonomyId")]
 		public virtual Category Taxonomy { get; set; }
+
+		/// <summary>
+		/// A realm can have an optional default Region. If so a client could show this region by default.
+		/// </summary>
+		[ForeignKey("Key, DefaultRegionKey")]
+		public virtual Region DefaultRegion { get; set; }
 
 		/// <summary>
 		/// Translations of the strings to different languages

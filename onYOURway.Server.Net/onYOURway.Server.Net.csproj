@@ -59,6 +59,12 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GeoJSON.Net">
+      <HintPath>..\packages\GeoJSON.Net.0.0.26\lib\GeoJSON.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoJSON4EntityFramework">
+      <HintPath>..\packages\GeoJSON4EntityFramework.1.2.0\lib\net45\GeoJSON4EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="KatanaContrib.Security.Dropbox">
       <HintPath>..\packages\KatanaContrib.Security.Dropbox.1.0.0\lib\net45\KatanaContrib.Security.Dropbox.dll</HintPath>
     </Reference>
@@ -154,9 +160,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="OsmToGeoJSON">
+      <HintPath>..\packages\OsmToGeoJSON.0.9.26\lib\net45\OsmToGeoJSON.dll</HintPath>
+    </Reference>
     <Reference Include="Owin">
       <Private>True</Private>
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -274,6 +286,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <Content Include="polygonFeatures.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\onyourway - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\onyourway - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\w3.pubxml" />
@@ -287,7 +302,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Adapters\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

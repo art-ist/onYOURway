@@ -48,16 +48,16 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// 
 		/// </summary>
-		[JsonConverter(typeof(DbGeographyConverter))]
+		[JsonConverter(typeof(DbGeographyWktConverter))]
 		public DbGeography Position { get; set; }
 
-		[JsonConverter(typeof(DbGeographyConverter))]
+		[JsonConverter(typeof(DbGeographyWktConverter))]
 		public DbGeography Boundary { get; set; }
 
 		/// <summary>
 		/// Bounding box of the 
 		/// </summary>
-		[JsonConverter(typeof(DbGeographyConverter))]
+		[JsonConverter(typeof(DbGeographyWktConverter))]
 		public DbGeography BoundingBox { get; set; }
 
 		/// <summary>

@@ -5,26 +5,27 @@ using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Web;
 
-namespace onYOURway.Models
-{
-    public class DbGeographyConverter : JsonConverter
-    {
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType.IsAssignableFrom(typeof(string));
-        }
+namespace onYOURway.Models {
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            string value = (string)reader.Value;
+	/// <summary>
+	/// Converts DbGeography to WellKnownText
+	/// </summary>
+	public class DbGeographyWktConverter : JsonConverter {
 
-            DbGeography converted = DbGeography.PointFromText(value, 4326);
-            return converted;
-        }
+		public override bool CanConvert(Type objectType) {
+			return objectType.IsAssignableFrom(typeof(string));
+		}
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            serializer.Serialize(writer, ((DbGeography)value).AsText());
-        }
-    }
-}
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
+			string value = (string)reader.Value;
+			DbGeography converted = DbGeography.FromText(value, 4326);
+			return converted;
+		}
+
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
+			serializer.Serialize(writer, ((DbGeography)value).AsText());
+		}
+
+	} //DbGeographyConverter
+
+} //ns

@@ -62,6 +62,9 @@ namespace onYOURway.Models {
 
 		public Guid? ImageId { get; set; }
 
+		/// <summary>
+		/// Assign an Entry to a Realm. This will not determine, wich Entries will be shown, when a Realm is searched but to determine who has the authority to approve entries if there is more than one Region active at a single location.
+		/// </summary>
 		[MaxLength(20)]
 		public String RealmKey { get; set; }
 

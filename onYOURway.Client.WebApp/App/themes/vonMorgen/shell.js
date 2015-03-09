@@ -8,73 +8,26 @@ URLs: (set in Views/Home/Index.cshtml)
 define([
   'plugins/router',
   'durandal/app',
-  'services/app',
-  'services/tell'
-], function (router, durandal, app, tell) {
-  var shell = {
+  'services/map/settings'
+], function (router, durandal, settings) {
+  return {
     router: router,
-    app: app,
-
-    activate: onActivate
-    //,bind: onBind
+    activate: onActivate,
   };
-  return shell;
-
-  //#region Internal Methods
 
   function onActivate() {
   	durandal.title = "Karte von Morgen";
 
-  	app.location.settings.showMap(true);
-  	app.location.settings.showList(false);
-  	app.location.settings.showDetails(false);
-  	app.location.settings.forceMap = true;
-  	app.location.settings.showVeilOfSilence = false;
-  	app.location.settings.disableDetails = true;
+    settings.defaultRegion(265);
 
-    var routes = [
-        { moduleId: 'vonMorgen/home',         route: ['', 'home', 'start'],                           title: ''               }
-      , { moduleId: 'regions',                route: ['regions', 'regionen'],                         title: 'Regionen'       }
-      , { moduleId: 'discover',               route: ['map', 'karte', 'discover', 'erkunden'],        title: 'Erkunden'       }
-      , { moduleId: 'search',                 route: ['search', 'suche'],                             title: 'Suchen'         }
-      , { moduleId: 'my/siteCollector',       route: ['my/siteCollector', 'siteCollector', 'add'],    title: 'Neuer Eintrag'  }
+    router.map([
+      { moduleId: 'vonMorgenMin/home',               route: ['', 'home', 'start'],                         title: ''  },
+      { moduleId: 'vonMorgenMin/onlyMap',            route: ['map', 'karte'],          hash: 'map',        title: 'Karte'  },
+      { moduleId: 'vonMorgenMin/searchResults',      route: 'search(/:searchTerm)',                        title: 'Suche'  },
+      { moduleId: 'my/siteCollector',                route: ['add', 'neu'],                                title: 'Neu'  }
+    ]);
 
-      , { moduleId: 'my/login',               route: ['my/login'],                                    title: 'Anmelden'       }
-      , { moduleId: 'my/registration',        route: ['my/registration'],                             title: 'Registrieren'   }
-      , { moduleId: 'my/registrationExt',     route: ['my/registrationExt'],                          title: 'Registrieren'   }
-      , { moduleId: 'my/profile',             route: ['my/profile++'],                                title: 'Profil'         }
-      , { moduleId: 'my/wizardNew',           route: ['my/wizardNew++'],                              title: 'Neuer Eintrag'  }
-      , { moduleId: 'my/shoppingList',        route: ['my/shoppingList'],                             title: 'Einkaufsliste'  }
-
-      , { moduleId: 'about/explorer',         route: ['about/explorer++', 'ueber/entdecker++'],       title: 'Entdecker'      }
-      , { moduleId: 'about/venture',          route: ['about/venture++', 'ueber/anbieter++'],         title: 'Anbieter'       }
-      , { moduleId: 'about/region',           route: ['about/region++', 'ueber/regionen++'],          title: 'Region'         }
-
-      , { moduleId: 'about/onyourway',        route: ['about/onyourway++', 'ueber/onyourway++'],      title: 'Über'           }
-      , { moduleId: 'about/privacy',          route: ['about/privacy', 'ueber/privatsphaere'],        title: 'Privatsphäre'   }
-      , { moduleId: 'about/impress',          route: ['about/impress', 'ueber/impressum'],            title: 'Impressum'      }
-
-      , { moduleId: 'about/_preview',         route: ['about/preview', 'ueber/demo'],                 title: 'Public Preview' }
-    ];
-    //add parameters to route with ++
-    for (var i = 0; i < routes.length; i++) {
-      for (var r = 0; r < routes[i].route.length; r++) {
-        routes[i].route[r] = routes[i].route[r].replace("++",'(/:article)(/:sub)');
-      }
-    }
-    router.map(routes);
-    tell.log('routes set', '_shell', routes);
-    return router
-      //.buildNavigationModel()
-      .mapUnknownRoutes('home', 'UNBEKANNT') //TODO: 'not found' -> create error message
-      .activate('home')
-    ;
+    return router.mapUnknownRoutes('vonMorgenMin/home', 'UNBEKANNT').activate('vonMorgenMin/home');
   }
-
-  //function onBind() {
-  //  //tell.log('map initialized', 'shell', $('#map').html())
-  //}
-
-  //#endregion Internal Methods
 
 });

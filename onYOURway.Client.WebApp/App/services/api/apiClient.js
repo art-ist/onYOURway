@@ -26,7 +26,7 @@
 		getRegions: getRegions,
 		getSearchSuggestions: getSearchSuggestions,
 
-		getPlaces: getPlaces,
+		getLocationInfos: getLocationInfos,
 		//TODO: remove my/wizardNew and all its dependencies  (locationToEdit)
 		locationToEdit: ko.observable(null),
 		getLocation: getLocation
@@ -137,7 +137,7 @@
 	function getSearchSuggestions(region) {
 		var query = breeze.EntityQuery.from("SearchSuggestions");
 		query.parameters = {
-			Region: region && region() ? ko.utils.unwrapObservable(region().Key) : app.getConfigValue('region'),
+			Region: region && region() ? ko.utils.unwrapObservable(region().Key) : config.get('defaultRegion'),
 			Locale: getLang()
 		};
 		return locateContext
@@ -219,8 +219,8 @@
 
 	//#region Entries
 
-	function getPlaces(region) {
-		var action = region ? region + '/GetPlaces' : 'GetPlaces';
+	function getLocationInfos(region) {
+		var action = region ? region + '/GetLocationInfos' : 'GetLocationInfos';
 		var query = breeze.EntityQuery.from(action);
 		query.parameters = {
 			Locale: getLang()
