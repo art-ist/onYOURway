@@ -23,7 +23,7 @@ define([
   //#region Internal Methods
 
   function onActivate() {
-  	durandal.title = "Karte von Morgen";
+  	durandal.title = "TransforMap";
 
   	app.location.settings.showMap(true);
   	app.location.settings.showList(false);

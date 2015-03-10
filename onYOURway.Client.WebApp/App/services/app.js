@@ -3,13 +3,13 @@
 /// <reference path="../../Scripts/knockout-3.3.0.js" />
 
 define([
-  'services/locate',
-  'services/tell',
-  'services/platform',
-  'services/auth',
-  'services/localStorage',
-  'plugins/router'
-], function (locate, tell, platform, auth, localStorage, router) {
+	'services/locate',
+	'services/tell',
+	'services/platform',
+	'services/auth',
+	'services/localStorage',
+	'plugins/router'
+], function (locate, tell, platform, auth, localStorage, router, taxonomy) {
 
 	//create global viewModel
 	var app = {
@@ -176,6 +176,7 @@ define([
 		app.lang(langId);
 
 		loadMessages();
+		locate.loadTaxonomy(app.lang);
 		locate.loadRegionFeatures();
 
 		return false;

@@ -1,30 +1,33 @@
 ﻿/// <reference path="../../Scripts/r.js" />
 define([
-  'services/map/settings',
-  'services/tell',
-  'services/api/apiClient',
-  'services/api/placeSearch',
-  'services/map/mapAdapter',
-  'services/map/siteCollectorLayer',
-  'services/map/regionLayer',
-  'providers/geocode-nominatim'
-], function (settings,  tell, apiClient, placeSearch, map, siteCollectorLayer, regionLayer, geocodingProvider) {
+	'services/map/settings',
+	'services/tell',
+	'services/api/apiClient',
+	'services/api/placeSearch',
+	'services/api/taxonomy',
+	'services/map/mapAdapter',
+	'services/map/siteCollectorLayer',
+	'services/map/regionLayer',
+	'providers/geocode-nominatim'
+], function (settings, tell, apiClient, placeSearch, taxonomy, map, siteCollectorLayer, regionLayer, geocodingProvider) {
 	var location = undefined;
 
 	var vm = function () {
 		var self = this;
-		self.location = location;
 
-        // currently selected region in the region dropDown
+		self.location = location;
+		self.lang = null;
+
+		// currently selected region
 		self.region = regionLayer.selectedRegion;
 
-	    // all categories that can be selected in the categorySelectionModal
-		self.taxonomy = ko.observableArray([]);
+		// all categories that can be selected in the categorySelectionModal
+		self.categories = taxonomy.categories;
 
-        // countries that can be selected in the country dropdown
+		// countries that can be selected in the country dropdown
 		self.countries = apiClient.getCountries();
 
-        // opening hours that can be selected in the opening hours dropdown
+		// opening hours that can be selected in the opening hours dropdown
 		self.opening_hour_samples = [
 			'Mo-Fr 09:00-18:00; PH closed',
 			'Mo-Fr 09:00-19:00; Sa 09:00-13:00; PH closed',
@@ -33,7 +36,7 @@ define([
 			'09:00-16:00; Su,PH closed'
 		];
 
-	    // computed observable connects the latitude input field with siteCollectorLayer.markerGeoLocation (which is connected to the map marker)
+		// computed observable connects the latitude input field with siteCollectorLayer.markerGeoLocation (which is connected to the map marker)
 		self.latitude = ko.computed({
 			read: function () {
 				return siteCollectorLayer.markerGeoLocation() && siteCollectorLayer.markerGeoLocation().lat;
@@ -47,7 +50,7 @@ define([
 			}
 		});
 
-	    // computed observable connects the longitude input field with siteCollectorLayer.markerGeoLocation (which is connected to the map marker)
+		// computed observable connects the longitude input field with siteCollectorLayer.markerGeoLocation (which is connected to the map marker)
 		self.longitude = ko.computed({
 			read: function () {
 				return siteCollectorLayer.markerGeoLocation() && siteCollectorLayer.markerGeoLocation().lng;
@@ -61,55 +64,55 @@ define([
 			}
 		});
 
-	    /**
+		/**
         * set the marker in the map based on the current address of the entity
         */
 		self.setMarker = function () {
-		    markerSetter();
+			markerSetter();
 		}
 
-	    /**
+		/**
          * set the current adress of the entity based on the latitude / longitude
          */
 		self.setAddress = function () {
-		    addressSetter();
+			addressSetter();
 		}
 
-        /**
+		/**
          * save all changes of the currently edited entity to the database
          */
 		self.submit = function () {
-		    var noCoords = (!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0;
-		    if (!self.entity.Name()) {
-		        tell.error("Please enter a name before saving", 'siteCollector - submit');
-		    } else if (noCoords && (!self.entity.City())) {
-		        tell.error("Please enter the city or select a location in the map before saving!", 'siteCollector - submit');
-		    } else if (!self.entity.City()) {
-		        addressSetter(saveChanges);
-		    } else if (noCoords) {
-		        markerSetter(saveChanges);
-		    } else {
-		        saveChanges();
-		    }
+			var noCoords = (!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0;
+			if (!self.entity.Name()) {
+				tell.error("Please enter a name before saving", 'siteCollector - submit');
+			} else if (noCoords && (!self.entity.City())) {
+				tell.error("Please enter the city or select a location in the map before saving!", 'siteCollector - submit');
+			} else if (!self.entity.City()) {
+				addressSetter(saveChanges);
+			} else if (noCoords) {
+				markerSetter(saveChanges);
+			} else {
+				saveChanges();
+			}
 		};
 
-        /**
+		/**
          * drop all unsaved changes and close the siteCollector
          */
 		self.close = function () {
-		    try {
-		        self.entity && self.entityAspect && self.entity.entityAspect.rejectChanges();
-		    } catch (e) {
-		        tell.log("error rejecting changes", "siteCollector - close", e);
-		    }
-		    document.location.href = "#map";
+			try {
+				self.entity && self.entityAspect && self.entity.entityAspect.rejectChanges();
+			} catch (e) {
+				tell.log("error rejecting changes", "siteCollector - close", e);
+			}
+			document.location.href = "#map";
 		}
 
-        /**
+		/**
          * show / hide the categorySelectionModal
          */
 		self.toggleCategorySelection = function () {
-		    $('#categorySelectionModal, .modal-backdrop')
+			$('#categorySelectionModal, .modal-backdrop')
 				.toggleClass('hidden');
 		}
 
@@ -124,143 +127,135 @@ define([
 		//}
 
 
-	    /**
+		/**
          * select / unselect a category
          */
 		self.toggleCategory = function (category) {
-		    if (self.categories.indexOf(category) >= 0) {
-                // if category is currently selected, remove it and detach from breeze
-		        self.categories.remove(category);
-		        var EntryCategory;
-		        $.each(self.entity.Categories(), function (key, val) {
-		            if (val && val.CategoryId && category && category.Id == val.CategoryId()) {
-		            	apiClient.detachEntity(val);
-		            }
-		        });
-		    } else {
-                // if category is not yet selected, create a new "EntryCategory" entity (as breeze doesn't support Many-To-Many relations)
-		        self.categories.push(category);
-		        self.lastCategory = apiClient.createEntity('EntryCategory', {
-		            Location: self.entity,
-		            CategoryId: category.Id
-		        });
-		        //supportAutogeneratedKeyForEntryCategory(category.Id); //I guess with Guid this is not needed anymore
-		    }
+			if (self.categories.indexOf(category) >= 0) {
+				// if category is currently selected, remove it and detach from breeze
+				self.categories.remove(category);
+				var EntryCategory;
+				$.each(self.entity.Categories(), function (key, val) {
+					if (val && val.CategoryId && category && category.Id == val.CategoryId()) {
+						apiClient.detachEntity(val);
+					}
+				});
+			} else {
+				// if category is not yet selected, create a new "EntryCategory" entity (as breeze doesn't support Many-To-Many relations)
+				self.categories.push(category);
+				self.lastCategory = apiClient.createEntity('EntryCategory', {
+					Location: self.entity,
+					CategoryId: category.Id
+				});
+				//supportAutogeneratedKeyForEntryCategory(category.Id); //I guess with Guid this is not needed anymore
+			}
 		} //toggleCategory
 
 
-	    //#region lifecycle callbacks
+		//#region lifecycle callbacks
 
-	    /**
+		/**
          * called by knockout.js when activating the view was requested / started
          */
 		self.activate = function (queryString) {
-		    tell.log('activate', 'siteCollector', queryString);
-		    if (queryString && queryString.category) {
-		        placeSearch.showByCategoryName(queryString.category);
-		    }
+			tell.log('activate', 'siteCollector', queryString);
+			if (queryString && queryString.category) {
+				placeSearch.showByCategoryName(queryString.category);
+			}
 
-		    // hide all search results that may still be displayed on the map
-		    placeSearch.searchResults([]);
+			// hide all search results that may still be displayed on the map
+			placeSearch.searchResults([]);
 
-			//subscribe region changes to load the corresponding taxonomy
-		    self.region.subscribe(function (value) {
-		    	getTaxonomy();
-		    });
-		    /*app.lang.subscribe(function (value) {
-		    	getTaxonomy();
-		    });*/
-
-		    // enabling the site collector mode - makes map smaller and enables the site selection marker
-		    settings.showSiteCollector(true);
-		    return true;
+			// enabling the site collector mode - makes map smaller and enables the site selection marker
+			settings.showSiteCollector(true);
+			return true;
 		};
 
-	    /**
+		/**
          * called by knockout.js just before the view-model binding takes place
          */
 		self.binding = function () {
-		    tell.log('binder', 'siteCollector');
+			tell.log('binder', 'siteCollector');
 
-		    // prepare a new breeze entity to be edited by this form
-		    self.entity = apiClient.createEntity('Location', {
-		        Name: '',
-		        Lang: 'de',
-		        CreatedBy: 1,
-		        CreatedAt: new Date(),
-		        ModifiedBy: null,
-		        ModifiedAt: null,
-		        Country: '',
-		        Province: '',
-		        City: '',
-		        Zip: '',
-		        Street: '',
-		        HouseNumber: '',
-		        Phone: '123',
-		        Position: null,
-		        Icon: 'fa-cutlery',
-		        OpeningHours: null,
-		        Description: '',
-		        Type: 'SitCllctr',
-		        Categories: []
-		    });
+			// prepare a new breeze entity to be edited by this form
+			self.entity = apiClient.createEntity('Location', {
+				Name: '',
+				Lang: 'de',
+				CreatedBy: 1,
+				CreatedAt: new Date(),
+				ModifiedBy: null,
+				ModifiedAt: null,
+				Country: '',
+				Province: '',
+				City: '',
+				Zip: '',
+				Street: '',
+				HouseNumber: '',
+				Phone: '123',
+				Position: null,
+				Icon: 'fa-cutlery',
+				OpeningHours: null,
+				Description: '',
+				Type: 'SitCllctr',
+				Categories: []
+			});
 
-		    // prepare the list of categories that have been selected by the user
-		    self.categories = ko.observableArray();
+			// prepare the list of categories that have been selected by the user
+			self.categories = ko.observableArray();
 
-		    return true;
+			return true;
 		};
 
-	    /**
+		/**
          * called by knockout.js when leaving the siteCollector view
          */
 		self.deactivate = function (queryString) {
-		    // detach the currently edited entity from breeze database context
-		    try {
-		        if (self.entity && self.entity.Categories) {
-		            $.each(self.entity.Categories(), function (key, val) {
-		                try {
-		                    if (val) {
-		                        apiClient.detachEntity(val);
-		                    }
-		                } catch (e) {
-		                    tell.log("could not detach category", "siteCollector - deactivate", e);
-		                }
-		            });
-		        }
-		        if (self.entity) {
-		            apiClient.detachEntity(self.entity);
-		        }
-		    } catch (e2) {
-		        tell.log("could not detach entity", "siteCollector - deactivate", e2);
-		    }
+			// detach the currently edited entity from breeze database context
+			try {
+				if (self.entity && self.entity.Categories) {
+					$.each(self.entity.Categories(), function (key, val) {
+						try {
+							if (val) {
+								apiClient.detachEntity(val);
+							}
+						} catch (e) {
+							tell.log("could not detach category", "siteCollector - deactivate", e);
+						}
+					});
+				}
+				if (self.entity) {
+					apiClient.detachEntity(self.entity);
+				}
+			} catch (e2) {
+				tell.log("could not detach entity", "siteCollector - deactivate", e2);
+			}
 
-		    // setting showSiteCollector to false enlarges the map again and hides the category selection marker
-		    settings.showSiteCollector(false);
+			// setting showSiteCollector to false enlarges the map again and hides the category selection marker
+			settings.showSiteCollector(false);
 
-		    // tell leaflet.js to recalculate the map size, as soon as all css animations have finished
-		    window.setTimeout(function () {
-		        map.invalidateSize();
-		    }, 300 );
-		    window.setTimeout(function () {
-		        map.invalidateSize();
-		    }, 750 );
+			// tell leaflet.js to recalculate the map size, as soon as all css animations have finished
+			window.setTimeout(function () {
+				map.invalidateSize();
+			}, 300);
+			window.setTimeout(function () {
+				map.invalidateSize();
+			}, 750);
 		};
 
-	    //#endregion lifecycle callbacks
+		//#endregion lifecycle callbacks
 
-		/**
-         * get the hierarchy of assignable categories (self.taxonomy)
-         */
-		var getTaxonomy = function () {
-			apiClient.getTaxonomy(self.region() /*, app.lang()*/)
-				.then(function (d) {
-					tell.log(d.results.length + " taxonomy loaded", 'siteCollector - binding', d.results);
-					self.taxonomy(d.results[0].categories.category);
-				})
-		}
+		///**
+        // * get the hierarchy of assignable categories (self.taxonomy)
+        // */
+		//var getTaxonomy = function () {
+		//	apiClient.getTaxonomy() //self.region() , app.lang()
+		//		.then(function (d) {
+		//			tell.log("Taxonomy loaded", 'siteCollector', d.results);
+		//			self.taxonomy(d.results[0].categories.category);
+		//		})
+		//}
 
-        /** 
+		/** 
          * set the marker in the map based on the current address of the entity
          * optionally call the provided callback function on success
          */
@@ -286,7 +281,7 @@ define([
 			});
 		};
 
-        /**
+		/**
          * set the current adress of the entity based on the latitude / longitude
          * optionally call the provided callback function on success
          */
@@ -311,7 +306,7 @@ define([
 			});
 		};
 
-        /** 
+		/** 
          * try to determine not yet entered address OR geolocation by geocoding 
          * save all changes to the database
          */
@@ -321,12 +316,12 @@ define([
 			} else if ((!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0) {
 				tell.error("Please select a location in the map before saving!", 'siteCollector - saveChanges');
 			} else if (apiClient.hasChanges()) {
-			    self.entity.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
+				self.entity.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
 				apiClient.saveChanges()
                     .then(function () {
-                        tell.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
-                        location && location.loadRegionFeatures();
-                        document.location.href = "#map";
+                    	tell.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
+                    	location && location.loadRegionFeatures();
+                    	document.location.href = "#map";
                     })
 			} else {
 				tell.warn("Nothing to save - you didn't edit anything since last save", 'siteCollector - saveChanges');
@@ -336,19 +331,19 @@ define([
 
 	};
 
-	var my_fixup = function (tempValue, realValue, CategoryId) {
-	    var ix = this._indexMap[realValue + ":::" + CategoryId]; //Changed line
-	    if (ix === undefined) {
-	        throw new Error("Internal Error in key fixup - unable to locate entity");
-	    }
-	    var entity = this._entities[ix];
-	    var keyPropName = entity.entityType.keyProperties[0].name;
-	    // fks on related entities will automatically get updated by this as well
-	    entity.setProperty(keyPropName, realValue);
-	    delete entity.entityAspect.hasTempKey;
-	    delete this._indexMap[tempValue];
-	    this._indexMap[realValue] = ix;
-	};
+	//var my_fixup = function (tempValue, realValue, CategoryId) {
+	//    var ix = this._indexMap[realValue + ":::" + CategoryId]; //Changed line
+	//    if (ix === undefined) {
+	//        throw new Error("Internal Error in key fixup - unable to locate entity");
+	//    }
+	//    var entity = this._entities[ix];
+	//    var keyPropName = entity.entityType.keyProperties[0].name;
+	//    // fks on related entities will automatically get updated by this as well
+	//    entity.setProperty(keyPropName, realValue);
+	//    delete entity.entityAspect.hasTempKey;
+	//    delete this._indexMap[tempValue];
+	//    this._indexMap[realValue] = ix;
+	//};
 
 	return vm;
 

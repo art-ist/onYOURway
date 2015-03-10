@@ -13,6 +13,7 @@ define([
 	'services/api/placeSearch',				// search locations/places by name, category, ...
 	'services/api/searchSuggestions',		// get search suggestions
 	'services/api/placeComparators',		// sorting places aka. locations
+	'services/api/taxonomy',				// manage taxonomy (categories former tags)
 
 	'services/map/mapAdapter',				// map
 	'services/map/settings',				// settings //TODO: move to apropriate services and app.config.js
@@ -23,8 +24,8 @@ define([
     'services/map/siteCollectorLayer',		// siteCollector
     'services/map/tileLayer'				// basemap
 ], function (tell, router,
-			 apiClient, places, placeSearch, searchSuggestions, placeComparators, map, settings,
-			 placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
+			 apiClient, places, placeSearch, searchSuggestions, placeComparators, taxonomy,
+			 map, settings, placesLayer, pointerLayer, regionLayer, routingLayer, siteCollectorLayer, tileLayer) {
 
 	var locate = {
 		initialize: initialize,
@@ -47,6 +48,7 @@ define([
 
 		route: routingLayer.route, //used in view _searchoptions.html, svc placesLayer, routingLayer
 
+		realm: '',							//set on initialize
 		regions: regionLayer.regions,		//used in view siteCollector
 		region: regionLayer.selectedRegion, //used in view _nav.html
 		views: regionLayer.views,			//used in view _nav.html
@@ -89,6 +91,8 @@ define([
 		//TODO: baseMap used in _nav.html for menu links. move into _nav.js!
 		baseMap: map.baseMap,
 
+		loadTaxonomy: loadTaxonomy,
+
 		//TODO: remove my/wizardNew and all its dependencies  (loactionToEdit)
 		loactionToEdit: apiClient.locationToEdit,
 		getLocation: apiClient.getLocation, //only used by editLocation
@@ -96,9 +100,11 @@ define([
 	};
 	return locate;
 
-	function initialize(realmm, lang) {
+	function initialize(realm, lang) {
 		tell.log('starting initinlize', 'locate');
-		apiClient.initialize(realmm, lang);
+
+		locate.realm = realm;
+		apiClient.initialize(realm, lang);
 
 		locate.sortBy(locate.sortOptions[0]);
 		locate.sortBy.subscribe(function (newValue) {
@@ -133,6 +139,10 @@ define([
 			tell.error(e.message, 'locate', e);
 		}
 	} //initializeMap
+
+	function loadTaxonomy(lang) {
+		taxonomy.loadTaxonomy(locate.realm, lang);
+	}
 
 	function loadRegionFeatures() {
 		places.loadPlaces(locate);

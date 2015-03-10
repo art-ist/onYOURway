@@ -247,12 +247,14 @@ namespace onYOURway.Controllers {
 		/// <summary>
 		/// Gets all searchable features (Ventures, (Transport)Lines, (Transport)Stops, T)
 		/// </summary>
-		/// <param name="Region"></param>
+		/// <param name="Realm">Semantic context</param>
+		/// <param name="Region">Geograpic context</param>
 		/// <param name="Locale"></param>
 		/// <returns>Ventures</returns>
 		[HttpGet, Route("Locate/{Realm}/{Region}/GetLocationInfos"), Route("Locate/{Realm}/GetLocationInfos")]
 		public dynamic GetLocationInfos(string Realm, string Region = "", string Locale = null) {
 			if (string.IsNullOrEmpty(Locale)) Locale = GetLang();
+			string xml = null;
 			using (SqlCommand cd = new SqlCommand()) {
 				cd.Connection = (SqlConnection)db.Context.Database.Connection;
 				cd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -272,7 +274,6 @@ namespace onYOURway.Controllers {
 				}
 			}
 			XmlDocument doc = new XmlDocument();
-			string xml = null;
 			doc.LoadXml(xml);
 			//string json = JsonConvert.SerializeXmlNode(doc);
 			//return new System.Web.Mvc.ContentResult { Content = json, ContentType = "application/json" };
@@ -332,17 +333,17 @@ namespace onYOURway.Controllers {
 		/// Gets the complete taxonomy
 		/// </summary>
 		[HttpGet, Route("Locate/{Realm}/GetTaxonomy"), Route("Locate/GetTaxonomy/{Id}")]
-		public dynamic GetTaxonomy(string Realm = null, Guid? Id = null, string Lang = null) {
-			if (string.IsNullOrEmpty(Lang)) Lang = GetLang();
+		public dynamic GetTaxonomy(string Realm = null, Guid? Id = null, string Locale = null) {
+			if (string.IsNullOrEmpty(Locale)) Locale = GetLang();
 			if (Id == null) Id = db.Context.Realms.SingleOrDefault(r => r.Key == Realm).TaxonomyId;
 
 			string xml = null;
 			using (SqlCommand cd = new SqlCommand()) {
 				cd.Connection = (SqlConnection)db.Context.Database.Connection;
-				cd.CommandType = System.Data.CommandType.StoredProcedure;
-				cd.CommandText = "oyw.GetSubCategoriesXml";
+				cd.CommandType = System.Data.CommandType.Text;
+				cd.CommandText = "Select oyw.GetSubCategoriesXml(@parentId, @locale);";
 				cd.Parameters.AddWithValue("@parentId", Id);
-				cd.Parameters.AddWithValue("@lang", Lang);
+				cd.Parameters.AddWithValue("@locale", Locale);
 				cd.Connection.Open();
 				using (XmlReader xr = cd.ExecuteXmlReader()) {
 					if (xr != null) {
@@ -355,8 +356,8 @@ namespace onYOURway.Controllers {
 				}
 			}
 			XmlDocument doc = new XmlDocument();
-			doc.LoadXml(xml);
-			return doc;
+			doc.LoadXml("<x>" + xml + "</x>");
+			return doc.GetElementsByTagName("x").Item(0);
 		} //GetTaxonomy
 
 		#endregion Taxonomy

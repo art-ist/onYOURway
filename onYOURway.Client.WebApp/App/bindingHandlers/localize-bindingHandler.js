@@ -12,7 +12,7 @@ ko.bindingHandlers['localText'] = {
 
 			var updateText = function () {
 				var text = app.getMsg(value);
-				tell.log('updating', 'localText-binding');
+				//tell.log('updating', 'localText-binding');
 				if (text) {
 					$element.text(text);
 				}
@@ -22,7 +22,7 @@ ko.bindingHandlers['localText'] = {
 			//register to be called on changes (e.g. deferred data arrival or language change)
 			$(app).on('messagesLoaded', updateText);
 
-			tell.log('initialized', 'localText-binding');
+			//tell.log('initialized', 'localText-binding');
 		}); //require
 	} //init
 

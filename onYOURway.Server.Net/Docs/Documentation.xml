@@ -118,7 +118,8 @@
             <summary>
             Gets all searchable features (Ventures, (Transport)Lines, (Transport)Stops, T)
             </summary>
-            <param name="Region"></param>
+            <param name="Realm">Semantic context</param>
+            <param name="Region">Geograpic context</param>
             <param name="Locale"></param>
             <returns>Ventures</returns>
         </member>

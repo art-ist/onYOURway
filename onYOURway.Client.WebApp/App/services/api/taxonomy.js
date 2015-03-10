@@ -7,15 +7,15 @@ define([
 
 	var self = {
 
-        //taxonomy: ko.observableArray([{name: {Name: 'loading'}, shortName: 'loading', active: ko.observable(false), CssClass: 'initiatives'}, {name: {Name: 'please'}, shortName: 'please', active: ko.observable(false), CssClass: 'events'}, {name: {Name: 'wait'}, shortName: 'wait', active: ko.observable(false), CssClass: 'companies'}]),
-		taxonomy: ko.observableArray([]),
-		loadTaxonomy: loadTaxonomy
+		loadTaxonomy: loadTaxonomy,
+
+		categories: ko.observableArray([]),
 
     };
     return self;
 
-    function loadTaxonomy() {
-        apiClient.getTaxonomy(app.realm, app.lang()) //TODO: condider how to model this to keep module independant form app but still avoid redundancy
+    function loadTaxonomy(realm, lang) {
+        apiClient.getTaxonomy(realm, lang()) //TODO: condider how to model this to keep module independant form app but still avoid redundancy
             .then(function (d) {
                 var categories = d.results[0];
 
@@ -41,7 +41,7 @@ define([
                 //});
 
                 tell.log("taxonomy with " + categories.length + " top level categories loaded", 'taxonomy service - loadTaxonomy', categories);
-                self.taxonomy(categories);
+                self.categories(categories);
             });
 
     }

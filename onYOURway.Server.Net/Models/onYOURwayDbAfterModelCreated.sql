@@ -172,6 +172,7 @@ go
 If Object_Id('oyw.GetLocationInfoXml') Is Not Null Drop Proc oyw.GetLocationInfoXml;
 go
 CREATE Proc oyw.GetLocationInfoXml (@Realm nvarchar(20) = Null, @Region nvarchar(40) = Null, @Locale char(2) = 'en') As
+	Set NoCount On;
 	--  Declare @Locale char(2) ='de', @Region nvarchar(40) = 'Test';
 
 	Select (
