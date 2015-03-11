@@ -9,7 +9,7 @@ define([
 	'services/auth',
 	'services/localStorage',
 	'plugins/router'
-], function (locate, tell, platform, auth, localStorage, router, taxonomy) {
+], function (locate, tell, platform, auth, localStorage, router) {
 
 	//create global viewModel
 	var app = {

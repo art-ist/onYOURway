@@ -1,25 +1,4 @@
-﻿<!--List-->
-<!-- TODO: implement siteList which displays all sites the current user has already made changes to, so the user can select and edit them -->
-<!--<div id="mySiteList" data-bind="css: { listOpen: showList }">
-    <button class="btn oyw-btn-slide oyw-btn-slide-right" data-bind="click: location.toggleDetails"><i class="fa fa-arrow-right"></i></button>
-
-    <ul data-bind="foreach: location.mapLocations" class="nav nav-list">
-        <li class="locationInfo" data-bind="css: { isOpen: isOpen()
-                                               , isFeatured: isFeatured()
-                                               , selected: $data === $root.location.selectedItem() }
-                                               , click: $root.location.itemClick, attr: { id: Id }
-                                          ">
-            <div class="locationInfo-imageArea">
-                <i class=" fa fa-2x" data-bind="css: $data.Icon"></i>
-            </div>
-            <i class="fa fa-chevron-right detailsIndicator"></i>
-            <h5 class="locationInfo-title" data-bind="text: Name" style="max-height: 30px; overflow: hidden; overflow-wrap: break-word; -ms-word-wrap: hyphenate; word-wrap:hyphenate;"></h5>
-            <p class="locationInfo-addr"><span data-bind="  text: $data.Street"></span> <span data-bind="  text: $data.HouseNumber"></span></p>
-        </li>
-    </ul>
-</div>-->
-<!--/List-->
-<!-- Site Collector -->
+﻿<!-- Site Collector -->
 <div id="mySiteCollector" style="padding: 15px;">
 	<a class="oyw-btn-close hidden-xs fa fa-times" href="#/map"></a>
 	<form class="form">
@@ -31,26 +10,17 @@
 		<div class="row">
 			<div class="col-sm-6">
 
-				<!--<div class="form-group">
-					<label data-bind="localText: 'siteCollector.selectRegion'">Selected region/map</label>:
-
-					<select data-bind="value: region" id="accessibility" class="form-control">
-						<option value="1">Baden</option>
-						<option value="265">Karte von Morgen</option>
-						<option value="3">Transformap</option>
-					</select>
-
-				</div>-->
-
+				<!-- #region Name/Description -->
 				<div class="form-group">
 					<label for="addSiteName" data-bind="localText: 'siteCollector.site.name'">Name:</label>
-					<input id="addSiteName" type="text" data-bind="value: Name" class="form-control siteName translatePlaceholder" />
+					<input id="addSiteName" type="text" data-bind="value: item.Name" class="form-control siteName translatePlaceholder" />
 				</div>
 
 				<div class="form-group">
 					<label for="addSiteDescription" data-bind="localText: 'siteCollector.site.description.label'">Description:</label>
-					<textarea data-bind="value: location.Description, localAttr: {placeholder: 'siteCollector.site.description.placeholder'}" class="form-control translatePlaceholder" id="addSiteDescription" placeholder="Please enter a description"></textarea>
+					<textarea data-bind="value: item.Description, localAttr: {placeholder: 'siteCollector.site.description.placeholder'}" class="form-control translatePlaceholder" id="addSiteDescription" placeholder="Please enter a description"></textarea>
 				</div>
+				<!-- #endregion Name/Description -->
 
 				<!-- #region Posiion-->
 				<div class="form-group">
@@ -58,18 +28,21 @@
 					<label for="addSiteLocationStreet" data-bind="localText: 'siteCollector.site.address'">Address:</label>
 				</div>
 				<div class="form-group">
-					<input data-bind="value: location.Country, select2: { data: countries, placeholder: 'Select Country' }" class="form-control translate" />
-				</div>
-				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input data-bind="value: location.Zip" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3" placeholder="PLZ" />
-						<input data-bind="value: location.City" id="addSiteLocationCity" type="text" class="form-control input-group-c9" placeholder="Stadt" />
+						<input id="selectCountry" data-bind="value: item.CountryCode, select2: { query: getCountries, placeholder: 'Country' }" class="form-control input-group-c6" />
+						<input if="selectProvince" data-bind="value: item.ProvinceCode, select2: { query: getProvinces, placeholder: 'State/Province' }" class="form-control input-group-c6" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input data-bind="value: location.Street" id="addSiteLocationStreet" type="text" class="form-control input-group-c9" placeholder="Straße" />
-						<input data-bind="value: location.HouseNumber" id="addSiteLocationNr" type="text" class="form-control input-group-c3" placeholder="Nr." />
+						<input data-bind="value: item.Zip" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3" placeholder="PLZ" />
+						<input data-bind="value: item.City" id="addSiteLocationCity" type="text" class="form-control input-group-c9" placeholder="Stadt" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group input-group-c12">
+						<input data-bind="value: item.Street" id="addSiteLocationStreet" type="text" class="form-control input-group-c9" placeholder="Straße" />
+						<input data-bind="value: item.HouseNumber" id="addSiteLocationNr" type="text" class="form-control input-group-c3" placeholder="Nr." />
 					</div>
 				</div>
 				<div class="form-group">
@@ -96,15 +69,16 @@
 
 					<div class="form-group">
 
-						<ul class="item-categories" data-bind="foreach: categories">
-							<li data-bind="text: $data.name.Name || $data.name[0].Name"></li>
+						<ul class="item-categories" data-bind="foreach: item.Categories">
+<!--							<li data-bind="text: $data.Category.Names || $data.Category.Names[0].Name"></li>-->
 						</ul>
 
 						<button class="btn btn-warning btn-block" id="selectCategories" data-bind="click: toggleCategorySelection"><i class="icon-plus"></i> <span data-bind="localText: 'siteCollector.site.categories.select'">Select Categories</span></button>
 					</div>
 				</div>
 
-				<!--picture-- >
+				<!-- #region picture -- >
+
 				<div class="form-group photo empty">
 					<label>
 						<span class="translate">Photo:</span>
@@ -120,8 +94,26 @@
 				<div class="form-group">
 					<label for="addSitePhotoCaption" class="translate">Photo caption:</label>
 					<input id="addSitePhotoCaption" type="text" class="form-control photoCaption translatePlaceholder" placeholder="What is in the photo?" />
-				</div>
+				</div>					
+				<!--<div class="line photo">
+					<label for="addSitePhoto">
+						<span id="addSitePhotoContainer">
+							<div class="label"><i class="icon-picture"></i><br /><span class="translate">Select a picture</span></div>
+							<img />
+
+							<div class="remove"><i class="icon-remove-sign"></i></div>
+						</span>
+					</label>
+
+					<input type="file" id="addSitePhoto" accept="image/*;capture=camera">
+				</div>-->
+
+				<!-- #endregion picture -- >
+
+
 				<!--opening_hours-->
+				
+				<!--opening hours-->
 				<div class="form-group">
 					<label>
 						<a href="http://openingh.openstreetmap.de/evaluation_tool" target=" _blank" data-bind="localText: 'siteCollector.site.openingHours.label', localAttr: {src: 'siteCollector.site.openingHours.evalTool'} ">Opening Hours</a>
@@ -136,26 +128,14 @@
 						<span data-bind="localText: 'siteCollector.site.accessibility.label'">Accessibility:</span>
 					</label>
 					<select data-bind="" id="accessibility" class="form-control">
-						<option data-bind="localAttr{ value:'unknown' }" value="">unknown</option>
-						<option data-bind="localAttr{ value:'siteCollector.site.accessibility.yes' }" value="yes">voll rollstuhlgerecht</option>
-						<option data-bind="localAttr{ value:'siteCollector.site.accessibility.limited' }" value="limited">teilweise rollstuhlgerecht</option>
-						<option data-bind="localAttr{ value:'siteCollector.site.accessibility.no' }" value="no">nicht rollstuhlgerecht</option>
+						<option data-bind="localText: 'unknown' " value="">unknown</option>
+						<option data-bind="localText: 'siteCollector.site.accessibility.yes' " value="yes">voll rollstuhlgerecht</option>
+						<option data-bind="localText: 'siteCollector.site.accessibility.limited' " value="limited">teilweise rollstuhlgerecht</option>
+						<option data-bind="localText: 'siteCollector.site.accessibility.no' " value="no">nicht rollstuhlgerecht</option>
 					</select>
 					<!--<input data-bind="" id="openingHours" type="text" class="form-control" placeholder="description" data-bind="localAttribute: { placeholder: 'siteCollector.site.accessibility.description' }" />-->
 				</div>
 
-				<!--<div class="line photo">
-					<label for="addSitePhoto">
-						<span id="addSitePhotoContainer">
-							<div class="label"><i class="icon-picture"></i><br /><span class="translate">Select a picture</span></div>
-							<img />
-
-							<div class="remove"><i class="icon-remove-sign"></i></div>
-						</span>
-					</label>
-
-					<input type="file" id="addSitePhoto" accept="image/*;capture=camera">
-				</div>-->
 
 			</div>
 		</div>
@@ -169,7 +149,7 @@
 </div>
 <!-- /Site Collector -->
 
-<!-- Modal for category selection -->
+<!-- #region Modal for category selection -->
 <div class="modal fade in hidden" style="display: block; z-index: 1000000;" id="categorySelectionModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -211,6 +191,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-<!-- /categorySelectionModal -->
+<!-- #endregion /categorySelectionModal -->
 
 <div class="modal-backdrop fade in hidden"></div>

@@ -1,3 +1,6 @@
+/*
+	display the item to be created/edited on the map
+*/
 define([
     'services/tell',
     'services/map/mapAdapter',

@@ -15,6 +15,8 @@
 		//TODO: make locateContext private, all access to this has to be moved inside apiClient and its subclasses
 		locateContext: locateContext,
 
+		getLang: getLang,
+
 		getRealm: getRealm,
 		getRealmKey: getRealmKey,
 		getTaxonomy: getTaxonomy,
@@ -128,6 +130,9 @@
 		};
 		return locateContext
             .executeQuery(query)
+			.then(function (data) {
+				return data.results[0];
+			})
             .fail(function (error) {
             	var msg = breeze.saveErrorMessageService.getErrorMessage(error);
             	error.message = msg;
@@ -163,6 +168,10 @@
 		};
 		return locateContext
             .executeQuery(query)
+			.then(function (data) {
+				tell.log('countries loaded', 'apiClient', data.results);
+				return data.results;
+			})
             .fail(function (error) {
             	var msg = breeze.saveErrorMessageService.getErrorMessage(error);
             	error.message = msg;
@@ -179,6 +188,10 @@
 		};
 		return locateContext
             .executeQuery(query)
+			.then(function (data) {
+				tell.log('provinces loaded', 'apiClient', data.results);
+				return data.results;
+			})
             .fail(function (error) {
             	var msg = breeze.saveErrorMessageService.getErrorMessage(error);
             	error.message = msg;
@@ -220,7 +233,6 @@
             });
 	} //GetStreets
 
-
 	//#endregion Lookups
 
 	//#region Entries
@@ -234,10 +246,10 @@
 		return locateContext
 			.executeQuery(query)
             .fail(function (error) {
-                var msg = breeze.saveErrorMessageService.getErrorMessage(error);
-                error.message = msg;
-                tell.error("Die Angebote der Region konnten nicht geladen werden. Sie können versuchen Sie die Seite neu aufzurufen.", 'apiClient', error);
-                throw error;
+            	var msg = breeze.saveErrorMessageService.getErrorMessage(error);
+            	error.message = msg;
+            	tell.error("Die Angebote der Region konnten nicht geladen werden. Sie können versuchen Sie die Seite neu aufzurufen.", 'apiClient', error);
+            	throw error;
             });
 	}
 
@@ -251,7 +263,8 @@
             .executeQuery(query)
             .then(function (d) {
             	var item = d.results[0];
-            	self.locationToEdit(item);
+            	//self.locationToEdit(item);
+            	return item;
             })
             .fail(function (error) {
             	tell.error("Location data could not be loaded: " + error.message, 'locate - getLocation', error);
@@ -277,10 +290,9 @@
 			.saveChanges()
 			.fail(function (error) {
 				tell.error("Your entries couldn't be saved.\nReason: " + error.message, 'locate', error);
-		    });
+			});
 	}
 
 	//#endregion Updates
-
 
 });

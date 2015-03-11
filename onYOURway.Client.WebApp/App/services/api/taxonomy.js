@@ -1,23 +1,32 @@
 define([
     'services/tell',
     'services/api/apiClient',
-    'services/map/settings',
-	'services/app'
-], function (tell, apiClient, settings, app) {
+    'services/map/settings'
+], function (tell, apiClient, settings) {
+
+	var _lang = null;
 
 	var self = {
 
-		loadTaxonomy: loadTaxonomy,
+		initialize: initialize,
 
+		loadTaxonomy: loadTaxonomy,
 		categories: ko.observableArray([]),
 
     };
     return self;
 
-    function loadTaxonomy(realm, lang) {
-        apiClient.getTaxonomy(realm, lang()) //TODO: condider how to model this to keep module independant form app but still avoid redundancy
+    function initialize(lang) {
+    	_lang = lang;
+    }
+
+    function loadTaxonomy(lang) {
+        apiClient.getTaxonomy(lang || _lang())
             .then(function (d) {
                 var categories = d.results[0];
+                tell.log("taxonomy  loaded", 'taxonomy service - loadTaxonomy', categories);
+                self.categories(categories);
+                return caregories;
 
                 ////TODO: move this code onto the server
                 //$.each(categories, function(key, val) {
@@ -39,12 +48,7 @@ define([
                 //        val.active = ko.observable(false);
                 //    }
                 //});
-
-                tell.log("taxonomy with " + categories.length + " top level categories loaded", 'taxonomy service - loadTaxonomy', categories);
-                self.categories(categories);
             });
-
-    }
-
+    } //loadTaxonomy
 
 });

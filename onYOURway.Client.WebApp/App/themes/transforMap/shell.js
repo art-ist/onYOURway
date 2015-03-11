@@ -33,28 +33,28 @@ define([
   	app.location.settings.disableDetails = true;
 
     var routes = [
-        { moduleId: 'vonMorgen/home',         route: ['', 'home', 'start'],                           title: ''               }
-      , { moduleId: 'regions',                route: ['regions', 'regionen'],                         title: 'Regionen'       }
-      , { moduleId: 'discover',               route: ['map', 'karte', 'discover', 'erkunden'],        title: 'Erkunden'       }
-      , { moduleId: 'search',                 route: ['search', 'suche'],                             title: 'Suchen'         }
-      , { moduleId: 'siteCollector',       route: ['siteCollector', 'siteCollector', 'add'],    title: 'Neuer Eintrag'  }
+        { moduleId: 'vonMorgen/home',         route: ['', 'home', 'start'],                         title: ''               }
+      , { moduleId: 'regions',                route: ['regions', 'regionen'],                       title: 'Regionen'       }
+      , { moduleId: 'discover',               route: ['map', 'karte', 'discover', 'erkunden'],      title: 'Erkunden'       }
+      , { moduleId: 'search',                 route: ['search', 'suche'],                           title: 'Suchen'         }
+      , { moduleId: 'siteCollector',		  route: ['add', 'edit/:id'],							title: 'Neuer Eintrag'  }
 
-      , { moduleId: 'my/login',               route: ['my/login'],                                    title: 'Anmelden'       }
-      , { moduleId: 'my/registration',        route: ['my/registration'],                             title: 'Registrieren'   }
-      , { moduleId: 'my/registrationExt',     route: ['my/registrationExt'],                          title: 'Registrieren'   }
-      , { moduleId: 'my/profile',             route: ['my/profile++'],                                title: 'Profil'         }
-      , { moduleId: 'my/wizardNew',           route: ['my/wizardNew++'],                              title: 'Neuer Eintrag'  }
-      , { moduleId: 'my/shoppingList',        route: ['my/shoppingList'],                             title: 'Einkaufsliste'  }
+      , { moduleId: 'my/login',               route: ['my/login'],                                  title: 'Anmelden'       }
+      , { moduleId: 'my/registration',        route: ['my/registration'],                           title: 'Registrieren'   }
+      , { moduleId: 'my/registrationExt',     route: ['my/registrationExt'],                        title: 'Registrieren'   }
+      , { moduleId: 'my/profile',             route: ['my/profile++'],                              title: 'Profil'         }
+      , { moduleId: 'my/wizardNew',           route: ['my/wizardNew++'],                            title: 'Neuer Eintrag'  }
+      , { moduleId: 'my/shoppingList',        route: ['my/shoppingList'],                           title: 'Einkaufsliste'  }
 
-      , { moduleId: 'about/explorer',         route: ['about/explorer++', 'ueber/entdecker++'],       title: 'Entdecker'      }
-      , { moduleId: 'about/venture',          route: ['about/venture++', 'ueber/anbieter++'],         title: 'Anbieter'       }
-      , { moduleId: 'about/region',           route: ['about/region++', 'ueber/regionen++'],          title: 'Region'         }
+      , { moduleId: 'about/explorer',         route: ['about/explorer++', 'ueber/entdecker++'],     title: 'Entdecker'      }
+      , { moduleId: 'about/venture',          route: ['about/venture++', 'ueber/anbieter++'],       title: 'Anbieter'       }
+      , { moduleId: 'about/region',           route: ['about/region++', 'ueber/regionen++'],        title: 'Region'         }
 
-      , { moduleId: 'about/onyourway',        route: ['about/onyourway++', 'ueber/onyourway++'],      title: 'Über'           }
-      , { moduleId: 'about/privacy',          route: ['about/privacy', 'ueber/privatsphaere'],        title: 'Privatsphäre'   }
-      , { moduleId: 'about/impress',          route: ['about/impress', 'ueber/impressum'],            title: 'Impressum'      }
+      , { moduleId: 'about/onyourway',        route: ['about/onyourway++', 'ueber/onyourway++'],    title: 'Über'           }
+      , { moduleId: 'about/privacy',          route: ['about/privacy', 'ueber/privatsphaere'],      title: 'Privatsphäre'   }
+      , { moduleId: 'about/impress',          route: ['about/impress', 'ueber/impressum'],          title: 'Impressum'      }
 
-      , { moduleId: 'about/_preview',         route: ['about/preview', 'ueber/demo'],                 title: 'Public Preview' }
+      , { moduleId: 'about/_preview',         route: ['about/preview', 'ueber/demo'],               title: 'Public Preview' }
     ];
     //add parameters to route with ++
     for (var i = 0; i < routes.length; i++) {

@@ -276,15 +276,15 @@ Begin
 			c.Visible,
 			(
 				Select
-					cn.Locale,
+					LTrim(cn.Locale) As Locale,
 					cn.Name,
 					cn.[Description],
 					cn.Visible
 				From
 					oyw.CategoryNames cn 
 				Where 
-					cn.CategoryId = c.Id And (cn.Locale Is Null Or cn.Locale = '' Or cn.Locale = @Locale)
-				For Xml Path('name'), Type
+					cn.CategoryId = c.Id And (@Locale = '' Or cn.Locale Is Null Or cn.Locale = '' Or cn.Locale = @Locale)
+				For Xml Path('Names'), Type
 			),
 			r.FromCategoryId As ParentId,
 			oyw.GetSubCategoriesXml(c.Id, @Locale)
@@ -297,14 +297,14 @@ Begin
 			And
 			r.RelationshipType = 'subClassOf'
 			And
-			Exists (Select * From oyw.CategoryNames _cn Where _cn.CategoryId = c.Id And (_cn.Locale Is Null Or _cn.Locale = '' Or _cn.Locale = @Locale))
-        For Xml Path('category'), Type
+			(@Locale = '' Or Exists (Select * From oyw.CategoryNames _cn Where _cn.CategoryId = c.Id And (_cn.Locale Is Null Or _cn.Locale = '' Or _cn.Locale = @Locale)))
+        For Xml Path('Categories'), Type
     )
 End;
 go
--- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000265', 'de');
--- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000001', 'de');
--- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000001', 'en');
+-- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000265', 'de') For XML Path(''), Root('Taxonomy');
+-- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000001', 'de') For XML Path(''), Root('Taxonomy');
+-- Select oyw.GetSubCategoriesXml('00000000-0000-0000-0000-000000000001', 'en') For XML Path(''), Root('Taxonomy');
 
 If Object_Id('oyw.SearchSuggestions') Is Not Null Drop Proc oyw.SearchSuggestions;
 go

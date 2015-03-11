@@ -341,7 +341,7 @@ namespace onYOURway.Controllers {
 			using (SqlCommand cd = new SqlCommand()) {
 				cd.Connection = (SqlConnection)db.Context.Database.Connection;
 				cd.CommandType = System.Data.CommandType.Text;
-				cd.CommandText = "Select oyw.GetSubCategoriesXml(@parentId, @locale);";
+				cd.CommandText = "Select oyw.GetSubCategoriesXml(@parentId, @locale) For XML Path(''), Root('Taxonomy');";
 				cd.Parameters.AddWithValue("@parentId", Id);
 				cd.Parameters.AddWithValue("@locale", Locale);
 				cd.Connection.Open();
@@ -356,8 +356,8 @@ namespace onYOURway.Controllers {
 				}
 			}
 			XmlDocument doc = new XmlDocument();
-			doc.LoadXml("<x>" + xml + "</x>");
-			return doc.GetElementsByTagName("x").Item(0);
+			doc.LoadXml(xml);
+			return doc;
 		} //GetTaxonomy
 
 		#endregion Taxonomy

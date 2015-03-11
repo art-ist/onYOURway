@@ -91,7 +91,7 @@ define([
 		//TODO: baseMap used in _nav.html for menu links. move into _nav.js!
 		baseMap: map.baseMap,
 
-		loadTaxonomy: loadTaxonomy,
+		loadTaxonomy: taxonomy.loadTaxonomy,
 
 		//TODO: remove my/wizardNew and all its dependencies  (loactionToEdit)
 		loactionToEdit: apiClient.locationToEdit,
@@ -110,6 +110,8 @@ define([
 		locate.sortBy.subscribe(function (newValue) {
 			locate.mapLocations(locate.mapLocations().sort(newValue.Sorter));
 		});
+
+		taxonomy.initialize(lang);
 	} //initialize
 
 	function initializeMap(containerId) {
@@ -139,10 +141,6 @@ define([
 			tell.error(e.message, 'locate', e);
 		}
 	} //initializeMap
-
-	function loadTaxonomy(lang) {
-		taxonomy.loadTaxonomy(locate.realm, lang);
-	}
 
 	function loadRegionFeatures() {
 		places.loadPlaces(locate);

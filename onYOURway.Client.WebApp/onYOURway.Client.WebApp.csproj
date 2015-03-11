@@ -88,6 +88,8 @@
     <Content Include="App\themes\transforMap\images\favicon.ico" />
     <Content Include="App\views\transforMap\_nav.html" />
     <Content Include="App\views\transforMap\_nav.js" />
+    <Content Include="App\_libraries\jslinq.js" />
+    <Content Include="App\_libraries\jslinq.min.js" />
     <Content Include="App\_libraries\knockout-3.3.0.js" />
     <Content Include="App\_libraries\knockout-3.3.0.min.js" />
     <Content Include="TransforMap.html" />
