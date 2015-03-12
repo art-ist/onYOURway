@@ -35,7 +35,7 @@
     placesLayer.initialize(vm);
     search.initialize(vm);
     searchSuggestions.loadSearchSuggestions(ko.observable('de'));
-    taxonomy.loadTaxonomy();
+    taxonomy.loadTaxonomy(ko.observable('de'));
     siteCollectorLayer.initialize();
   }
 

@@ -63,12 +63,12 @@ define([
     }
 
     function replaceLayer(oldLayer, newLayer) {
-        if (oldLayer)
-            removeLayer(oldLayer);
+        if (oldLayer) removeLayer(oldLayer);
         addLayer(newLayer);
     }
 
     function addLayer(layer) {
+    	tell.log('adding layer', 'map', layer);
         return  map.addLayer(layer);
     }
 
@@ -80,8 +80,14 @@ define([
         return map.on(eventHandler);
     }
 
-    function fitBounds(bbox) {
-        return map.fitBounds(bbox);
+    function fitBounds(bbox, options) {
+    	//http://leafletjs.com/reference.html#map-fitboundsoptions
+        return map.fitBounds(bbox, options);
+    }
+
+    function fitWorld(options) {
+    	//http://leafletjs.com/reference.html#map-fitboundsoptions
+    	return map.fitBounds(options);
     }
 
     function setView(center, zoom) {
@@ -115,6 +121,5 @@ define([
         tell.log('called', 'baseMap About Osm');
         window.open('http://www.openstreetmap.org/about');
     }
-
 
 });

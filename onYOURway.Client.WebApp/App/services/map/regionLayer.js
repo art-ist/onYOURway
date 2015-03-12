@@ -18,16 +18,34 @@ define([
 
 	function loadRegions() {
 		require(['services/api/apiClient'], function (apiClient) {
+			//change to getrealminfo - loading all regions
 			return apiClient.getRegions()
 				.then(function (d) {
 					var regions = d.results;
 					tell.log(regions.length + " Regions found", 'regionLayer');
 					self.regions(regions);
 					//TODO: Set first region as default -> select default region based on  settings / current location
-					setRegion(0);
+
+					tell.log('TODO: get default region and maps')
+					if (regions.length) {
+						//get realm.DefaultRegionKey
+						if (defaultRegionKey) {
+							//get users last used region or
+							//find DefaultRegion and set
+							//setRegion(defultRegion);
+							setRegion(0);
+						}
+						else { //no default region
+							//set view to realm or world
+							map.fitWorld();
+						}
+					}
+					else { // no regions
+						//set view to realm or world
+					}
 				});
 		});
-	}
+	} //loadRegions
 
 	function setRegion(index) {
 		tell.log('setting region', 'regionLayer', index);

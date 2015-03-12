@@ -105,13 +105,13 @@ define([
 
 		locate.realm = realm;
 		apiClient.initialize(realm, lang);
+		taxonomy.initialize(lang);
 
 		locate.sortBy(locate.sortOptions[0]);
 		locate.sortBy.subscribe(function (newValue) {
 			locate.mapLocations(locate.mapLocations().sort(newValue.Sorter));
 		});
 
-		taxonomy.initialize(lang);
 	} //initialize
 
 	function initializeMap(containerId) {
@@ -120,10 +120,10 @@ define([
 		try {
 			tell.log('initializing the map control', 'locate', containerId);
 			map.initializeMapControl(containerId);
+			tell.log('initializing regionLayer', 'locate', containerId);
+			regionLayer.loadRegions();
 			tell.log('initializing setTileLayer', 'locate', containerId);
 			tileLayer.setTileLayer(0);
-			//tell.log('initializing regionLayer', 'locate', containerId);
-			//regionLayer.loadRegions();
 			//tell.log('initializing placeLayer', 'locate', containerId);
 			//placesLayer.initialize(locate);
 			//tell.log('initializing placeSearch', 'locate', containerId);

@@ -261,7 +261,7 @@ go
 
 If Object_Id('oyw.GetSubCategoriesXml') Is Not Null Drop Function oyw.GetSubCategoriesXml;
 go
-Create Function oyw.GetSubCategoriesXml(@parentId as uniqueidentifier, @Locale varchar(2) = '') Returns Xml
+Create Function oyw.GetSubCategoriesXml(@parentId as uniqueidentifier, @Locale varchar(2) = null) Returns Xml
 Begin
     Return (
 		Select
@@ -275,16 +275,19 @@ Begin
 			c.ValueOptions,
 			c.Visible,
 			(
-				Select
-					LTrim(cn.Locale) As Locale,
+				Select Top 1
+					RTrim(cn.Locale) As Locale,
 					cn.Name,
-					cn.[Description],
-					cn.Visible
+					cn.[Description]
 				From
 					oyw.CategoryNames cn 
 				Where 
-					cn.CategoryId = c.Id And (@Locale = '' Or cn.Locale Is Null Or cn.Locale = '' Or cn.Locale = @Locale)
-				For Xml Path('Names'), Type
+					cn.CategoryId = c.Id 
+					And 
+					(@Locale Is null Or cn.Locale Is Null Or cn.Locale = '' Or cn.Locale = @Locale)
+				Order By 
+					cn.Locale Desc, cn.Visible Desc, cn.Name
+				For Xml Path(''), Type
 			),
 			r.FromCategoryId As ParentId,
 			oyw.GetSubCategoriesXml(c.Id, @Locale)
@@ -297,7 +300,7 @@ Begin
 			And
 			r.RelationshipType = 'subClassOf'
 			And
-			(@Locale = '' Or Exists (Select * From oyw.CategoryNames _cn Where _cn.CategoryId = c.Id And (_cn.Locale Is Null Or _cn.Locale = '' Or _cn.Locale = @Locale)))
+			(@Locale Is null Or Exists (Select * From oyw.CategoryNames _cn Where _cn.CategoryId = c.Id And (_cn.Locale Is Null Or _cn.Locale = '' Or _cn.Locale = @Locale)))
         For Xml Path('Categories'), Type
     )
 End;

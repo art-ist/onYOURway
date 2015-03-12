@@ -74,19 +74,21 @@
 						<span class="visible-xs"> &nbsp;Ansicht</span>
 					</a>
 					<ul class="dropdown-menu">
-						<!-- ko foreach: -->
-						<li class="dropdown-header">Demo (Baden)</li>
-						<!-- /ko -->
-						<li class="dropdown-header" data-bind="text: locate.region.Name">Zoom</li>
-						<!-- ko foreach: locate.views -->
+
+						<!-- ko if: locate.region.maps -->
+						<li class="dropdown-header" data-bind="text: locate.region.Name">RegionName</li>
+						<!-- ko foreach: locate.region.maps -->
 						<li><a href="#" data-bind="text: Name, click: function () { $root.locate.setView($index()); }">Name</a></li>
 						<!-- /ko -->
-
 						<li class="divider"></li>
+						<!-- /ko -->
+
 						<li class="dropdown-header">Region</li>
-						<li class="disabled"><a href="#/regionen">Region wählen</a></li>
-
+						<!-- ko foreach: locate.regions -->
+						<li class="disabled"><a href="#" data-bind="text: Name, attr:{ href: '#/map/' + Key }">RegionName</a></li>
+						<!-- /ko -->
 						<li class="divider"></li>
+
 						<li class="dropdown-header">Kartenstil</li>
 						<!-- ko foreach: locate.tileLayers -->
 						<li><a href="#" data-bind="click: function () { $root.locate.setTileLayer($index()); }"><span data-bind="text: Name"></span> <i class="fa fa-check" data-bind="visible: $data === $root.locate.activeTileLayer()"></i></a></li>
@@ -95,7 +97,6 @@
 					</ul>
 				</li>
 				<!--View-->
-				
 				<!--My-->
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -118,38 +119,40 @@
 						<li class="divider"></li>
 						<li><a href="#" data-bind="click: app.auth.logout">Abmelden</a></li>
 						<!-- /ko -->
+					</ul>
+				</li>
+				<!--My-->
+				<!--About-->
+				<li class="dropdown navbar-header">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bind="css: {open: function() { return $(this).css('open'); } }">
+						<i class="fa fa-info fa-fw visible-xs pull-left"></i>
+						<span data-bind="localText: 'nav.about.title'">About</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-header" data-bind="localText: 'nav.about.title'">About</li>
+						<li><a href="#/about">TransforMap</a></li>
+
 						<li class="divider"></li>
+
+						<li class="dropdown-header" data-bind="localText: 'nav.about.basemap'">Base Map</li>
+						<li><a href="#" data-bind="click: locate.baseMap.open">OpenStreetMap</a></li>
+						<li><a href="http://www.openstreetmap.org/about" data-bind="click: locate.baseMap.about">About OSM</a></li>
+						<li class=""><a href="#" data-bind="click: locate.baseMap.edit">Edit OSM</a></li>
+					</ul>
+				</li>
+				<!--About-->
+				<!--Locale-->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<span class="" data-bind="text: $root.app.lang().toUpperCase()"></span>
+					</a>
+					<ul class="dropdown-menu">
 						<!-- ko foreach: app.langs -->
 						<li><a href="#" data-bind="click: function () { $root.app.setLang($data.id) }"><span data-bind="text: $data.name">English</span> <i class="fa fa-check" data-bind="visible: $root.app.lang() === $data.id"></i></a></li>
 						<!-- /ko -->
 					</ul>
 				</li>
-				<!--My-->
-				<!--onYOURway-->
-				<li class="dropdown navbar-header">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bind="css: {open: function() { return $(this).css('open'); } }">
-						<i class="fa fa-info fa-fw visible-xs pull-left"></i>
-						<span class="hidden-xs">About</span>
-						<span class="visible-xs"> &nbsp;About</span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Start</a></li>
-
-						<li class="divider"></li>
-						<li class="dropdown-header">Base Map</li>
-						<li><a href="#" data-bind="click: locate.baseMap.open">OpenStreetMap</a></li>
-						<li><a href="http://www.openstreetmap.org/about" data-bind="click: locate.baseMap.about">About OSM</a></li>
-						<li class=""><a href="#" data-bind="click: locate.baseMap.edit">Edit OSM</a></li>
-
-						<li class="divider"></li>
-						<li class="dropdown-header">Über</li>
-						<li><a href="#/about/privacy">Privatsphäre</a></li>
-						<!--<li><a href="#">Kontakt</a></li>-->
-						<li><a href="#/about/impress">Impressum</a></li>
-					</ul>
-				</li>
-				<!--onYOURway-->
-
+				<!--Locale-->
 			</ul>
 		</nav>
 		<!--/nav-->
