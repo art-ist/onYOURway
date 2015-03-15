@@ -13,6 +13,7 @@ define([
         addLayer: addLayer,
         on: addEventHandler,
         fitBounds: fitBounds,
+        fitWorld: fitWorld,
         setView: setView,
         containerPointToLatLng: containerPointToLatLng,
         invalidateSize: invalidateSize,
@@ -87,7 +88,7 @@ define([
 
     function fitWorld(options) {
     	//http://leafletjs.com/reference.html#map-fitboundsoptions
-    	return map.fitBounds(options);
+        return map.fitWorld(options);
     }
 
     function setView(center, zoom) {

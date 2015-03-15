@@ -28,8 +28,9 @@ define([
 
 					tell.log('TODO: get default region and maps')
 					if (regions.length) {
-						//get realm.DefaultRegionKey
-						if (defaultRegionKey) {
+					    //get realm.DefaultRegionKey
+                        // TODO: if defaultRegionKey not in config, lookup from server for current realm
+						if (config.defaultRegionKey) {
 							//get users last used region or
 							//find DefaultRegion and set
 							//setRegion(defultRegion);
@@ -41,14 +42,17 @@ define([
 						}
 					}
 					else { // no regions
-						//set view to realm or world
+					    //set view to realm or world
+					    map.fitWorld();
 					}
 				});
 		});
 	} //loadRegions
 
 	function setRegion(index) {
-		tell.log('setting region', 'regionLayer', index);
+	    tell.log('setting region', 'regionLayer', index);
+
+	    map.fitWorld();
 		//if (typeof index == 'undefined' || index)
 		//	var regions = self.regions();
 		//self.selectedRegion(regions[index]);
