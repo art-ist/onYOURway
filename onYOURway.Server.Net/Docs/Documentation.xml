@@ -133,7 +133,7 @@
             Gets the complete taxonomy
             </summary>
         </member>
-        <member name="M:onYOURway.Controllers.LocateController.SearchSuggestions(System.String,System.String,System.String,System.String)">
+        <member name="M:onYOURway.Controllers.LocateController.GetSearchSuggestions(System.String,System.String,System.String,System.String)">
             <summary>
             Gets all features of the selected region as search suggestions (typeahead) for the main search box
             </summary>

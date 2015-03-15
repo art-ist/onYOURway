@@ -531,7 +531,7 @@
         <Point X="2.75" Y="15.72" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.048" Y="8.081" Height="0.182" Width="1.41" />
+        <Position X="0.058" Y="8.164" Height="0.182" Width="1.41" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="Maps" Type="onYOURway.Models.Map" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
@@ -542,7 +542,7 @@
         <Point X="2.75" Y="9.793" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.008" Y="1.454" Height="0.182" Width="0.764" />
+        <Position X="0.039" Y="1.454" Height="0.182" Width="0.764" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="Localizations" Type="onYOURway.Models.RegionLocalized" FixedToPoint="true">

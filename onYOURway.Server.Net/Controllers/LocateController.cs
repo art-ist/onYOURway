@@ -305,7 +305,7 @@ namespace onYOURway.Controllers {
 			if (string.IsNullOrEmpty(lang)) lang = GetLang();
 
 			var result = db.Context
-				.Tags
+				.Categories
 				.Select(t => new {
 					t.Id,
 					t.Type,
@@ -370,8 +370,8 @@ namespace onYOURway.Controllers {
 		/// <param name="Region">Key of the current region</param>
 		/// <param name="Locale">Language id e.g. "de"</param>
 		/// <returns>Search suggestions are only available in realm API</returns>
-		[HttpGet, Route("Locate/{Realm}/SearchSuggestions"), Route("Locate/{Realm}/{Region}/SearchSuggestions"), EnableQuery]
-		public IEnumerable<SearchSuggestion> SearchSuggestions(string Realm, string Region = "", string Classes = null, string Locale = null) {
+		[HttpGet, Route("Locate/{Realm}/GetSearchSuggestions"), Route("Locate/{Realm}/{Region}/GetSearchSuggestions"), EnableQuery]
+		public IEnumerable<SearchSuggestion> GetSearchSuggestions(string Realm, string Region = "", string Classes = null, string Locale = null) {
 			if (string.IsNullOrWhiteSpace(Locale)) Locale = GetLang();
 			if (string.IsNullOrWhiteSpace(Classes)) Classes = string.IsNullOrEmpty(Region)
 															? "category,location,city"

@@ -82,10 +82,10 @@ namespace onYOURway.Models {
 
 		#region Taxonomy EntitySets
 
-		public virtual DbSet<Category> Tags { get; set; }
-		public virtual DbSet<CategoryName> TagNames { get; set; }
-		public virtual DbSet<CategoryRelation> TagRelations { get; set; }
-		public virtual DbSet<EntryCategory> EntryTags { get; set; }
+		public virtual DbSet<Category> Categories { get; set; }
+		public virtual DbSet<CategoryName> CategoryNames { get; set; }
+		public virtual DbSet<CategoryRelation> CategoryRelations { get; set; }
+		public virtual DbSet<EntryCategory> EntryCategories { get; set; }
 
 		#endregion Taxonomy EntitySets
 
