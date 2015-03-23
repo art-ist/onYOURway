@@ -33,19 +33,20 @@ define([
   	app.location.settings.disableDetails = true;
 
     var routes = [
-        { moduleId: 'transforMap/home',			route: ['', 'home', 'start'],							title: ''               }
-      , { moduleId: 'siteCollector',			route: ['add', 'edit/:id'],								title: 'Neuer Eintrag'  }
+        { moduleId: 'transforMap/home',			route: ['', 'home', 'start'],							title: ''			}
+      , { moduleId: 'discover',					route: ['map'],											title: 'Map' }
+      , { moduleId: 'siteCollector',			route: ['add', 'edit/:id'],								title: 'New'		}
 
-      , { moduleId: 'my/login',					route: ['my/login'],									title: 'Anmelden'       }
-      , { moduleId: 'my/registration',			route: ['my/registration'],								title: 'Registrieren'   }
-      , { moduleId: 'my/registrationExt',		route: ['my/registrationExt'],							title: 'Registrieren'   }
-      , { moduleId: 'my/profile',				route: ['my/profile++'],								title: 'Profil'         }
+      , { moduleId: 'my/login',					route: ['my/login'],									title: 'Login'      }
+      , { moduleId: 'my/registration',			route: ['my/registration'],								title: 'Register'   }
+      , { moduleId: 'my/registrationExt',		route: ['my/registrationExt'],							title: 'Register'   }
+      , { moduleId: 'my/profile',				route: ['my/profile++'],								title: 'Profile'    }
 
-      //, { moduleId: 'about/onyourway',        route: ['about/onyourway++', 'ueber/onyourway++'],		title: 'Über'           }
-      //, { moduleId: 'about/privacy',          route: ['about/privacy', 'ueber/privatsphaere'],		title: 'Privatsphäre'   }
+      //, { moduleId: 'about/onyourway',        route: ['about/onyourway++', 'ueber/onyourway++'],		title: 'Über'       }
+      //, { moduleId: 'about/privacy',          route: ['about/privacy', 'ueber/privatsphaere'],		title: 'Privatsphäre' }
       , { moduleId: 'transforMap/impress', route: ['about', 'impress'], title: 'About' }
 
-      , { moduleId: 'about/_preview',			route: ['about/preview', 'ueber/demo'],					title: 'Public Preview' }
+      , { moduleId: 'about/_preview',			route: ['about/preview', 'ueber/demo'],					title: 'Preview'	}
     ];
     //add parameters to route with ++
     for (var i = 0; i < routes.length; i++) {
@@ -57,8 +58,8 @@ define([
     tell.log('routes set', '_shell', routes);
     return router
       //.buildNavigationModel()
-      .mapUnknownRoutes('home', 'UNKNOWN') //TODO: 'not found' -> create error message
-      .activate('home')
+      .mapUnknownRoutes('discover', 'UNKNOWN') //TODO: 'not found' -> create error message
+      .activate('discover')
     ;
   }
 
