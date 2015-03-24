@@ -88,7 +88,8 @@ define([
 
     function fitWorld(options) {
     	//http://leafletjs.com/reference.html#map-fitboundsoptions
-        return map.fitWorld(options);
+    	//return map.fitWorld(options);
+    	return map.fitBounds([[72, 0], [-72, 0]], { padding: [0, 0] });
     }
 
     function setView(center, zoom) {

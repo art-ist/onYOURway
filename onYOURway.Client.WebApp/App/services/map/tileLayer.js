@@ -12,8 +12,8 @@
         lyrk: { name: '© Lytk, 2014', longName: 'Design © Lyrk UG, 2014', uri: 'https://geodienste.lyrk.de/copyright' }
     };
     var attrib = function (tiles, lic) {
-        return 'Framework: <a href="https://github.com/art-ist/onYOURway">onYOURway</a>'
-            + '<br/>Locations: <a href="http://onYOURway.at">onYOURway (Preview/Testdata only)</a>'
+        return 'Locations: ' + config.realm + ''
+            + '<br/>Mapping App: <a href="https://github.com/art-ist/onYOURway">onYOURway</a>'
             + '<br/>Map Engine: <a href="http://leafletjs.com">Leaflet</a>'
             + '<br/>Map Tiles: ' + tiles + ' under <a href="' + lic.uri + '" title="' + lic.longName + '">' + lic.name + '</a>'
             + '<br/>Map Data: <a href="http://www.openstreetmap.org/about">OpenStreetMap</a> under <a href="' + licence.ODbL.uri + '" title="' + licence.ODbL.longName + '">' + licence.ODbL.name + '</a>'
