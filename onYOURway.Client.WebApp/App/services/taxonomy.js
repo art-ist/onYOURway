@@ -21,12 +21,11 @@ define([
     }
 
     function loadTaxonomy(lang) {
-        apiClient.getTaxonomy(lang || _lang())
-            .then(function (d) {
-                var categories = d.results[0];
-                tell.log("taxonomy  loaded", 'taxonomy service - loadTaxonomy', categories);
-                self.categories(categories);
-                return caregories;
+        return apiClient.getTaxonomy(lang || _lang())
+            .then(function (taxonomy) {
+            	tell.log("taxonomy  loaded", 'taxonomy service - loadTaxonomy', taxonomy);
+                self.categories(taxonomy.Categories);
+                return taxonomy.Categories;
 
                 ////TODO: move this code onto the server
                 //$.each(categories, function(key, val) {
@@ -48,7 +47,11 @@ define([
                 //        val.active = ko.observable(false);
                 //    }
                 //});
-            });
+            })
+			.fail(function () {
+
+			})
+    	;
     } //loadTaxonomy
 
 });

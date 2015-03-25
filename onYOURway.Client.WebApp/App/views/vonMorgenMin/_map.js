@@ -3,7 +3,7 @@
   'services/api/placeSearch',
   'services/api/placeComparators',
   'services/api/searchSuggestions',
-  'services/api/taxonomy',
+  'services/taxonomy',
   'services/map/mapAdapter',
   'services/map/placesLayer',
   'services/map/tileLayer',

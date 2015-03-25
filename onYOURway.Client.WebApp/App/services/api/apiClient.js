@@ -131,7 +131,8 @@
 		return locateContext
             .executeQuery(query)
 			.then(function (data) {
-				return data.results[0];
+				tell.log('taxonomy: categories loaded', 'apiClient', data.results);
+				return data.results[0].Taxonomy;
 			})
             .fail(function (error) {
             	var msg = breeze.saveErrorMessageService.getErrorMessage(error);

@@ -13,7 +13,7 @@ define([
 	'services/api/placeSearch',				// search locations/places by name, category, ...
 	'services/api/searchSuggestions',		// get search suggestions
 	'services/api/placeComparators',		// sorting places aka. locations
-	'services/api/taxonomy',				// manage taxonomy (categories former tags)
+	'services/taxonomy',					// manage taxonomy (categories former tags)
 
 	'services/map/mapAdapter',				// map
 	'services/map/settings',				// settings //TODO: move to apropriate services and app.config.js
@@ -91,7 +91,7 @@ define([
 		//TODO: baseMap used in _nav.html for menu links. move into _nav.js!
 		baseMap: map.baseMap,
 
-		loadTaxonomy: taxonomy.loadTaxonomy,
+		//loadTaxonomy: taxonomy.loadTaxonomy,
 
 		//TODO: remove my/wizardNew and all its dependencies  (loactionToEdit)
 		loactionToEdit: apiClient.locationToEdit,
@@ -130,8 +130,8 @@ define([
 			//placeSearch.initialize(locate)
 			//tell.log('initializing pointerLayer', 'locate', containerId);
 			//pointerLayer.initialize(placesLayer.selectedItem);
-			//tell.log('initializing siteCollectorLayer', 'locate', containerId);
-			//siteCollectorLayer.initialize();
+			tell.log('initializing siteCollectorLayer', 'locate', containerId);
+			siteCollectorLayer.initialize();
 			//tell.log('initializing routingLayer', 'locate', containerId);
 			//routingLayer.initialize(locate);
 			//tell.log('calling loadRegionFeatures', 'locate', containerId);

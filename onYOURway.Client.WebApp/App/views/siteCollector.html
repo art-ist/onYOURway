@@ -18,31 +18,30 @@
 
 				<div class="form-group">
 					<label for="addSiteDescription" data-bind="localText: 'siteCollector.site.description.label'">Description:</label>
-					<textarea data-bind="value: item.Description, localAttr: {placeholder: 'siteCollector.site.description.placeholder'}" class="form-control translatePlaceholder" id="addSiteDescription" placeholder="Please enter a description"></textarea>
+					<textarea data-bind="value: item.Description, localAttr: { placeholder: 'siteCollector.site.description.placeholder' }" placeholder="Please enter a description" class="form-control" id="addSiteDescription"></textarea>
 				</div>
 				<!-- #endregion Name/Description -->
-
 				<!-- #region Posiion-->
 				<div class="form-group">
 					<div class="btn btn-sm btn-warning pull-right selectPosition"><i class="fa fa-location-arrow"></i> <span data-bind="localText: 'siteCollector.currentLocation'">use current location</span></div>
-					<label for="addSiteLocationStreet" data-bind="localText: 'siteCollector.site.address'">Address:</label>
+					<label for="addSiteLocationStreet" data-bind="localText: 'siteCollector.site.address.title'">Address:</label>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input id="selectCountry" data-bind="value: item.CountryCode, select2: { query: getCountries, placeholder: 'Country' }" class="form-control input-group-c6" />
-						<input if="selectProvince" data-bind="value: item.ProvinceCode, select2: { query: getProvinces, placeholder: 'State/Province' }" class="form-control input-group-c6" />
+						<input id="selectCountry" data-bind="value: item.CountryCode, select2: { query: getCountries }, localAttr: { 'data-placeholder': 'siteCollector.site.address.country'}" class="form-control input-group-c6" data-placeholder="Country" />
+						<input if="selectProvince" data-bind="value: item.ProvinceCode, select2: { query: getProvinces, localAttr: { 'data-placeholder': 'siteCollector.site.address.province'}}" class="form-control input-group-c6" data-placeholder="State/Province" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input data-bind="value: item.Zip" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3" placeholder="PLZ" />
-						<input data-bind="value: item.City" id="addSiteLocationCity" type="text" class="form-control input-group-c9" placeholder="Stadt" />
+						<input data-bind="value: item.Zip, localAttr: { placeholder: 'siteCollector.site.address.postalCode' }" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3" placeholder="PLZ" />
+						<input data-bind="value: item.City, localAttr: { placeholder: 'siteCollector.site.address.city' }" id="addSiteLocationCity" type="text" class="form-control input-group-c9" placeholder="Stadt" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input data-bind="value: item.Street" id="addSiteLocationStreet" type="text" class="form-control input-group-c9" placeholder="Straße" />
-						<input data-bind="value: item.HouseNumber" id="addSiteLocationNr" type="text" class="form-control input-group-c3" placeholder="Nr." />
+						<input data-bind="value: item.Street, localAttr: { placeholder: 'siteCollector.site.address.street' }" id="addSiteLocationStreet" type="text" class="form-control input-group-c9" placeholder="Straße" />
+						<input data-bind="value: item.HouseNumber, localAttr: { placeholder: 'siteCollector.site.address.number' }" id="addSiteLocationNr" type="text" class="form-control input-group-c3" placeholder="Nr." />
 					</div>
 				</div>
 				<div class="form-group">
@@ -51,8 +50,8 @@
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input data-bind="value: latitude" id="addSiteLocationLat" type="text" class="form-control locationLat input-group-c6" placeholder="Breitengrad" />
-						<input data-bind="value: longitude" id="addSiteLocationLng" type="text" class="form-control locationLng input-group-c6" placeholder="Längengrad" />
+						<input data-bind="value: latitude, localAttr: { placeholder: 'siteCollector.site.lat' }" id="addSiteLocationLat" placeholder="Latitude" type="text" class="form-control locationLat input-group-c6" />
+						<input data-bind="value: longitude, localAttr: { placeholder: 'siteCollector.site.long' }" id="addSiteLocationLng" type="text" placeholder="Longitude" class="form-control locationLng input-group-c6" />
 					</div>
 					<div class="line accuracy">
 						<div class="error hilight hidden"><span data-bind="localText: 'siteCollector.accuracy'">Position accuracy</span>: &plusmn;<span class="value"></span>m</div>
@@ -70,10 +69,11 @@
 					<div class="form-group">
 
 						<ul class="item-categories" data-bind="foreach: item.Categories">
-<!--							<li data-bind="text: $data.Category.Names || $data.Category.Names[0].Name"></li>-->
+							<li>TODO: lookup name and description and add template for values</li>
+							<!--<li data-bind="text: Name"></li>-->
 						</ul>
 
-						<button class="btn btn-warning btn-block" id="selectCategories" data-bind="click: toggleCategorySelection"><i class="icon-plus"></i> <span data-bind="localText: 'siteCollector.site.categories.select'">Select Categories</span></button>
+						<button class="btn btn-warning btn-block" id="selectCategories" data-bind="click: toggleCategorySelection"><i class="icon-plus"></i> <span data-bind="localText: 'siteCollector.site.categories.add'">Add Categories</span></button>
 					</div>
 				</div>
 
@@ -94,7 +94,7 @@
 				<div class="form-group">
 					<label for="addSitePhotoCaption" class="translate">Photo caption:</label>
 					<input id="addSitePhotoCaption" type="text" class="form-control photoCaption translatePlaceholder" placeholder="What is in the photo?" />
-				</div>					
+				</div>
 				<!--<div class="line photo">
 					<label for="addSitePhoto">
 						<span id="addSitePhotoContainer">
@@ -107,18 +107,16 @@
 
 					<input type="file" id="addSitePhoto" accept="image/*;capture=camera">
 				</div>-->
-
 				<!-- #endregion picture -- >
 
 
 				<!--opening_hours-->
-				
 				<!--opening hours-->
 				<div class="form-group">
 					<label>
 						<a href="http://openingh.openstreetmap.de/evaluation_tool" target=" _blank" data-bind="localText: 'siteCollector.site.openingHours.label', localAttr: {src: 'siteCollector.site.openingHours.evalTool'} ">Opening Hours</a>
 					</label>
-					<input data-bind="" id="openingHours" type="text" class="form-control" placeholder="Opening Hours (editor comming soon)" />
+					<input data-bind="value: opening" id="openingHours" type="text" class="form-control" />
 					<select data-bind="options: opening_hour_samples" id="openingHours_Select" class="form-control"></select>
 				</div>
 
@@ -148,15 +146,15 @@
 
 </div>
 <!-- /Site Collector -->
-
 <!-- #region Modal for category selection -->
 <div class="modal fade in hidden" style="display: block; z-index: 1000000;" id="categorySelectionModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click: toggleCategorySelection">×</button><h4 data-text="Select icons" class="modal-title translate">Select icons</h4>
-            </div>
-            <div class="modal-body">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-bind="click: toggleCategorySelection">×</button>
+				<h4 class="modal-title translate" data-bind="localText: 'siteCollector.site.categories.add'">Add Categories</h4>
+			</div>
+			<div class="modal-body">
 				<div class="open" data-bind="foreach: categories">
 					<div class="panel-group" id="accordion" data-bind="attr: { id: 'accordion' + Id }">
 						<div class="panel panel-default">
@@ -164,19 +162,19 @@
 								<h4 class="">
 									<a data-toggle="collapse" data-parent="#accordion" data-bind="attr: { 'data-parent': '#accordion' + Id, href: '#' + Id }" href="#group_172">
 										<i class="icon-plus"></i><i class="icon-minus"></i>
-										<span data-bind="text: $data.name.Name || $data.name[0].Name"></span>
+										<span data-bind="text: Name"></span>
 										<br />
-										<small data-bind="text: $data.name.Description"></small>
+										<small data-bind="text: $data.Description"></small>
 									</a>
 								</h4>
 							</div>
 							<div id="group_172" class="panel-collapse collapse" data-bind="attr: { id: Id }">
-								<div class="panel-body list-group" data-bind="foreach: category">
+								<div class="panel-body list-group" data-bind="foreach: Categories">
 
 									<a class="list-group-item" data-bind="attr: { id: Id }, click: function() {$root.toggleCategory($data)}, css: $root.categories.indexOf($data) >= 0 ? 'active' : ''">
 										<h5 class="m-t-n-xxs m-b-n-xxs translate">
-											<span data-bind="text: $data.name.Name || $data.name[0].Name"></span><br />
-											<small data-bind="text: $data.name.Description"></small>
+											<span data-bind="text: $data.Name || $data.Name"></span><br />
+											<small data-bind="text: $data.Description"></small>
 										</h5>
 									</a>
 								</div>
@@ -184,12 +182,12 @@
 						</div>
 					</div>
 				</div>
-            </div>
-            <div class="modal-footer">
-                <div data-text="Done" class="btn btn-success updateIcons translate" data-bind="click: toggleCategorySelection">Done</div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+			</div>
+			<div class="modal-footer">
+				<div data-text="Done" class="btn btn-success updateIcons translate" data-bind="click: toggleCategorySelection">Done</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
 </div>
 <!-- #endregion /categorySelectionModal -->
 

@@ -3,11 +3,11 @@ define([
         'services/tell',
         'services/api/apiClient',
         'services/api/placeSearch',
-        'services/api/taxonomy',
         'services/map/settings',
+        'services/taxonomy',
         'text!components/tagSelection-component.html'
     ],
-    function (router, tell, apiClient, placeSearch, taxonomyApi, settings, template) {
+    function (router, tell, apiClient, placeSearch, settings, taxonomy, template) {
 
         var taxonomy = ko.observable();
 
@@ -16,7 +16,7 @@ define([
             var self = this;
 
             self.showTagSelection = settings.showTagSelection;
-            self.taxonomy = taxonomyApi.taxonomy;
+            self.taxonomy = taxonomy;
 
 
             self.getCategoryCss = function (category) {

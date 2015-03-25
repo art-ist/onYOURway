@@ -1,21 +1,22 @@
 ﻿/// <reference path="../../Scripts/r.js" />
 define([
-	'services/map/settings',
 	'services/tell',
 	'services/api/apiClient',
 	'services/api/placeSearch',
-	'services/api/taxonomy',
+	'services/taxonomy',
 	'services/map/mapAdapter',
+	'services/map/settings',
 	'services/map/siteCollectorLayer',
 	'services/map/regionLayer',
 	'providers/geocode-nominatim'
-], function (settings, tell, apiClient, placeSearch, taxonomy, map, siteCollectorLayer, regionLayer, geocoder) {
+], function (tell, apiClient, placeSearch, taxonomy, map, settings, siteCollectorLayer, regionLayer, geocoder) {
 
 	var vm = function () {
 		var self = this;
 
+		//item to beedited
 		self.item = null;
-		self.mode = ko.observable('add');
+		self.mode = ko.observable('add'); //edit
 
 		// currently selected region
 		self.region = regionLayer.selectedRegion;
@@ -87,7 +88,9 @@ define([
 			placeSearch.searchResults([]);	//TODO: chenge to hide the layer not to clear the results
 
 			//load taxonomy
-			taxonomy.loadTaxonomy();
+			if (taxonomy.categories().length === 0) {
+				taxonomy.loadTaxonomy();
+			}
 
 			// enabling the site collector mode - makes map smaller and enables the site selection marker
 			settings.showSiteCollector(true);
@@ -98,8 +101,8 @@ define([
 		self.deactivate = function (queryString) {
 			// detach the currently edited entity from breeze database context
 			try {
-				if (self.entity && self.entity.Categories) {
-					$.each(self.entity.Categories(), function (key, val) {
+				if (self.item && self.item.Categories) {
+					$.each(self.item.Categories(), function (key, val) {
 						try {
 							if (val) {
 								apiClient.detachEntity(val);
@@ -109,8 +112,8 @@ define([
 						}
 					});
 				}
-				if (self.entity) {
-					apiClient.detachEntity(self.entity);
+				if (self.item) {
+					apiClient.detachEntity(self.item);
 				}
 			} catch (e2) {
 				tell.log("could not detach entity", "siteCollector - deactivate", e2);
@@ -143,11 +146,11 @@ define([
 		// save all changes of the currently edited entity to the database
 		self.submit = function () {
 			var noCoords = (!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0;
-			if (!self.entity.Name()) {
+			if (!self.item.Name()) {
 				tell.error("Please enter a name before saving", 'siteCollector - submit');
-			} else if (noCoords && (!self.entity.City())) {
+			} else if (noCoords && (!self.item.City())) {
 				tell.error("Please enter the city or select a location in the map before saving!", 'siteCollector - submit');
-			} else if (!self.entity.City()) {
+			} else if (!self.item.City()) {
 				addressSetter(saveChanges);
 			} else if (noCoords) {
 				markerSetter(saveChanges);
@@ -159,7 +162,7 @@ define([
 		// drop all unsaved changes and close the siteCollector
 		self.close = function () {
 			try {
-				self.entity && self.entityAspect && self.entity.entityAspect.rejectChanges();
+				self.item && self.entityAspect && self.item.entityAspect.rejectChanges();
 			} catch (e) {
 				tell.log("error rejecting changes", "siteCollector - close", e);
 			}
@@ -189,7 +192,7 @@ define([
 				// if category is currently selected, remove it and detach from breeze
 				self.categories.remove(category);
 				var EntryCategory;
-				$.each(self.entity.Categories(), function (key, val) {
+				$.each(self.item.Categories(), function (key, val) {
 					if (val && val.CategoryId && category && category.Id == val.CategoryId()) {
 						apiClient.detachEntity(val);
 					}
@@ -255,7 +258,7 @@ define([
 		// set the marker in the map based on the current address of the entity
 		// optionally call the provided callback function on success
 		var markerSetter = function (callback) {
-			var addr = self.entity;
+			var addr = self.item;
 			var addr_str = (addr.Street() || '') + (addr.Street() && addr.HouseNumber() && ' ') + (addr.HouseNumber() || '')
 				+ ((addr.Street() || addr.HouseNumber()) && (addr.Zip() || addr.City()) && ', ')
 				+ (addr.Zip() || '') + (addr.Zip() && addr.City() && ' ') + (addr.City() || '')
@@ -282,12 +285,12 @@ define([
 			geocoder.getAddress([self.longitude(), self.latitude()]).done(function (res) {
 				var addr = res && res.address;
 				if (addr) {
-					self.entity.Street(addr.Street || '');
-					self.entity.HouseNumber(addr.HouseNumber || '');
-					self.entity.City(addr.City || '');
-					self.entity.Country(addr.Country || '');
-					self.entity.Province(addr.Province || '');
-					self.entity.Zip(addr.Zip || '');
+					self.item.Street(addr.Street || '');
+					self.item.HouseNumber(addr.HouseNumber || '');
+					self.item.City(addr.City || '');
+					self.item.Country(addr.Country || '');
+					self.item.Province(addr.Province || '');
+					self.item.Zip(addr.Zip || '');
 					if (callback) {
 						callback();
 					}
@@ -302,12 +305,12 @@ define([
 		// try to determine not yet entered address OR geolocation by geocoding 
 		// save all changes to the database
 		var saveChanges = function () {
-			if (!self.entity.City()) {
+			if (!self.item.City()) {
 				tell.error("Please enter the city before saving!", 'siteCollector - saveChanges');
 			} else if ((!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0) {
 				tell.error("Please select a location in the map before saving!", 'siteCollector - saveChanges');
 			} else if (apiClient.hasChanges()) {
-				self.entity.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
+				self.item.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
 				apiClient.saveChanges()
                     .then(function () {
                     	tell.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
