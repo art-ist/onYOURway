@@ -20,6 +20,7 @@
 		getRealm: getRealm,
 		getRealmKey: getRealmKey,
 		getTaxonomy: getTaxonomy,
+		getCategories: getCategories,
 		getCountries: getCountries,
 		getProvinces: getProvinces,
 		getCities: getCities,
@@ -138,6 +139,25 @@
             	var msg = breeze.saveErrorMessageService.getErrorMessage(error);
             	error.message = msg;
             	tell.logError("Loading Categories failed.", 'locate - getTaxonomy', error);
+            	throw error;
+            });
+	} //getTaxonomy
+
+	function getCategories() {
+		var query = breeze.EntityQuery.from("Categories");
+		query.parameters = {
+			Locale: getLang()
+		};
+		return locateContext
+            .executeQuery(query)
+			.then(function (data) {
+				//tell.log('categories loaded', 'apiClient', data);
+				return data.results;
+			})
+            .fail(function (error) {
+            	var msg = breeze.saveErrorMessageService.getErrorMessage(error);
+            	error.message = msg;
+            	tell.logError("Loading Categories failed.", 'apiClient', error);
             	throw error;
             });
 	} //getTaxonomy

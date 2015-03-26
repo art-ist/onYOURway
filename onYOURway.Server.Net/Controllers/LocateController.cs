@@ -239,7 +239,7 @@ namespace onYOURway.Controllers {
 			return db.Context
 				.Locations
 				.Include("Localizations")
-				.Include("Categories")
+				.Include("Categories.Category.Names")
 				.Include("Links")
 				;
 		}

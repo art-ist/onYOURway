@@ -29,6 +29,8 @@ define([
 		self.countryCode = null;
 		self.provinces = [];
 
+		self.LNames = LNames;
+
 		// opening hours that can be selected in the opening hours dropdown
 		self.opening_hour_samples = [
 			'Mo-Fr 09:00-18:00; PH closed',
@@ -36,6 +38,16 @@ define([
 			'Mo,Tu,Th,Fr 12:00-18:00; Sa 12:00-17:00; PH closed',
 			'Mo,Tu,Th,Fr 8:00-12:00, 14:00-18:00; We 08:00-12:00, 14:00-20:00; Sa 08:00-16:00; PH closed',
 			'09:00-16:00; Su,PH closed'
+		];
+		self.opening_hour_block_samples = [
+			'Sa 09:00-13:00',
+			'Mo-Fr 09:00-18:00',
+			'Mo,Tu,Th,Fr 12:00-18:00',
+			'We 08:00-12:00, 14:00-20:00',
+			'Mo,Tu,Th,Fr 8:00-12:00, 14:00-18:00',
+			'09:00-16:00',
+			'PH closed',
+			'Su,PH closed'
 		];
 
 		// computed observable connects the latitude input field with siteCollectorLayer.markerGeoLocation (which is connected to the map marker)
@@ -89,7 +101,9 @@ define([
 
 			//load taxonomy
 			if (taxonomy.categories().length === 0) {
-				taxonomy.loadTaxonomy();
+				//TODO: don't load both versions
+				taxonomy.loadTaxonomy();	//simple localized json for picker
+				taxonomy.loadCategories();	//entities for selection
 			}
 
 			// enabling the site collector mode - makes map smaller and enables the site selection marker
@@ -373,5 +387,23 @@ define([
 
 	} // vm
 	return vm;
+
+	//function LNames(item, property) {
+	//	var locale = 'de';
+	//	if (!item.Names) {
+	//		return null;
+	//	}
+	//	var names = item.Names();
+	//	var neutral = null;
+	//	for (var i = 0; i < names.length; i++) {
+	//		if (names[i].Locale && names[i].Locale() === locale) {
+	//			return names[i][property];
+	//		}
+	//		else if (!names[i].Locale || names[i].Locale() === '') {
+	//			neutral = names[i][property];
+	//		}
+	//	}
+	//	return neutral;
+	//}
 
 }); //module
