@@ -300,7 +300,16 @@ namespace onYOURway.Controllers {
 
 		#region Taxonomy
 
-		[HttpGet, EnableQuery]
+		[HttpGet, EnableBreezeQuery]
+		public dynamic Taxonomies(string Lang = null) {
+			if (string.IsNullOrEmpty(Lang)) Lang = GetLang();
+			return db.Context
+					.Realms
+					.Select(r => r.Taxonomy)
+					;
+		}
+
+		[HttpGet, EnableQuery, Route("Locate/{Realm}/Categories")]
 		public IQueryable<Category> Categories(string Realm = null, string lang = null) {
 			if (string.IsNullOrEmpty(lang)) lang = GetLang();
 			Guid TaxonomyId = db.Context.Realms.SingleOrDefault(r => r.Key == Realm).TaxonomyId;
@@ -330,13 +339,20 @@ namespace onYOURway.Controllers {
 
 		}
 
-		[HttpGet, EnableBreezeQuery]
-		public dynamic Taxonomies(string Lang = null) {
-			if (string.IsNullOrEmpty(Lang)) Lang = GetLang();
-			return db.Context
-					.Realms
-					.Select(r => r.Taxonomy)
-					;
+		[HttpGet, EnableQuery, Route("Locate/{Realm}/Category/{Id}"), Route("Locate/Category/{Id}")]
+		public Category Category(Guid Id, string Realm = null, string lang = null) {
+			if (string.IsNullOrEmpty(lang)) lang = GetLang();
+
+			IQueryable<Category> result = db.Context
+				.Categories
+				.Include("Names")
+				.Where(c => c.Id == Id)
+				;
+			if (string.IsNullOrEmpty(lang)) {
+				//get all having either a neutral name or one of the current lang
+				result = result.Where(t => t.Names.Any(n => n.Locale == lang || string.IsNullOrEmpty(n.Locale)));
+			}
+			return result.Single();
 		}
 
 		/// <summary>

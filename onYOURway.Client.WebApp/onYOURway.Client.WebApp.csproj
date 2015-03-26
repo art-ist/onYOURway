@@ -44,7 +44,7 @@
     <Content Include="App\components\tagSelection-component.html" />
     <Content Include="App\components\tagSelection-component.js" />
     <Content Include="App\mainMin.js" />
-    <Content Include="App\models\EntryCategories.js" />
+    <Content Include="App\models\clientModelExtensions.js" />
     <Content Include="App\services\api\apiClient.js" />
     <Content Include="App\services\api\placeComparators.js" />
     <Content Include="App\services\api\places.js" />

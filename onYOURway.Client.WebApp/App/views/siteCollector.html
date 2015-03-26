@@ -69,8 +69,8 @@
 					<div class="form-group">
 
 						<ul class="item-categories" data-bind="foreach: item.Categories">
-							<li>TODO: lookup name and description and add template for values</li>
-							<!--<li data-bind="text: Name"></li>-->
+							<!--<li>TODO: lookup name and description and add template for values</li>-->
+							<li data-bind="text: $data.CategoryId"></li>
 						</ul>
 
 						<button class="btn btn-warning btn-block" id="selectCategories" data-bind="click: toggleCategorySelection"><i class="icon-plus"></i> <span data-bind="localText: 'siteCollector.site.categories.add'">Add Categories</span></button>
@@ -160,7 +160,7 @@
 								<h4 class="">
 									<a data-toggle="collapse" data-parent="#accordion" data-bind="attr: { 'data-parent': '#accordion' + Id, href: '#' + Id }" href="#group_172">
 										<i class="icon-plus"></i><i class="icon-minus"></i>
-										<span data-bind="text: Name"></span>
+										<span data-bind="text: $data.Name"></span>
 										<br />
 										<small data-bind="text: $data.Description"></small>
 									</a>
@@ -168,9 +168,11 @@
 							</div>
 							<div id="group_172" class="panel-collapse collapse" data-bind="attr: { id: Id }">
 								<div class="panel-body list-group" data-bind="foreach: Categories">
-									<a class="list-group-item" data-bind="attr: { id: Id }, click: function() {$root.toggleCategory($data)}, css: $root.categories.indexOf($data) >= 0 ? 'active' : ''">
+									<a class="list-group-item" data-bind="attr: { id: Id }, 
+																		  click: function() {$root.toggleCategory($data)}, 
+																		  css: $root.categories.indexOf($data) >= 0 ? 'active' : '' ">
 										<h5 class="m-t-n-xxs m-b-n-xxs translate">
-											<span data-bind="text: $data.Name || $data.Name"></span><br />
+											<span data-bind="text: $data.Name"></span><br />
 											<small data-bind="text: $data.Description"></small>
 										</h5>
 									</a>
