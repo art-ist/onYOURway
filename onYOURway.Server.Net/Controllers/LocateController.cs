@@ -301,21 +301,31 @@ namespace onYOURway.Controllers {
 		#region Taxonomy
 
 		[HttpGet, EnableQuery]
-		public dynamic Categories(Guid? Realm = null, string lang = null) {
+		public IQueryable<Category> Categories(string Realm = null, string lang = null) {
 			if (string.IsNullOrEmpty(lang)) lang = GetLang();
+			Guid TaxonomyId = db.Context.Realms.SingleOrDefault(r => r.Key == Realm).TaxonomyId;
+			//Guid[] ids = db.Context.Database
+			//	.SqlQuery<Guid>("Select Id From oyw.GetSubCategoryIds(@parentId);"
+			//		, new SqlParameter("parentId", TaxonomyId)
+			//	).ToArray();
 
-			var result = db.Context
+			IQueryable<Category> result = db.Context
 				.Categories
-				.Select(t => new {
-					t.Id,
-					t.Type,
-					Names = t.Names.Where(n => t.Names.Any(_n => _n.Locale == lang) ? n.Locale == lang : string.IsNullOrEmpty(n.Locale)).Select(n => new { n.Name, Lang = n.Locale, Show = n.Visible }),
-					//TODO: fix query instead of just exchanging property names
-					//Children = t.Parents.Select(p => p.Id),
-					//Parents = t.Children.Select(c => c.Id)
-				})
-				.Where(t => t.Names.Any(n => n.Lang == lang || string.IsNullOrEmpty(n.Lang))) //get all having either a neutral name or one of the current lang
+				//go 7 levels deep
+				.Include("Names")
+				.Include("Children.ToCategory.Names")
+				.Include("Children.ToCategory.Children.ToCategory.Names")
+				.Include("Children.ToCategory.Children.ToCategory.Children.ToCategory.Names")
+				.Include("Children.ToCategory.Children.ToCategory.Children.ToCategory.Children.ToCategory.Names")
+				.Include("Children.ToCategory.Children.ToCategory.Children.ToCategory.Children.ToCategory.Children.ToCategory.Names")
+				.Include("Children.ToCategory.Children.ToCategory.Children.ToCategory.Children.ToCategory.Children.ToCategory.Children.ToCategory.Names")
+				.Where(c => c.Parents.Any(p => p.FromCategoryId == TaxonomyId))
+				//.Where(c => ids.Contains(c.Id))
 				;
+			if (string.IsNullOrEmpty(lang)) {
+				//get all having either a neutral name or one of the current lang
+				result = result.Where(t => t.Names.Any(n => n.Locale == lang || string.IsNullOrEmpty(n.Locale))); 
+			}
 			return result;
 
 		}

@@ -59,13 +59,13 @@ namespace onYOURway.Models {
 		#region navigation properties
 
 		[InverseProperty("Category")]
-		public virtual IEnumerable<CategoryName> Names { get; set; }
+		public virtual ICollection<CategoryName> Names { get; set; }
 
-		[InverseProperty("ToCategoryId")]
-		public virtual IEnumerable<CategoryRelation> Parents { get; set; }
+		[InverseProperty("ToCategory")]
+		public virtual ICollection<CategoryRelation> Parents { get; set; }
 
-		[InverseProperty("FromCategoryId")]
-		public virtual IEnumerable<CategoryRelation> Children { get; set; }
+		[InverseProperty("FromCategory")]
+		public virtual ICollection<CategoryRelation> Children { get; set; }
 
 		#endregion navigation properties
 

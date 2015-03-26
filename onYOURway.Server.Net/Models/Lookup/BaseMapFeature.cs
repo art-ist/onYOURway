@@ -79,7 +79,7 @@ namespace onYOURway.Models {
 		[ForeignKey("ParentClass, ParentId")]
 		public virtual BaseMapFeature Parent { get; set; }
 
-		public virtual IEnumerable<BaseMapFeature> Children { get; set; }
+		public virtual ICollection<BaseMapFeature> Children { get; set; }
 
 		#endregion navigation properties
 

@@ -39,6 +39,11 @@ namespace onYOURway.Models {
 			//modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
 			//TODO: make configurable with CategoryRelationAttribute
+			//modelBuilder.Entity<CategoryRelation>()
+			//	.HasRequired<Category>(r => r.ToCategory)
+			//	.WithMany()
+			//	.WillCascadeOnDelete(true);
+
 			modelBuilder.Entity<CategoryRelation>()
 				.HasRequired<Category>(r => r.FromCategory)
 				.WithMany()
