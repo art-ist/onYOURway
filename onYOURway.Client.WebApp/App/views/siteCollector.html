@@ -14,11 +14,13 @@
 				<div class="form-group">
 					<label for="addSiteName" data-bind="localText: 'siteCollector.site.name'">Name:</label>
 					<input id="addSiteName" type="text" data-bind="value: item.Name" class="form-control siteName translatePlaceholder" />
+					<div class="err-valid-inline" data-bind="breezeValidation: item.Name"></div>
 				</div>
 
 				<div class="form-group">
 					<label for="addSiteDescription" data-bind="localText: 'siteCollector.site.description.label'">Description:</label>
 					<textarea data-bind="value: item.Description, localAttr: { placeholder: 'siteCollector.site.description.placeholder' }" placeholder="Please enter a description" class="form-control" id="addSiteDescription"></textarea>
+					<div class="err-valid-inline" data-bind="breezeValidation: item.Description"></div>
 				</div>
 				<!-- #endregion Name/Description -->
 				<!-- #region Posiion-->
@@ -31,18 +33,24 @@
 						<input id="selectCountry" data-bind="value: item.CountryCode, select2: { query: getCountries, initSelection: initCountrySelection }, localAttr: { 'data-placeholder': 'siteCollector.site.address.country'}" class="form-control input-group-c6" data-placeholder="Country" />
 						<input id="selectProvince" data-bind="value: item.ProvinceCode, select2: { query: getProvinces, initSelection: initProvinceSelection}, localAttr: { 'data-placeholder': 'siteCollector.site.address.province'}" class="form-control input-group-c6" data-placeholder="State/Province" />
 					</div>
+					<div class="err-valid-inline" data-bind="breezeValidation: item.CountryCode"></div>
+					<div class="err-valid-inline" data-bind="breezeValidation: item.ProvinceCode"></div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
 						<input data-bind="value: item.Zip, localAttr: { placeholder: 'siteCollector.site.address.postalCode' }" id="addSiteLocationPostalCode" type="text" class="form-control input-group-c3" placeholder="PLZ" />
 						<input data-bind="value: item.City, localAttr: { placeholder: 'siteCollector.site.address.city' }" id="addSiteLocationCity" type="text" class="form-control input-group-c9" placeholder="Stadt" />
 					</div>
+					<div class="err-valid-inline" data-bind="breezeValidation: item.Zip"></div>
+					<div class="err-valid-inline" data-bind="breezeValidation: item.City"></div>
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
 						<input data-bind="value: item.Street, localAttr: { placeholder: 'siteCollector.site.address.street' }" id="addSiteLocationStreet" type="text" class="form-control input-group-c9" placeholder="Straße" />
 						<input data-bind="value: item.HouseNumber, localAttr: { placeholder: 'siteCollector.site.address.number' }" id="addSiteLocationNr" type="text" class="form-control input-group-c3" placeholder="Nr." />
 					</div>
+					<div class="err-valid-inline" data-bind="breezeValidation: item.Street"></div>
+					<div class="err-valid-inline" data-bind="breezeValidation: item.HouseNumber"></div>
 				</div>
 				<div class="form-group">
 					<div class="btn btn-large btn-warning updatePosition" data-bind="click: setMarker"><i class="fa fa-map-marker" /> <span data-bind="localText: 'siteCollector.getPosition'">get position</span> <i class="fa fa-arrow-down icon-highlight" /></div>
@@ -53,6 +61,7 @@
 						<input data-bind="value: latitude, localAttr: { placeholder: 'siteCollector.site.lat' }" id="addSiteLocationLat" placeholder="Latitude" type="text" class="form-control locationLat input-group-c6" />
 						<input data-bind="value: longitude, localAttr: { placeholder: 'siteCollector.site.long' }" id="addSiteLocationLng" type="text" placeholder="Longitude" class="form-control locationLng input-group-c6" />
 					</div>
+					<div class="err-valid-inline" data-bind="breezeValidation: item.Position"></div>
 					<div class="line accuracy">
 						<div class="error hilight hidden"><span data-bind="localText: 'siteCollector.accuracy'">Position accuracy</span>: &plusmn;<span class="value"></span>m</div>
 					</div>

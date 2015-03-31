@@ -339,10 +339,10 @@ define([
 			//	tell.error("Please enter the city before saving!", 'siteCollector - saveChanges');
 			//}
 			//else
-			//if ((!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0) {
-			//	tell.error("Please select a location in the map before saving!", 'siteCollector - saveChanges');
-			//}
-			//else
+			if ((!self.latitude()) || self.latitude() <= 0 || (!self.longitude()) || self.longitude() <= 0) {
+				tell.error("Please select a location in the map before saving!", 'siteCollector - saveChanges');
+			}
+			else
 			if (apiClient.hasChanges()) {
 				self.item.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
 				apiClient.saveChanges()

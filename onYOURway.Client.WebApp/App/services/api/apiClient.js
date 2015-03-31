@@ -322,7 +322,7 @@
 					});
 				}
 				if (msg) {
-					tell.error(app.getMsg('saveChangesValidationFailed') || "Your changes can not be saved. Fix the following errors: " + msg, 'App', e, "Saving changes");
+					tell.error(app.getMsg('saveChangesValidationFailed', [msg]) || "Your changes can not be saved. Fix the following errors: " + msg, 'App', e, "Saving changes");
 				}
 				else {
 					tell.error(app.getMsg('saveChangesSaveFailed', [error.message]) || "Your changes can not be saved! Resaon: " + error.message, 'App', e, "Saving changes");

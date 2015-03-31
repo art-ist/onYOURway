@@ -40,6 +40,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="App\bindingHandlers\breezeValidation-bindingHandler.js" />
     <Content Include="App\bindingHandlers\places-bindingHandler.js" />
     <Content Include="App\components\tagSelection-component.html" />
     <Content Include="App\components\tagSelection-component.js" />
