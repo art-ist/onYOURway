@@ -1,7 +1,8 @@
 ﻿ko.bindingHandlers.select2 = {
 	init: function (element, valueAccessor, allBindingsAccessor) {
 		var obj = valueAccessor(),
-			allBindings = allBindingsAccessor();
+			allBindings = allBindingsAccessor(),
+			value = ko.utils.unwrapObservable(allBindings.value);
 
 		//add: allowCreate
 		if (obj.allowCreate && !obj.createSearchChoice) {
@@ -37,13 +38,12 @@
 			}
 		}
 
-		//add: localPlaceholder
-		if (obj.localPlaceholder) {
-			var update
-		}
-
 		//initialize select2
 		$(element).select2(obj);
+
+		if (allBindings.value) {
+			$(element).select2('data', value);
+		}
 
 		//add: initialData
 		if (obj.initialData) {
@@ -70,9 +70,13 @@
 		});
 
 	}, //init
-	update: function (element) {
+	update: function (element, valueAccessor, allBindingsAccessor) {
+		var obj = valueAccessor(),
+			allBindings = allBindingsAccessor(),
+			value = ko.utils.unwrapObservable(allBindings.value);
 
-		$(element).trigger('change');
+		console.log('[select2] change triggered', { value: value, v: allBindings.value, element: element, valueAccessor: valueAccessor, allBindingsAccessor: allBindingsAccessor });
+		$(element).select2('val', value).trigger('change');
 
 	} //update
 };

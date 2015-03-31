@@ -275,7 +275,7 @@
     <Compile Include="Providers\OAuthProvider.cs" />
     <Content Include="Docs\api.html" />
     <Content Include="Docs\Documentation.xml" />
-    <Content Include="App_Data\oyw.Messages.sql" />
+    <Content Include="App_Data\Messages.sql" />
     <Content Include="Docs\Documentation.xsl" />
     <Content Include="JP.aspx" />
     <Content Include="Models\onYOURwayDbAfterModelCreated.sql" />

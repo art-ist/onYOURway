@@ -28,8 +28,8 @@
 				</div>
 				<div class="form-group">
 					<div class="input-group input-group-c12">
-						<input id="selectCountry" data-bind="value: item.CountryCode, select2: { query: getCountries }, localAttr: { 'data-placeholder': 'siteCollector.site.address.country'}" class="form-control input-group-c6" data-placeholder="Country" />
-						<input if="selectProvince" data-bind="value: item.ProvinceCode, select2: { query: getProvinces, localAttr: { 'data-placeholder': 'siteCollector.site.address.province'}}" class="form-control input-group-c6" data-placeholder="State/Province" />
+						<input id="selectCountry" data-bind="value: item.CountryCode, select2: { query: getCountries, initSelection: initCountrySelection }, localAttr: { 'data-placeholder': 'siteCollector.site.address.country'}" class="form-control input-group-c6" data-placeholder="Country" />
+						<input id="selectProvince" data-bind="value: item.ProvinceCode, select2: { query: getProvinces, initSelection: initProvinceSelection}, localAttr: { 'data-placeholder': 'siteCollector.site.address.province'}" class="form-control input-group-c6" data-placeholder="State/Province" />
 					</div>
 				</div>
 				<div class="form-group">

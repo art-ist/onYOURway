@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../Scripts/r.js" />
 define([
 	'services/tell',
+	'services/app',
 	'services/api/apiClient',
 	'services/api/placeSearch',
 	'services/taxonomy',
@@ -9,7 +10,7 @@ define([
 	'services/map/siteCollectorLayer',
 	'services/map/regionLayer',
 	'providers/geocode-nominatim'
-], function (tell, apiClient, placeSearch, taxonomy, map, settings, siteCollectorLayer, regionLayer, geocoder) {
+], function (tell, app, apiClient, placeSearch, taxonomy, map, settings, siteCollectorLayer, regionLayer, geocoder) {
 
 	var vm = function () {
 		var self = this;
@@ -103,6 +104,13 @@ define([
 				taxonomy.loadTaxonomy();	//simple localized json for picker
 				//taxonomy.loadCategories();	//entities for selection
 			}
+
+			//load countries
+			apiClient.getCountries()
+					.then(function (results) {
+						self.countries = results;
+						tell.log('countries', 'siteCollector', self.countries);
+					});
 
 			// enabling the site collector mode - makes map smaller and enables the site selection marker
 			settings.showSiteCollector(true);
@@ -200,15 +208,10 @@ define([
 
 		// select / unselect a category
 		self.toggleCategory = function (category) {
-			if (self.categories.indexOf(category) >= 0) {
+			//TODO: check this
+			if (self.categories.indexOf(category) >= 0) {	//TODO: fix detection
 				// if category is currently selected, remove it and detach from breeze
-				self.categories.remove(category);
-				var EntryCategory;
-				$.each(self.item.Categories(), function (key, val) {
-					if (val && val.CategoryId && category && category.Id == val.CategoryId()) {
-						apiClient.detachEntity(val);
-					}
-				});
+				self.removeCategory(category);
 			} else {
 				// if category is not yet selected, create a new "EntryCategory" entity (as breeze doesn't support Many-To-Many relations)
 				entryCategory = createEntryCategory(category);
@@ -217,29 +220,33 @@ define([
 			}
 		} //toggleCategory
 
+		self.removeCategory = function (entityCategory) {
+			//TODO: check this
+			self.item.Categories().remove(entityCategory);
+			apiClient.detachEntity(val);
+		}
+
 		//#region Lookups
 
 		//provide countries data for select2
 		self.getCountries = function (options) {
-			if (self.countries && self.countries.length) { //already cached?
-				var reg = RegExp(options.term, 'i');
-				console.log();
-				options.callback({
-					results: $linq(self.countries).where(function (c) { return reg.test(c.text) || reg.test(c.id); }).toArray()
-				});
-			}
-			else {
-				apiClient.getCountries()
-					.then(function (results) {
-						self.countries = results;
-						tell.log('countries', 'siteCollector', self.countries);
-						var reg = RegExp(options.term, 'i');
-						options.callback({
-							results: $linq(results).where(function (c) { return reg.test(c.text) || reg.test(c.id); }).toArray()
-						});
-					});
-			}
+			var reg = RegExp(options.term, 'i');
+			options.callback({
+				results: $linq(self.countries).where(function (c) { return reg.test(c.text) || reg.test(c.id); }).toArray()
+			});
 		}; //getCountries
+		self.initCountrySelection = function (element, callback) {
+			//see: http://select2.github.io/select2/ - initSelection
+			var val = element.val();
+			//for (var i = 0; i < self.countries.length; i++) {
+			//	if (self.countries[i].id === val) {
+			//		callback(self.countries[i]);
+			//		return;
+			//	}
+			//}
+			//callback(null);
+			callback($linq(self.countries).where(function (c) { return c.id === val; }).first());
+		}
 
 		self.getProvinces = function (options) {
 			if (self.provinces && self.provinces.length) { //already cached?
@@ -259,6 +266,11 @@ define([
 					});
 			}
 		}; //getProvinces
+		self.initProvinceSelection = function (element, callback) {
+			//see: http://select2.github.io/select2/ - initSelection
+			var val = element.val();
+			callback($linq(self.provinces).where(function (c) { return c.id === val; }).first());
+		}
 
 		//#endregion Lookups
 
@@ -276,8 +288,8 @@ define([
 				+ (addr.Zip() || '') //zip
 				+ (addr.Zip() && addr.City() && ' ') // add ' '
 				+ (addr.City() || '') //city
-				+ (addr.Country() && ', ') // add ,
-				+ (addr.Country() || '') //country
+				+ (addr.CountryCode() && ', ') // add ,
+				+ (addr.CountryCode() || '') //country
 			;
 			geocoder.getCoords(addr_str).done(function (res) {
 				if (res && res.coords && res.coords.length && res.coords.length > 1 && res.coords[0] && res.coords[1]) {
@@ -287,10 +299,10 @@ define([
 						callback();
 					}
 				} else {
-					tell.warn("Empty Coordinates received for address", 'siteCollector - setMarker', addr_str)
+					tell.error(app.getMsg('siteCollector.noPositionFound') || "Coordinates for this address could not be found. Recheck address or position marker manually.", 'siteCollector - setMarker', addr_str)
 				}
 			}).fail(function () {
-				tell.warn('Coordinates not found for this address. Please select location manually!', 'siteCollector - setMarker', addr_str);
+				tell.error(app.getMsg('siteCollector.noPositionFound') || "Coordinates for this address could not be found. Recheck address or position marker manually.", 'siteCollector - setMarker', addr_str);
 				return null;
 			});
 		}; //markerSetter
@@ -299,22 +311,24 @@ define([
 		// optionally call the provided callback function on success
 		var addressSetter = function (callback) {
 			geocoder.getAddress([self.longitude(), self.latitude()]).done(function (res) {
-				var addr = res && res.address;
-				if (addr) {
+				var success = res /*&& res.success*/ && res.address && res.address.Country;
+				tell.log("address resolved", '', res);
+				if (success) {
+					var addr = res.address;
 					self.item.Street(addr.Street || '');
 					self.item.HouseNumber(addr.HouseNumber || '');
 					self.item.City(addr.City || '');
-					self.item.Country(addr.Country || '');
-					self.item.Province(addr.Province || '');
+					self.item.CountryCode(addr.Country || '');
+					self.item.ProvinceCode(addr.Province || '');
 					self.item.Zip(addr.Zip || '');
 					if (callback) {
 						callback();
 					}
 				} else {
-					tell.warn('Address not found for these coordinates. Please enter address manually!', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
+					tell.error(app.getMsg('siteCollector.noAddressFound') || 'No Address found for these coordinates. Please enter address manually.', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
 				}
 			}).fail(function () {
-				tell.warn('No address found for these coordinates. Please enter address manually!', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
+				tell.error('No address found for these coordinates. Please enter address manually!', 'siteCollector - setAddress', [self.longitude(), self.latitude()]);
 			});
 		}; //addressSetter
 
@@ -328,11 +342,11 @@ define([
 			} else if (apiClient.hasChanges()) {
 				self.item.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
 				apiClient.saveChanges()
-                    .then(function () {
-                    	tell.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
-                    	location && location.loadRegionFeatures();
-                    	document.location.href = "#map";
-                    })
+					.then(function () {
+						tell.success("Thank You, the new site was successfully saved!", 'siteCollector - saveChanges');
+						location && location.loadRegionFeatures();
+						document.location.href = "#map";
+					})
 			} else {
 				tell.warn("Nothing to save - you didn't edit anything since last save", 'siteCollector - saveChanges');
 			};
