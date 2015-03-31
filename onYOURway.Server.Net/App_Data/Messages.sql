@@ -6,18 +6,28 @@ Insert Into App.Messages ([Key], Locale, [Text]) Values
 ,('submit',										'de',	'Senden')
 ,('cancel',										'', 	'cancel')
 ,('cancel',										'de', 	'Abbrechen')
+,('ok',											'', 	'ok')
+,('ok',											'de', 	'Ok')
 ,('unknown',									'',		'unknown')
 ,('unknown',									'de', 	'unbekannt')
-
---home
-,('nav.about.title',							'',		'About')
-,('nav.about.title',							'de', 	'Info')
-,('nav.about.basemap',							'',		'Base Map')
-,('nav.about.basemap',							'de', 	'Grundkarte')
+,('saveChangesValidationFailed',				'',		'Your changes can not be saved. Fix the following errors: {0}')
+,('saveChangesValidationFailed',				'de', 	'Die Änderungen können nicht gespeihert werden: Beheben Sie folgende Fehler: {0}')
+,('saveChangesSaveFailed',						'',		'Your changes could not be saved! Resaon: {0}')
+,('saveChangesSaveFailed',						'de', 	'Die Änderungen konnten nicht gespeichert werden! Grund: {0}')
+,('saveChangesSaveSucceeded',					'',		'Thank You, the new site was successfully saved.')
+,('saveChangesSaveSucceeded',					'de', 	'Danke, der neue Standort wurde erfolgreich gespeichert.')
+,('noChangesDetected',							'',		'Nothing to do. There where no changes since last save.')
+,('noChangesDetected',							'de', 	'Nichts zu tun. Keine Änderungen seit dem letzen Speichern.')
 
 --home
 ,('home.preview',								'',		'Preview with Testdata')
 ,('home.preview',								'de', 	'Preview mit Testdaten')
+
+--about
+,('nav.about.title',							'',		'About')
+,('nav.about.title',							'de', 	'Info')
+,('nav.about.basemap',							'',		'Base Map')
+,('nav.about.basemap',							'de', 	'Grundkarte')
 
 --search
 --,('nav.search.placeholder',					'',		'Fruit, Bakery, Fair, ...')
@@ -30,6 +40,9 @@ Insert Into App.Messages ([Key], Locale, [Text]) Values
 ,('nav.search.advanced.title',					'de',	'Erweiterte Suche')
 ,('nav.search.title',							'',		'Search')
 ,('nav.search.title',							'de', 	'Suchen')
+,('nav.search.noMatch',							'',		'No matches found for ''{0}''') --note the two quotes to use a quote within a string
+,('nav.search.noMatch',							'de', 	'Keine Treffer für "{0}" gefunden.') 
+
 
 --SiteCollector
 ,('siteCollector.title',						'',		'Add a new site')

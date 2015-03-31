@@ -292,7 +292,7 @@
             	return item;
             })
             .fail(function (error) {
-            	tell.error("Location data could not be loaded: " + error.message, 'locate - getLocation', error);
+            	tell.error("Categories could not be loaded: " + error.message, 'locate - getLocation', error);
             });
 	}
 
@@ -314,7 +314,19 @@
 		return locateContext
 			.saveChanges()
 			.fail(function (error) {
-				tell.error("Your entries couldn't be saved.\nReason: " + error.message, 'locate', error);
+				var errors = e.entityErrors;
+				var msg = '';
+				if (errors.length) { //iterate all errors
+					errors.forEach(function (err) {
+						msg = msg + '<br/> ' + err.errorMessage;
+					});
+				}
+				if (msg) {
+					tell.error(app.getMsg('saveChangesValidationFailed') || "Your changes can not be saved. Fix the following errors: " + msg, 'App', e, "Saving changes");
+				}
+				else {
+					tell.error(app.getMsg('saveChangesSaveFailed', [error.message]) || "Your changes can not be saved! Resaon: " + error.message, 'App', e, "Saving changes");
+				}
 			});
 	}
 

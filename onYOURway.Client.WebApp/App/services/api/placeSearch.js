@@ -1,8 +1,9 @@
 define([
     'services/tell',
     'plugins/router',
-    'services/api/places'
-], function (tell, router, places) {
+    'services/api/places',
+	'services/app'
+], function (tell, router, places, app) {
     var location;
 
     var self = {
@@ -57,7 +58,7 @@ define([
             } //else
             self.searchResults(toShow.sort(location.sortBy().Sorter)); //drawMarkers called by databinding
             if (self.searchResults().length === 0) {
-                tell.warn("Keine Treffer für '" + what + "' gefunden.", 'location - showByTagName');
+            	tell.warning(app.getMsg('nav.search.noMatch', [what]) || "Keine Treffer für '" + what + "' gefunden.", 'location - showByTagName');
             }
         } catch (e) {
             tell.error(e.message, 'location - showByTagName', e);

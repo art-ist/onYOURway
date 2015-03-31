@@ -42,7 +42,7 @@
 		$(element).select2(obj);
 
 		if (allBindings.value) {
-			$(element).select2('data', value);
+			$(element).select2('val', value);
 		}
 
 		//add: initialData
@@ -74,8 +74,7 @@
 		var obj = valueAccessor(),
 			allBindings = allBindingsAccessor(),
 			value = ko.utils.unwrapObservable(allBindings.value);
-
-		console.log('[select2] change triggered', { value: value, v: allBindings.value, element: element, valueAccessor: valueAccessor, allBindingsAccessor: allBindingsAccessor });
+		//console.log('[select2] change triggered', { value: value, v: allBindings.value, element: element, valueAccessor: valueAccessor, allBindingsAccessor: allBindingsAccessor });
 		$(element).select2('val', value).trigger('change');
 
 	} //update
