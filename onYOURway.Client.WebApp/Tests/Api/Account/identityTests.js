@@ -40,108 +40,110 @@ define(['squire', 'services/auth'], function (Squire, auth) {
 
 	}); //test "Login"
 
-	//get user profile
-	QUnit.test("Get UserProfile", function (assert) {
-		assert.expect(2);
+	//TODO: make other tests sequential
 
-		var action = auth.routes.userInfoUrl;
-		assert.ok(true, action);
+	////get user profile
+	//QUnit.test("Get UserProfile", function (assert) {
+	//	assert.expect(2);
 
-		var asyncTestCompleted = assert.async();
-		$.ajax({
-			headers: { "Authorization": "Bearer " + accessToken },
-			type: "GET",
-			url: action,
-			contentType: 'application/x-www-form-urlencoded',
-		}).done(function (result, textStatus, jqXHR) {
+	//	var action = auth.routes.userInfoUrl;
+	//	assert.ok(true, action);
 
-			assert.ok(result, 'User Profile: ' + JSON.stringify(result));
-			asyncTestCompleted();
+	//	var asyncTestCompleted = assert.async();
+	//	$.ajax({
+	//		headers: { "Authorization": "Bearer " + accessToken },
+	//		type: "GET",
+	//		url: action,
+	//		contentType: 'application/x-www-form-urlencoded',
+	//	}).done(function (result, textStatus, jqXHR) {
 
-		}).fail(function (jqXHR, textStatus, errorThrown) {
-			assert.ok(false, 'Get UserProfile failed: ' + errorThrown + ' - ' + JSON.stringify(jqXHR));
-			asyncTestCompleted();
-		});
+	//		assert.ok(result, 'User Profile: ' + JSON.stringify(result));
+	//		asyncTestCompleted();
 
-	}); //test "Get UserProfile"
+	//	}).fail(function (jqXHR, textStatus, errorThrown) {
+	//		assert.ok(false, 'Get UserProfile failed: ' + errorThrown + ' - ' + JSON.stringify(jqXHR));
+	//		asyncTestCompleted();
+	//	});
 
-	//change Admin password to Pa$$w0rd1 and back
-	QUnit.test("Change Password", function (assert) {
-		assert.expect(3);
+	//}); //test "Get UserProfile"
 
-		var action = auth.routes.changePasswordUrl;
-		assert.ok(true, action);
+	////change Admin password to Pa$$w0rd1 and back
+	//QUnit.test("Change Password", function (assert) {
+	//	assert.expect(3);
 
-		var oldPwd = 'Pa$$w0rd',
-			newPwd = 'Pa$$w0rd1;'
+	//	var action = auth.routes.changePasswordUrl;
+	//	assert.ok(true, action);
 
-		var changeCompleted = assert.async();
-		$.ajax({
-			headers: { "Authorization": "Bearer " + accessToken },
-			type: "POST",
-			url: action,
-			contentType: 'application/x-www-form-urlencoded',
-			data: ['oldpassword=' + oldPwd
-				  ,'newpassword=' + newPwd
-				  ,'confirmpassword=' + newPwd
-			].join('&'),
-		}).done(function (result, textStatus, jqXHR) {
+	//	var oldPwd = 'Pa$$w0rd',
+	//		newPwd = 'Pa$$w0rd1;'
 
-			assert.ok(true, 'Password changed');
-			changeCompleted();
+	//	var changeCompleted = assert.async();
+	//	$.ajax({
+	//		headers: { "Authorization": "Bearer " + accessToken },
+	//		type: "POST",
+	//		url: action,
+	//		contentType: 'application/x-www-form-urlencoded',
+	//		data: ['oldpassword=' + oldPwd
+	//			  ,'newpassword=' + newPwd
+	//			  ,'confirmpassword=' + newPwd
+	//		].join('&'),
+	//	}).done(function (result, textStatus, jqXHR) {
 
-			var changeBackCompleted = assert.async();
-			$.ajax({
-				headers: { "Authorization": "Bearer " + accessToken },
-				type: "POST",
-				url: action,
-				contentType: 'application/x-www-form-urlencoded',
-				data: ['OldPassword=' + newPwd
-					  , 'NewPassword=' + oldPwd
-					  , 'ConfirmPassword=' + oldPwd
-				].join('&'),
-			}).done(function (result, textStatus, jqXHR) {
+	//		assert.ok(true, 'Password changed');
+	//		changeCompleted();
 
-				assert.ok(true, 'Password changed back');
-				changeBackCompleted();
+	//		var changeBackCompleted = assert.async();
+	//		$.ajax({
+	//			headers: { "Authorization": "Bearer " + accessToken },
+	//			type: "POST",
+	//			url: action,
+	//			contentType: 'application/x-www-form-urlencoded',
+	//			data: ['OldPassword=' + newPwd
+	//				  , 'NewPassword=' + oldPwd
+	//				  , 'ConfirmPassword=' + oldPwd
+	//			].join('&'),
+	//		}).done(function (result, textStatus, jqXHR) {
 
-			}).fail(function (jqXHR, textStatus, errorThrown) {
-				assert.ok(false, 'Changing back failed: ' + errorThrown + ' - ' + JSON.stringify(jqXHR));
-				changeBackCompleted();
-			});
+	//			assert.ok(true, 'Password changed back');
+	//			changeBackCompleted();
 
-		}).fail(function (jqXHR, textStatus, errorThrown) {
-			assert.ok(false, 'Change failed: ' + errorThrown + ' - ' + JSON.stringify(jqXHR));
-			changeCompleted();
-		});
+	//		}).fail(function (jqXHR, textStatus, errorThrown) {
+	//			assert.ok(false, 'Changing back failed: ' + errorThrown + ' - ' + JSON.stringify(jqXHR));
+	//			changeBackCompleted();
+	//		});
+
+	//	}).fail(function (jqXHR, textStatus, errorThrown) {
+	//		assert.ok(false, 'Change failed: ' + errorThrown + ' - ' + JSON.stringify(jqXHR));
+	//		changeCompleted();
+	//	});
 
 		
 
-	}); //test "Change Password"
+	//}); //test "Change Password"
 
-	//logout user Admin
-	QUnit.test("Logout", function (assert) {
-		assert.expect(2);
+	////logout user Admin
+	//QUnit.test("Logout", function (assert) {
+	//	assert.expect(2);
 
-		var action = auth.routes.logoutUrl;
-		assert.ok(true, action);
+	//	var action = auth.routes.logoutUrl;
+	//	assert.ok(true, action);
 
-		var asyncTestCompleted = assert.async();
-		$.ajax({
-			headers: { "Authorization": "Bearer " + accessToken },
-			type: "POST",
-			url: action,
-		}).done(function (result, textStatus, jqXHR) {
+	//	var asyncTestCompleted = assert.async();
+	//	$.ajax({
+	//		headers: { "Authorization": "Bearer " + accessToken },
+	//		type: "POST",
+	//		url: action,
+	//	}).done(function (result, textStatus, jqXHR) {
 
-			assert.ok(true, 'Logged out');
-			//TODO: maybe test for unauthorized accessing another action without login
-			asyncTestCompleted();
+	//		assert.ok(true, 'Logged out');
+	//		//TODO: maybe test for unauthorized accessing another action without login
+	//		asyncTestCompleted();
 
-		}).fail(function (jqXHR, textStatus, errorThrown) {
-			assert.ok(false, 'Logout failed: ' + errorThrown + ' - ' + JSON.stringify(jqXHR));
-			asyncTestCompleted();
-		});
+	//	}).fail(function (jqXHR, textStatus, errorThrown) {
+	//		assert.ok(false, 'Logout failed: ' + errorThrown + ' - ' + JSON.stringify(jqXHR));
+	//		asyncTestCompleted();
+	//	});
 
-	}); //test "Logout"
+	//}); //test "Logout"
 
 }); //module

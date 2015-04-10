@@ -7,8 +7,6 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using onYOURway.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System.Linq;
 
 namespace onYOURway.Providers {
 
