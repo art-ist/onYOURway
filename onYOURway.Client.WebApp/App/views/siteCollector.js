@@ -155,7 +155,11 @@ define([
 
 		// set the marker in the map based on the current address of the entity
 		self.setMarker = function () {
-			markerSetter();
+			markerSetter(function () {
+				if (self.latitude) {
+					map.setView(siteCollectorLayer.markerGeoLocation() , 18);
+				}
+			});
 		}
 
 		// set the current adress of the entity based on the latitude / longitude
@@ -255,14 +259,14 @@ define([
 			//	});
 			//}
 			//else {
-				apiClient.getProvinces(self.item.CountryCode(), options.tern)
-					.then(function (data) {
-						self.provinces = data.results;
-						var reg = RegExp(options.term, 'i');
-						options.callback({
-							results: $linq(self.provinces).where(function (c) { return reg.test(c.text) || reg.test(c.text); }).toArray()
-						});
+			apiClient.getProvinces(self.item.CountryCode(), options.tern)
+				.then(function (data) {
+					self.provinces = data.results;
+					var reg = RegExp(options.term, 'i');
+					options.callback({
+						results: $linq(self.provinces).where(function (c) { return reg.test(c.text) || reg.test(c.text); }).toArray()
 					});
+				});
 			//}
 		}; //getProvinces
 		self.initProvinceSelection = function (element, callback) {
@@ -342,17 +346,17 @@ define([
 				tell.error("Please select a location in the map before saving!", 'siteCollector - saveChanges');
 			}
 			else
-			if (apiClient.hasChanges()) {
-				self.item.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
-				apiClient.saveChanges()
-					.then(function () {
-						tell.success(app.getMsg('saveChangesSaveSucceeded') || "Thank You, the new site was successfully saved.", 'siteCollector - saveChanges');
-						location && location.loadRegionFeatures();
-						document.location.href = "#map";
-					})
-			} else {
-				tell.warning(app.getMsg('noChangesDetected') || "Nothing to do. There where no changes since last save.", 'siteCollector - saveChanges');
-			};
+				if (apiClient.hasChanges()) {
+					self.item.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
+					apiClient.saveChanges()
+						.then(function () {
+							tell.success(app.getMsg('saveChangesSaveSucceeded') || "Thank You, the new site was successfully saved.", 'siteCollector - saveChanges');
+							location && location.loadRegionFeatures();
+							document.location.href = "#map";
+						})
+				} else {
+					tell.warning(app.getMsg('noChangesDetected') || "Nothing to do. There where no changes since last save.", 'siteCollector - saveChanges');
+				};
 		} //saveChanges
 
 		var getLocation = function (id) {
