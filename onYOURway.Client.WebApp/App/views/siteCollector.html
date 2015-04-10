@@ -77,12 +77,17 @@
 
 					<div class="form-group">
 
-						<ul class="item-categories" data-bind="foreach: item.Categories">
+						<div class="item-categories m-b" data-bind="foreach: item.Categories">
 							<!--<li>TODO: lookup name and description and add template for values</li>-->
-							<li data-bind="text: $data.CategoryId"></li>
-						</ul>
+							<div class="m-b-sm bg-success" style="padding: 5px;">
+								<i class="fa fa-times pull-right" data-bind="click: $root.removeCategory" style="cursor: pointer;" />
+								<i class="fa fa-check"></i>
+								<span data-bind="text: $data.LName"></span><br />
+								<small class="text-muted text-success" style="font-weight: normal;" data-bind="text: $data.LDescription"></small>
+							</div>
+						</div>
 
-						<button class="btn btn-warning btn-block" id="selectCategories" data-bind="click: toggleCategorySelection"><i class="icon-plus"></i> <span data-bind="localText: 'siteCollector.site.categories.add'">Add Categories</span></button>
+						<button class="btn btn-warning" id="selectCategories" data-bind="click: toggleCategorySelection"><i class="fa fa-plus"></i> <span data-bind="localText: 'siteCollector.site.categories.add'">Add Categories</span></button>
 					</div>
 				</div>
 
