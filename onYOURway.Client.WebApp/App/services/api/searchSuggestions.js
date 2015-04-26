@@ -15,13 +15,11 @@
 
     function loadSearchSuggestions(region) {
     	return apiClient.getSearchSuggestions(region)
-			.then(function (date) {
-				tell.log('loading SearchSuggestions succeeded', 'searchSuggestions', data);
-			})
             .then(putToCache);
     }
 
     function putToCache(apiResponse) {
+        tell.log('loading SearchSuggestions succeeded', 'searchSuggestions', apiResponse);
         self.cachedNames.removeAll();
         self.cachedObjects.removeAll();
         self.cachedTags.removeAll();

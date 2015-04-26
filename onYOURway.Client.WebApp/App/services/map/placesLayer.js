@@ -55,7 +55,7 @@
             marker = new L.Marker({ prefix: "fa" });
         }
         //var coords = loc.Position.Geography.WellKnownText.replace(/POINT \(/, '').replace(/\)/, '').split(' ');
-        var latLong = [loc.coords[1], loc.coords[0]];
+        var latLong = loc.coords && loc.coords.length == 1 ? [loc.coords[0][1], loc.coords[0][0]] : loc.coords;
         marker.options.title = loc.Name();
         marker.setLatLng(latLong);
         marker.setIcon(getLocationIcon(loc));
@@ -80,7 +80,7 @@
 
     function getLocationIcon(loc, selected) {
         return L.AwesomeMarkers.icon({
-            icon: loc.Icon ? loc.Icon() : null,
+            icon: loc.IconCssClass ? loc.IconCssClass() : null,
             prefix: 'fa',
             markerColor: selected ? "cadetblue"
                 : loc.isFeatured() ? "green"

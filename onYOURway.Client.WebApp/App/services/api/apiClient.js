@@ -159,7 +159,7 @@
 	//#region Lookups
 
 	function getSearchSuggestions(region) {
-		var query = breeze.EntityQuery.from("SearchSuggestions");
+		var query = breeze.EntityQuery.from("GetSearchSuggestions");
 		query.parameters = {
 			Region: region && region() ? ko.utils.unwrapObservable(region().Key) : config.get('defaultRegion'),
 			Locale: getLang()

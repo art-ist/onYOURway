@@ -124,19 +124,19 @@ define([
 			tileLayer.setTileLayer(0);
 			tell.log('initializing regionLayer', 'locate', containerId);
 			regionLayer.loadRegions();
-			//tell.log('initializing placeLayer', 'locate', containerId);
-			//placesLayer.initialize(locate);
-			//tell.log('initializing placeSearch', 'locate', containerId);
-			//placeSearch.initialize(locate)
-			//tell.log('initializing pointerLayer', 'locate', containerId);
-			//pointerLayer.initialize(placesLayer.selectedItem);
+			tell.log('initializing placeLayer', 'locate', containerId);
+			placesLayer.initialize(locate);
+			tell.log('initializing placeSearch', 'locate', containerId);
+			placeSearch.initialize(locate)
+			tell.log('initializing pointerLayer', 'locate', containerId);
+			pointerLayer.initialize(placesLayer.selectedItem);
 			tell.log('initializing siteCollectorLayer', 'locate', containerId);
 			siteCollectorLayer.initialize();
-			//tell.log('initializing routingLayer', 'locate', containerId);
-			//routingLayer.initialize(locate);
-			//tell.log('calling loadRegionFeatures', 'locate', containerId);
-			//loadRegionFeatures();
-			//tell.log('map initialization done', 'locate', containerId);
+			tell.log('initializing routingLayer', 'locate', containerId);
+			routingLayer.initialize(locate);
+			tell.log('calling loadRegionFeatures', 'locate', containerId);
+			loadRegionFeatures();
+			tell.log('map initialization done', 'locate', containerId);
 		} catch (e) {
 			tell.error(e.message, 'locate', e);
 		}

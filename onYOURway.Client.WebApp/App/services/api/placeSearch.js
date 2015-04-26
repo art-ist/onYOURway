@@ -74,19 +74,21 @@ define([
             var toShow;
             if (!what) { //empty search criteria -> return all ventures
                 toShow = ko.utils.arrayFilter(places.allPlaces(), function (loc) {
-                    if (loc.T && loc.T() === 'Venture') { //return only ventures (exclude stops, transports and streets)
+// XXX removed this condition as it seems that the places.allPlaces (which is now filled with the LocationInfo api call) doesnt contain any stops, transports and streets anmyore, but it also doe snot have the property T fjostock 25.04.2015
+                    //if (loc.T && loc.T() === 'Venture') { //return only ventures (exclude stops, transports and streets)
                         return true;
-                    }
-                    return false;
+                    //}
+                    //return false;
                 }); //arrayFilter
             } //if (!what)
             else {
                 what = what.toLowerCase();
                 toShow = ko.utils.arrayFilter(places.allPlaces(), function (loc) {
                     //arrayFilter
-                    if (!loc.T || loc.T() !== 'Venture') { //return only ventures (exclude stops, transports and streets)
-                        return false;
-                    }
+// XXX removed this condition as it seems that the places.allPlaces (which is now filled with the LocationInfo api call) doesnt contain any stops, transports and streets anmyore, but it also doe snot have the property T fjostock 25.04.2015
+                    //if (!loc.T || loc.T() !== 'Venture') { //return only ventures (exclude stops, transports and streets)
+                        //return false;
+                    //}
                     //check name, strasse
                     if ((loc.Name && loc.Name() && loc.Name().toLowerCase().indexOf(what) !== -1)
                         ||
@@ -106,11 +108,11 @@ define([
                         }
                     }
                     //check tags
-                    if (loc.Tag) {
+                    if (loc.Category) {
                         //tell.log('searching', 'location', loc.Tag)
-                        var _tags = ko.isObservable(loc.Tag)
-                                ? loc.Tag()
-                                : [loc.Tag]
+                        var _tags = ko.isObservable(loc.Category)
+                                ? loc.Category()
+                                : [loc.Category]
                             ;
                         for (var it = 0; it < _tags.length; it++) {
                             if (_tags[it].Name().toLowerCase().indexOf(what) !== -1) {

@@ -10,7 +10,7 @@
 		'services': './services',
 		'providers': './services/providers'
 	},
-	urlArgs: "bust=" + (new Date()).getTime(),  //bust cacheFontAwesome
+//	urlArgs: "bust=" + (new Date()).getTime(),  //bust cacheFontAwesome
 	shim: {
 		'bootstrap': {
 			deps: ['jquery'],
