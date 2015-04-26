@@ -1,9 +1,9 @@
-<div class="categories" data-bind="foreach: taxonomy"><!--
-     --><a class="hidden-sm" data-bind="css: $parent.getCategoryCss($data), text: $data.name.length ? $data.name[0].Name : $data.name.Name, click: function(){$parent.toggleCategory($data)}">
-    </a><a class="visible-sm" data-bind="css: $parent.getCategoryCss($data), text: $data.shortName">
+<div class="categories" data-bind="foreach: taxonomy.categories"><!--
+     --><a class="hidden-sm" data-bind="css: $parent.getCategoryCss($data), text: $data.Name ? $data.Name : $data.name.length ? $data.name[0].Name : $data.name.Name, click: function(){$parent.toggleCategory($data)}">
+    </a><a class="visible-sm" data-bind="css: $parent.getCategoryCss($data), text:  $parent.shorten($data.Name ? $data.Name : $data.name.length ? $data.name[0].Name : $data.name.Name)">
 </a></div>
 
-<div class="tags" data-bind="foreach: taxonomy, css: {tagSelectionOpen: showTagSelection}"><!--
---><div data-bind="css: $data.CssClass"><ul data-bind="foreach: $data.tag">
-        <li data-bind="click:function(){$parents[1].toggleTag($data)}, css: {active: $data.active}"><span data-bind="text: $data.name.length ? $data.name[0].Name : $data.name.Name"></span></li>
+<div class="tags" data-bind="foreach: taxonomy.categories, css: {tagSelectionOpen: showTagSelection}"><!--
+--><div data-bind="css: $data.CssClass"><ul data-bind="foreach: $data.Categories">
+        <li data-bind="click:function(){$parents[1].toggleTag($data)}, css: {active: $data.active}"><span data-bind="text: $data.Name ? $data.Name : $data.name.length ? $data.name[0].Name : $data.name.Name"></span></li>
 </ul></div></div>

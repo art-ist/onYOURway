@@ -34,7 +34,9 @@ define([
     window.onerror = function globalErrorHandler(msg, file, line) {
         tell.error(msg, file + ': ' + line);
     }
-    tell.traceLevel = config.traceLevel;
+    tell.traceLevel = config.traceLevel;    // Enable logging to output to console
+    system.debug(tell.traceLevel > 1);		// Enable durandal debug messages to show in the console
+    Q.stopUnhandledRejectionTracking();
 
     registerBootstrapReplacements();
 

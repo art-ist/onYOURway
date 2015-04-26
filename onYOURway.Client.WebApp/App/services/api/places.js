@@ -11,7 +11,7 @@ define([
 	return self;
 
 	function loadPlaces(location) {
-		var region = location.region && location.region() ? ko.utils.unwrapObservable(location.region().Key) : config.get('defaultRegion');
+		var region = location.region && location.region() ? ko.utils.unwrapObservable(location.region().Key) : config.region;
 		apiClient.getLocationInfos(region)
 			.then(processLocationInfos);
 	}

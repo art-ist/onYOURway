@@ -9,8 +9,6 @@ define([
     ],
     function (router, tell, apiClient, placeSearch, settings, taxonomy, template) {
 
-        var taxonomy = ko.observable();
-
         function SearchBoxViewModel(params) {
             // private members
             var self = this;
@@ -24,6 +22,15 @@ define([
                     active: category.active
                 };
                 result[category.CssClass] = true;
+                if (category.Name && category.Name.length > 5 && category.Name.substr(0,5) == 'Initi') {
+                    result['initiatives'] = true;
+                }
+                if (category.Name && category.Name.length > 5 && category.Name.substr(0,5) == 'Event') {
+                    result['events'] = true;
+                }
+                if (category.Name && category.Name.length > 5 && category.Name.substr(0,5) == 'Unter') {
+                    result['companies'] = true;
+                }
                 return result;
             }
 
@@ -31,7 +38,7 @@ define([
                 tag.active(!tag.active());
                 if (tag.active()) {
                     //TODO: use a second hidden 'filter by tag' array variable inside the placeSearch instead of replacing the search term!!
-                    placeSearch.searchTerm(tag.name.length ? tag.name[0].Name : tag.name.Name)
+                    placeSearch.searchTerm(tag.Name ? tag.Name : tag.name.length ? tag.name[0].Name : tag.name.Name)
                 }
             };
 
@@ -46,6 +53,18 @@ define([
 
                 }
             };
+
+            self.shorten = function(name) {
+                if (name) {
+                    var idx = name.indexOf(' ');
+                    if (idx < 0 || idx == 0) {
+                        return name;
+                    }
+                    return name.substr(0, idx);
+                } else {
+                    return name;
+                }
+            }
 
 
 

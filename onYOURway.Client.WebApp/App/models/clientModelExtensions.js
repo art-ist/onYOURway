@@ -15,7 +15,7 @@
 		// and: http://www.breezejs.com/documentation/extending-entities
 		var metadata = context.metadataStore;
 
-		metadata.registerEntityTypeCtor("Category", Category); // "Location:#onYOURway.Models"
+		metadata.registerEntityTypeCtor("Category", Category, CategoryInitializer); // "Location:#onYOURway.Models"
 		metadata.registerEntityTypeCtor("EntryCategory", EntryCategory, EntryCategoryInitializer); // "EntryCategory:#onYOURway.Models"
 
 	} //_extendEntities
@@ -73,6 +73,7 @@
 		//self.Local = local;
 		self.LName = ko.computed(function () { var l = local(); if (l) return l.Name(); }, self);
 		self.LDescription = ko.computed(function () { var l = local(); if (l) return l.Description(); }, self);
+        self.active = ko.observable(false);
 
 	};
 
@@ -124,6 +125,7 @@
 		//self.Local = local;
 		self.LName = ko.computed(function () { var l = local(); if (l) return l.Name(); }, self);
 		self.LDescription = ko.computed(function () { var l = local(); if (l) return l.Description(); }, self);
+        self.active = ko.observable(false);
 
 	};
 
