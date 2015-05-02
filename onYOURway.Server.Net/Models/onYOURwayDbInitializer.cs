@@ -32,7 +32,7 @@ namespace onYOURway.Models {
 			using (AppUserManager userManager = new AppUserManager(new AppUserStore(db))) {
 				using (AppRoleManager roleManager = new AppRoleManager(new AppRoleStore(db))) {
 					const string name = "Admin";
-					const string email = "admin@nomail.local";
+					const string email = "no@mail.test";
 					const string password = "Pa$$w0rd";
 					const string roleName = "Admin";
 

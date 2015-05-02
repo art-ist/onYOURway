@@ -59,8 +59,8 @@
 			}
 		},
 		toErrorsArray: function (data) {
-			var errors = [],
-				items;
+			var errors = [];
+			var items;
 
 			if (!data || !data.message) {
 				return null;
@@ -68,7 +68,6 @@
 			if (data.modelState) {
 				for (var key in data.modelState) {
 					items = data.modelState[key];
-
 					if (items.length) {
 						for (var i = 0; i < items.length; i++) {
 							errors.push(items[i]);
@@ -130,6 +129,7 @@
 			});
 		},
 		logout: function () {
+			//TODO: clear user info
 			return $.ajax(routes.logoutUrl, {
 				type: "POST",
 				headers: getSecurityHeaders()

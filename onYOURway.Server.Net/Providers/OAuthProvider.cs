@@ -37,7 +37,9 @@ namespace onYOURway.Providers {
 			//enable CORS for the token request handled by the OWIN middleware (CORS for the API is enabled in WebApiConfig.cs)
 			context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
+			//try with username
 			User user = await userManager.FindAsync(context.UserName, context.Password);
+			//try with email
 			if (user == null) {
 				context.SetError("invalid_grant", "The user name or password is incorrect."); //TODO: localize
 				return;

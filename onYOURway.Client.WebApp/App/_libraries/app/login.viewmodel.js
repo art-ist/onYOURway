@@ -56,7 +56,7 @@
       self.loggingIn(false);
 
       if (data.userName && data.access_token) {
-        app.navigateToLoggedIn(data.userName, data.access_token, self.rememberMe());
+        app.user.navigateToLoggedIn(data.userName, data.access_token, self.rememberMe());
       } else {
         self.errors.push("An unknown error occurred.");
       }

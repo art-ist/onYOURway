@@ -33,7 +33,7 @@
         self.registering(false);
 
         if (data.userName && data.access_token) {
-          app.navigateToLoggedIn(data.userName, data.access_token, false /* persistent */);
+          app.user.navigateToLoggedIn(data.userName, data.access_token, false /* persistent */);
         } else {
           self.errors.push("An unknown error occurred.");
         }

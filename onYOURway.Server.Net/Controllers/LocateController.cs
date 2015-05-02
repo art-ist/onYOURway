@@ -509,7 +509,7 @@ namespace onYOURway.Controllers {
 		/// <param name="saveBundle"></param>
 		/// <returns></returns>
 		/// <remarks>Saving changes is are only available in realm API. The user must be authentivcated to save changes.</remarks>
-		[HttpPost, Authorize, Route("Locate/{Realm}/SaveChanges")]
+		[HttpPost, Route("Locate/{Realm}/SaveChanges")] //[Authorize]
 		public SaveResult SaveChanges(string Realm, JObject saveBundle) {
 			return db.SaveChanges(saveBundle);
 		}

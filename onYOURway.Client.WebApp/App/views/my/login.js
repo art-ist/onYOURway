@@ -71,15 +71,17 @@
         self.loggingIn(false);
 
         if (data.userName && data.access_token) {
-          app.user.navigateToLoggedIn(data.userName, data.access_token, self.rememberMe());
+        	app.user.navigateToLoggedIn(data.userName, data.access_token, self.rememberMe());
         } else {
           self.errors.push("An unknown error occurred.");
         }
-      }).fail(function (jqXHR, textStatus, errorThrown) {
+      }).fail(function (response, textStatus, errorThrown) {
         self.loggingIn(false);
+        console.warn("[login] failed", { response: response, textStatus: textStatus, errorThrown: errorThrown });
+        var data = response.responseJSON;
 
-        if (jqXHR && jqXHR.error_description) {
-          self.errors.push(data.error_description);
+        if (data && data.error_description) {
+        	self.errors.push(data.error_description);
         }
         else if(textStatus) {
           self.errors.push(textStatus);
