@@ -56,13 +56,14 @@ define([
 
         //TODO: refactor and move into place / location entity
         self.getSubtitle = function(place) {
-            return (place && place.Title && place.Title()) || (place && place.Tag && joinTags(place.Tag()))
+            return (place && place.Title && place.Title()) || (place && place.Categories && joinTags(place.Categories()))
         }
 
         function joinTags(tags) {
             var result = '';
-            for (var t in tags) {
-                result += (tags[t].Name && (tags[t].Name() + ' ')) || '';
+            for (var t = 0; t < tags.length; t++) {
+                if (result) result += ' ';
+                result += (tags[t].LName && tags[t].LName()) || (tags[t].Category && tags[t].Category() && tags[t].Category().Names && tags[t].Category().Names()  && tags[t].Category().Names().length &&  tags[t].Category().Names()[0] &&  tags[t].Category().Names()[0].Name &&  tags[t].Category().Names()[0].Name());
             }
             return result;
         }

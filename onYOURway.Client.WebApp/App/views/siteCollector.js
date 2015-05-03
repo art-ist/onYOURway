@@ -1,4 +1,4 @@
-﻿/// <reference path="../../Scripts/r.js" />
+/// <reference path="../../Scripts/r.js" />
 define([
 	'services/tell',
 	'services/app',
@@ -348,8 +348,6 @@ define([
 			else
 				if (apiClient.hasChanges()) {
                     self.item.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
-// TODO: as soon as the server api (DBGeographyConverter) is fixed and supports NULL Boundary, remove the self.item.Boundary(...) line
-                    self.item.Boundary("POINT (" + self.longitude() + " " + self.latitude() + ")");
 					apiClient.saveChanges()
 						.done(function () {
 							tell.success(app.getMsg('saveChangesSaveSucceeded') || "Thank You, the new site was successfully saved.", 'siteCollector - saveChanges');

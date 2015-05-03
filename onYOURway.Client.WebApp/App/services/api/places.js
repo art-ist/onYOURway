@@ -20,7 +20,7 @@ define([
         if (pData.results) {
             //TODO: create model class in separate file and use it as a breeze constructor in apiClient - instead of this mess here!
             //TODO the breeze constructor is currently not effective because of the uncessary? call to ko.mapping.fromJS
-            var places = ko.mapping.fromJS(pData.results[0].LocationsInfo.Locations)();
+            var places = pData.results; //ko.mapping.fromJS(pData.results)();
             //tell.log('places found', 'location - _loadPlaces', places);
 
             //extend places
