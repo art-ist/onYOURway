@@ -1,6 +1,7 @@
 ﻿define([
-    'services/tell'
-], function (tell) {
+    'services/tell',
+	'services/locate'
+], function (tell, locate) {
 
 	var self = {
 
@@ -15,18 +16,20 @@
 		// and: http://www.breezejs.com/documentation/extending-entities
 		var metadata = context.metadataStore;
 
-		metadata.registerEntityTypeCtor("Category", Category, CategoryInitializer); // "Location:#onYOURway.Models"
+		metadata.registerEntityTypeCtor("Location", Location, LocationInitializer); // "Location:#onYOURway.Models"
+		metadata.registerEntityTypeCtor("Category", Category, CategoryInitializer); // "Category:#onYOURway.Models"
 		metadata.registerEntityTypeCtor("EntryCategory", EntryCategory, EntryCategoryInitializer); // "EntryCategory:#onYOURway.Models"
 
 	} //_extendEntities
 
 	//#region Location
 
-	//var Location = function () {
-	//	this.kind = "";
-	//	this.tags = [];
-	//	this.open = [];
-	//};
+	Location = function () {
+		//extensions in the constructor will be turned into observables by breeze and on export be serialized as unmapped
+	};
+	var LocationInitializer = function (self) {
+		self.RealmKey(locate.realm);
+	}
 
 	//#endregion Location
 

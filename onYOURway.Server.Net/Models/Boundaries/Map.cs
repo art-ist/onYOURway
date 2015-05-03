@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using Newtonsoft.Json; //see: http://stackoverflow.com/questions/18521970/custom-serializer-for-just-one-property-in-json-net
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +15,7 @@ namespace onYOURway.Models {
 			this.Id = new Guid();
 		}
 
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public Guid Id { get; set; }
 
 		[Required, MaxLength(200)]

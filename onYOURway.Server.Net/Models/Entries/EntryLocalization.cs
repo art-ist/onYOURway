@@ -15,7 +15,7 @@ namespace onYOURway.Models {
 		/// <summary>
 		/// This allows multiple localized Names / Aliases
 		/// </summary>
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public Guid Id { get; set; }
 
 		public Guid EntryId { get; set; }

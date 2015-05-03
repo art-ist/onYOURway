@@ -223,6 +223,9 @@
   </Class>
   <Class Name="onYOURway.Models.CategoryName">
     <Position X="17.5" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="CategoryName" Hidden="true" />
+    </Members>
     <AssociationLine Name="Category" Type="onYOURway.Models.Category" FixedFromPoint="true">
       <Path>
         <Point X="17.5" Y="3.875" />
