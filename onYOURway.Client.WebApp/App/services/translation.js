@@ -31,6 +31,7 @@ define([
             dataService: new breeze.DataService({
                 serviceName: config.host + '/locate'
                 , hasServerMetadata: false  // never ask the server for metadata (we don not want this manager to mengle json data into any metadata based object types)
+                /*, useJsonp: true*/
             }),
         });
         var q = new breeze.EntityQuery().from('Messages');

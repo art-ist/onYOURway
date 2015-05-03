@@ -347,11 +347,13 @@ define([
 			}
 			else
 				if (apiClient.hasChanges()) {
-					self.item.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
+                    self.item.Position("POINT (" + self.longitude() + " " + self.latitude() + ")");
+// TODO: as soon as the server api (DBGeographyConverter) is fixed and supports NULL Boundary, remove the self.item.Boundary(...) line
+                    self.item.Boundary("POINT (" + self.longitude() + " " + self.latitude() + ")");
 					apiClient.saveChanges()
-						.then(function () {
+						.done(function () {
 							tell.success(app.getMsg('saveChangesSaveSucceeded') || "Thank You, the new site was successfully saved.", 'siteCollector - saveChanges');
-							location && location.loadRegionFeatures();
+							location && location.loadRegionFeatures && location.loadRegionFeatures();
 							document.location.href = "#map";
 						})
 				} else {
@@ -372,7 +374,7 @@ define([
 				Name: '',
 				Lang: apiClient.getLang(),
 				RealmKey: self.realm,
-				CreatedBy: 1,
+//	XXX must be set by server - currently, its initialized with default value 0000-0000... CreatedBy: null,
 				CreatedAt: new Date(),
 				ModifiedBy: null,
 				ModifiedAt: null,
@@ -403,7 +405,7 @@ define([
 			//	.then(function (category) {
 			//		it.Category(category);
 			//	});
-			tell.log('created entityCategory', 'siteCollector', { it: it, category, category });
+			tell.log('created entityCategory', 'siteCollector', { it: it, category: category });
 			return it;
 		} //createEntryCategory
 
