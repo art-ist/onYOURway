@@ -18,7 +18,7 @@ namespace onYOURway.Models {
 			this.Id = new Guid();
 		}
 
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public Guid Id { get; set; }
 
 

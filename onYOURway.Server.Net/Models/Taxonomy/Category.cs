@@ -9,13 +9,14 @@ namespace onYOURway.Models {
 	[Table("Categories", Schema = "oyw")]
 	public partial class Category {
 		public Category() {
+			this.Id = new Guid();
 			this.Names = new HashSet<CategoryName>();
 			this.Parents = new HashSet<CategoryRelation>();
 			this.Children = new HashSet<CategoryRelation>();
 			this.Visible = true;
 		}
 
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public Guid Id { get; set; }
 
 		/// <summary>

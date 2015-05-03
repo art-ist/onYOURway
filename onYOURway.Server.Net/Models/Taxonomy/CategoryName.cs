@@ -8,8 +8,11 @@ namespace onYOURway.Models {
 
 	[Table("CategoryNames", Schema = "oyw")]
 	public partial class CategoryName {
+		public CategoryName() {
+			this.Id = new Guid();
+		}
 
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public Guid Id { get; set; }
 
 		[Index("U_oyw_CategoryNames", IsUnique = true, Order = 0)]
