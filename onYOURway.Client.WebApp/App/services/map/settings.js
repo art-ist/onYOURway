@@ -27,7 +27,9 @@ define([
 
         forceMap: false,
         disableDetails: false,
-        maxSelectedItems: 5
+        maxSelectedItems: 5,
+
+        realm: ''
     };
 
 });

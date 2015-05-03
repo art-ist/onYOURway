@@ -48,7 +48,7 @@ define([
 
 		route: routingLayer.route, //used in view _searchoptions.html, svc placesLayer, routingLayer
 
-		realm: '',							//set on initialize
+		realm: settings.realm,				//set on initialize
 		regions: regionLayer.regions,		//used in view siteCollector
 		region: regionLayer.selectedRegion, //used in view _nav.html
 		views: regionLayer.views,			//used in view _nav.html

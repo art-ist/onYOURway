@@ -1,7 +1,7 @@
 ﻿define([
     'services/tell',
-	'services/locate'
-], function (tell, locate) {
+    'services/map/settings'
+], function (tell, settings) {
 
 	var self = {
 
@@ -28,7 +28,7 @@
 		//extensions in the constructor will be turned into observables by breeze and on export be serialized as unmapped
 	};
 	var LocationInitializer = function (self) {
-		self.RealmKey(locate.realm);
+		self.RealmKey(settings.realm);
 	}
 
 	//#endregion Location

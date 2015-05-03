@@ -33,11 +33,13 @@
 
   function initializeMap(containerId) {
       if (config.realm) {
+          settings.realm = config.realm;
           apiClient.initialize(config.realm, translation.lang);
       }
       else {
           tell.log('getting realm info for ' + window.location,  'app');
           $.get(config.host + '/locate/GetRealmKey?Uri=' + window.location, function (data) {
+              settings.realm = data;
               apiClient.initialize(data, translation.lang);
           });
       }
