@@ -24,7 +24,7 @@
 
 	//#region Location
 
-	Location = function () {
+	var Location = function () {
 		//extensions in the constructor will be turned into observables by breeze and on export be serialized as unmapped
 	};
 	var LocationInitializer = function (self) {
@@ -50,7 +50,7 @@
 					if (!self.Category || !self.Category() || !self.Category().Names) { return null; }
 
 					var names = self.Category().Names();
-					//empty array 
+					//empty array
 					if (!names.length) { return null; }
 					//find and return first localized text
 					var i = 0;
@@ -102,7 +102,7 @@
 					if (!self.Category || !self.Category() || !self.Category().Names) { return null; }
 
 					var names = self.Category().Names();
-					//empty array 
+					//empty array
 					if (!names.length) { return null; }
 					//find and return first localized text
 					var i = 0;
