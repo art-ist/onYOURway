@@ -13,9 +13,9 @@ define([
         langs: [
             { id: 'de', name: 'Deutsch' },
             { id: 'en', name: 'English' },
-            { id: 'fr', name: 'Français' },
-            { id: 'it', name: 'Italiano' },
-            { id: 'es', name: 'Español' },
+            //{ id: 'fr', name: 'Français' },
+            //{ id: 'it', name: 'Italiano' },
+            //{ id: 'es', name: 'Español' },
         ],
         loadMessages: loadMessages,
         setLang: setLang,
