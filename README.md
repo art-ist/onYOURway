@@ -17,3 +17,4 @@ Current development coordination we use a KanBan Board at [trello](https://trell
 ####Supported by:
 - [netidee - Internet Foundation Austria (IPA)](https://www.netidee.at)
 - [Heinrich Böll Stiftung](http://www.boell.de)
+- Top 10 Ideas in Lower Austria, according to [VCÖ-Mobilitätspreis 2015](http://www.vcoe.at/)
